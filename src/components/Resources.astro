@@ -1,0 +1,131 @@
+---
+const tools = [
+  {
+    title: "Caja Diaria",
+    description: "Llevá el control de ingresos y egresos de tu negocio sin complicaciones.",
+    icon: "💰",
+    link: "/recursos/caja-diaria"
+  },
+  {
+    title: "Precios Inteligentes",
+    description: "Calculadora de precios por costo, margen deseado y percepción del cliente.",
+    icon: "🏷️",
+    link: "/recursos/precios-inteligentes"
+  }
+];
+---
+
+<section class="py-20 relative overflow-hidden">
+  <div class="absolute inset-0 bg-gradient-to-b from-primary/20 to-dark-900/95"></div>
+  
+  {/* Decorative elements - hidden on mobile */}
+  <div class="hidden md:block absolute inset-0">
+    <div class="absolute top-0 left-1/4 w-96 h-96 rounded-full bg-primary/20 blur-3xl animate-pulse"></div>
+    <div class="absolute bottom-0 right-1/4 w-80 h-80 rounded-full bg-primary/10 blur-3xl animate-pulse" style="animation-delay: 1s;"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16 animate-on-scroll">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Crecé con nosotros. No estás solo.
+        </h2>
+        <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+          En ZinkERP creemos que ayudar a crecer a una pyme es mucho más que ofrecerle un buen sistema.
+          Te acompañamos con capacitación y soporte humano, siempre que lo necesites.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {/* Recursos gratuitos */}
+        <div class="bg-dark-800/50 backdrop-blur rounded-xl p-8 border border-primary/20 hover:border-primary/40 transition-all duration-300 group animate-on-scroll">
+          <div class="bg-primary/10 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <img src="https://api.iconify.design/ph:toolbox-bold.svg?color=%23AC69FF" alt="Tools" class="w-8 h-8" />
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Recursos gratuitos para tu negocio</h3>
+          <ul class="space-y-4 mb-6 text-gray-300">
+            {tools.map(tool => (
+              <li class="flex items-center gap-3 bg-dark-700/50 p-4 rounded-lg hover:bg-dark-700 transition-colors">
+                <span class="text-2xl">{tool.icon}</span>
+                <span>{tool.title}</span>
+              </li>
+            ))}
+          </ul>
+          <a href="/recursos" class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors">
+            Ver todas las herramientas
+            <img src="https://api.iconify.design/ph:arrow-right-bold.svg?color=%23AC69FF" alt="" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+
+        {/* Support */}
+        <div class="bg-dark-800/50 backdrop-blur rounded-xl p-8 border border-primary/20 hover:border-primary/40 transition-all duration-300 group animate-on-scroll" style="animation-delay: 0.1s;">
+          <div class="bg-primary/10 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <img src="https://api.iconify.design/ph:headset-bold.svg?color=%23AC69FF" alt="Support" class="w-8 h-8" />
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Soporte local 24x7</h3>
+          <ul class="space-y-4 mb-6 text-gray-300">
+            <li class="flex items-center gap-3 bg-dark-700/50 p-4 rounded-lg hover:bg-dark-700 transition-colors">
+              <span class="text-primary">•</span>
+              Atención humana en tu idioma
+            </li>
+            <li class="flex items-center gap-3 bg-dark-700/50 p-4 rounded-lg hover:bg-dark-700 transition-colors">
+              <span class="text-primary">•</span>
+              WhatsApp, teléfono y email
+            </li>
+            <li class="flex items-center gap-3 bg-dark-700/50 p-4 rounded-lg hover:bg-dark-700 transition-colors">
+              <span class="text-primary">•</span>
+              Sin bots ni tickets eternos
+            </li>
+          </ul>
+          <a href="/soporte" class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors">
+            Ver canales de soporte
+            <img src="https://api.iconify.design/ph:arrow-right-bold.svg?color=%23AC69FF" alt="" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+
+        {/* Learning */}
+        <div class="bg-dark-800/50 backdrop-blur rounded-xl p-8 border border-primary/20 hover:border-primary/40 transition-all duration-300 group animate-on-scroll" style="animation-delay: 0.2s;">
+          <div class="bg-primary/10 w-16 h-16 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+            <img src="https://api.iconify.design/ph:graduation-cap-bold.svg?color=%23AC69FF" alt="Learning" class="w-8 h-8" />
+          </div>
+          <h3 class="text-2xl font-bold mb-4">Aprendizaje y comunidad</h3>
+          <ul class="space-y-4 mb-6 text-gray-300">
+            <li class="flex items-center gap-3 bg-dark-700/50 p-4 rounded-lg hover:bg-dark-700 transition-colors">
+              <span class="text-primary">•</span>
+              Acceso a contenido educativo
+            </li>
+            <li class="flex items-center gap-3 bg-dark-700/50 p-4 rounded-lg hover:bg-dark-700 transition-colors">
+              <span class="text-primary">•</span>
+              Videos tutoriales
+            </li>
+            <li class="flex items-center gap-3 bg-dark-700/50 p-4 rounded-lg hover:bg-dark-700 transition-colors">
+              <span class="text-primary">•</span>
+              Eventos virtuales y workshops
+            </li>
+          </ul>
+          <a href="/newsletter" class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors">
+            Suscribite al newsletter
+            <img src="https://api.iconify.design/ph:arrow-right-bold.svg?color=%23AC69FF" alt="" class="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </a>
+        </div>
+      </div>
+
+      <div class="mt-16 text-center animate-on-scroll">
+        <h3 class="text-2xl font-bold mb-4">¿Querés empezar a mejorar tu negocio hoy?</h3>
+        <p class="text-gray-300 mb-8">
+          Suscribite a nuestro newsletter y recibí tips, guías y novedades para hacer crecer tu negocio.
+        </p>
+        <div class="max-w-xl mx-auto bg-dark-800/50 backdrop-blur p-6 rounded-xl border border-primary/20">
+          <iframe 
+            src="https://embeds.beehiiv.com/a98f31c0-4464-430b-885d-da8c41eab6f5?slim=true" 
+            data-test-id="beehiiv-embed" 
+            height="52" 
+            frameborder="0" 
+            scrolling="no" 
+            style="margin: 0; border-radius: 0px !important; background-color: transparent; width: 100%;"
+          ></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

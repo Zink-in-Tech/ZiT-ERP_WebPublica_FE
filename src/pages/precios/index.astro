@@ -1,0 +1,446 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PricingWizard from '../../components/PricingWizard.astro';
+
+const plans = [
+  {
+    name: "Plan Emprendedor",
+    icon: "🟢",
+    price: {
+      monthly: 29,
+      promo: {
+        price: 15,
+        duration: 6
+      }
+    },
+    scenario: "Negocios de una sola sucursal y facturación inicial",
+    description: "Ideal para empezar a ordenar tu negocio con todas las herramientas necesarias",
+    features: [
+      "Usuarios ilimitados",
+      "Módulos base",
+      "Facturación hasta USD 15.000/mes",
+      "1 sede",
+      "Facturante y MercadoPago incluidos",
+    ],
+    cta: "Empezar con 50% OFF",
+    hasPromo: true,
+    billingLimit: "USD 15.000 mensuales"
+  },
+  {
+    name: "Plan Pyme",
+    icon: "🔵",
+    price: {
+      monthly: 70,
+      yearly: 700
+    },
+    scenario: "Empresas en crecimiento, con facturación intermedia",
+    description: "Para negocios que necesitan más control y funcionalidades avanzadas",
+    features: [
+      "Usuarios ilimitados",
+      "Módulos base",
+      "Facturación hasta USD 40.000/mes",
+      "1 sede",
+      "Todas las integraciones",
+      "Soporte por WhatsApp y email",
+      "Onboarding completo + importación",
+    ],
+    cta: "Elegir Plan Pyme",
+    popular: true,
+    billingLimit: "USD 40.000 mensuales"
+  },
+  {
+    name: "Plan Escala",
+    icon: "🟣",
+    price: {
+      monthly: 99,
+      yearly: 990
+    },
+    scenario: "Negocios con múltiples sucursales y operación avanzada",
+    description: "La solución completa para empresas que necesitan control total",
+    features: [
+      "Usuarios ilimitados",
+      "Módulos base + opcionales",
+      "Sin límite de facturación",
+      "Sede central + 1 sucursal incluida",
+      "Todas las integraciones",
+      "Soporte prioritario multicanal",
+      "Onboarding completo + importación",
+      "Seguridad avanzada",
+      "USD 29/mes por sucursal adicional"
+    ],
+    cta: "Elegir Plan Escala",
+    billingLimit: "Sin límite de facturación",
+    hasHeader: true,
+    headerText: "Ideal si tenés más de una sucursal de venta"
+  }
+];
+
+const comparisons = [
+  {
+    feature: "Precio por usuario",
+    zinkERP: false,
+    traditional: true
+  },
+  {
+    feature: "Crece con tu negocio sin castigo",
+    zinkERP: true,
+    traditional: false
+  },
+  {
+    feature: "Flexibilidad para aplicar módulos especiales",
+    zinkERP: true,
+    traditional: false
+  },
+  {
+    feature: "Soporte local 24x7 incluido",
+    zinkERP: true,
+    traditional: false
+  },
+  {
+    feature: "Previsión de costos clara",
+    zinkERP: true,
+    traditional: false
+  }
+];
+
+const testimonials = [
+  {
+    quote: "Pasamos de tener todo disperso a manejar nuestras 3 sucursales desde un solo lugar. Ahora controlamos ventas, stock y caja en tiempo real, sin importar dónde estemos.",
+    impact: [
+      "Gestión completa desde cualquier dispositivo",
+      "Ahorro en equipos de facturación",
+      "Control total del stock entre sucursales",
+      "Información centralizada y segura"
+    ],
+    beforeAfter: [
+      {
+        before: "Sistemas separados para cada tarea",
+        after: "Todo integrado en una sola plataforma"
+      },
+      {
+        before: "Trabajo 100% presencial",
+        after: "Gestión remota desde cualquier lugar"
+      },
+      {
+        before: "Múltiples equipos y licencias",
+        after: "Acceso ilimitado sin costos extra"
+      },
+      {
+        before: "Datos dispersos y poco seguros",
+        after: "Información centralizada y respaldada"
+      },
+      {
+        before: "Sin control en tiempo real",
+        after: "Visibilidad total del negocio"
+      }
+    ],
+    author: "Gustavo",
+    company: "Dietética multisucursal"
+  }
+];
+
+const includedFeatures = [
+  "Todos los módulos incluidos",
+  "Usuarios ilimitados",
+  "Soporte 24x7",
+  "Implementación guiada",
+  "Sin costos ocultos",
+  "Artículos en stock ilimitados"
+];
+---
+
+<Layout title="Precios | ZinkERP - El modelo de precios más accesible para Emprendedores y PyMES.">
+  <Header />
+  <main>
+    {/* Hero Section */}
+    <section class="pt-32 pb-20 relative">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-primary-600/30 blur-3xl"></div>
+        <div class="absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full bg-primary-600/30 blur-3xl"></div>
+      </div>
+
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-on-scroll">
+            El modelo de precios más accesible para Emprendedores y PyMES. 
+          </h1>
+          <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+            Nuestro modelo de precios se adapta a tu negocio, sin cobrarte por usuario o cantidad de comprobantes. Crecemos con vos.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Pricing Plans */}
+    <section id="planes" class="py-20 bg-dark-800">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {plans.map((plan) => (
+            <div class={`bg-dark-700 rounded-xl overflow-hidden border ${
+              plan.popular ? 'border-primary' : 
+              plan.hasPromo ? 'border-blue-primary' :
+              'border-primary'
+            } animate-on-scroll`}>
+              {plan.popular && (
+                <div class="bg-primary text-center py-2 text-sm font-medium">
+                  El más elegido por negocios en crecimiento
+                </div>
+              )}
+              {plan.hasPromo && (
+                <div class="bg-blue-primary text-center py-2 text-sm font-medium">
+                  50% OFF primeros 6 meses
+                </div>
+              )}
+              {plan.hasHeader && (
+                <div class="bg-primary text-center py-2 text-sm font-medium">
+                  {plan.headerText}
+                </div>
+              )}
+              <div class="p-8">
+                <div class="flex items-center gap-3 mb-4">
+                  <span class="text-2xl">{plan.icon}</span>
+                  <h3 class="text-2xl font-bold">{plan.name}</h3>
+                </div>
+
+                <p class="text-gray-300 mb-6">{plan.scenario}</p>
+
+                <div class="mb-8">
+                  {plan.hasPromo ? (
+                    <>
+                      <div class="flex items-end gap-2 mb-1">
+                        <span class="text-4xl font-bold">USD {plan.price.promo.price}</span>
+                        <span class="text-gray-400">/mes</span>
+                        <span class="text-sm text-gray-400 line-through">USD {plan.price.monthly}</span>
+                      </div>
+                      <p class="text-blue-primary text-sm font-medium">
+                        Primeros {plan.price.promo.duration} meses
+                      </p>
+                      <p class="text-gray-400 text-sm mt-2">
+                        Luego USD {plan.price.monthly}/mes
+                      </p>
+                    </>
+                  ) : (
+                    <div class="flex items-end gap-2 mb-1">
+                      <span class="text-4xl font-bold">USD {plan.price.monthly}</span>
+                      <span class="text-gray-400">/mes</span>
+                    </div>
+                  )}
+                </div>
+
+                <div class="mb-6 p-4 bg-dark-600/50 rounded-lg">
+                  <p class="text-sm font-medium text-gray-300">
+                    Límite de facturación:
+                    <span class="block text-white mt-1">{plan.billingLimit}</span>
+                  </p>
+                </div>
+
+                <ul class="space-y-4 mb-8">
+                  {plan.features.map((feature) => (
+                    <li class="flex items-start gap-2">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0 mt-0.5">
+                        <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                      </svg>
+                      <span class="text-gray-300">{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <a 
+                  href="https://cal.com/zinkintech" 
+                  class={`block text-center py-3 px-6 rounded-lg transition-colors ${
+                    plan.popular 
+                      ? 'bg-blue-primary hover:bg-blue-primary/90'
+                      : plan.hasPromo
+                      ? 'bg-blue-primary hover:bg-blue-primary/90'
+                      : 'bg-blue-primary hover:bg-blue-primary/90'
+                  }`}
+                >
+                  {plan.cta}
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Pricing Wizard */}
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <PricingWizard />
+        </div>
+      </div>
+    </section>
+
+    {/* Comparison Table */}
+    <section class="py-20 bg-dark-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-12 text-center">ZinkERP vs ERP Tradicional</h2>
+          
+          <div class="bg-dark-700 rounded-xl overflow-hidden">
+            <div class="overflow-x-auto">
+              <table class="w-full min-w-[500px]">
+                <thead>
+                  <tr class="border-b border-dark-600">
+                    <th class="py-4 px-6 text-left">Característica</th>
+                    <th class="py-4 px-6 text-center">ZinkERP</th>
+                    <th class="py-4 px-6 text-center">ERP Tradicional</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisons.map((item) => (
+                    <tr class="border-b border-dark-600">
+                      <td class="py-4 px-6">{item.feature}</td>
+                      <td class="py-4 px-6 text-center">
+                        {item.zinkERP ? (
+                          <span class="text-green-500">✓</span>
+                        ) : (
+                          <span class="text-red-500">✗</span>
+                        )}
+                      </td>
+                      <td class="py-4 px-6 text-center">
+                        {item.traditional ? (
+                          <span class="text-green-500">✓</span>
+                        ) : (
+                          <span class="text-red-500">✗</span>
+                        )}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          
+          <p class="text-center text-lg text-gray-300 mt-8">
+            Con ZinkERP, sabés desde el primer día cuánto vas a pagar, y qué recibís a cambio.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Testimonials */}
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          {testimonials.map((testimonial) => (
+            <div class="bg-dark-700 rounded-xl border border-dark-600 overflow-hidden">
+              {/* Header */}
+              <div class="p-8 border-b border-dark-600">
+                <div class="flex items-center gap-4 mb-6">
+                  <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
+                    <span class="text-2xl font-bold">{testimonial.author[0]}</span>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold">{testimonial.author}</h3>
+                    <p class="text-gray-400">{testimonial.company}</p>
+                  </div>
+                </div>
+                <p class="text-xl text-gray-300 italic">"{testimonial.quote}"</p>
+              </div>
+
+              {/* Impact Grid */}
+              <div class="p-8 bg-dark-800/50">
+                {/* Before/After Comparisons */}
+                <h4 class="text-lg font-semibold mb-4">Cambios notables</h4>
+                <div class="grid sm:grid-cols-2 gap-4">
+                  {testimonial.beforeAfter.map((comparison) => (
+                    <div class="grid grid-cols-2 gap-4">
+                      <div class="p-3 bg-dark-800 rounded-lg">
+                        <div class="flex items-center gap-2 mb-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-red-500">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" />
+                          </svg>
+                          <span class="text-sm text-gray-400">Antes</span>
+                        </div>
+                        <p class="text-sm text-gray-300">{comparison.before}</p>
+                      </div>
+                      <div class="p-3 bg-dark-800 rounded-lg">
+                        <div class="flex items-center gap-2 mb-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-green-500">
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" />
+                          </svg>
+                          <span class="text-sm text-gray-400">Ahora</span>
+                        </div>
+                        <p class="text-sm text-gray-300">{comparison.after}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Impact Summary */}
+              <div class="p-8 bg-primary/10 border-t border-primary/20">
+                <h4 class="text-lg font-semibold mb-4">Impacto en el negocio</h4>
+                <div class="grid sm:grid-cols-2 gap-4">
+                  {testimonial.impact.map((item) => (
+                    <div class="flex items-center gap-3">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0">
+                        <path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 01-1.44-8.765 4.5 4.5 0 018.302-3.046 3.5 3.5 0 014.504 4.272A4 4 0 0115 17H5.5zm3.75-2.75a.75.75 0 001.5 0V9.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0l-3.25 3.5a.75.75 0 101.1 1.02l1.95-2.1v4.59z" />
+                      </svg>
+                      <span class="text-gray-300">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* What We Don't Charge For */}
+    <section class="py-20 bg-dark-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-12">Lo que no te cobramos</h2>
+          
+          <div class="grid md:grid-cols-3 gap-8">
+            {includedFeatures.map((feature) => (
+              <div class="bg-dark-700 p-6 rounded-xl border border-dark-600">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-8 h-8 text-primary mx-auto mb-4">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+                <p class="text-gray-300">{feature}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Final CTA */}
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-6">¿No sabés qué plan elegir?</h2>
+          <p class="text-xl text-gray-300 mb-8">
+            Respondé 3 preguntas rápidas o hablá con nuestro equipo.
+            <br>
+            En menos de 10 minutos sabés cuál es el mejor modelo para tu negocio.
+          </p>
+          
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a 
+              href="#simulator" 
+              class="px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors"
+            >
+              Simular mi precio
+            </a>
+            <a 
+              href="https://cal.com/zinkintech" 
+              class="px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors"
+            >
+              Agendar llamada
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

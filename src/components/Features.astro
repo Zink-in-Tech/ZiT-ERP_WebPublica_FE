@@ -1,0 +1,93 @@
+---
+const stages = [
+  {
+    title: "Tomás el control de tus ventas",
+    subtitle: "Convertís presupuestos en ventas reales",
+    description: "Empezás a generar pedidos con un clic. Ya no perdés productos, ni tiempo haciendo seguimiento. Sabés qué se entregó, qué no, y por qué.",
+    icon: "sales"
+  },
+  {
+    title: "Ordenás tus compras",
+    subtitle: "Controlás lo que comprás (y lo que realmente recibís)",
+    description: "Tus órdenes de compra dejan de ser un Excel más. Ahora tenés trazabilidad, sabés si el proveedor entregó lo prometido y todo queda en un solo lugar.",
+    icon: "purchases"
+  },
+  {
+    title: "Conectás todo el negocio",
+    subtitle: "Cada local funciona como si estuvieras ahí",
+    description: "Las sucursales piden, la sede aprueba. Los precios se actualizan solos. Lo que antes se hacía por WhatsApp, ahora pasa con un solo clic.",
+    icon: "network"
+  }
+];
+---
+
+<section id="features" class="py-20 relative">
+  <div class="absolute inset-0 z-0 opacity-30">
+    <div class="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900"></div>
+  </div>
+
+  <div class="container mx-auto px-4 z-10 relative">
+    <div class="max-w-4xl mx-auto">
+      <div class="text-center mb-16 animate-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Todo cambia cuando empezás a tener el control
+        </h2>
+        <p class="text-gray-300 text-lg">
+          ZinkERP te acompaña paso a paso para que dejes atrás el caos operativo y empieces a tomar decisiones con claridad.
+        </p>
+      </div>
+
+      <div class="relative">
+        {/* Vertical connecting line */}
+        <div class="absolute left-[39px] top-[80px] w-1 h-[calc(100%-160px)] bg-primary/20 md:left-[47px]"></div>
+
+        <div class="space-y-16">
+          {stages.map((stage, index) => (
+            <div class="relative animate-on-scroll" style={`animation-delay: ${index * 0.2}s`}>
+              {/* Stage number indicator */}
+              <div class="absolute left-0 top-0 w-20 h-20 bg-dark-700 rounded-full border-4 border-primary/20 flex items-center justify-center z-10">
+                <span class="text-2xl font-bold text-primary">{index + 1}</span>
+              </div>
+
+              <div class="pl-28 pt-4">
+                <div class="bg-dark-700 rounded-xl p-8 border border-dark-600 hover:border-primary/50 hover:ring-1 hover:ring-primary/30 transition-all duration-300">
+                  <h3 class="text-2xl font-bold mb-2">{stage.title}</h3>
+                  <p class="text-primary-400 text-lg mb-4">{stage.subtitle}</p>
+                  <p class="text-gray-300">{stage.description}</p>
+                </div>
+              </div>
+
+              {/* Checkmark that appears on hover */}
+              <div class="absolute left-[22px] top-[22px] w-12 h-12 bg-primary rounded-full flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:left-[30px]">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white">
+                  <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd" />
+                </svg>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="text-center mt-16 animate-on-scroll">
+          <p class="text-lg text-gray-300 mb-6">
+            Empezás a ver menos errores.<br>
+            Tus decisiones se basan en datos, no en intuición.<br>
+            Y por primera vez en mucho tiempo… dormís más tranquilo.
+          </p>
+          <a href="https://cal.com/zinkintech" class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors text-center font-medium group">
+            Agendá una demo
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 group-hover:translate-x-1 transition-transform">
+              <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Hover effects */
+  .group:hover .group-hover\:opacity-100 {
+    opacity: 1;
+  }
+</style>

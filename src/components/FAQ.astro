@@ -1,0 +1,87 @@
+---
+const faqs = [
+  {
+    question: "¿Cómo puedo implementar Zink ERP en mi empresa?",
+    answer: "La implementación es sencilla y guiada por nuestro equipo de especialistas. Iniciamos con un análisis de necesidades, configuramos el sistema según tus requerimientos, migramos los datos existentes y proporcionamos capacitación a todo tu equipo para garantizar una transición exitosa."
+  },
+  {
+    question: "¿Cuánto tiempo lleva implementar el sistema?",
+    answer: "El tiempo de implementación varía según el tamaño de tu empresa y la complejidad de tus procesos. Para pequeñas empresas, puede tomar de 1 a 2 semanas. Para medianas empresas, de 3 a 4 semanas. Para grandes empresas o con necesidades muy específicas, puede tomar de 4 a 8 semanas."
+  },
+  {
+    question: "¿Es posible integrar Zink ERP con otros sistemas?",
+    answer: "Sí, Zink ERP cuenta con APIs abiertas que permiten la integración con una amplia variedad de sistemas y aplicaciones de terceros, como CRM, e-commerce, sistemas de punto de venta, plataformas de marketing digital, entre otros."
+  },
+  {
+    question: "¿Cuántas sucursales puedo gestionar con Zink ERP?",
+    answer: "No hay límite para el número de sucursales que puedes gestionar. El sistema está diseñado para escalar según tus necesidades, desde empresas con 2-3 sucursales hasta grandes cadenas con cientos de ubicaciones."
+  },
+  {
+    question: "¿El sistema funciona en la nube?",
+    answer: "Sí, Zink ERP es una solución 100% basada en la nube, lo que significa que puedes acceder desde cualquier dispositivo con conexión a internet. No requiere instalaciones locales complejas ni servidores dedicados."
+  },
+  {
+    question: "¿Qué soporte técnico ofrecen?",
+    answer: "Ofrecemos soporte técnico 24/7 a través de múltiples canales: chat en vivo, correo electrónico, teléfono y un completo centro de ayuda con documentación y tutoriales. Todos nuestros planes incluyen soporte prioritario para garantizar que tu negocio nunca se detenga."
+  }
+];
+---
+
+<section id="faq" class="py-20 relative">
+  <div class="container mx-auto px-4 z-10 relative">
+    <div class="text-center mb-16 animate-on-scroll">
+      <h2 class="text-3xl md:text-4xl font-bold mb-4">Preguntas Frecuentes (FAQs)</h2>
+      <p class="text-gray-300 max-w-3xl mx-auto">Respuestas a las dudas más comunes sobre Zink ERP</p>
+    </div>
+    
+    <div class="max-w-4xl mx-auto">
+      <div class="space-y-6">
+        {faqs.map((faq, index) => (
+          <div class="bg-dark-800 rounded-lg border border-dark-700 overflow-hidden animate-on-scroll" style={`animation-delay: ${index * 0.1}s`} data-faq>
+            <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none" data-faq-button>
+              <span class="font-medium">{faq.question}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-transform duration-300" data-faq-icon fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            <div class="px-6 pb-4 text-gray-300 hidden" data-faq-content>
+              <p>{faq.answer}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('[data-faq]');
+    
+    faqItems.forEach(item => {
+      const button = item.querySelector('[data-faq-button]');
+      const content = item.querySelector('[data-faq-content]');
+      const icon = item.querySelector('[data-faq-icon]');
+      
+      if (button && content && icon) {
+        button.addEventListener('click', () => {
+          // Close all other FAQs
+          faqItems.forEach(otherItem => {
+            if (otherItem !== item) {
+              const otherContent = otherItem.querySelector('[data-faq-content]');
+              const otherIcon = otherItem.querySelector('[data-faq-icon]');
+              if (otherContent && otherIcon) {
+                otherContent.classList.add('hidden');
+                otherIcon.classList.remove('rotate-180');
+              }
+            }
+          });
+          
+          // Toggle current FAQ
+          content.classList.toggle('hidden');
+          icon.classList.toggle('rotate-180');
+        });
+      }
+    });
+  });
+</script>

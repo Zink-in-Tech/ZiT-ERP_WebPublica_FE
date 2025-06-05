@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://zinkerp.com/sitemap-index.xml

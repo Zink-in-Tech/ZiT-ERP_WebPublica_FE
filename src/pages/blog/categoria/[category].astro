@@ -1,0 +1,152 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import { fetchSanityData } from '../../../lib/sanity';
+
+export async function getStaticPaths() {
+  // Fetch all categories and ensure we have a valid array
+  const categories = await fetchSanityData(`*[_type=="category"]{
+    "slug": slug.current,
+    title
+  }`) || [];
+  
+  // Map each category to a path parameter
+  return categories.map((category) => ({
+    params: { category: category.slug || 'default' }, // Ensure we never return null
+    props: { categoryTitle: category.title }
+  }));
+}
+
+const { category } = Astro.params;
+const { categoryTitle } = Astro.props;
+
+// Fetch posts for this category
+const posts = await fetchSanityData(`
+  *[_type=="post" && $category in categories[]->slug.current] {
+    title,
+    "slug": slug.current,
+    "mainImageUrl": mainImage.asset->url,
+    publishedAt,
+    "excerpt": pt::text(body)[0],
+    "author": author->{
+      name,
+      role,
+      "imageUrl": image.asset->url
+    },
+    "categories": categories[]->{
+      title,
+      "slug": slug.current
+    }
+  }
+`, { category }) || [];
+
+// Fallback title if props are not available
+const displayTitle = categoryTitle || category?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') || 'Categoría';
+---
+
+<Layout title={`${displayTitle} | Blog ZinkERP`}>
+  <Header />
+  <main>
+    {/* Hero Section */}
+    <section class="pt-32 pb-20 relative">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-primary-600/30 blur-3xl"></div>
+        <div class="absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full bg-primary-600/30 blur-3xl"></div>
+      </div>
+
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="flex items-center justify-center gap-4 mb-8">
+            <a 
+              href="/blog"
+              class="flex items-center gap-2 text-gray-300 hover:text-white transition-colors"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
+              </svg>
+              Volver al blog
+            </a>
+          </div>
+
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-on-scroll">
+            {displayTitle}
+          </h1>
+          <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+            Artículos sobre {displayTitle.toLowerCase()}
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Posts Grid */}
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {posts.map((post) => (
+            <a 
+              href={`/blog/${post.slug}`}
+              class="group bg-dark-700 rounded-xl overflow-hidden hover:ring-1 hover:ring-primary/30 transition-all duration-300"
+            >
+              <div class="relative h-48 overflow-hidden">
+                <img 
+                  src={post.mainImageUrl}
+                  alt={post.title}
+                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-center gap-4 mb-4">
+                  {post.categories?.map((cat) => (
+                    <span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm">
+                      {cat.title}
+                    </span>
+                  ))}
+                </div>
+                <h3 class="text-xl font-bold mb-2 group-hover:text-primary transition-colors">
+                  {post.title}
+                </h3>
+                <p class="text-gray-300 text-sm mb-4 line-clamp-2">
+                  {post.excerpt}
+                </p>
+                <div class="flex items-center gap-3">
+                  <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+                    <span class="text-sm font-bold">{post.author.name[0]}</span>
+                  </div>
+                  <div>
+                    <p class="text-sm font-medium">{post.author.name}</p>
+                    <p class="text-xs text-gray-400">{post.author.role}</p>
+                  </div>
+                </div>
+              </div>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {/* Newsletter */}
+    <section class="py-20 bg-dark-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-4">¿Querés recibir más contenido?</h2>
+          <p class="text-gray-300 mb-8">
+            Suscribite a nuestro newsletter y recibí tips, guías y novedades para hacer crecer tu negocio.
+          </p>
+          <iframe 
+            src="https://embeds.beehiiv.com/a98f31c0-4464-430b-885d-da8c41eab6f5?slim=true" 
+            data-test-id="beehiiv-embed" 
+            height="52" 
+            frameborder="0" 
+            scrolling="no" 
+            style="margin: 0; border-radius: 0px !important; background-color: transparent; width: 100%;"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
+
+
+

@@ -1,0 +1,89 @@
+---
+---
+
+<section class="py-20 relative bg-dark-800 overflow-hidden">
+  {/* Animated background elements */}
+  <div class="absolute inset-0 z-0">
+    {/* Gradient overlay */}
+    <div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-dark-900/95"></div>
+    
+    {/* Floating orbs - hidden on mobile */}
+    <div class="hidden md:block">
+      <div class="absolute top-1/4 left-1/4 w-64 h-64 rounded-full bg-primary/10 blur-3xl animate-float"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-72 h-72 rounded-full bg-primary/10 blur-3xl animate-float" style="animation-delay: 1s;"></div>
+    </div>
+    
+    {/* Particles - hidden on mobile */}
+    <div class="hidden md:block absolute top-0 left-0 w-full h-full">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <div 
+          class="absolute w-2 h-2 bg-primary/20 rounded-full animate-float"
+          style={`
+            left: ${Math.random() * 100}%;
+            top: ${Math.random() * 100}%;
+            animation-delay: ${i * 0.5}s;
+            animation-duration: ${3 + i}s;
+          `}
+        ></div>
+      ))}
+    </div>
+  </div>
+
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mx-auto text-center relative z-10">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 animate-on-scroll">
+        Transformá tu negocio con una demo personalizada
+      </h2>
+      
+      <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+        En 30 minutos te mostramos cómo ZinkERP puede ayudarte a tener más control y menos dolores de cabeza.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center animate-on-scroll" style="animation-delay: 0.2s;">
+        <a 
+          href="https://cal.com/zinkintech" 
+          class="group px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-all duration-300 flex items-center gap-3"
+        >
+          Coordinar una demo en vivo
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 group-hover:translate-x-1 transition-transform">
+            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6 text-center animate-on-scroll" style="animation-delay: 0.3s;">
+        <div>
+          <div class="text-2xl font-bold text-primary mb-1">30min</div>
+          <div class="text-sm text-gray-300">Demo personalizada</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-primary mb-1">24/7</div>
+          <div class="text-sm text-gray-300">Soporte incluido</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-primary mb-1">1-on-1</div>
+          <div class="text-sm text-gray-300">Atención dedicada</div>
+        </div>
+        <div>
+          <div class="text-2xl font-bold text-primary mb-1">100%</div>
+          <div class="text-sm text-gray-300">Satisfacción</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0) scale(1);
+    }
+    50% {
+      transform: translateY(-20px) scale(1.05);
+    }
+  }
+
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+</style>

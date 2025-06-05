@@ -1,0 +1,231 @@
+---
+const questions = [
+  {
+    id: 'locations',
+    text: '¿Cuántas sucursales tenés actualmente?',
+    options: [
+      { value: 'single', label: '1 sucursal', icon: '🟢' },
+      { value: 'small', label: 'Entre 2 y 4 sucursales', icon: '🔵' },
+      { value: 'large', label: '5 o más sucursales / franquicias', icon: '🟣' }
+    ]
+  },
+  {
+    id: 'billing',
+    text: '¿Cuál es tu facturación mensual promedio?',
+    options: [
+      { value: 'small', label: 'Hasta USD 15.000', icon: '🟢' },
+      { value: 'medium', label: 'Hasta USD 40.000', icon: '🔵' },
+      { value: 'large', label: 'Más de USD 40.000', icon: '🟣' }
+    ]
+  },
+  {
+    id: 'complexity',
+    text: '¿Qué tan compleja es tu operación diaria?',
+    options: [
+      { value: 'basic', label: 'Básica (ventas + stock)', icon: '🟢' },
+      { value: 'medium', label: 'Intermedia (ventas, stock, compras, usuarios)', icon: '🔵' },
+      { value: 'complex', label: 'Compleja (sucursales conectadas, producción, logística, beneficios)', icon: '🟣' }
+    ]
+  }
+];
+
+const plans = {
+  starter: {
+    name: 'Plan Emprendedor',
+    price: 15,
+    description: 'Tu negocio está dando sus primeros pasos, y ZinkERP puede ayudarte a ordenarlo desde el primer día sin gastar de más.',
+    promo: '50% OFF por 6 meses'
+  },
+  pro: {
+    name: 'Plan Pyme',
+    price: 70,
+    description: 'Tu empresa está en pleno crecimiento. Este plan te permite escalar sin preocuparte por usuarios, módulos o facturación.'
+  },
+  full: {
+    name: 'Plan Escala',
+    price: 99,
+    description: 'Este plan está diseñado para negocios con alta operación, franquicias o múltiples sedes que necesitan control y soporte a gran escala.'
+  }
+};
+---
+
+<div class="bg-dark-700 rounded-xl p-8 border border-primary/20">
+  <div class="text-center mb-12">
+    <h2 class="text-3xl font-bold mb-4">¿Qué plan ZinkERP es ideal para tu negocio?</h2>
+    <p class="text-gray-300">Respondé 3 preguntas simples y te lo mostramos.</p>
+  </div>
+
+  <div id="wizard" class="max-w-2xl mx-auto">
+    {/* Questions */}
+    <div id="questions" class="space-y-8">
+      {questions.map((question, index) => (
+        <div class="question-step hidden" data-step={index}>
+          <h3 class="text-xl font-medium mb-6">{question.text}</h3>
+          <div class="space-y-4">
+            {question.options.map((option) => (
+              <button
+                class="w-full text-left p-4 rounded-lg bg-dark-600 hover:bg-dark-500 transition-colors border border-dark-500 hover:border-primary/50 group"
+                data-value={option.value}
+              >
+                <div class="flex items-center gap-3">
+                  <span class="text-2xl group-hover:scale-110 transition-transform">{option.icon}</span>
+                  <span>{option.label}</span>
+                </div>
+              </button>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    {/* Result */}
+    <div id="result" class="hidden">
+      <div class="text-center mb-8">
+        <h3 class="text-2xl font-bold mb-4">Plan recomendado</h3>
+        <p class="text-gray-300">Basado en tus respuestas, este es el plan ideal para tu negocio:</p>
+      </div>
+
+      <div id="plan-card" class="bg-dark-600 rounded-xl p-6 border border-primary mb-8">
+        <div class="flex items-center gap-3 mb-4">
+          <span id="plan-icon" class="text-2xl"></span>
+          <h4 id="plan-name" class="text-xl font-bold"></h4>
+        </div>
+        <p id="plan-description" class="text-gray-300 mb-6"></p>
+        <div class="flex items-end gap-2 mb-4">
+          <span class="text-3xl font-bold">USD <span id="plan-price"></span></span>
+          <span class="text-gray-400">/mes</span>
+          <span id="plan-promo" class="text-blue-primary text-sm font-medium ml-2"></span>
+        </div>
+        <div class="flex gap-4">
+          <a 
+            href="https://cal.com/zinkintech" 
+            class="flex-1 text-center py-3 px-6 bg-blue-primary hover:bg-blue-primary/90 rounded-lg transition-colors"
+          >
+            Elegir este plan
+          </a>
+          <button 
+            id="restart-wizard"
+            class="py-3 px-6 border border-gray-600 hover:border-gray-400 rounded-lg transition-colors"
+          >
+            Volver a empezar
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <p class="text-gray-300 mb-4">¿No estás seguro?</p>
+        <a 
+          href="https://cal.com/zinkintech" 
+          class="text-primary hover:text-primary-light transition-colors"
+        >
+          Hablá con nuestro equipo y te ayudamos a elegir el mejor plan para tu negocio
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wizard = document.getElementById('wizard');
+    const questions = document.getElementById('questions');
+    const result = document.getElementById('result');
+    const restartButton = document.getElementById('restart-wizard');
+
+    let currentStep = 0;
+    const answers = {};
+    const steps = document.querySelectorAll('.question-step');
+
+    // Show first question
+    steps[0].classList.remove('hidden');
+
+    // Handle option selection
+    questions.addEventListener('click', (e) => {
+      const button = e.target.closest('button');
+      if (!button) return;
+
+      const step = button.closest('.question-step');
+      const value = button.dataset.value;
+      
+      // Store answer
+      answers[currentStep] = value;
+
+      // Move to next question or show result
+      if (currentStep < steps.length - 1) {
+        steps[currentStep].classList.add('hidden');
+        currentStep++;
+        steps[currentStep].classList.remove('hidden');
+      } else {
+        showResult();
+      }
+    });
+
+    // Restart wizard
+    restartButton.addEventListener('click', () => {
+      currentStep = 0;
+      result.classList.add('hidden');
+      questions.classList.remove('hidden');
+      steps.forEach((step, index) => {
+        if (index === 0) {
+          step.classList.remove('hidden');
+        } else {
+          step.classList.add('hidden');
+        }
+      });
+    });
+
+    function showResult() {
+      // Simple logic to determine plan
+      let recommendedPlan;
+      
+      if (
+        answers[0] === 'single' && 
+        answers[1] === 'small' && 
+        (answers[2] === 'basic' || answers[2] === 'medium')
+      ) {
+        recommendedPlan = 'starter';
+      } else if (
+        (answers[0] === 'single' || answers[0] === 'small') && 
+        answers[1] === 'medium'
+      ) {
+        recommendedPlan = 'pro';
+      } else {
+        recommendedPlan = 'full';
+      }
+
+      // Update UI with plan details
+      const plans = {
+        starter: {
+          name: 'Plan Emprendedor',
+          price: 15,
+          icon: '🟢',
+          description: 'Tu negocio está dando sus primeros pasos, y ZinkERP puede ayudarte a ordenarlo desde el primer día sin gastar de más.',
+          promo: '50% OFF por 6 meses'
+        },
+        pro: {
+          name: 'Plan Pyme',
+          price: 70,
+          icon: '🔵',
+          description: 'Tu empresa está en pleno crecimiento. Este plan te permite escalar sin preocuparte por usuarios, módulos o facturación.'
+        },
+        full: {
+          name: 'Plan Escala',
+          price: 99,
+          icon: '🟣',
+          description: 'Este plan está diseñado para negocios con alta operación, franquicias o múltiples sedes que necesitan control y soporte a gran escala.'
+        }
+      };
+
+      const plan = plans[recommendedPlan];
+      
+      document.getElementById('plan-icon').textContent = plan.icon;
+      document.getElementById('plan-name').textContent = plan.name;
+      document.getElementById('plan-description').textContent = plan.description;
+      document.getElementById('plan-price').textContent = plan.price;
+      document.getElementById('plan-promo').textContent = plan.promo || '';
+
+      questions.classList.add('hidden');
+      result.classList.remove('hidden');
+    }
+  });
+</script>

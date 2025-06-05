@@ -1,0 +1,133 @@
+---
+import '../styles/global.css';
+import { SEO } from 'astro-seo';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+}
+
+const { 
+  title, 
+  description = "ZinkERP: El ERP operativo que piensa como vos. Simple, rápido y hecho para crecer. Ideal para negocios con una o múltiples sucursales.",
+  image = "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg"
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    
+    <SEO
+      title={title}
+      description={description}
+      canonical={canonicalURL}
+      openGraph={{
+        basic: {
+          title,
+          type: "website",
+          image,
+          url: canonicalURL,
+        },
+        image: {
+          alt: "ZinkERP Dashboard Screenshot",
+        },
+      }}
+      twitter={{
+        creator: "@zinkerp",
+        card: "summary_large_image",
+        site: "@zinkerp",
+        title,
+        description,
+        image,
+      }}
+      extend={{
+        meta: [
+          { name: "twitter:image:alt", content: "ZinkERP Dashboard Screenshot" },
+          { name: "theme-color", content: "#7500B9" },
+        ],
+        link: [
+          { rel: "preload", as: "image", href: image },
+        ],
+      }}
+    />
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+  </head>
+  <body class="bg-dark-900 text-white font-sans leading-relaxed">
+    <slot />
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('animate-fadeIn');
+            } else {
+              entry.target.classList.remove('animate-fadeIn');
+            }
+          });
+        }, { 
+          threshold: 0.1,
+          rootMargin: '50px'
+        });
+        
+        document.querySelectorAll('.animate-on-scroll').forEach(el => {
+          observer.observe(el);
+          el.classList.add('opacity-0');
+        });
+      });
+    </script>
+  </body>
+</html>
+
+<style is:global>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+
+  .animate-fadeIn {
+    animation: fadeIn 0.5s ease-out forwards;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

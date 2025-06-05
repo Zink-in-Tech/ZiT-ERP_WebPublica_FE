@@ -1,0 +1,101 @@
+---
+---
+
+<header class="fixed w-full z-50 transition-all duration-300" id="header">
+  <div class="container mx-auto px-4 py-4">
+    <div class="relative flex justify-between items-center">
+      <a href="/" class="flex items-center gap-2">
+        <img src="/zinkerp-logo.png" alt="ZinkERP Logo" class="h-8 w-auto" />
+      </a>
+      
+      <nav class="hidden md:flex items-center gap-8">
+        <a href="/modulos" class="text-gray-300 hover:text-white transition-colors">Módulos</a>
+        <a href="/precios" class="text-gray-300 hover:text-white transition-colors">Precios</a>
+        <a href="/recursos" class="text-gray-300 hover:text-white transition-colors">Recursos</a>
+        <a href="/blog" class="text-gray-300 hover:text-white transition-colors">Blog</a>
+      </nav>
+      
+      <div class="flex items-center gap-4">
+        <a href="https://cal.com/zinkintech" class="hidden md:block px-5 py-2 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors">
+          Agendá una demo
+        </a>
+        <button 
+          class="md:hidden text-white p-2" 
+          id="mobile-menu-button" 
+          aria-label="Menu"
+          aria-expanded="false"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Mobile menu -->
+  <div 
+    class="md:hidden hidden absolute top-full left-0 right-0 bg-dark-800 border-t border-dark-700 shadow-lg" 
+    id="mobile-menu"
+  >
+    <nav class="container mx-auto px-4 py-4 flex flex-col">
+      <a href="/modulos" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
+        Módulos
+      </a>
+      <a href="/precios" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
+        Precios
+      </a>
+      <a href="/recursos" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
+        Recursos
+      </a>
+      <a href="/blog" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
+        Blog
+      </a>
+      <a 
+        href="https://cal.com/zinkintech" 
+        class="mt-4 px-5 py-3 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors text-center"
+      >
+        Agendá una demo
+      </a>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const header = document.getElementById('header');
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  
+  // Handle header background on scroll
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('bg-dark-800/90', 'backdrop-blur-sm');
+    } else {
+      header?.classList.remove('bg-dark-800/90', 'backdrop-blur-sm');
+    }
+  });
+  
+  // Handle mobile menu
+  mobileMenuButton?.addEventListener('click', () => {
+    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+    mobileMenuButton.setAttribute('aria-expanded', (!isExpanded).toString());
+    mobileMenu?.classList.toggle('hidden');
+  });
+  
+  // Close mobile menu when clicking on a link
+  document.querySelectorAll('#mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileMenu?.classList.add('hidden');
+      mobileMenuButton?.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    if (!target.closest('#mobile-menu') && !target.closest('#mobile-menu-button')) {
+      mobileMenu?.classList.add('hidden');
+      mobileMenuButton?.setAttribute('aria-expanded', 'false');
+    }
+  });
+</script>

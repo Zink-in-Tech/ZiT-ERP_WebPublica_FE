@@ -1,0 +1,173 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+
+const availableTools = [
+  {
+    title: "Caja Diaria",
+    description: "Llevá el control de ingresos y egresos de tu negocio sin complicaciones. Sin registros, sin instalaciones, todo en tu navegador.",
+    features: [
+      "Control de ingresos y egresos",
+      "Cálculo automático de saldos",
+      "Gráficos en tiempo real",
+      "Exportación de datos",
+      "Ticket promedio"
+    ],
+    link: "/recursos/caja-diaria",
+    icon: "💰"
+  }
+];
+
+const upcomingTools = [
+  {
+    title: "Precios Inteligentes",
+    description: "Calculá tus precios de manera profesional considerando costos, márgenes y percepción del cliente.",
+    features: [
+      "Calculadora de precios por costo",
+      "Margen deseado",
+      "Percepción del cliente",
+      "Múltiples listas de precio"
+    ],
+    icon: "🏷️"
+  }
+];
+---
+
+<Layout title="Recursos y Herramientas Gratuitas | ZinkERP">
+  <Header />
+  <main>
+    {/* Hero Section */}
+    <section class="pt-32 pb-20 relative">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-primary-600/30 blur-3xl"></div>
+        <div class="absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full bg-primary-600/30 blur-3xl"></div>
+      </div>
+
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-on-scroll">
+            Herramientas gratuitas para tu negocio
+          </h1>
+          <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+            Recursos prácticos y fáciles de usar para ayudarte a gestionar mejor tu empresa.
+            <br>
+            Sin registros, sin instalaciones, todo online.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Available Tools */}
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-12">Herramientas disponibles</h2>
+          
+          <div class="space-y-8">
+            {availableTools.map(tool => (
+              <div class="bg-dark-800 rounded-xl p-8 border border-dark-700 hover:border-primary/50 hover:ring-1 hover:ring-primary/30 transition-all duration-300 group">
+                <div class="flex items-start gap-6">
+                  <div class="w-16 h-16 bg-primary/10 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform">
+                    <span class="text-3xl">{tool.icon}</span>
+                  </div>
+                  
+                  <div class="flex-1">
+                    <h3 class="text-2xl font-bold mb-2 group-hover:text-primary transition-colors">
+                      {tool.title}
+                    </h3>
+                    <p class="text-gray-300 mb-6">{tool.description}</p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-4 mb-8">
+                      {tool.features.map(feature => (
+                        <div class="flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="text-gray-300">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+
+                    <a 
+                      href={tool.link}
+                      class="inline-flex items-center gap-2 px-6 py-3 bg-blue-primary hover:bg-blue-primary/90 rounded-lg font-medium transition-colors"
+                    >
+                      Usar herramienta
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                        <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Upcoming Tools */}
+    <section class="py-20 bg-dark-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-12">Próximamente</h2>
+          
+          <div class="space-y-8">
+            {upcomingTools.map(tool => (
+              <div class="bg-dark-700 rounded-xl p-8 border border-dark-600">
+                <div class="flex items-start gap-6">
+                  <div class="w-16 h-16 bg-dark-600 rounded-xl flex items-center justify-center">
+                    <span class="text-3xl">{tool.icon}</span>
+                  </div>
+                  
+                  <div class="flex-1">
+                    <div class="flex items-center gap-3 mb-2">
+                      <h3 class="text-2xl font-bold">{tool.title}</h3>
+                      <span class="px-3 py-1 bg-primary/20 text-primary text-sm font-medium rounded-full">
+                        Próximamente
+                      </span>
+                    </div>
+                    <p class="text-gray-300 mb-6">{tool.description}</p>
+                    
+                    <div class="grid sm:grid-cols-2 gap-4">
+                      {tool.features.map(feature => (
+                        <div class="flex items-center gap-2">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0">
+                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                          </svg>
+                          <span class="text-gray-300">{feature}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Newsletter Section */}
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-3xl font-bold mb-4">¿Querés recibir más herramientas?</h2>
+          <p class="text-gray-300 mb-8">
+            Suscribite a nuestro newsletter y sé el primero en probar las nuevas herramientas que lanzamos.
+          </p>
+          <iframe 
+            src="https://embeds.beehiiv.com/a98f31c0-4464-430b-885d-da8c41eab6f5?slim=true" 
+            data-test-id="beehiiv-embed" 
+            height="52" 
+            frameborder="0" 
+            scrolling="no" 
+            style="margin: 0; border-radius: 0px !important; background-color: transparent; width: 100%;"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

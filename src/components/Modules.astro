@@ -1,0 +1,341 @@
+---
+const modules = [
+  {
+    id: "almacen",
+    title: "ALMACÉN",
+    subtitle: "Stock siempre bajo control",
+    description: "Gestioná múltiples almacenes físicos o lógicos (showroom, online, etc.) y automatizá órdenes de reabastecimiento, reubicación y movimientos de stock.",
+    features: [
+      "Control de inventarios",
+      "Gestión de almacenes múltiples",
+      "Alertas de stock mínimo",
+      "Transferencias entre sucursales"
+    ],
+    color: "from-purple-500 to-indigo-600"
+  },
+  {
+    id: "logistica",
+    title: "LOGÍSTICA",
+    subtitle: "Entregas planificadas, clientes felices",
+    description: "Planificá rutas por zonas, optimizá el uso de vehículos y choferes, y reducí costos con cálculo de combustible y órdenes de entrega recomendadas.",
+    features: [
+      "Planificación de rutas",
+      "Seguimiento de pedidos",
+      "Gestión de transportistas",
+      "Reportes de entregas"
+    ],
+    color: "from-blue-500 to-cyan-600"
+  },
+  {
+    id: "tesoreria",
+    title: "TESORERÍA",
+    subtitle: "Tu caja, bajo control",
+    description: "Controlá ingresos, egresos y retiros de caja. Conciliá cuentas bancarias y analizá riesgos sin perder trazabilidad del flujo de fondos.",
+    features: [
+      "Control de flujo de efectivo",
+      "Conciliaciones bancarias",
+      "Programación de pagos",
+      "Informes financieros"
+    ],
+    color: "from-green-500 to-emerald-600"
+  },
+  {
+    id: "marketing",
+    title: "MARKETING",
+    subtitle: "Segmentá, medí y convertí",
+    description: "Construí embudos efectivos, analizá métricas de conversión y conectá con herramientas de email marketing. Segmentación de clientes incluida.",
+    features: [
+      "Gestión de campañas",
+      "Análisis de clientes",
+      "Seguimiento de resultados",
+      "Integración con CRM"
+    ],
+    color: "from-pink-500 to-rose-600"
+  },
+  {
+    id: "rrhh",
+    title: "RRHH",
+    subtitle: "Tu equipo ordenado",
+    description: "Gestioná horarios, compensaciones, evaluaciones y CVs. Mantené toda la información del personal organizada y accesible.",
+    features: [
+      "Gestión de personal",
+      "Control de asistencia",
+      "Evaluaciones de desempeño",
+      "Nómina integrada"
+    ],
+    color: "from-violet-500 to-purple-600"
+  },
+  {
+    id: "crm",
+    title: "CRM",
+    subtitle: "Relaciones que se convierten en ventas",
+    description: "Segmentá clientes, seguí sus hábitos y activá upselling y cross selling con inteligencia comercial integrada al sistema.",
+    features: [
+      "Gestión de contactos",
+      "Seguimiento de oportunidades",
+      "Automatización de ventas",
+      "Análisis de conversión"
+    ],
+    color: "from-orange-500 to-red-600"
+  },
+  {
+    id: "beneficios",
+    title: "BENEFICIOS",
+    subtitle: "Más valor por cada venta",
+    description: "Creá reglas de descuentos por producto o cliente, agrupá productos en kits, y ofrecé promociones sin esfuerzo manual.",
+    features: [
+      "Gestión de descuentos",
+      "Creación de kits",
+      "Programas de fidelización",
+      "Promociones automáticas"
+    ],
+    color: "from-yellow-500 to-orange-600"
+  },
+  {
+    id: "produccion",
+    title: "PRODUCCIÓN",
+    subtitle: "Ordená tu fabricación paso a paso",
+    description: "Definí insumos, fórmulas de elaboración y generá órdenes de producción por stock o demanda, todo desde un mismo lugar.",
+    features: [
+      "Gestión de fórmulas",
+      "Control de insumos",
+      "Órdenes de producción",
+      "Trazabilidad completa"
+    ],
+    color: "from-teal-500 to-green-600"
+  }
+];
+---
+
+<section id="modules" class="py-20 relative bg-dark-800">
+  <div class="container mx-auto px-4">
+    <div class="text-center mb-16">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">Módulos ZinkERP</h2>
+      <p class="text-xl text-gray-300">
+        Deslizá para descubrir cada módulo
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 inline-block ml-2">
+          <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+        </svg>
+      </p>
+    </div>
+
+    <div class="relative max-w-[90rem] mx-auto">
+      <!-- Navigation Arrows -->
+      <button id="prev-module" class="absolute -left-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-dark-700/80 backdrop-blur flex items-center justify-center text-white hover:bg-dark-600/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+          <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <button id="next-module" class="absolute -right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-dark-700/80 backdrop-blur flex items-center justify-center text-white hover:bg-dark-600/80 transition-colors disabled:opacity-50 disabled:cursor-not-allowed z-10">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+          <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+        </svg>
+      </button>
+
+      <!-- Modules Container -->
+      <div class="overflow-x-hidden px-8">
+        <div id="modules-container" class="flex gap-8 pb-4 transition-transform duration-300 ease-out">
+          {modules.map((module) => (
+            <div class="min-w-[600px] max-w-[600px] aspect-square flex-shrink-0 bg-dark-700 rounded-2xl overflow-hidden group hover:scale-[1.02] transition-all duration-300" data-module-id={module.id}>
+              <div class={`h-1 bg-gradient-to-r ${module.color}`}></div>
+              <div class="p-6 h-full flex flex-col">
+                <div class="flex items-start gap-4 mb-4">
+                  <div class={`flex items-center justify-center w-12 h-12 rounded-xl bg-gradient-to-r ${module.color} p-3 group-hover:scale-110 transition-transform duration-300 shrink-0`}>
+                    <span class="text-xl text-white font-bold">{module.title[0]}</span>
+                  </div>
+                  <div>
+                    <h3 class="text-xl font-bold">{module.title}</h3>
+                    <p class="text-primary-400 text-sm">{module.subtitle}</p>
+                  </div>
+                </div>
+                
+                <p class="text-gray-300 text-sm mb-4 line-clamp-2">{module.description}</p>
+                
+                <div class="flex-grow">
+                  <ul class="space-y-2 mb-4">
+                    {module.features.map((feature) => (
+                      <li class="flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-primary shrink-0">
+                          <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                        </svg>
+                        <span class="text-gray-300 text-sm">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                
+                <a 
+                  href={`/modulos/${module.id}`} 
+                  class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors text-sm group-hover:translate-x-1 transition-transform duration-300 mt-auto"
+                >
+                  <span>Ver más sobre {module.title}</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                    <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Progress Indicator -->
+      <div class="flex justify-center gap-2 mt-8">
+        {modules.map((_, index) => (
+          <button 
+            class="w-2 h-2 rounded-full bg-dark-600 transition-colors" 
+            data-module-dot={index}
+            aria-label={`Go to module ${index + 1}`}
+          ></button>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('modules-container');
+    const prevButton = document.getElementById('prev-module');
+    const nextButton = document.getElementById('next-module');
+    const dots = document.querySelectorAll('[data-module-dot]');
+    
+    if (!container || !prevButton || !nextButton) return;
+
+    let isDragging = false;
+    let startX;
+    let startScrollLeft;
+    let currentModule = 0;
+
+    const getModuleWidth = () => {
+      const firstModule = container.querySelector('[data-module-id]');
+      return firstModule ? firstModule.offsetWidth + 32 : 0; // width + gap
+    };
+
+    function updateNavigation() {
+      // Update dots
+      dots.forEach((dot, index) => {
+        dot.classList.toggle('bg-primary', index === currentModule);
+        dot.classList.toggle('bg-dark-600', index !== currentModule);
+      });
+
+      // Update buttons
+      prevButton.disabled = currentModule === 0;
+      nextButton.disabled = currentModule === dots.length - 1;
+    }
+
+    function scrollToModule(index) {
+      const moduleWidth = getModuleWidth();
+      currentModule = index;
+      const translateX = -(moduleWidth * index);
+      container.style.transform = `translateX(${translateX}px)`;
+      updateNavigation();
+    }
+
+    // Mouse events for drag scrolling
+    container.addEventListener('mousedown', (e) => {
+      isDragging = true;
+      container.style.cursor = 'grabbing';
+      startX = e.pageX - container.offsetLeft;
+      startScrollLeft = currentModule * getModuleWidth();
+      container.style.transition = 'none';
+    });
+
+    container.addEventListener('mouseleave', () => {
+      if (isDragging) {
+        isDragging = false;
+        container.style.cursor = '';
+        snapToNearestModule();
+      }
+    });
+
+    container.addEventListener('mouseup', () => {
+      if (isDragging) {
+        isDragging = false;
+        container.style.cursor = '';
+        snapToNearestModule();
+      }
+    });
+
+    function snapToNearestModule() {
+      container.style.transition = 'transform 300ms ease-out';
+      const moduleWidth = getModuleWidth();
+      const currentTransform = new WebKitCSSMatrix(container.style.transform);
+      const currentX = Math.abs(currentTransform.m41);
+      const nearestModule = Math.round(currentX / moduleWidth);
+      scrollToModule(Math.min(Math.max(nearestModule, 0), modules.length - 1));
+    }
+
+    container.addEventListener('mousemove', (e) => {
+      if (!isDragging) return;
+      e.preventDefault();
+      const x = e.pageX - container.offsetLeft;
+      const walk = (x - startX);
+      const newPosition = startScrollLeft - walk;
+      const maxScroll = (modules.length - 1) * getModuleWidth();
+      const boundedPosition = Math.max(Math.min(newPosition, maxScroll), 0);
+      container.style.transform = `translateX(-${boundedPosition}px)`;
+    });
+
+    // Navigation buttons
+    prevButton.addEventListener('click', () => {
+      if (currentModule > 0) {
+        scrollToModule(currentModule - 1);
+      }
+    });
+
+    nextButton.addEventListener('click', () => {
+      if (currentModule < dots.length - 1) {
+        scrollToModule(currentModule + 1);
+      }
+    });
+
+    // Dot navigation
+    dots.forEach((dot, index) => {
+      dot.addEventListener('click', () => scrollToModule(index));
+    });
+
+    // Touch events for mobile
+    container.addEventListener('touchstart', (e) => {
+      isDragging = true;
+      startX = e.touches[0].pageX - container.offsetLeft;
+      startScrollLeft = currentModule * getModuleWidth();
+      container.style.transition = 'none';
+    });
+
+    container.addEventListener('touchend', () => {
+      if (isDragging) {
+        isDragging = false;
+        snapToNearestModule();
+      }
+    });
+
+    container.addEventListener('touchmove', (e) => {
+      if (!isDragging) return;
+      const x = e.touches[0].pageX - container.offsetLeft;
+      const walk = (x - startX);
+      const newPosition = startScrollLeft - walk;
+      const maxScroll = (modules.length - 1) * getModuleWidth();
+      const boundedPosition = Math.max(Math.min(newPosition, maxScroll), 0);
+      container.style.transform = `translateX(-${boundedPosition}px)`;
+    });
+
+    // Initial setup
+    updateNavigation();
+
+    // Update on window resize
+    window.addEventListener('resize', () => {
+      scrollToModule(currentModule);
+    });
+  });
+</script>

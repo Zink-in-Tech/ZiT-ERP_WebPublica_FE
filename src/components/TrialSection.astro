@@ -1,0 +1,72 @@
+---
+---
+
+<section id="demo" class="py-16 relative bg-dark-800">
+  <div class="absolute inset-0 z-0 opacity-30">
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-primary/30 to-blue-secondary/30"></div>
+  </div>
+
+  <div class="container mx-auto px-4 relative z-10">
+    <div class="flex flex-col md:flex-row gap-8 items-center">
+      <div class="md:w-1/2 animate-on-scroll">
+        <img 
+          src="https://images.pexels.com/photos/7947541/pexels-photo-7947541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" 
+          alt="Dashboard de Zink ERP" 
+          class="rounded-lg shadow-xl"
+        />
+      </div>
+      
+      <div class="md:w-1/2 animate-on-scroll" style="animation-delay: 0.2s;">
+        <h2 class="text-3xl font-bold mb-4">
+          Comenzá ahora con tu 
+          <span class="text-blue-primary">demo sin cargo</span>
+        </h2>
+        <p class="text-gray-300 mb-6">
+          Descubrí cómo ZinkERP puede transformar la gestión de tu negocio. Te guiamos en todo el proceso.
+        </p>
+        
+        <div class="bg-dark-700 p-6 rounded-lg shadow-lg border border-dark-600">
+          <form class="space-y-4">
+            <div>
+              <label for="email" class="block text-sm font-medium text-gray-300 mb-1">Email empresarial</label>
+              <input 
+                type="email" 
+                id="email" 
+                placeholder="tu@empresa.com" 
+                class="w-full px-4 py-2 bg-dark-600 border border-dark-500 rounded-md focus:ring-2 focus:ring-blue-primary focus:border-blue-primary text-white"
+              />
+            </div>
+            
+            <div>
+              <label for="company" class="block text-sm font-medium text-gray-300 mb-1">Nombre de empresa</label>
+              <input 
+                type="text" 
+                id="company" 
+                placeholder="Tu empresa" 
+                class="w-full px-4 py-2 bg-dark-600 border border-dark-500 rounded-md focus:ring-2 focus:ring-blue-primary focus:border-blue-primary text-white"
+              />
+            </div>
+            
+            <div class="flex items-center">
+              <input 
+                type="checkbox" 
+                id="terms" 
+                class="h-4 w-4 text-blue-primary focus:ring-blue-primary border-dark-500 rounded"
+              />
+              <label for="terms" class="ml-2 block text-sm text-gray-300">
+                Acepto los <a href="#" class="text-blue-primary hover:text-blue-secondary">términos y condiciones</a>
+              </label>
+            </div>
+            
+            <button 
+              type="submit" 
+              class="w-full bg-blue-primary hover:bg-blue-primary/90 text-white font-medium py-2 px-4 rounded-md transition-colors duration-300"
+            >
+              Solicitar demo
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
