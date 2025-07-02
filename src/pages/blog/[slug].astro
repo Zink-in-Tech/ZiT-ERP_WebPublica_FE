@@ -2,8 +2,8 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import PortableTextRenderer from '../../components/PortableTextRenderer.astro';
 import { fetchSanityData } from '../../lib/sanity';
-import { PortableText } from '@portabletext/react';
 import type { Post } from '../../types/blog';
 
 // 1. Generamos las rutas estáticas con manejo de errores
@@ -103,11 +103,15 @@ const shareUrls = {
 
           <div class="flex items-center gap-4 mb-12">
             <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-              <img
-                src={post.author.imageUrl}
-                alt={post.author.name}
-                class="w-12 h-12 rounded-full"
-              />
+              {post.author.imageUrl ? (
+                <img
+                  src={post.author.imageUrl}
+                  alt={post.author.name}
+                  class="w-12 h-12 rounded-full"
+                />
+              ) : (
+                <span class="text-xl font-bold">{post.author.name[0]}</span>
+              )}
             </div>
             <div>
               <p class="font-medium">{post.author.name}</p>
@@ -115,13 +119,15 @@ const shareUrls = {
             </div>
           </div>
 
-          <div class="relative h-[400px] rounded-2xl overflow-hidden mb-12 animate-on-scroll" style="animation-delay: 0.2s;">
-            <img
-              src={post.mainImageUrl}
-              alt={post.title}
-              class="absolute inset-0 w-full h-full object-cover"
-            />
-          </div>
+          {post.mainImageUrl && (
+            <div class="relative h-[400px] rounded-2xl overflow-hidden mb-12 animate-on-scroll" style="animation-delay: 0.2s;">
+              <img
+                src={post.mainImageUrl}
+                alt={post.title}
+                class="absolute inset-0 w-full h-full object-cover"
+              />
+            </div>
+          )}
         </div>
       </div>
     </section>
@@ -132,9 +138,7 @@ const shareUrls = {
         <div class="flex gap-12 max-w-6xl mx-auto">
           {/* Main Content */}
           <div class="w-full lg:w-2/3">
-            <div class="prose prose-invert prose-lg">
-              <PortableText value={post.body} />
-            </div>
+            <PortableTextRenderer content={post.body} />
           </div>
 
           {/* Sidebar */}
@@ -224,13 +228,15 @@ const shareUrls = {
                   class="group bg-dark-700 rounded-xl overflow-hidden hover:ring-1 hover:ring-primary/30 transition-all duration-300 animate-on-scroll"
                   style={`animation-delay: ${index * 0.1}s`}
                 >
-                  <div class="relative h-48 overflow-hidden">
-                    <img 
-                      src={relatedPost.mainImageUrl}
-                      alt={relatedPost.title}
-                      class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
+                  {relatedPost.mainImageUrl && (
+                    <div class="relative h-48 overflow-hidden">
+                      <img 
+                        src={relatedPost.mainImageUrl}
+                        alt={relatedPost.title}
+                        class="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
                   <div class="p-6">
                     <div class="flex items-center gap-4 mb-4">
                       {relatedPost.categories?.map((cat) => (
@@ -276,4 +282,3 @@ const shareUrls = {
   </main>
   <Footer />
 </Layout>
-
