@@ -65,76 +65,65 @@ function getImageUrl(imageAsset: any) {
   {content && content.length > 0 ? (
     <div>
       {content.map((item, index) => {
-        // Renderizar YouTube
-        if (item._type === 'youtube') {
-          const videoId = getYouTubeVideoId(item.url);
-          if (videoId) {
-            return (
-              <div class="my-8 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
-                <h3 class="text-blue-400 font-bold mb-2">🎥 Video de YouTube</h3>
-                <p class="text-blue-300 mb-4">Video ID: {videoId}</p>
-                <p class="text-blue-300 mb-4">URL: {item.url}</p>
-                <p class="text-blue-300 mb-4">Título: {item.title || 'Sin título'}</p>
-                
-                <div class="relative w-full" style="padding-bottom: 56.25%;">
-                  <iframe
-                    src={`https://www.youtube.com/embed/${videoId}`}
-                    title={item.title || 'Video de YouTube'}
-                    class="absolute top-0 left-0 w-full h-full rounded-lg"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                {item.title && (
-                  <p class="text-center text-sm text-blue-400 mt-2 italic">
-                    {item.title}
-                  </p>
-                )}
-              </div>
-            );
-          } else {
-            return (
-              <div class="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-                <p class="text-red-400">URL de YouTube inválida: {item.url}</p>
-              </div>
-            );
-          }
-        }
+                 // Renderizar YouTube
+         if (item._type === 'youtube') {
+           const videoId = getYouTubeVideoId(item.url);
+           if (videoId) {
+             return (
+               <div class="my-8 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+                 <div class="relative w-full" style="padding-bottom: 56.25%;">
+                   <iframe
+                     src={`https://www.youtube.com/embed/${videoId}`}
+                     title={item.title || 'Video de YouTube'}
+                     class="absolute top-0 left-0 w-full h-full rounded-lg"
+                     frameborder="0"
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                     allowfullscreen
+                   ></iframe>
+                 </div>
+                 {item.title && (
+                   <p class="text-center text-sm text-blue-400 mt-2 italic">
+                     {item.title}
+                   </p>
+                 )}
+               </div>
+             );
+           } else {
+             return (
+               <div class="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+                 <p class="text-red-400">URL de YouTube inválida</p>
+               </div>
+             );
+           }
+         }
         
-        // Renderizar imagen
-        if (item._type === 'image') {
-          const imageUrl = getImageUrl(item.asset);
-          if (imageUrl) {
-            return (
-              <div class="my-8 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
-                <h3 class="text-green-400 font-bold mb-2">🖼️ Imagen</h3>
-                <p class="text-green-300 mb-4">Alt: {item.alt || 'Sin alt text'}</p>
-                <p class="text-green-300 mb-4">Caption: {item.caption || 'Sin caption'}</p>
-                <p class="text-green-300 mb-4">URL: {imageUrl}</p>
-                
-                <img
-                  src={imageUrl}
-                  alt={item.alt || ''}
-                  class="w-full h-auto rounded-lg shadow-lg"
-                  loading="lazy"
-                />
-                {item.caption && (
-                  <p class="text-center text-sm text-green-400 mt-2 italic">
-                    {item.caption}
-                  </p>
-                )}
-              </div>
-            );
-          } else {
-            return (
-              <div class="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-                <p class="text-red-400">No se pudo cargar la imagen</p>
-                <p class="text-red-300 text-sm">Asset: {JSON.stringify(item.asset)}</p>
-              </div>
-            );
-          }
-        }
+                 // Renderizar imagen
+         if (item._type === 'image') {
+           const imageUrl = getImageUrl(item.asset);
+           if (imageUrl) {
+             return (
+               <div class="my-8 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
+                 <img
+                   src={imageUrl}
+                   alt={item.alt || ''}
+                   class="w-full h-auto rounded-lg shadow-lg"
+                   loading="lazy"
+                 />
+                 {item.caption && (
+                   <p class="text-center text-sm text-green-400 mt-2 italic">
+                     {item.caption}
+                   </p>
+                 )}
+               </div>
+             );
+           } else {
+             return (
+               <div class="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+                 <p class="text-red-400">No se pudo cargar la imagen</p>
+               </div>
+             );
+           }
+         }
         
         // Para otros tipos de contenido, usar PortableText como fallback
         return null;
