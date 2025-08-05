@@ -22,7 +22,7 @@ console.log('Image items found:', imageItems.length);
 
 <div class="prose prose-invert prose-lg max-w-none">
   {content && content.length > 0 ? (
-    <PortableText value={content} components={portableTextComponents} client:load />
+    <PortableText value={content} components={portableTextComponents} client:only="react" />
   ) : (
     <p class="text-gray-400 italic">No hay contenido disponible.</p>
   )}
