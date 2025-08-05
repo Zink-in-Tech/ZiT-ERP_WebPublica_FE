@@ -40,6 +40,19 @@ function getImageUrl(imageAsset: any) {
       return `https://cdn.sanity.io/images/rw0dsjio/production/${imageAsset._id.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`;
     }
     
+    // Si tenemos _ref, construimos la URL desde la referencia
+    if (imageAsset._ref) {
+      // Extraer el ID de la referencia: "image-cbdf9513b76cc2231185f0eee174e598cf89309d-768x1024-jpg"
+      const refParts = imageAsset._ref.split('-');
+      if (refParts.length >= 3) {
+        const imageId = refParts[1]; // cbdf9513b76cc2231185f0eee174e598cf89309d
+        const dimensions = refParts[2]; // 768x1024
+        const format = refParts[3]; // jpg
+        
+        return `https://cdn.sanity.io/images/rw0dsjio/production/${imageId}-${dimensions}.${format}`;
+      }
+    }
+    
     return null;
   } catch (error) {
     console.error('Error generating image URL:', error);
