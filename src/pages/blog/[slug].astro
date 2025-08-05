@@ -4,7 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PortableTextRenderer from '../../components/PortableTextRenderer.astro';
 import { fetchSanityData } from '../../lib/sanity';
-import type { Post } from '../../types/blog';
+import type { PostDetail } from '../../types/blog';
 
 // 1. Generamos las rutas estáticas con manejo de errores
 export async function getStaticPaths() {
@@ -14,7 +14,7 @@ export async function getStaticPaths() {
 
 // 2. Fetch del post actual y posts relacionados con manejo de errores
 const { slug } = Astro.params;
-const [post, relatedPosts]: [Post, Post[]] = await Promise.all([
+const [post, relatedPosts]: [PostDetail, PostDetail[]] = await Promise.all([
   fetchSanityData(
     `*[_type=="post" && slug.current == $slug][0]{
       title,
@@ -26,7 +26,22 @@ const [post, relatedPosts]: [Post, Post[]] = await Promise.all([
         bio
       },
       "categories": categories[]->{title, "slug": slug.current},
-      body
+      body[]{
+        ...,
+        _type == "image" => {
+          ...,
+          asset->{
+            _id,
+            url,
+            metadata
+          }
+        },
+        _type == "youtube" => {
+          ...,
+          url,
+          title
+        }
+      }
     }`,
     { slug }
   ),

@@ -11,14 +11,14 @@ export interface Author {
   }
   
   export interface PostSummary {
-    title: string;
-    slug: string;
-    excerpt: string;
-    publishedAt: string;
-    mainImageUrl: string;
-    author: { name: string; slug: string; imageUrl: string };
-    categories: Category[];
-  }
+  title: string;
+  slug: string;
+  excerpt: string;
+  publishedAt: string;
+  mainImageUrl: string;
+  author: { name: string; slug: string; imageUrl: string; bio?: string };
+  categories: Category[];
+}
   
   export interface PostDetail extends PostSummary {
     body: any[];

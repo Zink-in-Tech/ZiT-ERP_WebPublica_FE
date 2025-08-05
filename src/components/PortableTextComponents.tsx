@@ -1,6 +1,50 @@
 import React from 'react';
 import { urlFor } from '../lib/sanity';
 
+// Función para extraer el ID del video de YouTube
+const getYouTubeVideoId = (url: string) => {
+  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+  const match = url.match(regExp);
+  return match && match[2].length === 11 ? match[2] : null;
+};
+
+// Componente para manejar embeds de YouTube
+const YouTubeComponent = ({ value }: { value: any }) => {
+  if (!value?.url) {
+    return null;
+  }
+
+  const videoId = getYouTubeVideoId(value.url);
+  
+  if (!videoId) {
+    return (
+      <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+        <p className="text-red-400">URL de YouTube inválida: {value.url}</p>
+      </div>
+    );
+  }
+
+  return (
+    <figure className="my-8">
+      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+        <iframe
+          src={`https://www.youtube.com/embed/${videoId}`}
+          title={value.title || 'Video de YouTube'}
+          className="absolute top-0 left-0 w-full h-full rounded-lg"
+          frameBorder="0"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      </div>
+      {value.title && (
+        <figcaption className="text-center text-sm text-gray-400 mt-2 italic">
+          {value.title}
+        </figcaption>
+      )}
+    </figure>
+  );
+};
+
 // Componente para manejar imágenes en PortableText
 const ImageComponent = ({ value }: { value: any }) => {
   if (!value?.asset?._ref) {
@@ -49,6 +93,7 @@ export const portableTextComponents = {
   types: {
     image: ImageComponent,
     code: CodeComponent,
+    youtube: YouTubeComponent,
   },
   block: {
     blockquote: BlockquoteComponent,
@@ -84,11 +129,6 @@ export const portableTextComponents = {
     ),
     em: ({ children }: { children: React.ReactNode }) => (
       <em className="italic">{children}</em>
-    ),
-    code: ({ children }: { children: React.ReactNode }) => (
-      <code className="bg-dark-700 px-2 py-1 rounded text-sm font-mono text-primary">
-        {children}
-      </code>
     ),
   },
   list: {

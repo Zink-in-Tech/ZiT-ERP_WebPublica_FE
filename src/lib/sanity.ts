@@ -2,7 +2,7 @@ import { createClient } from '@sanity/client';
 import imageUrlBuilder from '@sanity/image-url';
 
 // Fallback values for local development
-const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'development';
+const projectId = import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'rw0dsjio';
 const dataset = import.meta.env.SANITY_DATASET || 'production';
 const apiVersion = import.meta.env.SANITY_API_VERSION || '2024-02-15';
 

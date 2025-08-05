@@ -1,11 +1,48 @@
-# Sanity Blogging Content Studio
+# ZinkERP Studio
 
-Congratulations, you have now installed the Sanity Content Studio, an open-source real-time content editing environment connected to the Sanity backend.
+Este es el estudio de Sanity para el sitio web de ZinkERP.
 
-Now you can do the following things:
+## Funcionalidades
 
-- [Read “getting started” in the docs](https://www.sanity.io/docs/introduction/getting-started?utm_source=readme)
-- Check out the example frontend: [React/Next.js](https://github.com/sanity-io/tutorial-sanity-blog-react-next)
-- [Read the blog post about this template](https://www.sanity.io/blog/build-your-own-blog-with-sanity-and-next-js?utm_source=readme)
-- [Join the community Slack](https://slack.sanity.io/?utm_source=readme)
-- [Extend and build plugins](https://www.sanity.io/docs/content-studio/extending?utm_source=readme)
+### Contenido del Blog
+
+El blog ahora soporta:
+
+1. **Imágenes mejoradas** con:
+   - Texto alternativo (alt) para accesibilidad
+   - Captions opcionales
+   - Hotspot para recorte inteligente
+
+2. **Embeds de YouTube** con:
+   - URL del video de YouTube
+   - Título opcional del video
+   - Renderizado responsivo en el frontend
+
+## Cómo usar
+
+### Agregar un video de YouTube
+
+1. En el editor de contenido del post, haz clic en el botón "+" para agregar contenido
+2. Selecciona "YouTube Video"
+3. Pega la URL del video de YouTube (ej: https://www.youtube.com/watch?v=dQw4w9WgXcQ)
+4. Opcionalmente, agrega un título para el video
+5. Guarda el post
+
+### Agregar imágenes con mejor información
+
+1. En el editor de contenido, haz clic en el botón "+" para agregar contenido
+2. Selecciona "Image"
+3. Sube tu imagen
+4. Agrega texto alternativo (importante para SEO y accesibilidad)
+5. Opcionalmente, agrega un caption
+6. Guarda el post
+
+## Desarrollo
+
+Para iniciar el estudio en modo desarrollo:
+
+```bash
+npm run dev
+```
+
+El estudio estará disponible en `http://localhost:3333`

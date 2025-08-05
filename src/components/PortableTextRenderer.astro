@@ -7,8 +7,15 @@ interface Props {
 }
 
 const { content } = Astro.props;
+
+// Debug: Log the content to see what we're receiving
+console.log('PortableTextRenderer content:', JSON.stringify(content, null, 2));
 ---
 
 <div class="prose prose-invert prose-lg max-w-none">
-  <PortableText value={content} components={portableTextComponents} client:load />
+  {content && content.length > 0 ? (
+    <PortableText value={content} components={portableTextComponents} client:load />
+  ) : (
+    <p class="text-gray-400 italic">No hay contenido disponible.</p>
+  )}
 </div>
