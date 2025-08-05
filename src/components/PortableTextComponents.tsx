@@ -33,7 +33,12 @@ const YouTubeComponent = ({ value }: { value: any }) => {
   }
 
   return (
-    <figure className="my-8">
+    <div className="my-8 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
+      <h3 className="text-blue-400 font-bold mb-2">🎥 Video de YouTube</h3>
+      <p className="text-blue-300 mb-4">Video ID: {videoId}</p>
+      <p className="text-blue-300 mb-4">URL: {value.url}</p>
+      <p className="text-blue-300 mb-4">Título: {value.title || 'Sin título'}</p>
+      
       <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
         <iframe
           src={`https://www.youtube.com/embed/${videoId}`}
@@ -45,11 +50,11 @@ const YouTubeComponent = ({ value }: { value: any }) => {
         />
       </div>
       {value.title && (
-        <figcaption className="text-center text-sm text-gray-400 mt-2 italic">
+        <p className="text-center text-sm text-blue-400 mt-2 italic">
           {value.title}
-        </figcaption>
+        </p>
       )}
-    </figure>
+    </div>
   );
 };
 
@@ -71,7 +76,12 @@ const ImageComponent = ({ value }: { value: any }) => {
     console.log('ImageComponent imageUrl:', imageUrl);
     
     return (
-      <figure className="my-8">
+      <div className="my-8 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
+        <h3 className="text-green-400 font-bold mb-2">🖼️ Imagen</h3>
+        <p className="text-green-300 mb-4">Alt: {value.alt || 'Sin alt text'}</p>
+        <p className="text-green-300 mb-4">Caption: {value.caption || 'Sin caption'}</p>
+        <p className="text-green-300 mb-4">URL: {imageUrl}</p>
+        
         <img
           src={imageUrl}
           alt={value.alt || ''}
@@ -79,11 +89,11 @@ const ImageComponent = ({ value }: { value: any }) => {
           loading="lazy"
         />
         {value.caption && (
-          <figcaption className="text-center text-sm text-gray-400 mt-2 italic">
+          <p className="text-center text-sm text-green-400 mt-2 italic">
             {value.caption}
-          </figcaption>
+          </p>
         )}
-      </figure>
+      </div>
     );
   } catch (error) {
     console.error('ImageComponent error:', error);

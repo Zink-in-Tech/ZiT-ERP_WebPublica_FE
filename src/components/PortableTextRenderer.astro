@@ -10,6 +10,14 @@ const { content } = Astro.props;
 
 // Debug: Log the content to see what we're receiving
 console.log('PortableTextRenderer content:', JSON.stringify(content, null, 2));
+console.log('PortableTextRenderer content length:', content?.length);
+console.log('PortableTextRenderer content types:', content?.map(item => item._type));
+
+// Check for YouTube and image content specifically
+const youtubeItems = content?.filter(item => item._type === 'youtube') || [];
+const imageItems = content?.filter(item => item._type === 'image') || [];
+console.log('YouTube items found:', youtubeItems.length);
+console.log('Image items found:', imageItems.length);
 ---
 
 <div class="prose prose-invert prose-lg max-w-none">

@@ -26,22 +26,7 @@ const [post, relatedPosts]: [PostDetail, PostDetail[]] = await Promise.all([
         bio
       },
       "categories": categories[]->{title, "slug": slug.current},
-      body[]{
-        ...,
-        _type == "image" => {
-          ...,
-          asset->{
-            _id,
-            url,
-            metadata
-          }
-        },
-        _type == "youtube" => {
-          ...,
-          url,
-          title
-        }
-      }
+      body
     }`,
     { slug }
   ),
