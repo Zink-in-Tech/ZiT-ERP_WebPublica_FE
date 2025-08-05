@@ -10,11 +10,19 @@ const getYouTubeVideoId = (url: string) => {
 
 // Componente para manejar embeds de YouTube
 const YouTubeComponent = ({ value }: { value: any }) => {
-  if (!value?.url) {
-    return null;
+  console.log('YouTubeComponent value:', value);
+  
+  if (!value || !value.url) {
+    console.log('YouTubeComponent: No value or URL provided');
+    return (
+      <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+        <p className="text-red-400">No se proporcionó URL de YouTube</p>
+      </div>
+    );
   }
 
   const videoId = getYouTubeVideoId(value.url);
+  console.log('YouTubeComponent videoId:', videoId);
   
   if (!videoId) {
     return (
@@ -47,25 +55,44 @@ const YouTubeComponent = ({ value }: { value: any }) => {
 
 // Componente para manejar imágenes en PortableText
 const ImageComponent = ({ value }: { value: any }) => {
-  if (!value?.asset?._ref) {
-    return null;
+  console.log('ImageComponent value:', value);
+  
+  if (!value || (!value.asset?._ref && !value.asset?._id)) {
+    console.log('ImageComponent: No value or asset reference provided');
+    return (
+      <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+        <p className="text-red-400">No se proporcionó imagen válida</p>
+      </div>
+    );
   }
 
-  return (
-    <figure className="my-8">
-      <img
-        src={urlFor(value).width(800).height(600).fit('max').auto('format').url()}
-        alt={value.alt || ''}
-        className="w-full h-auto rounded-lg shadow-lg"
-        loading="lazy"
-      />
-      {value.caption && (
-        <figcaption className="text-center text-sm text-gray-400 mt-2 italic">
-          {value.caption}
-        </figcaption>
-      )}
-    </figure>
-  );
+  try {
+    const imageUrl = urlFor(value).width(800).height(600).fit('max').auto('format').url();
+    console.log('ImageComponent imageUrl:', imageUrl);
+    
+    return (
+      <figure className="my-8">
+        <img
+          src={imageUrl}
+          alt={value.alt || ''}
+          className="w-full h-auto rounded-lg shadow-lg"
+          loading="lazy"
+        />
+        {value.caption && (
+          <figcaption className="text-center text-sm text-gray-400 mt-2 italic">
+            {value.caption}
+          </figcaption>
+        )}
+      </figure>
+    );
+  } catch (error) {
+    console.error('ImageComponent error:', error);
+    return (
+      <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
+        <p className="text-red-400">Error al cargar la imagen</p>
+      </div>
+    );
+  }
 };
 
 // Componente para manejar bloques de código
