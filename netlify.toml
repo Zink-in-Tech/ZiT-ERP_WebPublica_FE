@@ -5,6 +5,72 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Bloquear archivos PHP maliciosos con 403 Forbidden
+[[redirects]]
+  from = "/*.php"
+  to = "/403.html"
+  status = 403
+
+# Bloquear rutas específicas de WordPress
+[[redirects]]
+  from = "/wp-login.php"
+  to = "/403.html"
+  status = 403
+
+[[redirects]]
+  from = "/xmlrpc.php"
+  to = "/403.html"
+  status = 403
+
+[[redirects]]
+  from = "/wp-admin/*"
+  to = "/403.html"
+  status = 403
+
+[[redirects]]
+  from = "/wp-content/*"
+  to = "/403.html"
+  status = 403
+
+[[redirects]]
+  from = "/wp-includes/*"
+  to = "/403.html"
+  status = 403
+
+# Bloquear intentos de certificados SSL maliciosos
+[[redirects]]
+  from = "/.well-known/acme-challenge/*"
+  to = "/403.html"
+  status = 403
+
+# Bloquear archivos de configuración comunes
+[[redirects]]
+  from = "/wp-config.php"
+  to = "/403.html"
+  status = 403
+
+[[redirects]]
+  from = "/.env"
+  to = "/403.html"
+  status = 403
+
+[[redirects]]
+  from = "/config.php"
+  to = "/403.html"
+  status = 403
+
+# Bloquear directorios administrativos comunes
+[[redirects]]
+  from = "/admin/*"
+  to = "/403.html"
+  status = 403
+
+[[redirects]]
+  from = "/administrator/*"
+  to = "/403.html"
+  status = 403
+
+# Redirección normal para el resto (DEBE IR AL FINAL)
 [[redirects]]
   from = "/*"
   to = "/index.html"
@@ -16,4 +82,13 @@
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
     X-Content-Type-Options = "nosniff"
-    Referrer-Policy = "strict-origin-when-cross-origin" 
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    # Prevenir indexación de bots maliciosos
+    X-Robots-Tag = "index, follow"
+
+# Headers específicos para la página de error 403
+[[headers]]
+  for = "/403.html"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+    Cache-Control = "no-cache"

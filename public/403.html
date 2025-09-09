@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>403 - Acceso Denegado | ZinkERP</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d1b3d 100%);
+            color: white;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            padding: 2rem;
+        }
+        
+        .logo {
+            width: 120px;
+            height: auto;
+            margin-bottom: 2rem;
+        }
+        
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            color: #7500B9;
+            margin-bottom: 1rem;
+        }
+        
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 500;
+            margin-bottom: 1rem;
+            color: #e0e0e0;
+        }
+        
+        p {
+            font-size: 1.1rem;
+            color: #b0b0b0;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #7500B9 0%, #9c27b0 100%);
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(117, 0, 185, 0.3);
+        }
+        
+        .error-code {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="/zinkerp-logo.png" alt="ZinkERP" class="logo">
+        
+        <h1>403</h1>
+        <h2>Acceso Denegado</h2>
+        
+        <p>
+            La página que buscas no está disponible en nuestro sitio.<br>
+            Es posible que hayas seguido un enlace incorrecto o que la página haya sido movida.
+        </p>
+        
+        <a href="/" class="btn">Volver al Inicio</a>
+        
+        <div class="error-code">
+            Error 403 - Forbidden
+        </div>
+    </div>
+</body>
+</html>
