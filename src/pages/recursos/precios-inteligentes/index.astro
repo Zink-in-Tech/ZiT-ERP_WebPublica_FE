@@ -606,21 +606,36 @@ const WHATSAPP_CTA_NUMBER = '5491135598389';
         showEmptyListModal();
         return;
       }
+      // Sincronizar tabla → datos (inputs actuales, por si editaron sin blur)
+      const tbody = document.getElementById('productList');
+      const productRows = tbody.querySelectorAll('.product-row');
+      productRows.forEach((row, i) => {
+        if (data.products[i]) {
+          const codeInp = row.querySelector('.product-code');
+          const descInp = row.querySelector('.product-desc');
+          const costInp = row.querySelector('.product-cost');
+          if (codeInp && 'value' in codeInp) data.products[i].code = String(codeInp.value).trim();
+          if (descInp && 'value' in descInp) data.products[i].description = String(descInp.value).trim();
+          if (costInp && 'value' in costInp) data.products[i].cost = parseFloat(String(costInp.value)) || 0;
+        }
+      });
       function toCSVNum(n) { return (typeof n === 'number' ? n : parseFloat(n) || 0).toFixed(2); }
-      const headers = ['codigo', 'descripcion', 'costo'].concat(data.priceTypes.map(t => (t.name || 'precio').replace(/[^a-zA-Z0-9-_]/g, '_')));
-      const rows = [
-        headers.join(','),
-        ...data.products.map(p => {
-          const cells = [p.code || '', p.description || '', toCSVNum(p.cost)];
-          data.priceTypes.forEach(t => {
-            const { final } = calcularPrecioFromType(p, t);
-            cells.push(toCSVNum(final));
-          });
-          return cells.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',');
-        })
-      ];
+      function quote(cell) { return `"${String(cell).replace(/"/g, '""')}"`; }
+      const headerLabels = ['codigo', 'descripcion', 'costo'].concat(
+        data.priceTypes.map(t => (t.name || 'precio').replace(/[^a-zA-Z0-9-_\s]/g, '_').trim() || 'precio')
+      );
+      const headerRow = headerLabels.map(quote).join(',');
+      const dataRows = data.products.map(p => {
+        const cells = [p.code || '', p.description || '', toCSVNum(p.cost)];
+        data.priceTypes.forEach(t => {
+          const { final } = calcularPrecioFromType(p, t);
+          cells.push(toCSVNum(final));
+        });
+        return cells.map(quote).join(',');
+      });
       const BOM = '\uFEFF';
-      const blob = new Blob([BOM + rows.join('\n')], { type: 'text/csv;charset=utf-8' });
+      const csvContent = BOM + [headerRow, ...dataRows].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
       const today = new Date().toISOString().slice(0, 10);
       const filename = `precios-inteligentes__${today}.csv`;
 
