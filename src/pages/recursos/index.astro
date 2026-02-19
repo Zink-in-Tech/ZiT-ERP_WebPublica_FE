@@ -21,17 +21,29 @@ const availableTools = [
     title: "Precios Inteligentes",
     description: "Calculá tus precios de manera profesional considerando costos, márgenes y percepción del cliente.",
     features: [
-      "Calculadora de precios por costo",
-      "Margen deseado",
-      "Percepción del cliente",
-      "Varios precios por producto (público, mayorista, efectivo)"
+      "Markup o margen de contribución",
+      "Monto fijo e impuesto % (opcionales)",
+      "Hasta 6 listas por producto",
+      "Descargá tu lista en CSV"
     ],
     link: "/recursos/precios-inteligentes",
-    icon: "🏷️"
+    icon: "💵"
   }
 ];
 
-const upcomingTools: { title: string; description: string; features: string[]; icon: string }[] = [];
+const upcomingTools: { title: string; description: string; features: string[]; icon: string }[] = [
+  {
+    title: "Generador de códigos de barras",
+    description: "Generá imágenes de códigos de barras (EAN-13, Code 128) para etiquetas sin instalar nada. Descargá el PNG y usalo en tus productos.",
+    features: [
+      "EAN-13 y Code 128",
+      "Vista previa al instante",
+      "Descarga en PNG",
+      "Sin registro, en tu navegador"
+    ],
+    icon: "📊"
+  }
+];
 ---
 
 <Layout title="Recursos y Herramientas Gratuitas | ZinkERP">
@@ -116,15 +128,15 @@ const upcomingTools: { title: string; description: string; features: string[]; i
 
             <div class="space-y-8">
               {upcomingTools.map(tool => (
-                <div class="bg-dark-700 rounded-xl p-8 border border-dark-600">
+                <div class="bg-dark-700 rounded-xl p-8 border border-dark-600 hover:border-primary/50 hover:ring-1 hover:ring-primary/30 transition-all duration-300 group">
                   <div class="flex items-start gap-6">
-                    <div class="w-16 h-16 bg-dark-600 rounded-xl flex items-center justify-center">
+                    <div class="w-16 h-16 bg-dark-600 rounded-xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
                       <span class="text-3xl">{tool.icon}</span>
                     </div>
 
                     <div class="flex-1">
                       <div class="flex items-center gap-3 mb-2">
-                        <h3 class="text-2xl font-bold">{tool.title}</h3>
+                        <h3 class="text-2xl font-bold group-hover:text-primary transition-colors">{tool.title}</h3>
                         <span class="px-3 py-1 bg-primary/20 text-primary text-sm font-medium rounded-full">
                           Próximamente
                         </span>
