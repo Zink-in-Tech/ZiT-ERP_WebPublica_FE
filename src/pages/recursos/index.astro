@@ -16,10 +16,7 @@ const availableTools = [
     ],
     link: "/recursos/caja-diaria",
     icon: "💰"
-  }
-];
-
-const upcomingTools = [
+  },
   {
     title: "Precios Inteligentes",
     description: "Calculá tus precios de manera profesional considerando costos, márgenes y percepción del cliente.",
@@ -27,11 +24,14 @@ const upcomingTools = [
       "Calculadora de precios por costo",
       "Margen deseado",
       "Percepción del cliente",
-      "Múltiples listas de precio"
+      "Varios precios por producto (público, mayorista, efectivo)"
     ],
+    link: "/recursos/precios-inteligentes",
     icon: "🏷️"
   }
 ];
+
+const upcomingTools: { title: string; description: string; features: string[]; icon: string }[] = [];
 ---
 
 <Layout title="Recursos y Herramientas Gratuitas | ZinkERP">
@@ -108,46 +108,48 @@ const upcomingTools = [
     </section>
 
     {/* Upcoming Tools */}
-    <section class="py-20 bg-dark-800">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <h2 class="text-3xl font-bold mb-12">Próximamente</h2>
-          
-          <div class="space-y-8">
-            {upcomingTools.map(tool => (
-              <div class="bg-dark-700 rounded-xl p-8 border border-dark-600">
-                <div class="flex items-start gap-6">
-                  <div class="w-16 h-16 bg-dark-600 rounded-xl flex items-center justify-center">
-                    <span class="text-3xl">{tool.icon}</span>
-                  </div>
-                  
-                  <div class="flex-1">
-                    <div class="flex items-center gap-3 mb-2">
-                      <h3 class="text-2xl font-bold">{tool.title}</h3>
-                      <span class="px-3 py-1 bg-primary/20 text-primary text-sm font-medium rounded-full">
-                        Próximamente
-                      </span>
+    {upcomingTools.length > 0 && (
+      <section class="py-20 bg-dark-800">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto">
+            <h2 class="text-3xl font-bold mb-12">Próximamente</h2>
+
+            <div class="space-y-8">
+              {upcomingTools.map(tool => (
+                <div class="bg-dark-700 rounded-xl p-8 border border-dark-600">
+                  <div class="flex items-start gap-6">
+                    <div class="w-16 h-16 bg-dark-600 rounded-xl flex items-center justify-center">
+                      <span class="text-3xl">{tool.icon}</span>
                     </div>
-                    <p class="text-gray-300 mb-6">{tool.description}</p>
-                    
-                    <div class="grid sm:grid-cols-2 gap-4">
-                      {tool.features.map(feature => (
-                        <div class="flex items-center gap-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0">
-                            <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                          </svg>
-                          <span class="text-gray-300">{feature}</span>
-                        </div>
-                      ))}
+
+                    <div class="flex-1">
+                      <div class="flex items-center gap-3 mb-2">
+                        <h3 class="text-2xl font-bold">{tool.title}</h3>
+                        <span class="px-3 py-1 bg-primary/20 text-primary text-sm font-medium rounded-full">
+                          Próximamente
+                        </span>
+                      </div>
+                      <p class="text-gray-300 mb-6">{tool.description}</p>
+
+                      <div class="grid sm:grid-cols-2 gap-4">
+                        {tool.features.map(feature => (
+                          <div class="flex items-center gap-2">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0">
+                              <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="text-gray-300">{feature}</span>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    )}
 
     {/* Newsletter Section */}
     <section class="py-20">
@@ -157,13 +159,12 @@ const upcomingTools = [
           <p class="text-gray-300 mb-8">
             Suscribite a nuestro newsletter y sé el primero en probar las nuevas herramientas que lanzamos.
           </p>
-          <iframe 
-            src="https://embeds.beehiiv.com/a98f31c0-4464-430b-885d-da8c41eab6f5?slim=true" 
-            data-test-id="beehiiv-embed" 
-            height="52" 
-            frameborder="0" 
-            scrolling="no" 
-            style="margin: 0; border-radius: 0px !important; background-color: transparent; width: 100%;"
+          <iframe
+            src="https://embeds.beehiiv.com/a98f31c0-4464-430b-885d-da8c41eab6f5?slim=true"
+            data-test-id="beehiiv-embed"
+            height="52"
+            title="Formulario de suscripción al newsletter"
+            style="margin: 0; border: none; border-radius: 0; background-color: transparent; width: 100%;"
           ></iframe>
         </div>
       </div>

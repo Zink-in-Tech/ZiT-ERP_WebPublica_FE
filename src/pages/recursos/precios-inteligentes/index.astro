@@ -1,0 +1,663 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+// Número de WhatsApp para CTA (vacío = solo prellenar mensaje)
+const WHATSAPP_CTA_NUMBER = '5491135598389';
+---
+
+<Layout title="Precios Inteligentes | Calculadora Markup y Margen | ZinkERP" description="Calculá precios correctamente: Markup vs Margen de contribución. Herramienta gratuita para comerciantes. Sin registro.">
+  <Header />
+  <main>
+    {/* Hero */}
+    <section class="pt-32 pb-20 relative">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-primary/30 blur-3xl"></div>
+        <div class="absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full bg-primary/30 blur-3xl"></div>
+      </div>
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
+            <span>🏷️</span>
+            Herramienta gratuita
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-on-scroll">Precios Inteligentes</h1>
+          <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+            Calculá tus precios de manera profesional. Entendé la diferencia entre Markup y Margen de contribución.
+          </p>
+          <ul class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
+            <li class="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-800/60 border border-dark-600/60">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+              <span class="text-gray-300">Markup o margen de contribución</span>
+            </li>
+            <li class="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-800/60 border border-dark-600/60">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+              <span class="text-gray-300">Monto fijo e impuesto % (opcionales)</span>
+            </li>
+            <li class="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-800/60 border border-dark-600/60">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+              <span class="text-gray-300">Hasta 6 listas por producto</span>
+            </li>
+            <li class="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-800/60 border border-dark-600/60">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+              <span class="text-gray-300">Descargá tu lista en CSV</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* 3 pasos */}
+    <section class="py-12 border-y border-dark-700">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="grid md:grid-cols-3 gap-8 md:gap-4">
+            <div class="flex flex-col items-center text-center group">
+              <span class="flex h-20 w-20 items-center justify-center rounded-full bg-primary/25 text-primary font-bold text-3xl mb-4 ring-2 ring-primary/30 shadow-xl transition-transform duration-300 group-hover:scale-110">1</span>
+              <p class="text-gray-300 font-medium">Configurá tus listas de precio</p>
+            </div>
+            <div class="flex flex-col items-center text-center group">
+              <span class="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-3xl mb-4 ring-2 ring-emerald-500/30 shadow-xl transition-transform duration-300 group-hover:scale-110">2</span>
+              <p class="text-gray-300 font-medium">Ingresá tus productos</p>
+            </div>
+            <div class="flex flex-col items-center text-center group">
+              <span class="flex h-20 w-20 items-center justify-center rounded-full bg-amber-500/20 text-amber-400 font-bold text-3xl mb-4 ring-2 ring-amber-500/30 shadow-xl transition-transform duration-300 group-hover:scale-110">3</span>
+              <p class="text-gray-300 font-medium">Descargá tu lista calculada</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Cómo se calcula (oculto hasta +INFO) */}
+    <section class="pb-6">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center">
+          <button type="button" id="toggleCalcInfo" class="text-sm text-gray-500 hover:text-primary transition-colors underline-offset-2 hover:underline" aria-expanded="false" aria-controls="calcInfoText">+INFO</button>
+          <p id="calcInfoText" class="text-sm text-gray-400 mt-3 hidden">
+            <span class="text-gray-500 font-medium">Cómo calculamos cada precio:</span>
+            partimos del costo y el margen (o markup) que definiste en cada tipo; a eso le sumamos el monto fijo y el impuesto % si los configuraste, y por último aplicamos el redondeo (ej. .99 o exacto).
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Herramienta */}
+    <section id="herramienta" class="pb-20">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto">
+          {/* 1. Configurar tipos de precio */}
+          <div class="mb-10">
+            <h2 class="text-2xl font-bold mb-1">1. Configurar tipos de precio</h2>
+            <p class="text-gray-400 text-sm mb-4">Definí cada tipo (Público, Mayorista, Efectivo, etc.) con su modo de cálculo, porcentaje y redondeo. Después cargá productos con su costo y se calcularán todos los precios.</p>
+            <div class="max-h-[380px] overflow-y-auto rounded-lg border border-dark-700 p-2 mb-4">
+              <div id="priceTypesList" class="space-y-3"></div>
+            </div>
+            <div class="flex flex-wrap items-center gap-3">
+              <button id="newPriceTypeBtn" type="button" class="px-4 py-2 bg-primary/20 text-primary hover:bg-primary/30 rounded-lg font-medium text-sm transition-colors">+ Nuevo tipo de precio</button>
+              <span id="priceTypeLimitHint" class="text-gray-500 text-sm">Máximo 6 tipos</span>
+            </div>
+          </div>
+
+          {/* 2. Productos */}
+          <div>
+            <h2 class="text-2xl font-bold mb-4">2. Productos y costos</h2>
+            <div class="bg-dark-800 rounded-xl p-4 border border-dark-700 mb-4 flex flex-wrap items-end gap-4">
+              <div class="flex-1 min-w-[120px]">
+                <label for="productCode" class="block text-sm font-medium text-gray-400 mb-1">Código</label>
+                <input type="text" id="productCode" placeholder="Opcional" class="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-sm focus:ring-2 focus:ring-primary" />
+              </div>
+              <div class="flex-[2] min-w-[180px]">
+                <label for="productDesc" class="block text-sm font-medium text-gray-400 mb-1">Descripción</label>
+                <input type="text" id="productDesc" placeholder="Ej. Producto A" class="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-sm focus:ring-2 focus:ring-primary" required />
+              </div>
+              <div class="w-28">
+                <label for="productCost" class="block text-sm font-medium text-gray-400 mb-1">Costo ($)</label>
+                <input type="number" id="productCost" min="0" step="0.01" value="0" class="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-sm text-right focus:ring-2 focus:ring-primary" />
+              </div>
+              <div class="flex items-center gap-2">
+                <button id="addProductBtn" type="button" class="px-4 py-2 bg-blue-primary hover:bg-blue-primary/90 rounded-lg font-medium text-sm">Agregar producto</button>
+                <input type="file" id="importCsvInput" accept=".csv" class="hidden" />
+                <div class="relative inline-flex items-center gap-1.5 group">
+                  <button id="importCsvBtn" type="button" class="px-4 py-2 border border-dark-600 hover:border-primary/50 rounded-lg font-medium text-sm transition-colors">Importar CSV</button>
+                  <span
+                    tabindex="0"
+                    role="button"
+                    aria-describedby="importCsvTooltip"
+                    class="cursor-help text-gray-400 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full text-sm"
+                  >ⓘ</span>
+                  <span
+                    id="importCsvTooltip"
+                    role="tooltip"
+                    class="absolute bottom-full left-0 mb-1 px-3 py-2 text-xs text-gray-200 bg-dark-700 border border-dark-600 rounded-lg shadow-xl whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 pointer-events-none"
+                  >Columnas esperadas: <strong>codigo</strong>, <strong>descripcion</strong>, <strong>costo</strong></span>
+                </div>
+              </div>
+            </div>
+            <p id="importCsvMessage" class="text-sm mb-3 hidden"></p>
+
+          {/* 3. Descargá tu lista calculada */}
+          <div class="mt-10">
+            <h2 class="text-2xl font-bold mb-4">3. Descargá tu lista calculada</h2>
+            <p class="text-gray-400 text-sm mb-4">Revisá los precios por tipo y descargá el CSV cuando estés listo.</p>
+            <div class="bg-dark-800 rounded-xl p-6 border border-dark-700">
+              <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+                <h3 class="text-lg font-bold">Tu lista con precios calculados</h3>
+                <button id="exportBtn" type="button" class="px-3 py-1.5 text-sm border border-dark-600 hover:border-primary/50 rounded-lg transition-colors">Exportar CSV</button>
+              </div>
+              <div class="max-h-[min(60vh,480px)] overflow-auto rounded-lg border border-dark-700">
+                <table class="w-full min-w-[500px]">
+                  <thead class="sticky top-0 z-10 bg-dark-800">
+                    <tr class="border-b border-dark-600 text-left text-sm text-gray-400" id="productTableHead">
+                      <th class="py-3 pr-2 w-24">Código</th>
+                      <th class="py-3 px-2">Descripción</th>
+                      <th class="py-3 px-2 w-24 text-right">Costo</th>
+                      <th class="py-3 pl-2 w-10"></th>
+                    </tr>
+                  </thead>
+                  <tbody id="productList">
+                    <tr id="emptyRow" class="border-b border-dark-600">
+                      <td colspan="4" class="py-8 text-center text-gray-500">No hay productos. Agregá productos con su costo arriba.</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <p class="text-gray-500 text-sm mt-4 mb-0">
+                <button id="clearDataBtn" type="button" class="text-amber-400/90 hover:text-amber-400 font-medium underline-offset-2 hover:underline">Limpiar</button>
+                <span class="text-gray-500"> — Borrar tipos y productos para empezar de cero</span>
+              </p>
+            </div>
+          </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    {/* Modal post-descarga CTA WhatsApp */}
+    <div id="postDownloadModal" class="fixed inset-0 z-50 hidden" aria-modal="true" aria-labelledby="postDownloadTitle">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-md" id="postDownloadOverlay"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div class="bg-dark-800 rounded-2xl p-8 max-w-md w-full border border-dark-600 shadow-2xl">
+          <div class="flex justify-center mb-4">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/20 text-green-400" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+              </svg>
+            </span>
+          </div>
+          <h3 id="postDownloadTitle" class="text-xl font-bold text-center mb-2">Listo, tu listado se descargó</h3>
+          <p class="text-gray-300 text-center text-sm leading-relaxed mb-1">Descargá el CSV y, si querés, contanos qué tal te fue. Nos ayuda a mejorar la herramienta.</p>
+          <p class="text-gray-400 text-center text-sm leading-relaxed mb-6">Te podemos abrir WhatsApp con un mensaje listo para enviar.</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a id="whatsappCtaBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 px-5 py-3 bg-green-600 hover:bg-green-500 rounded-xl font-medium transition-colors shrink-0">Abrir WhatsApp</a>
+            <button type="button" id="postDownloadClose" class="px-5 py-3 text-gray-300 border border-dark-500 hover:bg-dark-700 rounded-xl transition-colors">Ahora no</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Modal lista vacía */}
+    <div id="emptyListModal" class="fixed inset-0 z-50 hidden" aria-modal="true" aria-labelledby="emptyListTitle">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-md" id="emptyListOverlay"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div class="bg-dark-800 rounded-2xl p-8 max-w-md w-full border border-dark-600 shadow-2xl">
+          <div class="flex justify-center mb-4">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+            </span>
+          </div>
+          <h3 id="emptyListTitle" class="text-xl font-bold text-center mb-2">Este tipo de precio está vacío</h3>
+          <p class="text-gray-300 text-center text-sm leading-relaxed mb-1">Configurá tipos de precio arriba, agregá productos con descripción y costo, y luego exportá.</p>
+          <p class="text-gray-400 text-center text-sm leading-relaxed mb-6">Si querés ayuda para armar tus primeros precios (p. ej. Público, Mayorista), te abrimos WhatsApp con un mensaje listo.</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a id="whatsappEmptyBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 px-5 py-3 bg-green-600 hover:bg-green-500 rounded-xl font-medium transition-colors shrink-0">Abrir WhatsApp</a>
+            <button type="button" id="emptyListClose" class="px-5 py-3 text-gray-300 border border-dark-500 hover:bg-dark-700 rounded-xl transition-colors">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* CTA final */}
+    <section class="py-20 bg-dark-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-2xl font-bold mb-4">¿Querés integrar precios con tu ERP?</h2>
+          <p class="text-gray-300 mb-6">En ZinkERP podés cargar listas de precios, costos y márgenes directamente en el sistema.</p>
+          <a href="/precios" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-primary hover:bg-blue-primary/90 rounded-lg font-medium transition-colors">Ver planes</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+
+  <script define:vars={{ WHATSAPP_CTA_NUMBER }}>
+    const STORAGE_KEY = 'precios-inteligentes-v3';
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { priceTypes: [], products: [] };
+        const data = JSON.parse(raw);
+        if (!data.priceTypes || !Array.isArray(data.priceTypes)) data.priceTypes = [];
+        if (!data.products || !Array.isArray(data.products)) data.products = [];
+        return data;
+      } catch {
+        return { priceTypes: [], products: [] };
+      }
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    // Orden: 1) PrecioBase 2) + F 3) × (1+t) 4) redondeo
+    function calcularPrecio(item, listMode, redondeo) {
+      const C = parseFloat(item.cost) || 0;
+      const p = (parseFloat(item.percent) || 0) / 100;
+      const F = parseFloat(item.fixedAmount) || 0;
+      const t = (parseFloat(item.taxPercent) || 0) / 100;
+      redondeo = redondeo || item.redondeo || 'none';
+
+      if (C <= 0) return { base: 0, afterFixed: 0, afterTax: 0, final: 0 };
+      if (listMode === 'margen' && p >= 1) return { base: 0, afterFixed: 0, afterTax: 0, final: 0 };
+
+      const base = listMode === 'markup' ? C * (1 + p) : C / (1 - p);
+      const afterFixed = base + F;
+      const afterTax = afterFixed * (1 + t);
+      let final = afterTax;
+      if (redondeo === '99') final = Math.floor(afterTax) + 0.99;
+      else if (redondeo === '90') final = Math.floor(afterTax) + 0.90;
+      else if (redondeo === '95') final = Math.floor(afterTax) + 0.95;
+      else if (redondeo === '00') final = Math.round(afterTax);
+      return { base, afterFixed, afterTax, final };
+    }
+
+    function calcularPrecioFromType(product, priceType) {
+      const item = {
+        cost: parseFloat(product.cost) || 0,
+        percent: priceType.percent || 0,
+        fixedAmount: priceType.fixedAmount || 0,
+        taxPercent: priceType.taxPercent || 0,
+        redondeo: priceType.redondeo || 'none'
+      };
+      return calcularPrecio(item, priceType.mode || 'margen', priceType.redondeo || 'none');
+    }
+
+    function formatPrice(n) {
+      return new Intl.NumberFormat('es-AR', { style: 'currency', currency: 'ARS', minimumFractionDigits: 2 }).format(n);
+    }
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      const div = document.createElement('div');
+      div.textContent = String(s);
+      return div.innerHTML;
+    }
+
+    const DEFAULT_TYPE_NAMES = ['Público', 'Mayorista', 'Efectivo', 'Otro 1', 'Otro 2'];
+    const MAX_PRICE_TYPES = 6;
+
+    function renderPriceTypes() {
+      const data = loadData();
+      const container = document.getElementById('priceTypesList');
+      container.innerHTML = data.priceTypes.map((pt, i) => `
+        <div class="price-type-card bg-dark-800 rounded-xl p-4 border border-dark-600 flex flex-wrap items-end gap-3" data-index="${i}">
+          <div class="min-w-[120px]">
+            <label class="block text-xs text-gray-500 mb-1">Nombre</label>
+            <input type="text" class="pt-name w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded text-sm" value="${escapeHtml(pt.name)}" placeholder="Ej. Público" />
+          </div>
+          <div class="w-40">
+            <label class="block text-xs text-gray-500 mb-1">Modo</label>
+            <select class="pt-mode w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded text-sm">
+              <option value="margen" ${pt.mode === 'margen' ? 'selected' : ''}>Margen</option>
+              <option value="markup" ${pt.mode === 'markup' ? 'selected' : ''}>Markup</option>
+            </select>
+          </div>
+          <div class="w-20">
+            <label class="block text-xs text-gray-500 mb-1">%</label>
+            <input type="number" class="pt-percent w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded text-sm text-right" min="0" max="99.99" step="0.5" value="${pt.percent ?? 0}" />
+          </div>
+          <div class="w-24">
+            <label class="block text-xs text-gray-500 mb-1">Fijo ($)</label>
+            <input type="number" class="pt-fixed w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded text-sm text-right" min="0" step="0.01" value="${pt.fixedAmount ?? 0}" />
+          </div>
+          <div class="w-20">
+            <label class="block text-xs text-gray-500 mb-1">Imp.%</label>
+            <input type="number" class="pt-tax w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded text-sm text-right" min="0" max="100" step="0.5" value="${pt.taxPercent ?? 0}" />
+          </div>
+          <div class="w-32">
+            <label class="block text-xs text-gray-500 mb-1">Redondeo</label>
+            <select class="pt-redondeo w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded text-sm">
+              <option value="none" ${(pt.redondeo || 'none') === 'none' ? 'selected' : ''}>Exacto</option>
+              <option value="99" ${pt.redondeo === '99' ? 'selected' : ''}>.99</option>
+              <option value="90" ${pt.redondeo === '90' ? 'selected' : ''}>.90</option>
+              <option value="95" ${pt.redondeo === '95' ? 'selected' : ''}>.95</option>
+              <option value="00" ${pt.redondeo === '00' ? 'selected' : ''}>Entero</option>
+            </select>
+          </div>
+          <button type="button" class="pt-delete px-2 py-2 text-gray-400 hover:text-red-400 rounded" aria-label="Eliminar tipo">✕</button>
+        </div>
+      `).join('');
+
+      container.querySelectorAll('.price-type-card').forEach(card => {
+        const i = parseInt(card.dataset.index, 10);
+        const data = loadData();
+        ['name', 'mode', 'percent', 'fixedAmount', 'taxPercent', 'redondeo'].forEach(field => {
+          const cls = field === 'fixedAmount' ? 'pt-fixed' : field === 'taxPercent' ? 'pt-tax' : 'pt-' + field;
+          const el = card.querySelector('.' + cls);
+          if (!el) return;
+          el.addEventListener('change', () => {
+            const d = loadData();
+            const t = d.priceTypes[i];
+            if (field === 'percent' || field === 'fixedAmount' || field === 'taxPercent') t[field] = parseFloat(el.value) || 0;
+            else t[field] = (el.value || '').trim();
+            saveData(d);
+            renderPriceTypes();
+            renderProductTable();
+          });
+        });
+        card.querySelector('.pt-delete').addEventListener('click', () => {
+          const d = loadData();
+          d.priceTypes.splice(i, 1);
+          saveData(d);
+          renderPriceTypes();
+          renderProductTable();
+        });
+      });
+
+      const btn = document.getElementById('newPriceTypeBtn');
+      const hint = document.getElementById('priceTypeLimitHint');
+      if (data.priceTypes.length >= MAX_PRICE_TYPES) {
+        btn.disabled = true;
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+        if (hint) { hint.classList.remove('text-gray-500'); hint.classList.add('text-amber-400'); }
+      } else {
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+        if (hint) { hint.classList.add('text-gray-500'); hint.classList.remove('text-amber-400'); }
+      }
+    }
+
+    function renderProductTable() {
+      const data = loadData();
+      const thead = document.getElementById('productTableHead');
+      const tbody = document.getElementById('productList');
+      const types = data.priceTypes;
+      const products = data.products;
+      const colCount = 3 + types.length + 1;
+
+      thead.innerHTML = `
+        <th class="py-3 pr-2 w-24">Código</th>
+        <th class="py-3 px-2">Descripción</th>
+        <th class="py-3 px-2 w-24 text-right">Costo</th>
+        ${types.map(t => `<th class="py-3 px-2 w-24 text-right text-primary">${escapeHtml(t.name)}</th>`).join('')}
+        <th class="py-3 pl-2 w-10"></th>
+      `;
+
+      if (products.length === 0) {
+        tbody.innerHTML = `<tr id="emptyRow" class="border-b border-dark-600"><td colspan="${colCount}" class="py-8 text-center text-gray-500">No hay productos. Agregá productos con su costo arriba.</td></tr>`;
+        return;
+      }
+
+      const rows = products.map((product, i) => {
+        const prices = types.map(t => {
+          const { final } = calcularPrecioFromType(product, t);
+          return formatPrice(final);
+        });
+        return `
+          <tr class="border-b border-dark-600 product-row" data-index="${i}">
+            <td class="py-2 pr-2"><input type="text" value="${escapeHtml(product.code || '')}" class="product-code w-full px-2 py-1.5 bg-dark-700 border border-dark-600 rounded text-sm" placeholder="—" /></td>
+            <td class="py-2 px-2"><input type="text" value="${escapeHtml(product.description || '')}" class="product-desc w-full px-2 py-1.5 bg-dark-700 border border-dark-600 rounded text-sm" placeholder="Descripción" /></td>
+            <td class="py-2 px-2"><input type="number" min="0" step="0.01" value="${product.cost}" class="product-cost w-full px-2 py-1.5 bg-dark-700 border border-dark-600 rounded text-sm text-right" /></td>
+            ${prices.map(p => `<td class="py-2 px-2 text-right font-medium text-primary">${p}</td>`).join('')}
+            <td class="py-2 pl-2"><button type="button" class="delete-product p-1 text-gray-400 hover:text-red-400 rounded" aria-label="Eliminar">✕</button></td>
+          </tr>
+        `;
+      }).join('');
+      tbody.innerHTML = rows;
+
+      tbody.querySelectorAll('.delete-product').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const i = parseInt(btn.closest('.product-row').dataset.index, 10);
+          const d = loadData();
+          d.products.splice(i, 1);
+          saveData(d);
+          renderProductTable();
+        });
+      });
+      ['code', 'description', 'cost'].forEach(field => {
+        const cls = 'product-' + field;
+        const prop = field;
+        tbody.querySelectorAll('.' + cls).forEach((el, i) => {
+          el.addEventListener('change', () => {
+            const d = loadData();
+            const p = d.products[i];
+            p[prop] = prop === 'cost' ? (parseFloat(el.value) || 0) : el.value.trim();
+            saveData(d);
+            renderProductTable();
+          });
+        });
+      });
+    }
+
+    function buildWhatsAppUrl(text) {
+      const encoded = encodeURIComponent(text);
+      const base = (typeof WHATSAPP_CTA_NUMBER === 'string' && WHATSAPP_CTA_NUMBER.trim()) ? `https://wa.me/${WHATSAPP_CTA_NUMBER.trim()}?text=` : 'https://wa.me/?text=';
+      return base + encoded;
+    }
+
+    function showPostDownloadModal(count) {
+      const message = `Hola! Descargué el CSV de Precios Inteligentes (${count} productos, varios tipos de precio). Quería contarte cómo me fue:`;
+      document.getElementById('whatsappCtaBtn').href = buildWhatsAppUrl(message);
+      document.getElementById('postDownloadModal').classList.remove('hidden');
+    }
+
+    function showEmptyListModal() {
+      const message = 'Hola! Estoy usando la herramienta Precios Inteligentes de ZinkERP y me gustaría ayuda para armar mis tipos de precio y productos.';
+      document.getElementById('whatsappEmptyBtn').href = buildWhatsAppUrl(message);
+      document.getElementById('emptyListModal').classList.remove('hidden');
+    }
+
+    document.getElementById('clearDataBtn').addEventListener('click', () => {
+      if (!confirm('¿Borrar todos los tipos de precio y productos? Empezarás de cero.')) return;
+      saveData({ priceTypes: [], products: [] });
+      renderPriceTypes();
+      renderProductTable();
+    });
+
+    document.getElementById('newPriceTypeBtn').addEventListener('click', () => {
+      const data = loadData();
+      if (data.priceTypes.length >= MAX_PRICE_TYPES) return;
+      const idx = data.priceTypes.length;
+      data.priceTypes.push({
+        id: 'pt_' + Date.now(),
+        name: DEFAULT_TYPE_NAMES[idx] || 'Tipo ' + (idx + 1),
+        mode: 'margen',
+        percent: 40,
+        fixedAmount: 0,
+        taxPercent: 0,
+        redondeo: 'none'
+      });
+      saveData(data);
+      renderPriceTypes();
+      renderProductTable();
+    });
+
+    function parseCSVLine(line, sep) {
+      const fields = [];
+      let i = 0;
+      while (i < line.length) {
+        if (line[i] === '"') {
+          let val = '';
+          i++;
+          while (i < line.length) {
+            if (line[i] === '"') {
+              i++;
+              if (line[i] === '"') { val += '"'; i++; } else break;
+            } else { val += line[i]; i++; }
+          }
+          fields.push(val);
+        } else {
+          let val = '';
+          while (i < line.length && line[i] !== sep) { val += line[i]; i++; }
+          fields.push(val.trim());
+          if (i < line.length) i++;
+        }
+      }
+      return fields;
+    }
+
+    function parseCSV(text) {
+      text = text.replace(/^\uFEFF/, '');
+      const lines = text.split(/\r?\n/).map(l => l.trim()).filter(Boolean);
+      if (lines.length === 0) return [];
+      const sep = lines[0].includes(';') ? ';' : ',';
+      const rawRows = lines.map(l => l.includes('"') ? parseCSVLine(l, sep) : l.split(sep).map(s => s.trim()));
+      const headers = rawRows[0].map(h => String(h).toLowerCase().normalize('NFD').replace(/\p{Diacritic}/gu, ''));
+      const codeIdx = headers.findIndex(h => /codigo|code/.test(h));
+      const descIdx = headers.findIndex(h => /descripcion|description|nombre|producto/.test(h));
+      const costIdx = headers.findIndex(h => /costo|cost|precio_base|precio base/.test(h));
+      const iCode = codeIdx >= 0 ? codeIdx : 0;
+      const iDesc = descIdx >= 0 ? descIdx : (codeIdx >= 0 ? 1 : 1);
+      const iCost = costIdx >= 0 ? costIdx : 2;
+      const products = [];
+      for (let r = 1; r < rawRows.length; r++) {
+        const row = rawRows[r];
+        const desc = (row[iDesc] || '').trim();
+        if (!desc) continue;
+        const cost = parseFloat(String(row[iCost] || '0').replace(',', '.')) || 0;
+        products.push({ code: (row[iCode] || '').trim(), description: desc, cost });
+      }
+      return products;
+    }
+
+    document.getElementById('importCsvBtn').addEventListener('click', () => document.getElementById('importCsvInput').click());
+    document.getElementById('importCsvInput').addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      e.target.value = '';
+      const msgEl = document.getElementById('importCsvMessage');
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onerror = () => {
+        msgEl.textContent = 'No se pudo leer el archivo.';
+        msgEl.classList.remove('hidden', 'text-primary');
+        msgEl.classList.add('text-amber-400');
+      };
+      reader.onload = () => {
+        try {
+          const rows = parseCSV(reader.result);
+          if (rows.length === 0) {
+            msgEl.textContent = 'El CSV no tiene filas con datos o las columnas no se reconocieron. Usá encabezados: codigo, descripcion, costo.';
+            msgEl.classList.remove('hidden', 'text-primary');
+            msgEl.classList.add('text-amber-400');
+            return;
+          }
+          const data = loadData();
+          rows.forEach((r, idx) => {
+            data.products.push({
+              id: 'p_' + Date.now() + '_' + idx + '_' + Math.random().toString(36).slice(2),
+              code: r.code,
+              description: r.description,
+              cost: r.cost
+            });
+          });
+          saveData(data);
+          renderProductTable();
+          msgEl.textContent = 'Se importaron ' + rows.length + ' producto' + (rows.length === 1 ? '' : 's') + '.';
+          msgEl.classList.remove('hidden', 'text-amber-400');
+          msgEl.classList.add('text-primary');
+          setTimeout(() => { msgEl.classList.add('hidden'); }, 4000);
+        } catch (err) {
+          msgEl.textContent = 'Error al leer el CSV. Revisá que tenga columnas codigo, descripcion y costo.';
+          msgEl.classList.remove('hidden', 'text-primary');
+          msgEl.classList.add('text-amber-400');
+        }
+      };
+      reader.readAsText(file, 'UTF-8');
+    });
+
+    document.getElementById('addProductBtn').addEventListener('click', () => {
+      const desc = document.getElementById('productDesc').value.trim();
+      const cost = parseFloat(document.getElementById('productCost').value) || 0;
+      if (!desc) {
+        document.getElementById('productDesc').focus();
+        return;
+      }
+      const data = loadData();
+      data.products.push({
+        id: 'p_' + Date.now() + '_' + Math.random().toString(36).slice(2),
+        code: document.getElementById('productCode').value.trim(),
+        description: desc,
+        cost
+      });
+      saveData(data);
+      document.getElementById('productCode').value = '';
+      document.getElementById('productDesc').value = '';
+      document.getElementById('productCost').value = '0';
+      renderProductTable();
+    });
+
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const data = loadData();
+      if (data.products.length === 0) {
+        showEmptyListModal();
+        return;
+      }
+      function toCSVNum(n) { return (typeof n === 'number' ? n : parseFloat(n) || 0).toFixed(2); }
+      const headers = ['codigo', 'descripcion', 'costo'].concat(data.priceTypes.map(t => (t.name || 'precio').replace(/[^a-zA-Z0-9-_]/g, '_')));
+      const rows = [
+        headers.join(','),
+        ...data.products.map(p => {
+          const cells = [p.code || '', p.description || '', toCSVNum(p.cost)];
+          data.priceTypes.forEach(t => {
+            const { final } = calcularPrecioFromType(p, t);
+            cells.push(toCSVNum(final));
+          });
+          return cells.map(cell => `"${String(cell).replace(/"/g, '""')}"`).join(',');
+        })
+      ];
+      const BOM = '\uFEFF';
+      const blob = new Blob([BOM + rows.join('\n')], { type: 'text/csv;charset=utf-8' });
+      const today = new Date().toISOString().slice(0, 10);
+      const filename = `precios-inteligentes__${today}.csv`;
+
+      showPostDownloadModal(data.products.length);
+      setTimeout(() => {
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = filename;
+        a.click();
+        URL.revokeObjectURL(url);
+      }, 5000);
+    });
+
+    document.getElementById('postDownloadOverlay').addEventListener('click', () => document.getElementById('postDownloadModal').classList.add('hidden'));
+    document.getElementById('postDownloadClose').addEventListener('click', () => document.getElementById('postDownloadModal').classList.add('hidden'));
+    document.getElementById('emptyListOverlay').addEventListener('click', () => document.getElementById('emptyListModal').classList.add('hidden'));
+    document.getElementById('emptyListClose').addEventListener('click', () => document.getElementById('emptyListModal').classList.add('hidden'));
+
+    [document.getElementById('whatsappCtaBtn'), document.getElementById('whatsappEmptyBtn')].forEach(btn => {
+      if (!btn) return;
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (btn.href && btn.href !== '#') window.open(btn.href, '_blank', 'noopener,noreferrer');
+      });
+    });
+
+    document.getElementById('toggleCalcInfo')?.addEventListener('click', () => {
+      const btn = document.getElementById('toggleCalcInfo');
+      const el = document.getElementById('calcInfoText');
+      if (!el || !btn) return;
+      const isHidden = el.classList.toggle('hidden');
+      btn.textContent = isHidden ? '+INFO' : '−INFO';
+      btn.setAttribute('aria-expanded', String(!isHidden));
+    });
+
+    renderPriceTypes();
+    renderProductTable();
+  </script>
+</Layout>
