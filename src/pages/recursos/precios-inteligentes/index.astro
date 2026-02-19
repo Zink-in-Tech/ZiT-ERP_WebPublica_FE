@@ -6,7 +6,7 @@ import Footer from '../../../components/Footer.astro';
 const WHATSAPP_CTA_NUMBER = '5491135598389';
 ---
 
-<Layout title="Precios Inteligentes | Calculadora Markup y Margen | ZinkERP" description="Calculá precios correctamente: Markup vs Margen de contribución. Herramienta gratuita para comerciantes. Sin registro.">
+<Layout title="Calculadora de Markup y Margen de Contribución | Precios Inteligentes | ZinkERP" description="Fórmula de markup y fórmula de margen de contribución. Calculadora gratuita de precios para comercios. Sin registro. Herramienta de ZinkERP.">
   <Header />
   <main>
     {/* Hero */}
@@ -47,6 +47,35 @@ const WHATSAPP_CTA_NUMBER = '5491135598389';
       </div>
     </section>
 
+    {/* Encabezado educativo: Markup y margen de contribución */}
+    <section class="py-12 border-y border-dark-700">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold mb-4">Markup y margen de contribución: qué son y cómo se calculan</h2>
+          <p class="text-gray-300 mb-4">
+            El <strong>markup</strong> es el porcentaje que sumás sobre el costo para obtener el precio de venta. El <strong>margen de contribución</strong> (o margen sobre venta) es el porcentaje del precio de venta que es ganancia (el resto es costo). No son lo mismo: un markup del 40% no equivale a un margen del 40%. Para calcular el precio de venta a partir del costo usás una u otra fórmula según lo que quieras fijar.
+          </p>
+          <p class="text-gray-300 mb-4">
+            Muchos comercios usan <strong>markup</strong> por simplicidad. El <strong>margen de contribución</strong> sirve cuando querés definir la ganancia como porcentaje del precio final: si querés que el 40% del precio sea ganancia, usás margen (y el precio resultante será más alto que con un markup del 40%). Ambas opciones están en esta calculadora para que armes tu lista de precios como prefieras.
+          </p>
+          <h3 class="text-lg font-bold mb-3">Fórmulas de markup y margen</h3>
+          <div class="bg-dark-800 rounded-xl p-5 border border-dark-600 mb-4">
+            <p class="text-gray-300 text-sm mb-2 font-medium">Fórmula de precio con markup y fórmula de margen que aplicamos en esta herramienta:</p>
+            <ul class="text-gray-300 text-sm space-y-2">
+              <li><strong>Precio con markup</strong> = Costo × (1 + % markup). Ej.: costo $100, markup 40% → $100 × 1,40 = $140.</li>
+              <li><strong>Precio con margen de contribución</strong> = Costo ÷ (1 − % margen). Ej.: costo $100, margen 40% → $100 ÷ 0,60 ≈ $166,67.</li>
+            </ul>
+            <p class="text-gray-400 text-sm mt-3">
+              Además podés sumar monto fijo, aplicar impuesto % y redondeo (ej. .99). Todo se calcula automáticamente.
+            </p>
+          </div>
+          <p class="text-gray-400 text-sm">
+            En <a href="https://zinkerp.com" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">ZinkERP</a> podés usar listas de precio y facturación con estos mismos criterios para tu negocio o comercio.
+          </p>
+        </div>
+      </div>
+    </section>
+
     {/* 3 pasos */}
     <section class="py-12 border-y border-dark-700">
       <div class="container mx-auto px-4">
@@ -74,10 +103,15 @@ const WHATSAPP_CTA_NUMBER = '5491135598389';
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center">
           <button type="button" id="toggleCalcInfo" class="text-sm text-gray-500 hover:text-primary transition-colors underline-offset-2 hover:underline" aria-expanded="false" aria-controls="calcInfoText">+INFO</button>
-          <p id="calcInfoText" class="text-sm text-gray-400 mt-3 hidden">
-            <span class="text-gray-500 font-medium">Cómo calculamos cada precio:</span>
-            partimos del costo y el margen (o markup) que definiste en cada tipo; a eso le sumamos el monto fijo y el impuesto % si los configuraste, y por último aplicamos el redondeo (ej. .99 o exacto).
-          </p>
+          <div id="calcInfoText" class="text-sm text-gray-400 mt-3 hidden text-left max-w-2xl mx-auto">
+            <p class="text-gray-500 font-medium mb-2">Cómo calculamos cada precio:</p>
+            <ul class="list-disc list-inside space-y-1 text-gray-400">
+              <li><strong>Con markup:</strong> precio base = costo × (1 + %).</li>
+              <li><strong>Con margen:</strong> precio base = costo ÷ (1 − %).</li>
+              <li>Luego sumamos monto fijo, aplicamos impuesto % y redondeo (.99, .90, .95 o exacto).</li>
+            </ul>
+            <p class="mt-2"><a href="https://zinkerp.com" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">Más en ZinkERP</a></p>
+          </div>
         </div>
       </div>
     </section>
