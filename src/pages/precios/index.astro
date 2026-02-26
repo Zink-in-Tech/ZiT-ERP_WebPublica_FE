@@ -21,13 +21,13 @@ const plans = [
     features: [
       "Usuarios ilimitados",
       "Módulos base",
-      "Facturación hasta USD 15.000/mes",
+      "Facturación hasta USD 15.000/mes en ventas",
       "1 sede",
       "Facturante y MercadoPago incluidos",
     ],
     cta: "Empezar con 50% OFF",
     hasPromo: true,
-    billingLimit: "USD 15.000 mensuales",
+    billingLimit: "USD 15.000/mes en ventas",
     fiscalLimit: "hasta 500 comprobantes fiscales/mes"
   },
   {
@@ -42,7 +42,7 @@ const plans = [
     features: [
       "Usuarios ilimitados",
       "Módulos base",
-      "Facturación hasta USD 40.000/mes",
+      "Facturación hasta USD 40.000/mes en ventas",
       "1 sede",
       "Todas las integraciones",
       "Soporte por WhatsApp y email",
@@ -50,7 +50,7 @@ const plans = [
     ],
     cta: "Elegir Plan Pyme",
     popular: true,
-    billingLimit: "USD 40.000 mensuales",
+    billingLimit: "Hasta USD 40.000/mes en ventas",
     fiscalLimit: "hasta 1.500 comprobantes fiscales/mes"
   },
   {
@@ -65,7 +65,7 @@ const plans = [
     features: [
       "Usuarios ilimitados",
       "Módulos base + opcionales",
-      "Sin límite de facturación",
+      "Hasta USD 100.000/mes en ventas",
       "1 sucursal bonificada por 6 meses",
       "Plan específico para cada sucursal adicional",
       "Todas las integraciones",
@@ -74,7 +74,7 @@ const plans = [
       "Seguridad avanzada"
     ],
     cta: "Elegir Plan Escala",
-    billingLimit: "Sin límite de facturación",
+    billingLimit: "Hasta USD 100.000/mes",
     fiscalLimit: "hasta 4.500 comprobantes fiscales/mes",
     hasHeader: true,
     headerText: "Ideal si tenés más de una sucursal de venta"
@@ -253,7 +253,7 @@ const includedFeatures = [
                   <div class="p-4 bg-dark-600/50 rounded-lg">
                     <p class="text-sm font-medium text-gray-300">
                       Límite de facturación:
-                      <span class="block text-white mt-1">{plan.billingLimit}</span>
+                    <span class="block text-white mt-1">{plan.billingLimit}</span>
                     </p>
                   </div>
                   <div class="p-4 bg-dark-600/50 rounded-lg">
@@ -294,7 +294,7 @@ const includedFeatures = [
         
         <div class="max-w-6xl mx-auto mt-8">
           <p class="text-center text-sm text-gray-400">
-            Para operaciones que superen los 4.500 comprobantes fiscales mensuales por sede, consultar por el Plan Enterprise Fiscal.
+            Para operaciones que superen los 4.500 comprobantes fiscales o los USD 100.000 mensuales en ventas por sede, consultar por el Plan Enterprise Fiscal.
           </p>
         </div>
       </div>
