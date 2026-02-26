@@ -11,7 +11,7 @@ interface Props {
 const { 
   title, 
   description = "ZinkERP: El ERP operativo que piensa como vos. Simple, rápido y hecho para crecer. Ideal para negocios con una o múltiples sucursales.",
-  image = "https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg"
+  image = "https://zinkerp.com/img/og-hero-zinkerp.png"
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -47,7 +47,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           url: canonicalURL,
         },
         image: {
-          alt: "ZinkERP Dashboard Screenshot",
+          alt: "ZinkERP: Controlá tu negocio. Desde una sucursal o veinte.",
         },
       }}
       twitter={{
@@ -60,7 +60,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       }}
       extend={{
         meta: [
-          { name: "twitter:image:alt", content: "ZinkERP Dashboard Screenshot" },
+          { name: "twitter:image:alt", content: "ZinkERP: Controlá tu negocio. Desde una sucursal o veinte." },
           { name: "theme-color", content: "#7500B9" },
         ],
         link: [
