@@ -672,7 +672,7 @@ const WHATSAPP_CTA_NUMBER = '5491135598389';
       const csvContent = BOM + [headerRow, ...dataRows].join('\r\n');
       const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
       const today = new Date().toISOString().slice(0, 10);
-      const filename = `precios-inteligentes__${today}.csv`;
+      const filename = `ZinkERP-precios-inteligentes-${today}.csv`;
 
       showPostDownloadModal(data.products.length);
       setTimeout(() => {
