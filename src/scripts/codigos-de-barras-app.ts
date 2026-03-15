@@ -6,6 +6,9 @@ const MAX_PDF = 50;
 const MAX_PREVIEW = 15;
 const DESC_MAX = 28;
 const MARCA_TEXTO = 'Creado con Zink ERP - zinkerp.com';
+const SNACKBAR_DURATION_MS = 8000;
+
+const snackbarTimeouts: Record<string, ReturnType<typeof setTimeout>> = {};
 
 function getWhatsAppCtaNumber(): string {
   const el = document.getElementById('herramienta');
@@ -62,11 +65,20 @@ function truncarDesc(s: string | undefined, max: number): string {
 function showMsg(elId: string, text: string, isError: boolean): void {
   const el = document.getElementById(elId);
   if (!el) return;
+  if (snackbarTimeouts[elId]) {
+    clearTimeout(snackbarTimeouts[elId]);
+    delete snackbarTimeouts[elId];
+  }
   el.textContent = text;
   el.classList.remove('hidden');
   el.classList.toggle('text-primary', !isError);
   el.classList.toggle('text-amber-400', isError);
-  if (!isError) setTimeout(() => el.classList.add('hidden'), 4000);
+  if (!isError) {
+    snackbarTimeouts[elId] = setTimeout(() => {
+      el.classList.add('hidden');
+      delete snackbarTimeouts[elId];
+    }, SNACKBAR_DURATION_MS);
+  }
 }
 
 function parseCSVLine(line: string, sep: string): string[] {
@@ -198,7 +210,7 @@ function generarPdf(
     }
   }
 
-  pdf.save(`etiquetas-codigos-barras-${new Date().toISOString().slice(0, 10)}.pdf`);
+  pdf.save(`ZinkERP-etiquetas-codigos-barras-${new Date().toISOString().slice(0, 10)}.pdf`);
 }
 
 function renderList(): void {
@@ -397,7 +409,7 @@ function init(): void {
     const blob = new Blob([content], { type: 'text/csv;charset=utf-8' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);
-    a.download = 'plantilla-codigos-barras.csv';
+    a.download = 'ZinkERP-plantilla-codigos-barras.csv';
     a.click();
     URL.revokeObjectURL(a.href);
   });
