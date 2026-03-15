@@ -5,6 +5,13 @@
 [build.environment]
   NODE_VERSION = "18"
 
+# Redirección canónica: www y variantes a https://zinkerp.com (evita caché duplicada en redes)
+[[redirects]]
+  from = "https://www.zinkerp.com/*"
+  to = "https://zinkerp.com/:splat"
+  status = 301
+  force = true
+
 # Bloquear archivos PHP maliciosos con 403 Forbidden
 [[redirects]]
   from = "/*.php"

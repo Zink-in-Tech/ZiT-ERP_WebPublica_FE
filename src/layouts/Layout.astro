@@ -60,6 +60,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       }}
       extend={{
         meta: [
+          { property: "og:image:secure_url", content: image },
           { name: "twitter:image:alt", content: "ZinkERP: Controlá tu negocio. Desde una sucursal o veinte." },
           { name: "theme-color", content: "#7500B9" },
         ],
