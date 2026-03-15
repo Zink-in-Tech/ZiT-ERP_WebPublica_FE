@@ -415,6 +415,15 @@ function init(): void {
   });
 
   const DELAY_DESCARGA_MS = 5000; // misma demora que en precios inteligentes
+  let downloadTimeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  function closePostDownloadModal(): void {
+    if (downloadTimeoutId !== null) {
+      clearTimeout(downloadTimeoutId);
+      downloadTimeoutId = null;
+    }
+    document.getElementById('postDownloadModal')?.classList.add('hidden');
+  }
 
   document.getElementById('btnDescargarPdf')?.addEventListener('click', () => {
     const list = loadList();
@@ -432,7 +441,8 @@ function init(): void {
     }
     showMsg('msgPdf', 'Preparando PDF... se descargará en unos segundos.', false);
     showPostDownloadModal(list.length);
-    setTimeout(() => {
+    downloadTimeoutId = setTimeout(() => {
+      downloadTimeoutId = null;
       try {
         generarPdf(list, true);
         showMsg('msgPdf', 'PDF descargado.', false);
@@ -442,16 +452,8 @@ function init(): void {
     }, DELAY_DESCARGA_MS);
   });
 
-  document
-    .getElementById('postDownloadOverlay')
-    ?.addEventListener('click', () =>
-      document.getElementById('postDownloadModal')?.classList.add('hidden')
-    );
-  document
-    .getElementById('postDownloadClose')
-    ?.addEventListener('click', () =>
-      document.getElementById('postDownloadModal')?.classList.add('hidden')
-    );
+  document.getElementById('postDownloadOverlay')?.addEventListener('click', closePostDownloadModal);
+  document.getElementById('postDownloadClose')?.addEventListener('click', closePostDownloadModal);
 
   document.getElementById('whatsappCtaBtn')?.addEventListener('click', (e) => {
     const btn = e.currentTarget as HTMLAnchorElement;

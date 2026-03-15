@@ -635,6 +635,15 @@ const WHATSAPP_CTA_NUMBER = '5491135598389';
       renderProductTable();
     });
 
+    let downloadTimeoutId = null;
+    function closePostDownloadModal() {
+      if (downloadTimeoutId !== null) {
+        clearTimeout(downloadTimeoutId);
+        downloadTimeoutId = null;
+      }
+      document.getElementById('postDownloadModal').classList.add('hidden');
+    }
+
     document.getElementById('exportBtn').addEventListener('click', () => {
       const data = loadData();
       if (data.products.length === 0) {
@@ -675,7 +684,8 @@ const WHATSAPP_CTA_NUMBER = '5491135598389';
       const filename = `ZinkERP-precios-inteligentes-${today}.csv`;
 
       showPostDownloadModal(data.products.length);
-      setTimeout(() => {
+      downloadTimeoutId = setTimeout(() => {
+        downloadTimeoutId = null;
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -685,8 +695,8 @@ const WHATSAPP_CTA_NUMBER = '5491135598389';
       }, 5000);
     });
 
-    document.getElementById('postDownloadOverlay').addEventListener('click', () => document.getElementById('postDownloadModal').classList.add('hidden'));
-    document.getElementById('postDownloadClose').addEventListener('click', () => document.getElementById('postDownloadModal').classList.add('hidden'));
+    document.getElementById('postDownloadOverlay').addEventListener('click', closePostDownloadModal);
+    document.getElementById('postDownloadClose').addEventListener('click', closePostDownloadModal);
     document.getElementById('emptyListOverlay').addEventListener('click', () => document.getElementById('emptyListModal').classList.add('hidden'));
     document.getElementById('emptyListClose').addEventListener('click', () => document.getElementById('emptyListModal').classList.add('hidden'));
 

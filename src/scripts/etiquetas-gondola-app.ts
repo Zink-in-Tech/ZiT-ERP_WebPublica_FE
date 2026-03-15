@@ -556,6 +556,7 @@ function init(): void {
   });
 
   const DELAY_DESCARGA_MS = 5000; // delay antes de generar/descargar (igual que codigos-de-barras)
+  let downloadTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
   document.getElementById('btnDescargarPdfGondola')?.addEventListener('click', () => {
     const list = loadData();
@@ -565,7 +566,8 @@ function init(): void {
     }
     showMsg('msgPdfGondola', 'Preparando PDF... se descargará en unos segundos.', false);
     showPostDownloadModalGondola(list.length);
-    setTimeout(() => {
+    downloadTimeoutId = setTimeout(() => {
+      downloadTimeoutId = null;
       try {
         generarPDF();
         showMsg('msgPdfGondola', 'PDF descargado.', false);
@@ -577,6 +579,10 @@ function init(): void {
   document.getElementById('btnLimpiarGondola')?.addEventListener('click', limpiarTodo);
 
   function closePostDownloadModal(): void {
+    if (downloadTimeoutId !== null) {
+      clearTimeout(downloadTimeoutId);
+      downloadTimeoutId = null;
+    }
     document.getElementById('postDownloadModalGondola')?.classList.add('hidden');
   }
   document.getElementById('postDownloadCloseGondola')?.addEventListener('click', closePostDownloadModal);
