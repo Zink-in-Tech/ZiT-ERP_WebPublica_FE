@@ -2,6 +2,10 @@
 
 Documento de referencia para ir construyendo las herramientas poco a poco. Todas son solo front-end (sin backend), con valor e impacto para comerciantes.
 
+**Ya en producción:** Caja Diaria, Precios Inteligentes, Generador de códigos de barras, Etiquetas de góndola (PDF).
+
+**Siguiente a implementar:** Ticket promedio (`ticket-promedio`). La tarjeta en "Próximamente" del listado de recursos ya apunta a esta herramienta.
+
 ---
 
 ## Patrón existente a reutilizar
@@ -76,7 +80,7 @@ Todas se resuelven con fórmulas o una lista en el cliente; ninguna requiere bac
 - **Valor**: Generar imagen de código de barras (EAN-13, Code 128) para etiquetas sin instalar nada.
 - **Flujo**: Ingresar número/código → elegir tipo (EAN-13 / Code 128) → ver preview → descargar PNG (JsBarcode en cliente).
 - **Complejidad**: Media (lib). **Impacto**: Alto.
-- **Estado**: [ ] Pendiente
+- **Estado**: [x] Hecho
 
 ### 7. Validador de códigos de barras
 
@@ -92,7 +96,7 @@ Todas se resuelven con fórmulas o una lista en el cliente; ninguna requiere bac
 - **Valor**: Lista de productos (código, nombre, precio) → PDF para imprimir etiquetas en A4 (grid 2x4 o similar).
 - **Flujo**: Cargar lista (formulario + CSV); elegir columnas y cantidad por hoja; generar PDF en cliente (jsPDF); descargar. Lista en `localStorage`; Limpiar.
 - **Complejidad**: Media (PDF). **Impacto**: Alto.
-- **Estado**: [ ] Pendiente
+- **Estado**: [x] Hecho
 
 ### 9. Comparador de precios de proveedores
 
@@ -176,24 +180,26 @@ Todas se resuelven con fórmulas o una lista en el cliente; ninguna requiere bac
 
 Prioridad por impacto y simplicidad:
 
+
 | Orden | Herramienta                 | Complejidad | Impacto | Estado desarrollo |
-| ----- | --------------------------- | ----------- | ------- | ------------------ |
-| 1     | Calculadora de margen       | Baja        | Alto    | Pendiente          |
-| 2     | Ticket promedio             | Baja        | Alto    | Pendiente          |
-| 3     | Upselling / cross-selling   | Baja        | Alto    | Pendiente          |
-| 4     | Rotación de stock           | Baja        | Alto    | Pendiente          |
-| 5     | Deuda promedio y morosidad  | Baja        | Alto    | Pendiente          |
-| 6     | Generador códigos de barras | Media (lib) | Alto    | Pendiente          |
-| 7     | Validador códigos           | Baja        | Medio   | Pendiente          |
-| 8     | Etiquetas gondola           | Media (PDF) | Alto    | Pendiente          |
-| 9     | Comparador proveedores      | Media       | Alto    | Pendiente          |
-| 10    | Vencimientos                | Baja        | Alto    | Pendiente          |
-| 11    | Conteo inventario           | Baja        | Medio   | Pendiente          |
-| 12    | Presupuesto simple          | Media (PDF) | Alto    | Pendiente          |
-| 13    | Descuentos por volumen      | Baja        | Medio   | Pendiente          |
-| 14    | Precios .99                 | Baja        | Medio   | Pendiente          |
-| 15    | Convertidor unidades        | Baja        | Medio   | Pendiente          |
-| 16    | Cuenta rápida               | Baja        | Medio   | Pendiente          |
+| ----- | --------------------------- | ----------- | ------- | ----------------- |
+| 1     | Calculadora de margen       | Baja        | Alto    | Pendiente         |
+| 2     | Ticket promedio             | Baja        | Alto    | Pendiente         |
+| 3     | Upselling / cross-selling   | Baja        | Alto    | Pendiente         |
+| 4     | Rotación de stock           | Baja        | Alto    | Pendiente         |
+| 5     | Deuda promedio y morosidad  | Baja        | Alto    | Pendiente         |
+| 6     | Generador códigos de barras | Media (lib) | Alto    | Hecho             |
+| 7     | Validador códigos           | Baja        | Medio   | Pendiente         |
+| 8     | Etiquetas gondola           | Media (PDF) | Alto    | Hecho             |
+| 9     | Comparador proveedores      | Media       | Alto    | Pendiente         |
+| 10    | Vencimientos                | Baja        | Alto    | Pendiente         |
+| 11    | Conteo inventario           | Baja        | Medio   | Pendiente         |
+| 12    | Presupuesto simple          | Media (PDF) | Alto    | Pendiente         |
+| 13    | Descuentos por volumen      | Baja        | Medio   | Pendiente         |
+| 14    | Precios .99                 | Baja        | Medio   | Pendiente         |
+| 15    | Convertidor unidades        | Baja        | Medio   | Pendiente         |
+| 16    | Cuenta rápida               | Baja        | Medio   | Pendiente         |
+
 
 Cada entrega: nueva carpeta `recursos/<slug>/index.astro` + una entrada en `availableTools` en `src/pages/recursos/index.astro`. Sin cambios de infra ni backend.
 
@@ -222,21 +228,24 @@ Cada entrega: nueva carpeta `recursos/<slug>/index.astro` + una entrada en `avai
 
 Resumen para ir tachando según avances. Valores posibles: **Pendiente** | **En curso** | **Hecho**.
 
-| # | Slug                     | Estado desarrollo |
-|---|--------------------------|-------------------|
-| 1 | calculadora-margen       | Pendiente         |
-| 2 | ticket-promedio         | Pendiente         |
-| 3 | upselling-crosselling   | Pendiente         |
-| 4 | rotacion-stock          | Pendiente         |
-| 5 | deuda-morosidad         | Pendiente         |
-| 6 | codigos-de-barras       | Pendiente         |
-| 7 | validador-codigos       | Pendiente         |
-| 8 | etiquetas-gondola       | Pendiente         |
-| 9 | comparador-proveedores  | Pendiente         |
-| 10 | vencimientos            | Pendiente         |
-| 11 | conteo-inventario       | Pendiente         |
-| 12 | presupuesto-simple      | Pendiente         |
-| 13 | descuentos-volumen      | Pendiente         |
-| 14 | precios-psychology      | Pendiente         |
-| 15 | convertidor-unidades    | Pendiente         |
-| 16 | cuenta-rapida           | Pendiente         |
+
+| #   | Slug                   | Estado desarrollo |
+| --- | ---------------------- | ----------------- |
+| 1   | calculadora-margen     | Pendiente         |
+| 2   | ticket-promedio        | Pendiente         |
+| 3   | upselling-crosselling  | Pendiente         |
+| 4   | rotacion-stock         | Pendiente         |
+| 5   | deuda-morosidad        | Pendiente         |
+| 6   | codigos-de-barras      | Hecho             |
+| 7   | validador-codigos      | Pendiente         |
+| 8   | etiquetas-gondola      | Hecho             |
+| 9   | comparador-proveedores | Pendiente         |
+| 10  | vencimientos           | Pendiente         |
+| 11  | conteo-inventario      | Pendiente         |
+| 12  | presupuesto-simple     | Pendiente         |
+| 13  | descuentos-volumen     | Pendiente         |
+| 14  | precios-psychology     | Pendiente         |
+| 15  | convertidor-unidades   | Pendiente         |
+| 16  | cuenta-rapida          | Pendiente         |
+
+

@@ -40,10 +40,7 @@ const availableTools = [
     ],
     link: "/recursos/codigos-de-barras",
     icon: "📊"
-  }
-];
-
-const upcomingTools: { title: string; description: string; features: string[]; icon: string }[] = [
+  },
   {
     title: "Etiquetas de góndola (PDF)",
     description: "Importá un CSV y descargá etiquetas listas para imprimir en A4. Descripción, precio y código por etiqueta.",
@@ -53,7 +50,22 @@ const upcomingTools: { title: string; description: string; features: string[]; i
       "Descarga PDF A4",
       "100% online"
     ],
+    link: "/recursos/etiquetas-gondola",
     icon: "🏷️"
+  }
+];
+
+const upcomingTools: { title: string; description: string; features: string[]; icon: string }[] = [
+  {
+    title: "Ticket promedio",
+    description: "Sabé cuánto sale en promedio cada venta. Cargá total facturado y cantidad de ventas, o una lista de montos (manual o CSV), y compará períodos para fijar metas.",
+    features: [
+      "Total facturado y cantidad de ventas → ticket promedio",
+      "Lista de montos manual o importar CSV",
+      "Comparar períodos y metas",
+      "Consejos para mejorar el ticket (upsell, combos)"
+    ],
+    icon: "🎫"
   }
 ];
 ---
