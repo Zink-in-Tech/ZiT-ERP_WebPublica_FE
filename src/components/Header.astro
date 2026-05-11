@@ -8,19 +8,23 @@
         <img src="/zinkerp-logo.png" alt="ZinkERP Logo" class="h-8 w-auto" />
       </a>
       
-      <nav class="hidden md:flex items-center gap-8">
+      <nav class="hidden lg:flex items-center gap-8">
         <a href="/modulos" class="text-gray-300 hover:text-white transition-colors">Módulos</a>
+        <a href="/integraciones" class="text-gray-300 hover:text-white transition-colors">Integraciones</a>
         <a href="/precios" class="text-gray-300 hover:text-white transition-colors">Precios</a>
         <a href="/recursos" class="text-gray-300 hover:text-white transition-colors">Recursos</a>
         <a href="/blog" class="text-gray-300 hover:text-white transition-colors">Blog</a>
       </nav>
       
-      <div class="flex items-center gap-4">
-        <a href="https://cal.com/zinkintech" class="hidden md:block px-5 py-2 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors">
+      <div class="flex items-center gap-3">
+        <a href="https://ziterp.zinkintech.com" class="hidden lg:block px-4 py-2 rounded-md border border-dark-600 text-gray-300 hover:text-white hover:border-gray-500 transition-colors">
+          Acceder al ERP
+        </a>
+        <a href="https://cal.com/zinkintech" class="hidden lg:block px-5 py-2 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors">
           Agendá una demo
         </a>
         <button 
-          class="md:hidden text-white p-2" 
+          class="lg:hidden text-white p-2" 
           id="mobile-menu-button" 
           aria-label="Menu"
           aria-expanded="false"
@@ -35,12 +39,15 @@
   
   <!-- Mobile menu -->
   <div 
-    class="md:hidden hidden absolute top-full left-0 right-0 bg-dark-800 border-t border-dark-700 shadow-lg" 
+    class="lg:hidden hidden absolute top-full left-0 right-0 bg-dark-800 border-t border-dark-700 shadow-lg" 
     id="mobile-menu"
   >
     <nav class="container mx-auto px-4 py-4 flex flex-col">
       <a href="/modulos" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
         Módulos
+      </a>
+      <a href="/integraciones" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
+        Integraciones
       </a>
       <a href="/precios" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
         Precios
@@ -56,6 +63,12 @@
         class="mt-4 px-5 py-3 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors text-center"
       >
         Agendá una demo
+      </a>
+      <a 
+        href="https://ziterp.zinkintech.com" 
+        class="mt-3 px-5 py-3 rounded-md border border-dark-600 text-gray-300 hover:text-white hover:border-gray-500 transition-colors text-center"
+      >
+        Acceder al ERP
       </a>
     </nav>
   </div>

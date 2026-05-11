@@ -1,0 +1,63 @@
+---
+const integrations = [
+  {
+    name: 'WooCommerce',
+    category: 'Ecommerce',
+    description: 'Conectá tu tienda online con la gestión operativa de ZinkERP.',
+    href: '/integraciones/woocommerce',
+  },
+  {
+    name: 'Facturante',
+    category: 'Facturación',
+    description: 'Acompañá los flujos de facturación de tu operación comercial.',
+    href: '/integraciones',
+  },
+  {
+    name: 'MercadoPago',
+    category: 'Pagos',
+    description: 'Conectá pagos con la operación comercial para trabajar con más orden.',
+    href: '/integraciones',
+  },
+];
+---
+
+<section class="py-20 bg-dark-800">
+  <div class="container mx-auto px-4">
+    <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-12 items-start">
+      <div class="animate-on-scroll">
+        <p class="text-primary font-medium mb-3">Integraciones operativas</p>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">Integraciones para conectar tu operación</h2>
+        <p class="text-xl text-gray-300 mb-8">
+          Conectá ZinkERP con ecommerce, facturación y pagos para reducir trabajo manual y ordenar la gestión diaria.
+        </p>
+        <a
+          href="/integraciones"
+          class="inline-flex items-center gap-2 px-6 py-3 bg-blue-primary hover:bg-blue-primary/90 rounded-lg font-medium transition-colors"
+        >
+          Ver integraciones
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+            <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+          </svg>
+        </a>
+      </div>
+
+      <div class="grid md:grid-cols-3 lg:grid-cols-1 gap-4">
+        {integrations.map((integration) => (
+          <a
+            href={integration.href}
+            class="group bg-dark-700 border border-dark-600 rounded-lg p-5 hover:border-primary/40 transition-colors animate-on-scroll"
+          >
+            <div class="flex items-start justify-between gap-4 mb-3">
+              <div>
+                <p class="text-sm text-primary-light mb-1">{integration.category}</p>
+                <h3 class="text-xl font-bold">{integration.name}</h3>
+              </div>
+              <span class="px-3 py-1 rounded-full bg-green-500/10 text-green-300 text-xs border border-green-500/30">Operativa</span>
+            </div>
+            <p class="text-gray-300 text-sm">{integration.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
