@@ -28,50 +28,50 @@ export type UseCaseEntry = {
 
 export const useCases: Record<string, UseCaseEntry> = {
   ferreterias: {
-    pageTitle: 'ERP para ferreterias | ZinkERP',
+    pageTitle: 'ERP para ferreterías | ZinkERP',
     pageDescription:
-      'Gestiona ventas, stock, POS, facturacion y sucursales de tu ferreteria con ZinkERP, un ERP SaaS para comercios argentinos.',
-    caseName: 'La operacion de una ferreteria',
-    eyebrow: 'Ferreterias',
-    heroTitle: 'ZinkERP para ferreterias',
+      'Gestioná ventas, stock, POS, facturación y sucursales de tu ferretería con ZinkERP, un ERP SaaS para comercios argentinos.',
+    caseName: 'La operación de una ferretería',
+    eyebrow: 'Ferreterías',
+    heroTitle: 'ZinkERP para ferreterías',
     heroText:
-      'Ordena ventas de mostrador, stock, precios, proveedores y facturacion en una plataforma pensada para comercios argentinos.',
+      'Ordená ventas de mostrador, stock, precios, proveedores y facturación en una plataforma pensada para comercios argentinos.',
     heroNote:
-      'Un caso fuerte para comercios con catalogo amplio, venta rapida y necesidad de ordenar la operacion diaria sin sumar complejidad innecesaria.',
+      'Un caso fuerte para comercios con catálogo amplio, venta rápida y necesidad de ordenar la operación diaria sin sumar complejidad innecesaria.',
     pains: [
       'Muchos SKUs repartidos entre familias, medidas, marcas y proveedores.',
-      'Dudas de stock en el mostrador cuando el cliente necesita una respuesta rapida.',
+      'Dudas de stock en el mostrador cuando el cliente necesita una respuesta rápida.',
       'Ventas presenciales que no pueden esperar procesos administrativos lentos.',
-      'Cambios de precios y margenes que requieren orden para evitar errores.',
-      'Reposicion y seguimiento de proveedores con informacion dispersa.',
+      'Cambios de precios y márgenes que requieren orden para evitar errores.',
+      'Reposición y seguimiento de proveedores con información dispersa.',
       'Necesidad de facturar dentro del mismo flujo operativo.',
-      'Crecimiento a mas de una sucursal con riesgo de perder visibilidad.',
+      'Crecimiento a más de una sucursal con riesgo de perder visibilidad.',
     ],
     helps: [
       {
-        title: 'Mostrador conectado con la operacion',
-        text: 'ZinkPOS ayuda a registrar la venta de mostrador dentro de una operacion que tambien necesita stock, facturacion y seguimiento comercial.',
+        title: 'Mostrador conectado con la operación',
+        text: 'ZinkPOS ayuda a registrar la venta de mostrador dentro de una operación que también necesita stock, facturación y seguimiento comercial.',
       },
       {
-        title: 'Stock y ventas en una misma base',
-        text: 'El equipo puede trabajar con informacion mas ordenada sobre productos, movimientos y disponibilidad operativa.',
+        title: 'Stock y ventas en el mismo circuito',
+        text: 'El equipo puede trabajar con información más ordenada sobre productos, movimientos y disponibilidad operativa.',
       },
       {
-        title: 'Precios y productos con mas contexto',
+        title: 'Precios y productos con más contexto',
         text: 'Ayuda a ordenar productos y precios para que el equipo dependa menos de planillas, listas sueltas o memoria de mostrador.',
       },
       {
         title: 'Visibilidad para dueños y encargados',
-        text: 'La operacion queda en un sistema comun para revisar ventas, stock, facturacion y sucursales cuando aplica.',
+        text: 'La operación queda en un mismo sistema para revisar ventas, stock, facturación y sucursales cuando aplica.',
       },
     ],
     features: [
-      'Gestion de stock',
+      'Stock por producto',
       'ZinkPOS',
-      'Gestion de ventas',
-      'Facturacion',
-      'Reportes',
-      'Operacion multi-sucursal',
+      'Ventas y comprobantes',
+      'Precios y facturación',
+      'Reportes comerciales',
+      'Sucursales',
     ],
     workflows: [
       {
@@ -79,8 +79,8 @@ export const useCases: Record<string, UseCaseEntry> = {
         text: 'Cobrar en mostrador sin perder de vista stock, comprobante y registro de la venta.',
       },
       {
-        title: 'Busqueda de productos',
-        text: 'Trabajar con un catalogo mas ordenado para ubicar rapido el producto que pide el cliente.',
+        title: 'Búsqueda de productos',
+        text: 'Trabajar con un catálogo más ordenado para ubicar rápido el producto que pide el cliente.',
       },
       {
         title: 'Consulta de stock',
@@ -88,15 +88,15 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
       {
         title: 'Actualizacion de precios',
-        text: 'Tener precios mas ordenados cuando cambian costos, margenes o condiciones de compra.',
+        text: 'Tener precios más ordenados cuando cambian costos, márgenes o condiciones de compra.',
       },
       {
-        title: 'Facturacion',
-        text: 'Resolver la facturacion dentro de la misma operacion, con una base alineada al contexto fiscal argentino.',
+        title: 'Facturación',
+        text: 'Resolver la facturación dentro de la misma operación, con una base alineada al contexto fiscal argentino.',
       },
       {
         title: 'Visibilidad por sucursal',
-        text: 'Cuando hay mas de un local, sumar una mirada central sobre ventas, stock y actividad de cada punto.',
+        text: 'Cuando hay más de un local, sumar una mirada central sobre ventas, stock y actividad de cada punto.',
       },
     ],
     integrations: [
@@ -115,47 +115,47 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     faqs: [
       {
-        question: 'Sirve si tengo muchos productos?',
+        question: '¿Sirve si tengo muchos productos?',
         answer:
-          'Si. Ferreterias suelen tener catalogos amplios y ZinkERP ayuda a ordenar productos, stock, ventas y facturacion desde una base comun.',
+          'Sí. Las ferreterías suelen tener catálogos amplios y ZinkERP ayuda a ordenar productos, stock, ventas y facturación dentro del mismo circuito operativo.',
       },
       {
-        question: 'Puedo usarlo para ventas de mostrador?',
+        question: '¿Puedo usarlo para ventas de mostrador?',
         answer:
-          'Si. ZinkPOS esta pensado para venta presencial y se integra con la operacion del ERP.',
+          'Sí. ZinkPOS está pensado para venta presencial y se integra con la operación del ERP.',
       },
       {
-        question: 'Ayuda a controlar stock?',
+        question: '¿Ayuda a controlar stock?',
         answer:
-          'Si. ZinkERP incluye gestion de stock para trabajar con movimientos, disponibilidad y control operativo diario.',
+          'Sí. ZinkERP incluye gestión de stock para trabajar con movimientos, disponibilidad y control operativo diario.',
       },
       {
-        question: 'Sirve para mas de una sucursal?',
+        question: '¿Sirve para más de una sucursal?',
         answer:
-          'Si. ZinkERP soporta operaciones multi-sucursal y ayuda a tener visibilidad centralizada cuando el negocio crece.',
+          'Sí. ZinkERP soporta operaciones multi-sucursal y ayuda a tener visibilidad centralizada cuando el negocio crece.',
       },
       {
-        question: 'Puedo vender online tambien?',
+        question: '¿Puedo vender online también?',
         answer:
-          'Si la ferreteria trabaja con WooCommerce, la integracion puede ayudar a conectar ecommerce con la gestion. El alcance puntual conviene revisarlo en demo.',
+          'Si la ferretería trabaja con WooCommerce, la integración puede ayudar a conectar ecommerce con la gestión. El alcance puntual conviene revisarlo en demo.',
       },
       {
-        question: 'Es un sistema hecho solo para ferreterias?',
+        question: '¿Es un sistema hecho solo para ferreterías?',
         answer:
-          'No. ZinkERP resuelve patrones operativos comunes en comercios con catalogo, ventas, stock y facturacion; ferreterias es uno de los casos donde ese encaje suele ser fuerte.',
+          'No. ZinkERP resuelve patrones operativos comunes en comercios con catálogo, ventas, stock y facturación; ferreterías es uno de los casos donde ese encaje suele ser fuerte.',
       },
     ],
-    ctaTitle: 'Ordena la operacion diaria de tu ferreteria',
+    ctaTitle: 'Ordená la operación diaria de tu ferretería',
     ctaText:
-      'En una demo podemos revisar como ordenar venta de mostrador, consulta de stock, precios y facturacion segun la operacion de tu ferreteria.',
+      'En una demo podemos revisar cómo ordenar venta de mostrador, consulta de stock, precios y facturación según la operación de tu ferretería.',
   },
   dieteticas: {
-    pageTitle: 'ERP para dieteticas | ZinkERP',
+    pageTitle: 'ERP para dietéticas | ZinkERP',
     pageDescription:
       'Ordena ventas, stock, POS y facturacion de tu dietetica con ZinkERP, una base operativa para comercios argentinos con catalogo amplio.',
-    caseName: 'La operacion de una dietetica',
-    eyebrow: 'Dieteticas',
-    heroTitle: 'ZinkERP para dieteticas',
+    caseName: 'La operación de una dietética',
+    eyebrow: 'Dietéticas',
+    heroTitle: 'ZinkERP para dietéticas',
     heroText:
       'Ordena ventas, stock y facturacion de tu dietetica con un ERP simple de operar y preparado para crecer con tu negocio.',
     heroNote:
@@ -258,12 +258,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       'En una demo podemos revisar mostrador, disponibilidad, catalogo y facturacion para entender como ordenar mejor la operacion diaria de tu dietetica.',
   },
   'articulos-de-limpieza': {
-    pageTitle: 'ERP para articulos de limpieza | ZinkERP',
+    pageTitle: 'ERP para artículos de limpieza | ZinkERP',
     pageDescription:
       'Gestiona ventas, stock, facturacion y reposicion en negocios de articulos de limpieza con ZinkERP.',
-    caseName: 'La operacion de un negocio de articulos de limpieza',
-    eyebrow: 'Articulos de limpieza',
-    heroTitle: 'ZinkERP para articulos de limpieza',
+    caseName: 'La operación de un negocio de artículos de limpieza',
+    eyebrow: 'Artículos de limpieza',
+    heroTitle: 'ZinkERP para artículos de limpieza',
     heroText:
       'Controla ventas, stock y facturacion de tu negocio de articulos de limpieza con una herramienta local para operar mejor todos los dias.',
     heroNote:
@@ -366,12 +366,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       'Podemos revisar venta diaria, reposicion, disponibilidad y facturacion para ver donde ZinkERP puede ordenar mejor tu operacion.',
   },
   papeleras: {
-    pageTitle: 'ERP para papeleras y librerias comerciales | ZinkERP',
+    pageTitle: 'ERP para papeleras y librerías comerciales | ZinkERP',
     pageDescription:
       'Gestiona catalogo, stock, ventas y facturacion de papeleras y librerias comerciales con ZinkERP.',
-    caseName: 'La operacion de una papelera o libreria comercial',
-    eyebrow: 'Papeleras y librerias comerciales',
-    heroTitle: 'ZinkERP para papeleras y librerias comerciales',
+    caseName: 'La operación de una papelera o librería comercial',
+    eyebrow: 'Papeleras y librerías comerciales',
+    heroTitle: 'ZinkERP para papeleras y librerías comerciales',
     heroText:
       'Gestiona tu papelera con ventas, stock y facturacion conectados en un solo sistema.',
     heroNote:
@@ -474,12 +474,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       'En una demo podemos revisar catalogo, mostrador, temporadas, stock y facturacion para ver como ordenar mejor la operacion diaria de tu negocio.',
   },
   'insumos-de-reposteria': {
-    pageTitle: 'ERP para insumos de reposteria | ZinkERP',
+    pageTitle: 'ERP para insumos de repostería | ZinkERP',
     pageDescription:
       'Ordena ventas, stock, POS y facturacion de tu negocio de insumos de reposteria con ZinkERP.',
-    caseName: 'La operacion de un negocio de insumos de reposteria',
-    eyebrow: 'Insumos de reposteria',
-    heroTitle: 'ZinkERP para insumos de reposteria',
+    caseName: 'La operación de un negocio de insumos de repostería',
+    eyebrow: 'Insumos de repostería',
+    heroTitle: 'ZinkERP para insumos de repostería',
     heroText:
       'Ordena ventas, stock y facturacion de tu negocio de insumos de reposteria desde una plataforma local.',
     heroNote:
@@ -582,16 +582,16 @@ export const useCases: Record<string, UseCaseEntry> = {
       'Podemos revisar mostrador, productos de alta rotacion, temporadas y facturacion para ver como ordenar mejor la operacion de tu local.',
   },
   florerias: {
-    pageTitle: 'ERP para florerias | ZinkERP',
+    pageTitle: 'ERP para florerías | ZinkERP',
     pageDescription:
       'Ordena ventas, stock y facturacion de tu floreria con ZinkERP, una base operativa para negocios con pedidos y atencion por multiples canales.',
-    caseName: 'La operacion de una floreria',
-    eyebrow: 'Florerias',
-    heroTitle: 'ZinkERP para florerias',
+    caseName: 'La operación de una florería',
+    eyebrow: 'Florerías',
+    heroTitle: 'ZinkERP para florerías',
     heroText:
-      'Gestiona ventas, stock y facturacion de tu floreria con una plataforma simple para ordenar la operacion diaria.',
+      'Gestioná ventas, stock y facturación de tu florería con una plataforma simple para ordenar la operación diaria.',
     heroNote:
-      'Lo tratamos como un caso a evaluar con cuidado: puede aportar orden comercial, aunque hay necesidades del rubro que deben validarse antes de prometer encaje total.',
+      'Puede ser un caso interesante cuando el negocio necesita ordenar pedidos, ventas y facturación, aunque hay partes del rubro que conviene validar antes de prometer alcance.',
     pains: [
       'Disponibilidad que cambia rapido y puede ser dificil de sostener en el sistema.',
       'Ventas por mostrador, telefono o canales online que necesitan mas orden comun.',
@@ -602,8 +602,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     helps: [
       {
-        title: 'Base comun para la operacion comercial',
-        text: 'ZinkERP puede ayudar a ordenar ventas, stock y facturacion cuando la operacion comercial hoy se sigue entre mensajes, planillas y mostrador.',
+        title: 'Base para la operación comercial',
+        text: 'ZinkERP puede ayudar a ordenar ventas, stock y facturación cuando la operación comercial hoy se sigue entre mensajes, planillas y mostrador.',
       },
       {
         title: 'Mas orden entre canales',
@@ -686,12 +686,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       'En una demo podemos revisar como toman pedidos, como manejan disponibilidad y hasta donde ZinkERP puede ordenar la parte comercial con prudencia.',
   },
   'zingueria-metalurgica': {
-    pageTitle: 'ERP para zingueria y metalurgica | ZinkERP',
+    pageTitle: 'ERP para zinguería y metalúrgica | ZinkERP',
     pageDescription:
       'Ordena ventas, materiales, stock y facturacion en negocios de zingueria o metalurgica con ZinkERP.',
-    caseName: 'La operacion de una zingueria o metalurgica',
-    eyebrow: 'Zingueria y metalurgica',
-    heroTitle: 'ZinkERP para zingueria y metalurgica',
+    caseName: 'La operación de una zinguería o metalúrgica',
+    eyebrow: 'Zinguería y metalúrgica',
+    heroTitle: 'ZinkERP para zinguería y metalúrgica',
     heroText:
       'Ordena ventas, materiales, facturacion y seguimiento comercial en negocios donde la operacion no termina en una venta de mostrador.',
     heroNote:
@@ -787,14 +787,14 @@ export const useCases: Record<string, UseCaseEntry> = {
   cultivos: {
     pageTitle: 'ERP para negocios vinculados a cultivos | ZinkERP',
     pageDescription:
-      'Organiza ventas, stock, compras, facturacion y control operativo en negocios vinculados a cultivos con ZinkERP.',
-    caseName: 'La operacion de negocios vinculados a cultivos',
+      'Organizá ventas, stock, compras, facturación y control operativo en negocios vinculados a cultivos con ZinkERP.',
+    caseName: 'La operación de negocios vinculados a cultivos',
     eyebrow: 'Cultivos',
     heroTitle: 'ZinkERP para operaciones vinculadas a cultivos',
     heroText:
-      'Ordena ventas, stock, compras y facturacion en negocios donde la operacion alrededor de cultivos necesita una base comercial mas clara.',
+      'Ordená ventas, stock, compras y facturación en negocios donde la operación vinculada a cultivos necesita más control comercial y administrativo.',
     heroNote:
-      'Sabemos que hay clientes en este segmento, pero preferimos presentarlo con foco en la parte comercial y administrativa, sin asumir funciones agronomicas o productivas especificas.',
+      'Puede aportar valor cuando el negocio necesita ordenar ventas, stock, compras y sucursales, sin asumir funciones agronómicas o productivas específicas.',
     pains: [
       'Informacion comercial y administrativa repartida entre planillas, mensajes y memoria del equipo.',
       'Necesidad de controlar stock, compras o insumos con mas visibilidad.',
@@ -805,8 +805,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     helps: [
       {
-        title: 'Base comun para la operacion comercial',
-        text: 'ZinkERP puede ayudar a ordenar ventas, stock y facturacion cuando la operacion comercial hoy se sigue entre planillas, mensajes y control manual.',
+        title: 'Base para la operación comercial',
+        text: 'ZinkERP puede ayudar a ordenar ventas, stock y facturación cuando la operación comercial hoy se sigue entre planillas, mensajes y control manual.',
       },
       {
         title: 'Mas orden sobre insumos y movimientos',
@@ -822,11 +822,11 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
     ],
     features: [
-      'Gestion de ventas',
-      'Gestion de stock',
-      'Facturacion',
-      'Operacion multi-sucursal',
-      'Reportes',
+      'Ventas y clientes',
+      'Stock e insumos',
+      'Compras y abastecimiento',
+      'Facturación',
+      'Sucursales',
       'Control administrativo',
     ],
     workflows: [
@@ -839,7 +839,7 @@ export const useCases: Record<string, UseCaseEntry> = {
         text: 'Seguir disponibilidad y movimientos cuando el negocio trabaja con stock, insumos o mas de un punto operativo.',
       },
       {
-        title: 'Compras y reposicion',
+        title: 'Compras y reposición',
         text: 'Tener mejor orden para revisar faltantes y necesidades de compra o abastecimiento.',
       },
       {
@@ -863,28 +863,28 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     faqs: [
       {
-        question: 'ZinkERP esta pensado para cultivos?',
+        question: '¿ZinkERP está pensado para cultivos?',
         answer:
-          'No como vertical exclusivo. Lo que si puede aportar es una base operativa para la parte comercial, de stock y facturacion en negocios vinculados a cultivos.',
+          'No como vertical exclusivo. Sí puede aportar una base operativa para la parte comercial, de stock y facturación en negocios vinculados a cultivos.',
       },
       {
-        question: 'Entonces por que lo muestran como caso?',
+        question: '¿Entonces por qué lo muestran como caso?',
         answer:
-          'Porque existen clientes en este segmento y sabemos que hay operaciones donde ZinkERP suma valor real. Aun asi, preferimos validar cada flujo antes de prometer alcance total.',
+          'Porque existen operaciones de este segmento donde ZinkERP puede sumar valor real. Aun así, preferimos validar cada flujo antes de prometer alcance total.',
       },
       {
-        question: 'Incluye gestion agronomica o productiva especifica?',
+        question: '¿Incluye gestión agronómica o productiva específica?',
         answer:
-          'No lo afirmamos de forma publica. Si tu operacion depende de procesos tecnicos propios del agro, ese punto debe revisarse en demo.',
+          'No lo afirmamos de forma pública. Si tu operación depende de procesos técnicos propios del agro, ese punto debe revisarse en demo.',
       },
       {
-        question: 'Sirve si tengo stock, compras y mas de una sucursal?',
+        question: '¿Sirve si tengo stock, compras y más de una sucursal?',
         answer:
-          'Puede ser un buen encaje si el problema principal es ordenar ventas, stock, facturacion y visibilidad operativa.',
+          'Puede ser un buen encaje si el problema principal es ordenar ventas, stock, facturación y visibilidad operativa.',
       },
     ],
-    ctaTitle: 'Validemos el caso de tu operacion vinculada a cultivos',
+    ctaTitle: 'Validemos el caso de tu operación vinculada a cultivos',
     ctaText:
-      'En una demo podemos revisar ventas, stock, compras y sucursales para confirmar con honestidad hasta donde ZinkERP puede ordenar la parte comercial y administrativa.',
+      'En una demo podemos revisar ventas, stock, compras y sucursales para confirmar con honestidad hasta dónde ZinkERP puede ordenar la parte comercial y administrativa.',
   },
 };

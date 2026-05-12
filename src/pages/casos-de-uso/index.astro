@@ -53,21 +53,21 @@ const discoveryCases = [
     description: 'Ventas por múltiples canales, disponibilidad cambiante y facturación a ordenar.',
     tags: ['Temporadas', 'Ecommerce', 'Venta de mostrador'],
     href: '/casos-de-uso/florerias',
-    cta: 'Ver caso',
+    cta: 'Evaluar encaje',
   },
   {
     name: 'Zinguería / metalúrgica',
     description: 'Ventas con materiales, servicios y seguimiento comercial que conviene evaluar en demo.',
     tags: ['Proveedores', 'B2B / mayorista', 'Facturación'],
     href: '/casos-de-uso/zingueria-metalurgica',
-    cta: 'Ver caso',
+    cta: 'Evaluar encaje',
   },
   {
     name: 'Cultivos',
     description: 'Operaciones con stock, ventas o administración donde primero validamos el flujo real.',
     tags: ['Stock crítico', 'Proveedores', 'Facturación'],
     href: '/casos-de-uso/cultivos',
-    cta: 'Ver caso',
+    cta: 'Evaluar encaje',
   },
 ];
 
@@ -85,7 +85,7 @@ const patternGroups = [
   {
     title: 'Venta presencial + online',
     text: 'Comercios que combinan mostrador, ecommerce, cobros e integración con la operación diaria.',
-    tags: ['WooCommerce', 'Mercado Pago', 'ZinkPOS'],
+    tags: ['Mostrador', 'Ecommerce', 'Cobros', 'Integraciones', 'Venta omnicanal'],
   },
   {
     title: 'Complejidad a validar',
@@ -94,7 +94,6 @@ const patternGroups = [
   },
 ];
 
-const allTags = ['Venta de mostrador', 'Catálogo amplio', 'Stock crítico', 'Multi-sucursal', 'Ecommerce', 'B2B / mayorista', 'Temporadas', 'Proveedores', 'Facturación'];
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
@@ -119,21 +118,6 @@ const allTags = ['Venta de mostrador', 'Catálogo amplio', 'Stock crítico', 'Mu
             <a href={whatsappUrl} class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
               Hablar por WhatsApp
             </a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-12 bg-dark-800 border-b border-dark-700">
-      <div class="container mx-auto px-4">
-        <div class="max-w-5xl mx-auto">
-          <p class="text-sm uppercase tracking-wide text-gray-400 mb-4 animate-on-scroll">Patrones operativos</p>
-          <div class="flex flex-wrap gap-3">
-            {allTags.map((tag) => (
-              <span class="px-4 py-2 rounded-full bg-dark-700 border border-dark-600 text-gray-200 text-sm animate-on-scroll">
-                {tag}
-              </span>
-            ))}
           </div>
         </div>
       </div>
@@ -175,7 +159,7 @@ const allTags = ['Venta de mostrador', 'Catálogo amplio', 'Stock crítico', 'Mu
           <div class="animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">También evaluamos operaciones similares</h2>
             <p class="text-lg text-gray-300">
-              No todos los rubros tienen el mismo nivel de validación pública. Cuando el flujo es más particular, lo revisamos en demo para entender qué parte resuelve ZinkERP hoy.
+              No todos los rubros tienen el mismo nivel de validación pública. En estos casos, ZinkERP puede aportar valor operativo, pero conviene revisar alcance y prioridades antes de prometer encaje.
             </p>
           </div>
           <div class="grid md:grid-cols-3 gap-5">
