@@ -593,7 +593,7 @@ export const useCases: Record<string, UseCaseEntry> = {
     heroText:
       'Gestioná ventas, stock y facturación de tu florería con una plataforma simple para ordenar la operación diaria.',
     heroNote:
-      'Puede ser un caso interesante cuando el negocio necesita ordenar pedidos, ventas y facturación, aunque hay partes del rubro que conviene validar antes de prometer alcance.',
+      'Ya hay experiencia real en operaciones con esta dinámica, sobre todo cuando el negocio necesita ordenar pedidos, ventas y facturación sin prometer procesos específicos del rubro que deban validarse aparte.',
     pains: [
       'Disponibilidad que cambia rápido y puede ser difícil de sostener en el sistema.',
       'Ventas por mostrador, teléfono o canales online que necesitan más orden común.',
@@ -660,7 +660,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Sirve para una florería?',
         answer:
-          'Puede servir cuando la necesidad principal es ordenar ventas, stock y facturación. El encaje total depende de qué tan particular sea el flujo del negocio.',
+          'Sí, especialmente cuando la necesidad principal es ordenar ventas, stock y facturación. El alcance puntual depende de qué tan particular sea el flujo del negocio.',
       },
       {
         question: '¿Ayuda con pedidos por distintos canales?',
@@ -680,7 +680,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Entonces por qué publicarlo?',
         answer:
-          'Porque hay patrones comerciales del rubro donde ZinkERP puede sumar valor, pero preferimos presentarlo con honestidad y revisarlo caso por caso.',
+          'Porque ya hay experiencia real en operaciones con dinámicas similares. Lo mostramos con prudencia para revisar cada flujo sin prometer procesos específicos que no correspondan.',
       },
     ],
     ctaTitle: 'Revisemos juntos el flujo real de tu florería',
@@ -698,7 +698,7 @@ export const useCases: Record<string, UseCaseEntry> = {
     heroText:
       'Ordená ventas, materiales, facturación y seguimiento comercial en negocios donde la operación no termina en una venta de mostrador.',
     heroNote:
-      'Lo presentamos como un caso a evaluar: puede servir muy bien para la parte comercial y administrativa, pero no prometemos procesos industriales que no estén validados.',
+      'Ya hay experiencia real en operaciones con esta dinámica, sobre todo en la parte comercial y administrativa. El alcance sobre procesos industriales se valida según el flujo de cada negocio.',
     pains: [
       'Ventas que combinan materiales, mano de obra y seguimiento comercial.',
       'Pedidos más complejos que un ticket minorista tradicional.',
@@ -731,7 +731,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       'Facturación',
       'Clientes',
       'Reportes',
-      'Operación a validar',
+      'Seguimiento comercial',
     ],
     workflows: [
       {
@@ -798,7 +798,7 @@ export const useCases: Record<string, UseCaseEntry> = {
     heroText:
       'Ordená ventas, stock, compras y facturación en negocios donde la operación vinculada a cultivos necesita más control comercial y administrativo.',
     heroNote:
-      'Puede aportar valor cuando el negocio necesita ordenar ventas, stock, compras y sucursales, sin asumir funciones agronómicas o productivas específicas.',
+      'Ya hay experiencia en operaciones vinculadas a cultivos donde ZinkERP aporta orden comercial y administrativo, sin asumir funciones agronómicas o productivas específicas.',
     pains: [
       'Información comercial y administrativa repartida entre planillas, mensajes y memoria del equipo.',
       'Necesidad de controlar stock, compras o insumos con más visibilidad.',
@@ -822,7 +822,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
       {
         title: 'Encaje evaluado con criterio',
-        text: 'Lo presentamos para operaciones donde la prioridad está en ventas, stock y administración, validando aparte cualquier necesidad técnica específica del agro.',
+        text: 'Encaja especialmente cuando la prioridad está en ventas, stock y administración, revisando aparte cualquier necesidad técnica específica del agro.',
       },
     ],
     features: [
@@ -874,7 +874,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Entonces por qué lo muestran como caso?',
         answer:
-          'Porque hay operaciones de este segmento donde ZinkERP puede aportar valor real en la parte comercial y administrativa. Igual, preferimos validar cada flujo antes de prometer alcance total.',
+          'Porque ya hay experiencia real en operaciones de este segmento donde ZinkERP aporta valor en la parte comercial y administrativa. Igual, validamos cada flujo antes de prometer alcance total.',
       },
       {
         question: '¿Incluye gestión agronómica o productiva específica?',

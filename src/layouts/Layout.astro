@@ -41,6 +41,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
       title={title}
       description={description}
       canonical={canonicalURL}
+      noindex={noindex}
+      nofollow={noindex}
       openGraph={{
         basic: {
           title,
@@ -71,12 +73,6 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         ],
       }}
     />
-    {noindex && (
-      <>
-        <meta name="robots" content="noindex, nofollow" />
-        <meta name="googlebot" content="noindex, nofollow" />
-      </>
-    )}
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">

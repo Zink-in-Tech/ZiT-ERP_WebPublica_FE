@@ -57,6 +57,8 @@ const {
 
 const whatsappUrl = 'https://wa.link/sgzvr4';
 const demoUrl = 'https://cal.com/zinkintech';
+const integrationsGridClass =
+  integrations.length >= 3 ? 'grid md:grid-cols-2 xl:grid-cols-3 gap-6' : 'grid md:grid-cols-2 gap-6';
 ---
 
 <Layout title={pageTitle} description={pageDescription} noindex={noindex}>
@@ -64,7 +66,7 @@ const demoUrl = 'https://cal.com/zinkintech';
   <main>
     <section class="pt-32 pb-20 bg-dark-900 border-b border-dark-700">
       <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
+        <div class="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] items-start">
           <div class="max-w-3xl">
             <a href={backHref} class="inline-flex items-center gap-2 text-primary hover:text-primary-light mb-6 animate-on-scroll">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
@@ -82,10 +84,10 @@ const demoUrl = 'https://cal.com/zinkintech';
               {heroText}
             </p>
             <div class="flex flex-col sm:flex-row gap-4 animate-on-scroll" style="animation-delay: 0.15s;">
-              <a href={demoUrl} class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors">
+              <a href={demoUrl} class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors sm:w-auto">
                 Solicitar demo
               </a>
-              <a href={whatsappUrl} class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
+              <a href={whatsappUrl} class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors sm:w-auto">
                 Hablar por WhatsApp
               </a>
             </div>
@@ -110,7 +112,7 @@ const demoUrl = 'https://cal.com/zinkintech';
 
     <section class="py-20 bg-dark-800">
       <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
+        <div class="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-start">
           <div class="animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Problemas comunes del rubro</h2>
             <p class="text-lg text-gray-300">
@@ -136,7 +138,7 @@ const demoUrl = 'https://cal.com/zinkintech';
             ZinkERP ayuda a que ventas, stock, POS y facturación trabajen dentro del mismo circuito operativo, con menos fricción para el equipo.
           </p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
           {helps.map((item) => (
             <article class="bg-dark-800 border border-dark-700 rounded-lg p-6 hover:border-primary/40 transition-colors animate-on-scroll">
               <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-5">
@@ -154,7 +156,7 @@ const demoUrl = 'https://cal.com/zinkintech';
 
     <section class="py-20 bg-dark-800">
       <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
+        <div class="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-start">
           <div class="animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Funciones y módulos útiles</h2>
             <p class="text-lg text-gray-300">
@@ -180,7 +182,7 @@ const demoUrl = 'https://cal.com/zinkintech';
             Estos suelen ser algunos de los momentos donde más se nota la diferencia entre operar con método o apagar incendios sobre la marcha.
           </p>
         </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
           {workflows.map((workflow, index) => (
             <article class="bg-dark-800 border border-dark-700 rounded-lg p-6 animate-on-scroll">
               <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold mb-5">
@@ -203,9 +205,9 @@ const demoUrl = 'https://cal.com/zinkintech';
               Cuando el flujo lo requiere, ZinkERP puede conectarse con facturación, pagos o ecommerce.
             </p>
           </div>
-          <div class="grid md:grid-cols-3 gap-6">
+          <div class={integrationsGridClass}>
             {integrations.map((integration) => (
-              <a href={integration.href} class="group bg-dark-700 border border-dark-600 rounded-lg p-6 hover:border-primary/40 transition-colors animate-on-scroll">
+              <a href={integration.href} class="group bg-dark-700 border border-dark-600 rounded-lg p-6 h-full hover:border-primary/40 transition-colors animate-on-scroll">
                 <p class="text-sm text-primary-light mb-2">Integración</p>
                 <h3 class="text-2xl font-bold mb-3 group-hover:text-primary-light transition-colors">{integration.name}</h3>
               </a>
@@ -225,7 +227,7 @@ const demoUrl = 'https://cal.com/zinkintech';
           <div class="space-y-4">
             {faqs.map((faq) => (
               <details class="group bg-dark-800 border border-dark-700 rounded-lg p-6 animate-on-scroll">
-                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-lg">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-base md:text-lg">
                   {faq.question}
                   <span class="text-primary transition-transform group-open:rotate-45">+</span>
                 </summary>
