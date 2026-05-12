@@ -21,29 +21,29 @@ const priorityCases = [
     name: 'Dietéticas',
     description: 'Muchos productos, venta diaria y necesidad de controlar disponibilidad.',
     tags: ['Venta de mostrador', 'Catálogo amplio', 'Ecommerce', 'Proveedores', 'Facturación'],
-    href: '#contacto',
-    cta: 'Consultar encaje',
+    href: '/casos-de-uso/dieteticas',
+    cta: 'Ver caso',
   },
   {
     name: 'Artículos de limpieza',
     description: 'Reposición frecuente, ventas minoristas o mayoristas y control de stock.',
     tags: ['Stock crítico', 'B2B / mayorista', 'Proveedores', 'Multi-sucursal', 'Facturación'],
-    href: '#contacto',
-    cta: 'Consultar encaje',
+    href: '/casos-de-uso/articulos-de-limpieza',
+    cta: 'Ver caso',
   },
   {
     name: 'Papeleras / librerías comerciales',
     description: 'Catálogo grande, temporadas fuertes y ventas a consumidores u organizaciones.',
     tags: ['Catálogo amplio', 'Temporadas', 'Venta de mostrador', 'B2B / mayorista', 'Facturación'],
-    href: '#contacto',
-    cta: 'Consultar encaje',
+    href: '/casos-de-uso/papeleras',
+    cta: 'Ver caso',
   },
   {
     name: 'Insumos de repostería',
     description: 'Variedad de productos, picos de demanda y posible venta presencial + online.',
     tags: ['Catálogo amplio', 'Temporadas', 'Ecommerce', 'Proveedores', 'Facturación'],
-    href: '#contacto',
-    cta: 'Consultar encaje',
+    href: '/casos-de-uso/insumos-de-reposteria',
+    cta: 'Ver caso',
   },
 ];
 
@@ -52,16 +52,22 @@ const discoveryCases = [
     name: 'Florerías',
     description: 'Ventas por múltiples canales, disponibilidad cambiante y facturación a ordenar.',
     tags: ['Temporadas', 'Ecommerce', 'Venta de mostrador'],
+    href: '/casos-de-uso/florerias',
+    cta: 'Ver caso',
   },
   {
     name: 'Zinguería / metalúrgica',
     description: 'Ventas con materiales, servicios y seguimiento comercial que conviene evaluar en demo.',
     tags: ['Proveedores', 'B2B / mayorista', 'Facturación'],
+    href: '/casos-de-uso/zingueria-metalurgica',
+    cta: 'Ver caso',
   },
   {
     name: 'Cultivos',
     description: 'Operaciones con stock, ventas o administración donde primero validamos el flujo real.',
     tags: ['Stock crítico', 'Proveedores', 'Facturación'],
+    href: '/casos-de-uso/cultivos',
+    cta: 'Ver caso',
   },
 ];
 
@@ -174,7 +180,7 @@ const allTags = ['Venta de mostrador', 'Catálogo amplio', 'Stock crítico', 'Mu
           </div>
           <div class="grid md:grid-cols-3 gap-5">
             {discoveryCases.map((useCase) => (
-              <article class="bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll">
+              <article class="bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll flex flex-col">
                 <p class="text-sm text-amber-300 mb-2">A evaluar</p>
                 <h3 class="text-xl font-bold mb-3">{useCase.name}</h3>
                 <p class="text-gray-300 text-sm mb-4">{useCase.description}</p>
@@ -183,6 +189,12 @@ const allTags = ['Venta de mostrador', 'Catálogo amplio', 'Stock crítico', 'Mu
                     <span class="px-2.5 py-1 rounded-full bg-dark-800 border border-dark-600 text-gray-300 text-xs">{tag}</span>
                   ))}
                 </div>
+                <a href={useCase.href} class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors font-medium mt-6">
+                  {useCase.cta}
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+                  </svg>
+                </a>
               </article>
             ))}
           </div>
