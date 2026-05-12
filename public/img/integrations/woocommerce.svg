@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="96" viewBox="0 0 160 96" role="img" aria-labelledby="title">
+  <title id="title">WooCommerce</title>
+  <rect width="160" height="96" rx="18" fill="#96588A"/>
+  <path d="M30 26h76c13.3 0 24 10.7 24 24s-10.7 24-24 24H68L50 86V74H30C16.7 74 6 63.3 6 50s10.7-24 24-24Z" fill="#fff"/>
+  <text x="28" y="57" fill="#96588A" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="700">Woo</text>
+  <text x="84" y="57" fill="#96588A" font-family="Arial, Helvetica, sans-serif" font-size="15" font-weight="700">Commerce</text>
+</svg>

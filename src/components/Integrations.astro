@@ -5,24 +5,24 @@ const integrations = [
     category: 'Ecommerce',
     description: 'Conectá tu tienda online con la gestión operativa de ZinkERP.',
     href: '/integraciones/woocommerce',
-    logoText: 'Woo',
-    logoClass: 'bg-[#96588A] text-white',
+    logoSrc: '/img/integrations/woocommerce.svg',
+    logoAlt: 'Logo de WooCommerce',
   },
   {
     name: 'Facturante',
     category: 'Facturación',
     description: 'Acompañá los flujos de facturación de tu operación comercial.',
     href: '/integraciones#facturante',
-    logoText: 'F',
-    logoClass: 'bg-white text-dark-900',
+    logoSrc: '/img/integrations/facturante.svg',
+    logoAlt: 'Logo de Facturante',
   },
   {
     name: 'MercadoPago',
     category: 'Pagos',
     description: 'Conectá pagos con la operación comercial para trabajar con más orden.',
     href: '/integraciones#mercadopago',
-    logoText: 'MP',
-    logoClass: 'bg-[#00B1EA] text-white',
+    logoSrc: '/img/integrations/mercadopago.svg',
+    logoAlt: 'Logo de Mercado Pago',
   },
 ];
 ---
@@ -55,8 +55,8 @@ const integrations = [
             aria-label={`Ver más sobre ${integration.name}`}
           >
             <div class="flex items-start justify-between gap-4 mb-5">
-              <div class={`h-12 w-12 rounded-lg ${integration.logoClass} flex items-center justify-center font-bold text-base shrink-0 shadow-lg`}>
-                {integration.logoText}
+              <div class="h-14 w-24 rounded-lg bg-white flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-2">
+                <img src={integration.logoSrc} alt={integration.logoAlt} class="h-full w-full object-contain" loading="lazy" />
               </div>
               <span class="px-3 py-1 rounded-full bg-green-500/10 text-green-300 text-xs border border-green-500/30">Operativa</span>
             </div>

@@ -14,8 +14,8 @@ const integrations = [
     description: 'Conectá tu tienda online con la gestión diaria de ventas, stock, facturación y operación comercial.',
     href: '/integraciones/woocommerce',
     cta: 'Ver integración',
-    logoText: 'Woo',
-    logoClass: 'bg-[#96588A] text-white',
+    logoSrc: '/img/integrations/woocommerce.svg',
+    logoAlt: 'Logo de WooCommerce',
   },
   {
     name: 'Facturante',
@@ -24,8 +24,8 @@ const integrations = [
     description: 'Integración operativa para acompañar flujos de facturación dentro del contexto de gestión de ZinkERP.',
     href: '#contacto',
     cta: 'Consultar alcance',
-    logoText: 'F',
-    logoClass: 'bg-white text-dark-900',
+    logoSrc: '/img/integrations/facturante.svg',
+    logoAlt: 'Logo de Facturante',
   },
   {
     name: 'MercadoPago',
@@ -34,8 +34,8 @@ const integrations = [
     description: 'Integración operativa para conectar pagos con la operación comercial y reducir separación entre herramientas.',
     href: '#contacto',
     cta: 'Consultar alcance',
-    logoText: 'MP',
-    logoClass: 'bg-[#00B1EA] text-white',
+    logoSrc: '/img/integrations/mercadopago.svg',
+    logoAlt: 'Logo de Mercado Pago',
   },
 ];
 ---
@@ -70,8 +70,8 @@ const integrations = [
               aria-label={`${integration.cta}: ${integration.name}`}
             >
               <div class="flex items-start justify-between gap-4 mb-6">
-                <div class={`h-14 w-14 rounded-lg ${integration.logoClass} flex items-center justify-center font-bold text-lg shrink-0 shadow-lg`}>
-                  {integration.logoText}
+                <div class="h-16 w-28 rounded-lg bg-white flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-2">
+                  <img src={integration.logoSrc} alt={integration.logoAlt} class="h-full w-full object-contain" loading="lazy" />
                 </div>
                 <span class="px-3 py-1 rounded-full bg-green-500/10 text-green-300 text-xs border border-green-500/30">Operativa</span>
               </div>
