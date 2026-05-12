@@ -31,6 +31,7 @@ interface Props {
   ctaText: string;
   backHref?: string;
   backLabel?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -51,13 +52,14 @@ const {
   ctaText,
   backHref = '/casos-de-uso',
   backLabel = 'Volver a casos de uso',
+  noindex = false,
 } = Astro.props;
 
 const whatsappUrl = 'https://wa.link/sgzvr4';
 const demoUrl = 'https://cal.com/zinkintech';
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
+<Layout title={pageTitle} description={pageDescription} noindex={noindex}>
   <Header />
   <main>
     <section class="pt-32 pb-20 bg-dark-900 border-b border-dark-700">
@@ -90,7 +92,7 @@ const demoUrl = 'https://cal.com/zinkintech';
           </div>
 
           <div class="bg-dark-800 border border-dark-700 rounded-lg p-6 md:p-8 animate-on-scroll" style="animation-delay: 0.2s;">
-            <p class="text-sm text-gray-400 mb-4">Flujos más relevantes</p>
+            <p class="text-sm text-gray-400 mb-4">Áreas clave</p>
             <div class="grid sm:grid-cols-2 gap-3">
               {features.map((item) => (
                 <div class="rounded-lg bg-dark-700 border border-dark-600 p-4">
@@ -154,9 +156,9 @@ const demoUrl = 'https://cal.com/zinkintech';
       <div class="container mx-auto px-4">
         <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 items-start">
           <div class="animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Funciones útiles</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Funciones y módulos útiles</h2>
             <p class="text-lg text-gray-300">
-              Estas funciones suelen pesar más cuando el negocio necesita vender, controlar y facturar sin cortar el ritmo de trabajo.
+              Estas son algunas de las funciones que suelen tener más impacto cuando el negocio necesita vender, controlar y facturar sin cortar el ritmo de trabajo.
             </p>
         </div>
           <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

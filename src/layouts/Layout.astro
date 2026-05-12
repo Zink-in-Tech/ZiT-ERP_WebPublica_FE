@@ -6,12 +6,14 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  noindex?: boolean;
 }
 
 const { 
   title, 
   description = "ZinkERP: El ERP operativo que piensa como vos. Simple, rápido y hecho para crecer. Ideal para negocios con una o múltiples sucursales.",
-  image = "https://zinkerp.com/img/og-hero-zinkerp.png"
+  image = "https://zinkerp.com/img/og-hero-zinkerp.png",
+  noindex = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -69,6 +71,12 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         ],
       }}
     />
+    {noindex && (
+      <>
+        <meta name="robots" content="noindex, nofollow" />
+        <meta name="googlebot" content="noindex, nofollow" />
+      </>
+    )}
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
