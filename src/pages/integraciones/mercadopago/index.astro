@@ -1,0 +1,87 @@
+---
+import IntegrationDetailPage from '../../../components/IntegrationDetailPage.astro';
+
+const summaryCards = [
+  {
+    title: 'Autorización segura',
+    text: 'El acceso se autoriza desde el sitio oficial de Mercado Pago.',
+  },
+  {
+    title: 'Sucursal asociada',
+    text: 'Al volver a ZinkERP, se selecciona la sucursal vinculada a la cuenta.',
+  },
+  {
+    title: 'Flujos de cobro',
+    text: 'Los pagos con MercadoPago se conectan con la operación comercial.',
+  },
+];
+
+const detailSections = [
+  {
+    title: 'Autorización desde Mercado Pago',
+    text: 'ZinkERP redirige al usuario al sitio oficial de Mercado Pago para autorizar la conexión, sin pedir la contraseña dentro del ERP.',
+    items: [
+      'No se carga la contraseña de Mercado Pago en ZinkERP.',
+      'La autorización ocurre en el entorno oficial de Mercado Pago.',
+      'La conexión puede gestionarse desde Preferencias e Integraciones.',
+    ],
+  },
+  {
+    title: 'Sucursal y punto de venta',
+    text: 'Después de volver desde Mercado Pago, ZinkERP permite asociar una sucursal y solicita un punto de venta en flujos de pago que usan MercadoPago.',
+    items: [
+      'Selección de sucursal luego de autorizar.',
+      'Asociación con la organización en ZinkERP.',
+      'Punto de venta requerido donde aplica el flujo de pago.',
+    ],
+  },
+  {
+    title: 'Cobros con más contexto',
+    text: 'La integración ayuda a que los cobros no queden aislados de la operación comercial que el equipo gestiona todos los días.',
+    items: [
+      'Menos separación entre venta y cobro.',
+      'Configuración de pagos más ordenada.',
+      'Posibilidad de desconectar la cuenta cuando sea necesario.',
+    ],
+  },
+];
+
+const faqs = [
+  {
+    question: '¿ZinkERP guarda mi contraseña de Mercado Pago?',
+    answer: 'No. La autorización se realiza redirigiendo al sitio oficial de Mercado Pago, por lo que no se carga la contraseña dentro de ZinkERP.',
+  },
+  {
+    question: '¿Cómo se autoriza la integración?',
+    answer: 'Desde Preferencias e Integraciones, ZinkERP inicia el proceso y redirige al usuario a Mercado Pago para autorizar la conexión.',
+  },
+  {
+    question: '¿Qué pasa después de volver de Mercado Pago?',
+    answer: 'ZinkERP permite seleccionar la sucursal asociada a la cuenta para dejar la integración vinculada a la organización correspondiente.',
+  },
+  {
+    question: '¿Puedo desconectar la cuenta?',
+    answer: 'Sí. La integración contempla la posibilidad de desconectar la cuenta desde ZinkERP.',
+  },
+  {
+    question: '¿La integración concilia pagos automáticamente?',
+    answer: 'No comunicamos conciliación automática como parte del alcance validado. En una demo podemos revisar cómo MercadoPago participa hoy en los flujos de cobro.',
+  },
+];
+---
+
+<IntegrationDetailPage
+  pageTitle="Integración MercadoPago | ZinkERP"
+  pageDescription="Conectá MercadoPago con ZinkERP usando autorización segura desde Mercado Pago y asociá tus cobros a la operación comercial."
+  eyebrow="Integración operativa para pagos"
+  headline="Integrá MercadoPago con ZinkERP"
+  subheadline="Conectá tus cobros con la operación comercial de ZinkERP usando autorización segura desde Mercado Pago."
+  logoSrc="/img/integrations/mercadopago.svg"
+  logoAlt="Logo de Mercado Pago"
+  logoTitle="MercadoPago + ZinkERP"
+  summaryCards={summaryCards}
+  detailSections={detailSections}
+  faqs={faqs}
+  ctaTitle="Conectá tus cobros con más contexto operativo"
+  ctaText="Coordinemos una demo para revisar cómo MercadoPago se integra con los flujos comerciales de ZinkERP en tu negocio."
+/>

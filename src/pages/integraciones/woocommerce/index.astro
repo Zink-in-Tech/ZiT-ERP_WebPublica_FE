@@ -1,263 +1,111 @@
 ---
-import Layout from '../../../layouts/Layout.astro';
-import Header from '../../../components/Header.astro';
-import Footer from '../../../components/Footer.astro';
+import IntegrationDetailPage from '../../../components/IntegrationDetailPage.astro';
 
-const pageTitle = 'Integración WooCommerce | ZinkERP para ecommerce y comercios';
-const pageDescription = 'Conectá WooCommerce con ZinkERP para ordenar ventas online, stock, facturación y operación comercial en una plataforma local para pymes argentinas.';
-
-const pains = [
-  'Pedidos online que quedan separados de la operación diaria.',
-  'Actualizaciones manuales entre la tienda, el stock y la gestión.',
-  'Doble carga de información y más margen para errores.',
-  'Poca visibilidad cuando el negocio vende online y presencial.',
-];
-
-const benefits = [
-  'Centralizar la actividad comercial online dentro de la gestión.',
-  'Mejorar la visibilidad operativa sobre stock, ventas y sucursales.',
-  'Reducir trabajo manual entre ecommerce y administración.',
-  'Conectar la tienda con una base local preparada para pymes argentinas.',
-  'Ordenar la operación antes de escalar más ventas online.',
-];
-
-const audiences = [
-  'Comercios que ya venden con WooCommerce.',
-  'Pymes que combinan ecommerce con venta presencial.',
-  'Equipos que hoy manejan stock, ventas y facturación en herramientas separadas.',
-  'Agencias o consultores que implementan ecommerce para negocios en crecimiento.',
-];
-
-const reasons = [
+const summaryCards = [
   {
-    title: 'Producto local',
-    text: 'ZinkERP está pensado para la realidad de pymes y comercios argentinos.',
+    title: 'Tienda online',
+    text: 'WooCommerce conectada mediante URL pública y credenciales REST.',
   },
   {
-    title: 'ERP + POS',
-    text: 'La operación diaria puede convivir con ventas, stock, facturación, sucursales y punto de venta.',
+    title: 'Base operativa',
+    text: 'Productos del ERP vinculados con productos de la tienda.',
   },
   {
-    title: 'Soporte humano',
-    text: 'Acompañamiento cercano para entender el negocio y ordenar procesos con criterio.',
+    title: 'Control comercial',
+    text: 'Catálogo, productos sin vincular y enlaces inválidos para revisar.',
+  },
+];
+
+const detailSections = [
+  {
+    title: 'Ecommerce + ERP',
+    text: 'Cuando la tienda queda separada de la gestión, aparecen tareas duplicadas y dudas sobre qué producto está realmente vinculado.',
+    items: [
+      'Menos trabajo manual entre ecommerce y operación.',
+      'Más claridad sobre el estado de los productos conectados.',
+      'Una base operativa preparada para pymes y comercios argentinos.',
+    ],
   },
   {
-    title: 'Base SaaS',
-    text: 'Una plataforma cloud para crecer sin depender de sistemas aislados o instalaciones pesadas.',
+    title: 'Mapeo de productos',
+    text: 'La integración permite vincular productos de WooCommerce con productos de ZinkERP para ordenar la relación entre tienda y gestión.',
+    items: [
+      'Buscar productos del catálogo de la tienda.',
+      'Trabajar sobre productos sin vincular.',
+      'Detectar y corregir enlaces inválidos.',
+    ],
+  },
+  {
+    title: 'Control por producto',
+    text: 'ZinkERP muestra el estado de vínculo por producto y permite abrir la URL pública de la tienda cuando está disponible.',
+    items: [
+      'Estado de conexión visible a nivel producto.',
+      'Acceso al producto publicado cuando existe URL.',
+      'Opción de sincronización según la configuración activa.',
+    ],
+  },
+];
+
+const steps = [
+  {
+    title: 'Generar claves REST',
+    text: 'La tienda WooCommerce necesita credenciales REST creadas desde su administración.',
+  },
+  {
+    title: 'Cargar datos en ZinkERP',
+    text: 'Se ingresa la URL pública de la tienda, consumer key y consumer secret.',
+  },
+  {
+    title: 'Vincular la tienda',
+    text: 'ZinkERP conecta la tienda para acceder al catálogo disponible.',
+  },
+  {
+    title: 'Mapear productos',
+    text: 'El equipo vincula productos de WooCommerce con productos del ERP y revisa pendientes.',
   },
 ];
 
 const faqs = [
   {
     question: '¿La integración con WooCommerce ya está disponible?',
-    answer: 'Sí. La integración WooCommerce de ZinkERP está operativa y permite conectar la tienda online con el contexto operativo del ERP.',
+    answer: 'Sí. La integración está operativa y permite conectar una tienda WooCommerce con ZinkERP.',
   },
   {
-    question: '¿Qué datos se sincronizan?',
-    answer: 'Los detalles exactos de campos y alcance se validan en la conversación de implementación. Preferimos revisarlo según cada operación antes de publicar una lista cerrada.',
+    question: '¿Necesito claves REST?',
+    answer: 'Sí. Para vincular la tienda se usan la URL pública de WooCommerce, consumer key y consumer secret generadas desde WooCommerce.',
   },
   {
-    question: '¿La sincronización es automática?',
-    answer: 'La página pública no afirma frecuencia ni modalidad de sincronización. En una demo podemos mostrar el alcance vigente y confirmar cómo aplica a tu tienda.',
+    question: '¿Qué significa mapear productos?',
+    answer: 'Significa relacionar productos de la tienda con productos existentes en ZinkERP para que la operación pueda trabajar con vínculos claros.',
   },
   {
-    question: '¿Necesito usar ZinkERP para aprovechar la integración?',
-    answer: 'Sí. La integración está pensada para conectar WooCommerce con la base operativa de ZinkERP.',
+    question: '¿Se sincroniza en tiempo real?',
+    answer: 'No lo comunicamos como sincronización en tiempo real. El alcance y la modalidad se revisan según la configuración activa y el caso de uso.',
   },
   {
-    question: '¿Sirve si vendo online y también en local físico?',
-    answer: 'Sí. Ese es uno de los escenarios donde más valor puede aportar: ecommerce, stock, POS, facturación y sucursales necesitan mirar la misma operación.',
+    question: '¿Importa pedidos automáticamente?',
+    answer: 'No publicamos importación automática de pedidos como parte del alcance validado de esta página.',
   },
   {
-    question: '¿Cómo se implementa?',
-    answer: 'El proceso se define con el equipo de Zink según la tienda y la operación del negocio. Coordinamos una demo para revisar el caso y confirmar próximos pasos.',
+    question: '¿Puedo desvincular la tienda?',
+    answer: 'Sí. La integración contempla la posibilidad de desvincular la tienda desde ZinkERP.',
   },
 ];
 ---
 
-<Layout title={pageTitle} description={pageDescription}>
-  <Header />
-  <main>
-    <section class="pt-32 pb-20 bg-dark-900 border-b border-dark-700">
-      <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
-          <div class="max-w-3xl">
-            <p class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-sm font-medium animate-on-scroll">
-              Integración operativa para ecommerce
-            </p>
-            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-on-scroll" style="animation-delay: 0.05s;">
-              Integrá WooCommerce con ZinkERP
-            </h1>
-            <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
-              Conectá tu tienda online con la gestión diaria de ventas, stock, facturación y operación comercial en una plataforma local para pymes argentinas.
-            </p>
-            <div class="flex flex-col sm:flex-row gap-4 animate-on-scroll" style="animation-delay: 0.15s;">
-              <a href="https://cal.com/zinkintech" class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors">
-                Solicitar demo
-              </a>
-              <a href="https://cal.com/zinkintech" class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
-                Hablar con un especialista
-              </a>
-            </div>
-          </div>
-
-          <div class="bg-dark-800 border border-dark-700 rounded-lg p-6 md:p-8 animate-on-scroll" style="animation-delay: 0.2s;">
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-dark-700">
-              <div class="flex items-center gap-4 min-w-0">
-                <div class="h-16 w-28 rounded-lg bg-white flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-2">
-                  <img src="/img/integrations/woocommerce.svg" alt="Logo de WooCommerce" class="h-full w-full object-contain" loading="eager" />
-                </div>
-                <div class="min-w-0">
-                  <p class="text-sm text-gray-400">Conexión ecommerce</p>
-                  <h2 class="text-2xl font-bold break-words">WooCommerce + ZinkERP</h2>
-                </div>
-              </div>
-              <span class="self-start sm:self-auto px-3 py-1 rounded-full bg-green-500/10 text-green-300 text-sm border border-green-500/30">Operativa</span>
-            </div>
-            <div class="grid gap-4 mt-6">
-              <div class="rounded-lg bg-dark-700/70 border border-dark-600 p-4">
-                <p class="text-sm text-gray-400 mb-1">Tienda online</p>
-                <p class="font-medium">Actividad comercial desde WooCommerce</p>
-              </div>
-              <div class="flex justify-center text-primary" aria-hidden="true">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
-                  <path fill-rule="evenodd" d="M10 3a.75.75 0 01.75.75v10.638l3.96-4.158a.75.75 0 111.08 1.04l-5.25 5.5a.75.75 0 01-1.08 0l-5.25-5.5a.75.75 0 111.08-1.04l3.96 4.158V3.75A.75.75 0 0110 3z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <div class="rounded-lg bg-dark-700/70 border border-dark-600 p-4">
-                <p class="text-sm text-gray-400 mb-1">Base operativa</p>
-                <p class="font-medium">Ventas, stock, facturación, POS y sucursales en ZinkERP</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 bg-dark-800">
-      <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-2 gap-12 items-start">
-          <div class="animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Cuando el ecommerce crece, la operación necesita orden</h2>
-            <p class="text-lg text-gray-300">
-              Vender online suma oportunidades, pero también puede traer más carga manual si la tienda queda desconectada del stock, la administración y el equipo que opera todos los días.
-            </p>
-          </div>
-          <div class="grid gap-4">
-            {pains.map((pain) => (
-              <div class="flex gap-4 bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll">
-                <span class="mt-1 h-2.5 w-2.5 rounded-full bg-primary shrink-0"></span>
-                <p class="text-gray-300">{pain}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center mb-12 animate-on-scroll">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">Tu ecommerce y tu operación, en el mismo sistema</h2>
-          <p class="text-xl text-gray-300">
-            ZinkERP funciona como una base operativa para comercios: ventas, stock, POS, facturación, sucursales y control administrativo. Con WooCommerce conectado, la tienda deja de vivir como una isla separada.
-          </p>
-        </div>
-
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {benefits.map((benefit) => (
-            <div class="bg-dark-800 border border-dark-700 rounded-lg p-6 hover:border-primary/40 transition-colors animate-on-scroll">
-              <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <p class="text-gray-300">{benefit}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 bg-dark-800">
-      <div class="container mx-auto px-4">
-        <div class="grid lg:grid-cols-[0.9fr_1.1fr] gap-12">
-          <div class="animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Para quién es</h2>
-            <p class="text-lg text-gray-300">
-              Pensado para negocios que necesitan vender online sin perder control de la operación comercial.
-            </p>
-          </div>
-          <div class="grid md:grid-cols-2 gap-4">
-            {audiences.map((audience) => (
-              <div class="bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll">
-                <p class="font-medium">{audience}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <div class="text-center max-w-3xl mx-auto mb-12 animate-on-scroll">
-          <h2 class="text-3xl md:text-4xl font-bold mb-6">Por qué ZinkERP</h2>
-          <p class="text-xl text-gray-300">
-            Zink in Tech construye software SaaS local, con foco en pymes argentinas, comercios y operaciones multi-sucursal.
-          </p>
-        </div>
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {reasons.map((reason) => (
-            <div class="bg-dark-800 border border-dark-700 rounded-lg p-6 animate-on-scroll">
-              <h3 class="text-xl font-bold mb-3">{reason.title}</h3>
-              <p class="text-gray-300">{reason.text}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20 bg-dark-800">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          <div class="text-center mb-12 animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-6">Preguntas frecuentes</h2>
-            <p class="text-lg text-gray-300">Respuestas claras, sin prometer detalles técnicos que dependen de cada implementación.</p>
-          </div>
-          <div class="space-y-4">
-            {faqs.map((faq) => (
-              <details class="group bg-dark-700 border border-dark-600 rounded-lg p-6 animate-on-scroll">
-                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-lg">
-                  {faq.question}
-                  <span class="text-primary transition-transform group-open:rotate-45">+</span>
-                </summary>
-                <p class="mt-4 text-gray-300">{faq.answer}</p>
-              </details>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="demo" class="py-20 border-t border-dark-700">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-          <h2 class="text-3xl md:text-5xl font-bold mb-6">Conectá tu tienda con una operación más ordenada</h2>
-          <p class="text-xl text-gray-300 mb-8">
-            Coordinemos una demo para revisar cómo WooCommerce puede integrarse con ZinkERP según tu negocio, tus sucursales y tu forma de vender.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="https://cal.com/zinkintech" class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors">
-              Solicitar demo
-            </a>
-            <a href="https://cal.com/zinkintech" class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
-              Hablar con un especialista
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  </main>
-  <Footer />
-</Layout>
+<IntegrationDetailPage
+  pageTitle="Integración WooCommerce | ZinkERP"
+  pageDescription="Conectá WooCommerce con ZinkERP para ordenar catálogo, productos vinculados y operación comercial de tu tienda online."
+  eyebrow="Integración operativa para ecommerce"
+  headline="Integrá WooCommerce con ZinkERP"
+  subheadline="Conectá tu tienda online con la gestión de productos, precios, existencias y operación comercial de ZinkERP."
+  logoSrc="/img/integrations/woocommerce.svg"
+  logoAlt="Logo de WooCommerce"
+  logoTitle="WooCommerce + ZinkERP"
+  summaryCards={summaryCards}
+  detailSections={detailSections}
+  steps={steps}
+  faqs={faqs}
+  ctaTitle="Conectá tu tienda con una operación más ordenada"
+  ctaText="Coordinemos una demo para revisar cómo WooCommerce puede integrarse con ZinkERP según tu catálogo, tus productos y tu forma de operar."
+/>

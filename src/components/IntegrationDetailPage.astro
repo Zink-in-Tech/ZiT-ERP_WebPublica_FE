@@ -1,0 +1,201 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from './Header.astro';
+import Footer from './Footer.astro';
+
+type DetailBlock = {
+  title: string;
+  text: string;
+  items?: string[];
+};
+
+type Step = {
+  title: string;
+  text: string;
+};
+
+type Faq = {
+  question: string;
+  answer: string;
+};
+
+interface Props {
+  pageTitle: string;
+  pageDescription: string;
+  eyebrow: string;
+  headline: string;
+  subheadline: string;
+  logoSrc: string;
+  logoAlt: string;
+  logoTitle: string;
+  statusLabel?: string;
+  summaryCards: DetailBlock[];
+  detailSections: DetailBlock[];
+  steps?: Step[];
+  faqs: Faq[];
+  ctaTitle: string;
+  ctaText: string;
+}
+
+const {
+  pageTitle,
+  pageDescription,
+  eyebrow,
+  headline,
+  subheadline,
+  logoSrc,
+  logoAlt,
+  logoTitle,
+  statusLabel = 'Operativa',
+  summaryCards,
+  detailSections,
+  steps = [],
+  faqs,
+  ctaTitle,
+  ctaText,
+} = Astro.props;
+---
+
+<Layout title={pageTitle} description={pageDescription}>
+  <Header />
+  <main>
+    <section class="pt-32 pb-20 bg-dark-900 border-b border-dark-700">
+      <div class="container mx-auto px-4">
+        <div class="grid lg:grid-cols-[1.05fr_0.95fr] gap-12 items-center">
+          <div class="max-w-3xl">
+            <p class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-sm font-medium animate-on-scroll">
+              {eyebrow}
+            </p>
+            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-on-scroll" style="animation-delay: 0.05s;">
+              {headline}
+            </h1>
+            <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+              {subheadline}
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 animate-on-scroll" style="animation-delay: 0.15s;">
+              <a href="https://cal.com/zinkintech" class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors">
+                Solicitar demo
+              </a>
+              <a href="/integraciones" class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
+                Ver integraciones
+              </a>
+            </div>
+          </div>
+
+          <div class="bg-dark-800 border border-dark-700 rounded-lg p-6 md:p-8 animate-on-scroll" style="animation-delay: 0.2s;">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-6 border-b border-dark-700">
+              <div class="flex items-center gap-4 min-w-0">
+                <div class="h-16 w-32 rounded-lg bg-white flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-2">
+                  <img src={logoSrc} alt={logoAlt} class="h-full w-full object-contain" loading="eager" />
+                </div>
+                <div class="min-w-0">
+                  <p class="text-sm text-gray-400">Integración</p>
+                  <h2 class="text-2xl font-bold break-words">{logoTitle}</h2>
+                </div>
+              </div>
+              <span class="self-start sm:self-auto px-3 py-1 rounded-full bg-green-500/10 text-green-300 text-sm border border-green-500/30">{statusLabel}</span>
+            </div>
+            <div class="grid gap-4 mt-6">
+              {summaryCards.map((card) => (
+                <div class="rounded-lg bg-dark-700/70 border border-dark-600 p-4">
+                  <p class="text-sm text-gray-400 mb-1">{card.title}</p>
+                  <p class="font-medium">{card.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-20">
+      <div class="container mx-auto px-4">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {detailSections.map((section) => (
+            <article class="bg-dark-800 border border-dark-700 rounded-lg p-6 hover:border-primary/40 transition-colors animate-on-scroll">
+              <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-5">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h2 class="text-2xl font-bold mb-4">{section.title}</h2>
+              <p class="text-gray-300">{section.text}</p>
+              {section.items && (
+                <ul class="mt-5 space-y-3">
+                  {section.items.map((item) => (
+                    <li class="flex gap-3 text-gray-300">
+                      <span class="mt-2 h-2 w-2 rounded-full bg-primary shrink-0"></span>
+                      <span>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    {steps.length > 0 && (
+      <section class="py-20 bg-dark-800">
+        <div class="container mx-auto px-4">
+          <div class="max-w-4xl mx-auto text-center mb-12 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Cómo se configura</h2>
+            <p class="text-lg text-gray-300">Un recorrido de alto nivel para entender el proceso, sin prometer tiempos ni alcances que dependen de cada operación.</p>
+          </div>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {steps.map((step, index) => (
+              <article class="bg-dark-700 border border-dark-600 rounded-lg p-6 animate-on-scroll">
+                <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold mb-5">
+                  {index + 1}
+                </span>
+                <h3 class="text-xl font-bold mb-3">{step.title}</h3>
+                <p class="text-gray-300">{step.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
+
+    <section class={`py-20 ${steps.length > 0 ? '' : 'bg-dark-800'}`}>
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">Preguntas frecuentes</h2>
+            <p class="text-lg text-gray-300">Respuestas claras sobre lo que la integración permite hoy.</p>
+          </div>
+          <div class="space-y-4">
+            {faqs.map((faq) => (
+              <details class="group bg-dark-700 border border-dark-600 rounded-lg p-6 animate-on-scroll">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-lg">
+                  {faq.question}
+                  <span class="text-primary transition-transform group-open:rotate-45">+</span>
+                </summary>
+                <p class="mt-4 text-gray-300">{faq.answer}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="demo" class="py-20 border-t border-dark-700">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
+          <h2 class="text-3xl md:text-5xl font-bold mb-6">{ctaTitle}</h2>
+          <p class="text-xl text-gray-300 mb-8">{ctaText}</p>
+          <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="https://cal.com/zinkintech" class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors">
+              Solicitar demo
+            </a>
+            <a href="/integraciones" class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
+              Ver integraciones
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>
