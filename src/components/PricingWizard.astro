@@ -6,16 +6,17 @@ const questions = [
     options: [
       { value: 'single', label: '1 sucursal', icon: '🟢' },
       { value: 'small', label: 'Entre 2 y 4 sucursales', icon: '🔵' },
-      { value: 'large', label: '5 o más sucursales / franquicias', icon: '🟣' }
+      { value: 'large', label: '5 o más sucursales / franquicias', icon: '🟠' }
     ]
   },
   {
-    id: 'billing',
-    text: '¿Cuál es tu facturación mensual promedio?',
+    id: 'fiscalVolume',
+    text: '¿Cuántos comprobantes fiscales emitís por mes?',
     options: [
-      { value: 'small', label: 'Hasta USD 15.000', icon: '🟢' },
-      { value: 'medium', label: 'Hasta USD 40.000', icon: '🔵' },
-      { value: 'large', label: 'Más de USD 40.000', icon: '🟣' }
+      { value: 'starter', label: 'Hasta 500', icon: '🟢' },
+      { value: 'pro', label: 'Hasta 1.500', icon: '🔵' },
+      { value: 'full', label: 'Hasta 4.500', icon: '🟣' },
+      { value: 'enterprise', label: 'Más de 4.500', icon: '🟠' }
     ]
   },
   {
@@ -34,17 +35,22 @@ const plans = {
     name: 'Plan Emprendedor',
     price: 15,
     description: 'Tu negocio está dando sus primeros pasos, y ZinkERP puede ayudarte a ordenarlo desde el primer día sin gastar de más.',
-    promo: '50% OFF por 6 meses'
+    promo: '50% OFF por 3 meses. Luego USD 29/mes'
   },
   pro: {
     name: 'Plan Pyme',
     price: 70,
-    description: 'Tu empresa está en pleno crecimiento. Este plan te permite escalar sin preocuparte por usuarios, módulos o facturación.'
+    description: 'Tu empresa está en pleno crecimiento. Este plan acompaña una operación con más movimiento sin cobrar por usuario.'
   },
   full: {
     name: 'Plan Escala',
     price: 99,
-    description: 'Este plan está diseñado para negocios con alta operación, franquicias o múltiples sedes que necesitan control y soporte a gran escala.'
+    description: 'Este plan está diseñado para negocios con varias sedes o una operación fiscal más intensa.'
+  },
+  enterprise: {
+    name: 'Plan Enterprise Fiscal',
+    price: 149,
+    description: 'Para operaciones que superan los 4.500 comprobantes fiscales mensuales y necesitan una arquitectura comercial superior.'
   }
 };
 ---
@@ -91,10 +97,10 @@ const plans = {
           <h4 id="plan-name" class="text-xl font-bold"></h4>
         </div>
         <p id="plan-description" class="text-gray-300 mb-6"></p>
-        <div class="flex items-end gap-2 mb-4">
+        <div class="flex flex-wrap items-end gap-2 mb-4">
           <span class="text-3xl font-bold">USD <span id="plan-price"></span></span>
           <span class="text-gray-400">/mes</span>
-          <span id="plan-promo" class="text-blue-primary text-sm font-medium ml-2"></span>
+          <span id="plan-promo" class="text-blue-primary text-sm font-medium"></span>
         </div>
         <div class="flex gap-4">
           <a 
@@ -178,19 +184,14 @@ const plans = {
       // Simple logic to determine plan
       let recommendedPlan;
       
-      if (
-        answers[0] === 'single' && 
-        answers[1] === 'small' && 
-        (answers[2] === 'basic' || answers[2] === 'medium')
-      ) {
-        recommendedPlan = 'starter';
-      } else if (
-        (answers[0] === 'single' || answers[0] === 'small') && 
-        answers[1] === 'medium'
-      ) {
+      if (answers[1] === 'enterprise' || answers[0] === 'large') {
+        recommendedPlan = 'enterprise';
+      } else if (answers[1] === 'full' || answers[2] === 'complex') {
+        recommendedPlan = 'full';
+      } else if (answers[1] === 'pro' || answers[0] === 'small' || answers[2] === 'medium') {
         recommendedPlan = 'pro';
       } else {
-        recommendedPlan = 'full';
+        recommendedPlan = 'starter';
       }
 
       // Update UI with plan details
@@ -200,19 +201,25 @@ const plans = {
           price: 15,
           icon: '🟢',
           description: 'Tu negocio está dando sus primeros pasos, y ZinkERP puede ayudarte a ordenarlo desde el primer día sin gastar de más.',
-          promo: '50% OFF por 6 meses'
+          promo: '50% OFF por 3 meses. Luego USD 29/mes'
         },
         pro: {
           name: 'Plan Pyme',
           price: 70,
           icon: '🔵',
-          description: 'Tu empresa está en pleno crecimiento. Este plan te permite escalar sin preocuparte por usuarios, módulos o facturación.'
+          description: 'Tu empresa está en pleno crecimiento. Este plan acompaña una operación con más movimiento sin cobrar por usuario.'
         },
         full: {
           name: 'Plan Escala',
           price: 99,
           icon: '🟣',
-          description: 'Este plan está diseñado para negocios con alta operación, franquicias o múltiples sedes que necesitan control y soporte a gran escala.'
+          description: 'Este plan está diseñado para negocios con varias sedes o una operación fiscal más intensa.'
+        },
+        enterprise: {
+          name: 'Plan Enterprise Fiscal',
+          price: 149,
+          icon: '🟠',
+          description: 'Para operaciones que superan los 4.500 comprobantes fiscales mensuales y necesitan una arquitectura comercial superior.'
         }
       };
 

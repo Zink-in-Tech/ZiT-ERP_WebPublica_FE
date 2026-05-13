@@ -16,18 +16,16 @@ const plans = [
         duration: 3
       }
     },
-    scenario: "Negocios de una sola sucursal y facturación inicial",
+    scenario: "Negocios de una sola sucursal y operación inicial",
     description: "Ideal para empezar a ordenar tu negocio con todas las herramientas necesarias",
     features: [
       "Usuarios ilimitados",
       "Módulos base",
-      "Facturación hasta USD 15.000/mes en ventas",
       "1 sede",
       "Facturante y MercadoPago incluidos",
     ],
     cta: "Empezar con 50% OFF",
     hasPromo: true,
-    billingLimit: "USD 15.000/mes en ventas",
     fiscalLimit: "hasta 500 comprobantes fiscales/mes"
   },
   {
@@ -37,12 +35,11 @@ const plans = [
       monthly: 70,
       yearly: 700
     },
-    scenario: "Empresas en crecimiento, con facturación intermedia",
+    scenario: "Empresas en crecimiento, con operación intermedia",
     description: "Para negocios que necesitan más control y funcionalidades avanzadas",
     features: [
       "Usuarios ilimitados",
       "Módulos base",
-      "Facturación hasta USD 40.000/mes en ventas",
       "1 sede",
       "Todas las integraciones",
       "Soporte por WhatsApp y email",
@@ -50,7 +47,6 @@ const plans = [
     ],
     cta: "Elegir Plan Pyme",
     popular: true,
-    billingLimit: "Hasta USD 40.000/mes en ventas",
     fiscalLimit: "hasta 1.500 comprobantes fiscales/mes"
   },
   {
@@ -65,19 +61,38 @@ const plans = [
     features: [
       "Usuarios ilimitados",
       "Módulos base + opcionales",
-      "Hasta USD 100.000/mes en ventas",
-      "1 sucursal bonificada por 6 meses",
-      "Plan específico para cada sucursal adicional",
+      "Condición para sucursales: 50% por 12 meses",
       "Todas las integraciones",
       "Soporte prioritario multicanal",
       "Onboarding completo + importación",
       "Seguridad avanzada"
     ],
     cta: "Elegir Plan Escala",
-    billingLimit: "Hasta USD 100.000/mes",
     fiscalLimit: "hasta 4.500 comprobantes fiscales/mes",
     hasHeader: true,
     headerText: "Ideal si tenés más de una sucursal de venta"
+  },
+  {
+    name: "Plan Enterprise Fiscal",
+    icon: "🟠",
+    price: {
+      monthly: 149,
+      yearly: 1490
+    },
+    scenario: "Operaciones con alto volumen fiscal y mayor complejidad",
+    description: "Para empresas que superan el volumen fiscal de los planes estándar",
+    features: [
+      "Usuarios ilimitados",
+      "Módulos base + opcionales",
+      "Más de una sede o sucursal",
+      "Condición para sucursales: 50% por 12 meses",
+      "Todas las integraciones",
+      "Soporte prioritario multicanal",
+      "Onboarding completo + importación",
+      "Seguridad avanzada"
+    ],
+    cta: "Hablar con ventas",
+    fiscalLimit: "más de 4.500 comprobantes fiscales/mes"
   }
 ];
 
@@ -88,7 +103,7 @@ const comparisons = [
     traditional: true
   },
   {
-    feature: "Crece con tu negocio sin castigo",
+    feature: "Planes claros por tamaño de operación",
     zinkERP: true,
     traditional: false
   },
@@ -98,7 +113,7 @@ const comparisons = [
     traditional: false
   },
   {
-    feature: "Soporte local 24x7 incluido",
+    feature: "Soporte local incluido",
     zinkERP: true,
     traditional: false
   },
@@ -146,9 +161,9 @@ const testimonials = [
 ];
 
 const includedFeatures = [
-  "Funciones base siempre incluídas",
+  "Funciones base siempre incluidas",
   "Usuarios ilimitados",
-  "Soporte 24x7",
+  "Soporte local",
   "Implementación guiada",
   "Sin costos ocultos",
   "Artículos en stock ilimitados"
@@ -171,7 +186,7 @@ const includedFeatures = [
             El modelo de precios más accesible para Emprendedores y PyMES. 
           </h1>
           <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
-            Nuestro modelo de precios se adapta a tu negocio, sin cobrarte por usuario o cantidad de comprobantes. Crecemos con vos.
+            Sin cobrarte por usuario. Con planes claros según el tamaño y la complejidad de tu operación.
           </p>
         </div>
       </div>
@@ -180,7 +195,7 @@ const includedFeatures = [
     {/* Pricing Plans */}
     <section id="planes" class="py-20 bg-dark-800">
       <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan) => (
             <div class={`bg-dark-700 rounded-xl overflow-hidden border ${
               plan.popular ? 'border-primary' : 
@@ -252,12 +267,6 @@ const includedFeatures = [
                 <div class="mb-6 space-y-3">
                   <div class="p-4 bg-dark-600/50 rounded-lg">
                     <p class="text-sm font-medium text-gray-300">
-                      Límite de facturación:
-                    <span class="block text-white mt-1">{plan.billingLimit}</span>
-                    </p>
-                  </div>
-                  <div class="p-4 bg-dark-600/50 rounded-lg">
-                    <p class="text-sm font-medium text-gray-300">
                       Límite fiscal:
                       <span class="block text-white mt-1">{plan.fiscalLimit}</span>
                     </p>
@@ -291,17 +300,11 @@ const includedFeatures = [
             </div>
           ))}
         </div>
-        
-        <div class="max-w-6xl mx-auto mt-8">
-          <p class="text-center text-sm text-gray-400">
-            Para operaciones que superen los 4.500 comprobantes fiscales o los USD 100.000 mensuales en ventas por sede, consultar por el Plan Enterprise Fiscal.
-          </p>
-        </div>
       </div>
     </section>
 
     {/* Pricing Wizard */}
-    <section class="py-20">
+    <section id="simulator" class="py-20">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <PricingWizard />
