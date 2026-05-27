@@ -10,7 +10,7 @@ interface Props {
 const { testimonial, className = '', style = '' } = Astro.props;
 ---
 
-<article class:list={['bg-dark-700 rounded-lg p-8 border border-dark-600 hover:border-primary-500 transition-all duration-300', className]} style={style}>
+<article class:list={['bg-dark-700 rounded-lg p-8 border border-dark-600 hover:-translate-y-1 hover:border-primary-500 hover:bg-white/[0.02] transition-all duration-300', className]} style={style}>
   <div class="mb-6">
     <div class="flex items-start gap-4 min-w-0">
       {testimonial.logoSrc ? (
