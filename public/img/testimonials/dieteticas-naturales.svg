@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="180" height="180" viewBox="0 0 180 180" role="img" aria-labelledby="title">
+  <title id="title">Dietéticas Naturales</title>
+  <rect width="180" height="180" rx="24" fill="#ffffff"/>
+  <circle cx="90" cy="90" r="76" fill="none" stroke="#111111" stroke-width="6"/>
+  <circle cx="90" cy="90" r="8" fill="#111111"/>
+  <g fill="#111111" font-family="Arial, sans-serif" font-weight="700" letter-spacing="4">
+    <text x="90" y="36" font-size="18" text-anchor="middle">DIETETICAS</text>
+    <text x="90" y="152" font-size="18" text-anchor="middle">NATURALES</text>
+  </g>
+  <g transform="translate(90 89)" stroke="#111111" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M-18 8c-10-9-12-23-4-35 5-8 14-14 26-18-1 14-5 26-13 35-3 4-6 7-9 10Z"/>
+    <path d="M12 8c10-9 12-23 4-35-5-8-14-14-26-18 1 14 5 26 13 35 3 4 6 7 9 10Z"/>
+    <path d="M-4-25c4 7 10 12 17 15"/>
+    <path d="M4-25c-4 7-10 12-17 15"/>
+  </g>
+  <g transform="translate(90 105)" stroke="#111111" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M-25 0c0-14 11-25 25-25s25 11 25 25"/>
+    <circle cx="-21" cy="14" r="13"/>
+    <circle cx="21" cy="14" r="13"/>
+    <path d="M-8 14h16"/>
+    <path d="M-5 40c4 8 16 8 20 0"/>
+    <path d="M-19 14c0 4 3 7 7 7"/>
+    <path d="M27 14c0 4-3 7-7 7"/>
+    <path d="M-10 48c6 8 24 8 30 0"/>
+  </g>
+</svg>
