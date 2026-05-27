@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
+import TestimonialsGrid from './TestimonialsGrid.astro';
+import { getTestimonialsByIds } from '../data/testimonials';
 
 type UseCaseLink = {
   name: string;
@@ -26,6 +28,7 @@ interface Props {
   features: string[];
   workflows: { title: string; text: string }[];
   integrations?: UseCaseLink[];
+  testimonialIds?: string[];
   faqs: UseCaseFaq[];
   ctaTitle: string;
   ctaText: string;
@@ -47,6 +50,7 @@ const {
   features,
   workflows,
   integrations = [],
+  testimonialIds = [],
   faqs,
   ctaTitle,
   ctaText,
@@ -59,6 +63,7 @@ const whatsappUrl = 'https://wa.link/sgzvr4';
 const demoUrl = 'https://cal.com/zinkintech';
 const integrationsGridClass =
   integrations.length >= 3 ? 'grid md:grid-cols-2 xl:grid-cols-3 gap-6' : 'grid md:grid-cols-2 gap-6';
+const useCaseTestimonials = getTestimonialsByIds(testimonialIds);
 ---
 
 <Layout title={pageTitle} description={pageDescription} noindex={noindex}>
@@ -213,6 +218,23 @@ const integrationsGridClass =
               </a>
             ))}
           </div>
+        </div>
+      </section>
+    )}
+
+    {useCaseTestimonials.length > 0 && (
+      <section class="py-20 bg-dark-800 border-t border-dark-700">
+        <div class="container mx-auto px-4">
+          <div class="max-w-3xl mb-12 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Historias del rubro</h2>
+            <p class="text-lg text-gray-300">
+              Casos reales de negocios similares que ya usan ZinkERP para ordenar la operación diaria.
+            </p>
+          </div>
+          <TestimonialsGrid
+            testimonials={useCaseTestimonials}
+            columnsClass="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
+          />
         </div>
       </section>
     )}

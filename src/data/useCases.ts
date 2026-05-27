@@ -21,6 +21,7 @@ export type UseCaseEntry = {
   features: string[];
   workflows: { title: string; text: string }[];
   integrations?: UseCaseLink[];
+  testimonialIds?: string[];
   faqs: UseCaseFaq[];
   ctaTitle: string;
   ctaText: string;
@@ -114,6 +115,7 @@ export const useCases: Record<string, UseCaseEntry> = {
         href: '/integraciones/woocommerce',
       },
     ],
+    testimonialIds: ['martina-papelera-pilar'],
     faqs: [
       {
         question: '¿Sirve si tengo muchos productos?',
@@ -227,6 +229,7 @@ export const useCases: Record<string, UseCaseEntry> = {
         href: '/integraciones/woocommerce',
       },
     ],
+    testimonialIds: ['julieta-dieteticas-naturales'],
     faqs: [
       {
         question: '¿Sirve si vendo muchos productos chicos?',
@@ -335,6 +338,7 @@ export const useCases: Record<string, UseCaseEntry> = {
         href: '/integraciones/mercadopago',
       },
     ],
+    testimonialIds: ['antonella-limpieza-blue'],
     faqs: [
       {
         question: '¿Sirve para venta minorista y también comercial?',
