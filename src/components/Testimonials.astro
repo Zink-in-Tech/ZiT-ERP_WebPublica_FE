@@ -17,15 +17,6 @@ import TestimonialCard from './TestimonialCard.astro';
     </div>
     <div class="testimonial-carousel animate-on-scroll" data-testimonial-carousel>
       <div class="testimonial-toolbar">
-        <div class="testimonial-toolbar-copy">
-          <p class="testimonial-eyebrow">Empresas que ya están operando mejor</p>
-          <div class="testimonial-page-indicator">
-            <span data-carousel-current>1</span>
-            <span class="testimonial-page-divider">/</span>
-            <span data-carousel-total>{Math.max(1, testimonials.length)}</span>
-          </div>
-        </div>
-
         <div class="testimonial-toolbar-rail">
           <div class="testimonial-progress-track" aria-hidden="true">
             <div class="testimonial-progress-bar" data-carousel-progress></div>
@@ -85,21 +76,15 @@ import TestimonialCard from './TestimonialCard.astro';
     const nextButton = root.querySelector('[data-carousel-next]');
     const dotsRoot = root.querySelector('[data-carousel-dots]');
     const progressBar = root.querySelector('[data-carousel-progress]');
-    const currentLabel = root.querySelector('[data-carousel-current]');
-    const totalLabel = root.querySelector('[data-carousel-total]');
 
-    if (!viewport || !slides.length || !prevButton || !nextButton || !dotsRoot || !progressBar || !currentLabel || !totalLabel) return;
+    if (!viewport || !slides.length || !prevButton || !nextButton || !dotsRoot || !progressBar) return;
 
     let currentPage = 0;
     let totalPages = 1;
     let autoTimer;
     let resumeTimer;
 
-    const visibleSlides = () => {
-      if (window.innerWidth >= 1280) return 3;
-      if (window.innerWidth >= 768) return 2;
-      return 1;
-    };
+    const visibleSlides = () => 1;
 
     const pageWidth = () => viewport.clientWidth;
 
@@ -119,8 +104,6 @@ import TestimonialCard from './TestimonialCard.astro';
       Array.from(dotsRoot.children).forEach((dot, index) => {
         dot.classList.toggle('is-active', index === currentPage);
       });
-      currentLabel.textContent = String(currentPage + 1);
-      totalLabel.textContent = String(totalPages);
       progressBar.style.width = ((currentPage + 1) / totalPages) * 100 + '%';
       prevButton.disabled = totalPages <= 1;
       nextButton.disabled = totalPages <= 1;
@@ -149,13 +132,13 @@ import TestimonialCard from './TestimonialCard.astro';
       if (totalPages <= 1) return;
       autoTimer = window.setInterval(() => {
         goToPage((currentPage + 1) % totalPages);
-      }, 5500);
+      }, 4000);
     };
 
     const pauseAndResume = () => {
       stopAuto();
       window.clearTimeout(resumeTimer);
-      resumeTimer = window.setTimeout(startAuto, 7000);
+      resumeTimer = window.setTimeout(startAuto, 4000);
     };
 
     prevButton.addEventListener('click', () => {
@@ -186,42 +169,17 @@ import TestimonialCard from './TestimonialCard.astro';
 
 <style>
   .testimonial-toolbar {
-    display: grid;
+    display: flex;
+    align-items: center;
     gap: 1rem;
     margin-bottom: 1.75rem;
-  }
-
-  .testimonial-toolbar-copy {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-
-  .testimonial-eyebrow {
-    font-size: 0.8rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    color: rgba(226, 232, 240, 0.72);
-  }
-
-  .testimonial-page-indicator {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.35rem;
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: #f8fafc;
-  }
-
-  .testimonial-page-divider {
-    color: rgba(148, 163, 184, 0.7);
   }
 
   .testimonial-toolbar-rail {
     display: flex;
     align-items: center;
     gap: 1rem;
+    flex: 1;
   }
 
   .testimonial-viewport {
@@ -323,22 +281,6 @@ import TestimonialCard from './TestimonialCard.astro';
   }
 
   @media (min-width: 768px) {
-    .testimonial-toolbar {
-      grid-template-columns: minmax(0, 220px) minmax(0, 1fr) auto;
-      align-items: center;
-      gap: 1.25rem;
-    }
-
-    .testimonial-toolbar-copy {
-      display: grid;
-      gap: 0.4rem;
-      justify-content: start;
-    }
-
-    .testimonial-page-indicator {
-      font-size: 1.1rem;
-    }
-
     .testimonial-footer {
       grid-template-columns: 1fr auto;
       align-items: center;
@@ -353,15 +295,4 @@ import TestimonialCard from './TestimonialCard.astro';
     }
   }
 
-  @media (min-width: 768px) {
-    .testimonial-slide {
-      min-width: calc((100% - 1.5rem) / 2);
-    }
-  }
-
-  @media (min-width: 1280px) {
-    .testimonial-slide {
-      min-width: calc((100% - 3rem) / 3);
-    }
-  }
 </style>
