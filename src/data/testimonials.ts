@@ -36,6 +36,21 @@ export const testimonials: TestimonialEntry[] = [
     result: 'Mostrador más ágil',
   },
   {
+    id: 'mariela-papelera-pilar',
+    name: 'Mariela',
+    position: 'Dueña',
+    company: 'Papelera Pilar Manualidades',
+    companyUrl: 'https://www.papelerapilarmanualidades.com.ar/',
+    logoSrc: '/img/testimonials/papelera-pilar.webp',
+    logoAlt: 'Logo de Papelera Pilar Manualidades',
+    content:
+      'Con ZinkERP logramos ordenar mejor la operación diaria del local y entender mucho más claro la situación general del negocio. Hoy tenemos ventas, pagos, stock y caja mucho más conectados, y eso nos da control para decidir con mejor información.',
+    before: 'Operación apoyada en tareas manuales, seguimiento disperso y poca visibilidad general',
+    after: 'Ventas, pagos, stock y caja centralizados en un solo sistema',
+    impact: 'Más claridad financiera y más control para decidir',
+    result: 'Dueña con visión del negocio',
+  },
+  {
     id: 'antonella-limpieza-blue',
     name: 'Antonella',
     position: 'Gerente',
@@ -64,6 +79,21 @@ export const testimonials: TestimonialEntry[] = [
     after: 'Todo integrado en una sola plataforma',
     impact: 'Control total entre sucursales',
     result: 'Gestión remota y centralizada',
+  },
+  {
+    id: 'gustavo-dieteticas-naturales',
+    name: 'Gustavo',
+    position: 'Dueño',
+    company: 'Dietéticas Naturales',
+    companyUrl: 'https://www.instagram.com/dieteticasnaturales_/?hl=es',
+    logoSrc: '/img/testimonials/dieteticas-naturales.jpeg',
+    logoAlt: 'Logo de Dietéticas Naturales',
+    content:
+      'Pasamos de tener todo disperso a manejar nuestras 3 sucursales desde un solo lugar. Hoy controlamos ventas, stock y caja en tiempo real, y además tenemos una visión mucho más clara de la situación general del negocio para tomar decisiones.',
+    before: 'Datos dispersos, gestión presencial y poca visibilidad entre sucursales',
+    after: 'Operación centralizada con control remoto y mejor lectura del negocio',
+    impact: 'Más visibilidad financiera y más criterio para crecer con orden',
+    result: 'Dueño con control total',
   },
   {
     id: 'juan-marota',
@@ -98,10 +128,10 @@ export const testimonials: TestimonialEntry[] = [
     logoSrc: '/img/testimonials/quimica-el-cruce.png',
     logoAlt: 'Logo de Química Tortuguitas y El Cruce',
     content:
-      'Antes no estaba todo integrado y manejar varias sucursales implicaba demasiados pasos sueltos. Ahora pueden controlar stock, compras y operación desde un solo lugar, con una base mucho más preparada para sumar una nueva sucursal.',
+      'Antes no estaba todo integrado y manejar varias sucursales implicaba demasiados pasos sueltos. Ahora pueden controlar stock, compras, caja y operación desde un solo lugar, con una visión más completa del negocio y una base mucho más preparada para sumar una nueva sucursal.',
     before: 'Información, stock y compras repartidos sin integración real entre sucursales',
     after: 'Operación centralizada para todas las sucursales desde un mismo sistema',
-    impact: 'Más control multi-sucursal y mejor base para crecer',
+    impact: 'Más control multi-sucursal, más visibilidad general y mejor base para crecer',
     result: 'Escala con orden',
   },
 ];

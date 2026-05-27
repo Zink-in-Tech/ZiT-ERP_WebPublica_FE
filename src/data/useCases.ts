@@ -229,7 +229,7 @@ export const useCases: Record<string, UseCaseEntry> = {
         href: '/integraciones/woocommerce',
       },
     ],
-    testimonialIds: ['julieta-dieteticas-naturales'],
+    testimonialIds: ['julieta-dieteticas-naturales', 'gustavo-dieteticas-naturales'],
     faqs: [
       {
         question: '¿Sirve si vendo muchos productos chicos?',
@@ -338,7 +338,7 @@ export const useCases: Record<string, UseCaseEntry> = {
         href: '/integraciones/mercadopago',
       },
     ],
-    testimonialIds: ['antonella-limpieza-blue'],
+    testimonialIds: ['antonella-limpieza-blue', 'miguel-alberto-quimica'],
     faqs: [
       {
         question: '¿Sirve para venta minorista y también comercial?',
@@ -447,6 +447,7 @@ export const useCases: Record<string, UseCaseEntry> = {
         href: '/integraciones/mercadopago',
       },
     ],
+    testimonialIds: ['martina-papelera-pilar', 'mariela-papelera-pilar'],
     faqs: [
       {
         question: '¿Sirve si tengo muchos productos y temporadas fuertes?',
@@ -554,6 +555,11 @@ export const useCases: Record<string, UseCaseEntry> = {
         name: 'WooCommerce',
         href: '/integraciones/woocommerce',
       },
+    ],
+    testimonialIds: [
+      'martina-papelera-pilar',
+      'mariela-papelera-pilar',
+      'julieta-dieteticas-naturales',
     ],
     faqs: [
       {

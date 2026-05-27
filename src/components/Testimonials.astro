@@ -16,12 +16,23 @@ import TestimonialCard from './TestimonialCard.astro';
       <p class="text-gray-300 max-w-3xl mx-auto">Casos concretos de equipos que pasaron de trabajar con dispersión y tareas manuales a operar con más control.</p>
     </div>
     <div class="testimonial-carousel animate-on-scroll" data-testimonial-carousel>
-      <div class="flex items-center justify-between gap-4 mb-8">
-        <div class="testimonial-progress-track">
-          <div class="testimonial-progress-bar" data-carousel-progress></div>
+      <div class="testimonial-toolbar">
+        <div class="testimonial-toolbar-copy">
+          <p class="testimonial-eyebrow">Empresas que ya están operando mejor</p>
+          <div class="testimonial-page-indicator">
+            <span data-carousel-current>1</span>
+            <span class="testimonial-page-divider">/</span>
+            <span data-carousel-total>{Math.max(1, testimonials.length)}</span>
+          </div>
         </div>
 
-        <div class="flex items-center gap-3 shrink-0">
+        <div class="testimonial-toolbar-rail">
+          <div class="testimonial-progress-track" aria-hidden="true">
+            <div class="testimonial-progress-bar" data-carousel-progress></div>
+          </div>
+        </div>
+
+        <div class="testimonial-toolbar-actions">
           <button
             type="button"
             class="testimonial-nav"
@@ -55,7 +66,10 @@ import TestimonialCard from './TestimonialCard.astro';
         </div>
       </div>
 
-      <div class="testimonial-dots" data-carousel-dots aria-label="Paginación de testimonios"></div>
+      <div class="testimonial-footer">
+        <div class="testimonial-dots" data-carousel-dots aria-label="Paginación de testimonios"></div>
+        <p class="testimonial-footer-copy">Deslizá o usá las flechas para recorrer más casos reales.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -71,8 +85,10 @@ import TestimonialCard from './TestimonialCard.astro';
     const nextButton = root.querySelector('[data-carousel-next]');
     const dotsRoot = root.querySelector('[data-carousel-dots]');
     const progressBar = root.querySelector('[data-carousel-progress]');
+    const currentLabel = root.querySelector('[data-carousel-current]');
+    const totalLabel = root.querySelector('[data-carousel-total]');
 
-    if (!viewport || !slides.length || !prevButton || !nextButton || !dotsRoot || !progressBar) return;
+    if (!viewport || !slides.length || !prevButton || !nextButton || !dotsRoot || !progressBar || !currentLabel || !totalLabel) return;
 
     let currentPage = 0;
     let totalPages = 1;
@@ -103,6 +119,8 @@ import TestimonialCard from './TestimonialCard.astro';
       Array.from(dotsRoot.children).forEach((dot, index) => {
         dot.classList.toggle('is-active', index === currentPage);
       });
+      currentLabel.textContent = String(currentPage + 1);
+      totalLabel.textContent = String(totalPages);
       progressBar.style.width = ((currentPage + 1) / totalPages) * 100 + '%';
       prevButton.disabled = totalPages <= 1;
       nextButton.disabled = totalPages <= 1;
@@ -167,8 +185,48 @@ import TestimonialCard from './TestimonialCard.astro';
 </script>
 
 <style>
+  .testimonial-toolbar {
+    display: grid;
+    gap: 1rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .testimonial-toolbar-copy {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .testimonial-eyebrow {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(226, 232, 240, 0.72);
+  }
+
+  .testimonial-page-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #f8fafc;
+  }
+
+  .testimonial-page-divider {
+    color: rgba(148, 163, 184, 0.7);
+  }
+
+  .testimonial-toolbar-rail {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
   .testimonial-viewport {
     overflow: hidden;
+    padding: 0.35rem 0;
   }
 
   .testimonial-track {
@@ -183,10 +241,10 @@ import TestimonialCard from './TestimonialCard.astro';
   }
 
   .testimonial-progress-track {
-    height: 4px;
+    height: 6px;
     width: 100%;
     border-radius: 9999px;
-    background: rgba(172, 105, 255, 0.12);
+    background: rgba(61, 41, 94, 0.55);
     overflow: hidden;
   }
 
@@ -197,6 +255,13 @@ import TestimonialCard from './TestimonialCard.astro';
     transition: width 450ms ease;
   }
 
+  .testimonial-toolbar-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+
   .testimonial-nav {
     display: inline-flex;
     align-items: center;
@@ -205,41 +270,87 @@ import TestimonialCard from './TestimonialCard.astro';
     height: 2.75rem;
     border-radius: 9999px;
     border: 1px solid rgba(172, 105, 255, 0.25);
-    background: rgba(11, 15, 26, 0.9);
+    background: linear-gradient(180deg, rgba(18, 24, 40, 0.96), rgba(11, 15, 26, 0.96));
     color: #d8b4fe;
-    transition: transform 180ms ease, border-color 180ms ease, color 180ms ease;
+    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.28);
+    transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
   }
 
   .testimonial-nav:hover {
     transform: translateY(-1px);
     border-color: rgba(172, 105, 255, 0.5);
     color: white;
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.18);
   }
 
   .testimonial-nav:disabled {
     opacity: 0.5;
     cursor: default;
+    box-shadow: none;
+  }
+
+  .testimonial-footer {
+    display: grid;
+    gap: 0.9rem;
+    margin-top: 1.5rem;
   }
 
   .testimonial-dots {
     display: flex;
     justify-content: center;
     gap: 0.6rem;
-    margin-top: 1.5rem;
   }
 
   .testimonial-dot {
-    width: 0.75rem;
+    width: 0.7rem;
     height: 0.75rem;
     border-radius: 9999px;
     border: 0;
     background: rgba(148, 163, 184, 0.28);
-    transition: transform 180ms ease, background-color 180ms ease;
+    transition: transform 180ms ease, background-color 180ms ease, width 180ms ease;
   }
 
   .testimonial-dot.is-active {
-    transform: scale(1.15);
+    width: 1.9rem;
+    transform: none;
     background: #ac69ff;
+  }
+
+  .testimonial-footer-copy {
+    text-align: center;
+    font-size: 0.92rem;
+    color: rgba(148, 163, 184, 0.9);
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-toolbar {
+      grid-template-columns: minmax(0, 220px) minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .testimonial-toolbar-copy {
+      display: grid;
+      gap: 0.4rem;
+      justify-content: start;
+    }
+
+    .testimonial-page-indicator {
+      font-size: 1.1rem;
+    }
+
+    .testimonial-footer {
+      grid-template-columns: 1fr auto;
+      align-items: center;
+    }
+
+    .testimonial-dots {
+      justify-content: flex-start;
+    }
+
+    .testimonial-footer-copy {
+      text-align: right;
+    }
   }
 
   @media (min-width: 768px) {
