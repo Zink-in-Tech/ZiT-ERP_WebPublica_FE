@@ -8,24 +8,15 @@ const pageDescription = 'Conectá ZinkERP con ecommerce, facturación y pagos pa
 
 const integrations = [
   {
-    name: 'WooCommerce',
-    id: 'woocommerce',
-    category: 'Ecommerce',
-    description: 'Conectá tu tienda online con la gestión de productos, precios, existencias y operación comercial.',
-    href: '/integraciones/woocommerce',
-    cta: 'Ver integración',
-    logoSrc: '/img/integrations/woocommerce.svg',
-    logoAlt: 'Logo de WooCommerce',
-  },
-  {
-    name: 'Facturante',
-    id: 'facturante',
+    name: 'ARCA',
+    id: 'arca',
     category: 'Facturación',
-    description: 'Facturación electrónica conectada a ZinkERP con configuración fiscal guiada para el contexto argentino.',
-    href: '/integraciones/facturante',
+    description: 'Facturación electrónica nativa conectada a ZinkERP con configuración fiscal guiada para el contexto argentino.',
+    href: '/integraciones/arca',
     cta: 'Ver integración',
-    logoSrc: '/img/integrations/facturante.svg',
-    logoAlt: 'Logo de Facturante',
+    logoSrc: '/img/integrations/arca.svg',
+    logoAlt: 'Logo de ARCA',
+    statusLabel: 'Nativa',
   },
   {
     name: 'Mercado Pago',
@@ -36,6 +27,18 @@ const integrations = [
     cta: 'Ver integración',
     logoSrc: '/img/integrations/mercadopago.svg',
     logoAlt: 'Logo de Mercado Pago',
+    statusLabel: 'Operativa',
+  },
+  {
+    name: 'WooCommerce',
+    id: 'woocommerce',
+    category: 'Ecommerce',
+    description: 'Conectá tu tienda online con la gestión de productos, precios, existencias y operación comercial.',
+    href: '/integraciones/woocommerce',
+    cta: 'Ver integración',
+    logoSrc: '/img/integrations/woocommerce.svg',
+    logoAlt: 'Logo de WooCommerce',
+    statusLabel: 'Operativa',
   },
 ];
 ---
@@ -73,7 +76,7 @@ const integrations = [
                 <div class="h-16 w-28 rounded-lg bg-white flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-2">
                   <img src={integration.logoSrc} alt={integration.logoAlt} class="h-full w-full object-contain" loading="lazy" />
                 </div>
-                <span class="px-3 py-1 rounded-full bg-green-500/10 text-green-300 text-xs border border-green-500/30">Operativa</span>
+                <span class={`px-3 py-1 rounded-full text-xs border ${integration.statusLabel === 'Nativa' ? 'bg-sky-500/10 text-sky-300 border-sky-500/30' : 'bg-green-500/10 text-green-300 border-green-500/30'}`}>{integration.statusLabel}</span>
               </div>
               <p class="text-sm text-primary-light mb-1">{integration.category}</p>
               <h2 class="text-2xl font-bold mb-4 group-hover:text-primary-light transition-colors">{integration.name}</h2>

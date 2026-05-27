@@ -1,0 +1,88 @@
+---
+import IntegrationDetailPage from '../../../components/IntegrationDetailPage.astro';
+
+const summaryCards = [
+  {
+    title: 'Integración nativa',
+    text: 'La facturación electrónica con ARCA forma parte del flujo operativo de ZinkERP.',
+  },
+  {
+    title: 'Datos fiscales',
+    text: 'La configuración requiere información fiscal y datos de la empresa para dejar el circuito listo.',
+  },
+  {
+    title: 'Contexto argentino',
+    text: 'Pensado para pymes que necesitan facturar dentro del ERP sin separar la operación comercial del frente fiscal.',
+  },
+];
+
+const detailSections = [
+  {
+    title: 'Facturación dentro del mismo circuito',
+    text: 'Ventas, comprobantes y operación diaria quedan conectados en la misma base para reducir pasos manuales y errores de contexto.',
+    items: [
+      'Facturación electrónica integrada en el flujo diario.',
+      'Menos idas y vueltas entre sistemas separados.',
+      'Información comercial y fiscal más alineada.',
+    ],
+  },
+  {
+    title: 'Configuración fiscal guiada',
+    text: 'ZinkERP acompaña la carga de datos fiscales necesarios para activar la facturación y validar la configuración de la empresa.',
+    items: [
+      'Carga de CUIT y datos fiscales del negocio.',
+      'Configuración de empresa desde Preferencias e Integraciones.',
+      'Revisión guiada para reducir errores de alta.',
+    ],
+  },
+  {
+    title: 'Preparado para crecer',
+    text: 'Cuando la operación suma sucursales, mostrador, ecommerce o más volumen, la facturación sigue conectada al resto del ERP.',
+    items: [
+      'Mejor continuidad entre ventas y administración.',
+      'Más orden para equipos con varias personas operando.',
+      'Base lista para acompañar una operación más compleja.',
+    ],
+  },
+];
+
+const faqs = [
+  {
+    question: '¿Qué necesito para configurarlo?',
+    answer: 'Se necesita información fiscal y datos de la empresa. El detalle puntual se revisa durante la puesta en marcha para evitar inconsistencias.',
+  },
+  {
+    question: '¿La integración con ARCA es nativa?',
+    answer: 'Sí. ZinkERP comunica la facturación con ARCA dentro de su propio flujo operativo para que la empresa no tenga que separar gestión y frente fiscal.',
+  },
+  {
+    question: '¿Puede requerir validaciones externas?',
+    answer: 'Sí. Como en cualquier circuito fiscal, puede haber validaciones o datos que dependan del contexto tributario de la empresa.',
+  },
+  {
+    question: '¿ZinkERP reemplaza la gestión fiscal de mi contador?',
+    answer: 'No. ZinkERP ordena la facturación dentro de la operación, pero no reemplaza el criterio contable ni las obligaciones fiscales del negocio.',
+  },
+  {
+    question: '¿Sirve solo para una sucursal?',
+    answer: 'No. La ventaja aparece justamente cuando la empresa quiere mantener ventas, stock y facturación ordenados aunque crezca en personas, cajas o sucursales.',
+  },
+];
+---
+
+<IntegrationDetailPage
+  pageTitle="Integración ARCA | ZinkERP"
+  pageDescription="Facturación electrónica con ARCA integrada de forma nativa en ZinkERP para comercios y pymes argentinas."
+  eyebrow="Integración nativa para facturación"
+  headline="ARCA nativa dentro de ZinkERP"
+  subheadline="Facturación electrónica conectada a tu operación diaria para vender, cobrar y ordenar la gestión desde un solo lugar."
+  logoSrc="/img/integrations/arca.svg"
+  logoAlt="Logo ARCA"
+  logoTitle="ARCA + ZinkERP"
+  statusLabel="Nativa"
+  summaryCards={summaryCards}
+  detailSections={detailSections}
+  faqs={faqs}
+  ctaTitle="Revisemos tu circuito de facturación"
+  ctaText="Coordinemos una demo para validar cómo queda la facturación con ARCA dentro de la operación real de tu empresa."
+/>

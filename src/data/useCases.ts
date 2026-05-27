@@ -102,8 +102,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     integrations: [
       {
-        name: 'Facturante',
-        href: '/integraciones/facturante',
+        name: 'ARCA',
+        href: '/integraciones/arca',
       },
       {
         name: 'Mercado Pago',
@@ -219,8 +219,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     integrations: [
       {
-        name: 'Facturante',
-        href: '/integraciones/facturante',
+        name: 'ARCA',
+        href: '/integraciones/arca',
       },
       {
         name: 'WooCommerce',
@@ -327,8 +327,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     integrations: [
       {
-        name: 'Facturante',
-        href: '/integraciones/facturante',
+        name: 'ARCA',
+        href: '/integraciones/arca',
       },
       {
         name: 'Mercado Pago',
@@ -435,8 +435,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     integrations: [
       {
-        name: 'Facturante',
-        href: '/integraciones/facturante',
+        name: 'ARCA',
+        href: '/integraciones/arca',
       },
       {
         name: 'Mercado Pago',
@@ -543,8 +543,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     integrations: [
       {
-        name: 'Facturante',
-        href: '/integraciones/facturante',
+        name: 'ARCA',
+        href: '/integraciones/arca',
       },
       {
         name: 'WooCommerce',
@@ -648,8 +648,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     integrations: [
       {
-        name: 'Facturante',
-        href: '/integraciones/facturante',
+        name: 'ARCA',
+        href: '/integraciones/arca',
       },
       {
         name: 'WooCommerce',
@@ -753,8 +753,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     integrations: [
       {
-        name: 'Facturante',
-        href: '/integraciones/facturante',
+        name: 'ARCA',
+        href: '/integraciones/arca',
       },
       {
         name: 'Mercado Pago',
@@ -857,8 +857,8 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     integrations: [
       {
-        name: 'Facturante',
-        href: '/integraciones/facturante',
+        name: 'ARCA',
+        href: '/integraciones/arca',
       },
       {
         name: 'Mercado Pago',
