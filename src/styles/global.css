@@ -9,6 +9,12 @@
   --blue-primary: #007EFF;
   --blue-secondary: #008ED3;
   --dark: #25282B;
+  --surface-shadow-sm: 0 12px 32px rgba(2, 6, 23, 0.18);
+  --surface-shadow-md: 0 18px 40px rgba(2, 6, 23, 0.24);
+  --surface-shadow-lg: 0 24px 52px rgba(2, 6, 23, 0.32);
+  --interactive-duration-fast: 180ms;
+  --interactive-duration-base: 240ms;
+  --interactive-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 * {
@@ -38,6 +44,71 @@ p, h1, h2, h3, h4, h5, h6 {
   overflow-wrap: break-word;
 }
 
+a,
+button,
+summary,
+input,
+textarea,
+select {
+  transition:
+    color var(--interactive-duration-fast) var(--interactive-ease),
+    background-color var(--interactive-duration-fast) var(--interactive-ease),
+    border-color var(--interactive-duration-fast) var(--interactive-ease),
+    box-shadow var(--interactive-duration-base) var(--interactive-ease),
+    transform var(--interactive-duration-base) var(--interactive-ease),
+    opacity var(--interactive-duration-fast) var(--interactive-ease);
+}
+
+:focus-visible {
+  outline: 0;
+  box-shadow:
+    0 0 0 1px rgba(191, 138, 255, 0.6),
+    0 0 0 4px rgba(172, 105, 255, 0.18);
+}
+
+a[href]:where([class*="rounded"], [class*="px-"], [class*="inline-flex"]),
+button:where([class*="rounded"], [class*="px-"]),
+summary:where([class*="rounded"]) {
+  will-change: transform, box-shadow;
+}
+
+a[href]:where([class*="bg-blue-primary"], [class*="border"]):hover,
+button:where([class*="bg-blue-primary"], [class*="border"]):hover,
+summary:hover {
+  transform: translateY(-2px);
+}
+
+a[href]:where([class*="bg-blue-primary"]):hover,
+button:where([class*="bg-blue-primary"]):hover {
+  box-shadow: 0 16px 36px rgba(0, 126, 255, 0.24);
+}
+
+a[href]:where([class*="border"]):hover,
+button:where([class*="border"]):hover {
+  box-shadow: 0 14px 32px rgba(148, 163, 184, 0.12);
+}
+
+:where(a, article, div, details)[class*="hover:-translate-y-1"],
+:where(a, article, div)[class*="hover:scale"],
+:where(div, article)[class*="hover:ring-1"] {
+  box-shadow: var(--surface-shadow-sm);
+  will-change: transform, box-shadow, border-color;
+}
+
+:where(a, article, div, details)[class*="hover:-translate-y-1"]:hover,
+:where(a, article, div)[class*="hover:scale"]:hover,
+:where(div, article)[class*="hover:ring-1"]:hover {
+  box-shadow: var(--surface-shadow-md);
+}
+
+details {
+  box-shadow: var(--surface-shadow-sm);
+}
+
+details[open] {
+  box-shadow: var(--surface-shadow-md);
+}
+
 .animate-fadeIn {
   animation: fadeIn 0.5s ease-out forwards;
 }
@@ -64,4 +135,19 @@ p, h1, h2, h3, h4, h5, h6 {
 
 .animate-float {
   animation: float 3s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
