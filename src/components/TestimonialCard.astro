@@ -1,0 +1,93 @@
+---
+import type { TestimonialEntry } from '../data/testimonials';
+
+interface Props {
+  testimonial: TestimonialEntry;
+  className?: string;
+  style?: string;
+}
+
+const { testimonial, className = '', style = '' } = Astro.props;
+---
+
+<article class:list={['bg-dark-700 rounded-lg p-8 border border-dark-600 hover:border-primary-500 transition-all duration-300', className]} style={style}>
+  <div class="mb-6">
+    <div class="flex items-start gap-4 min-w-0">
+      {testimonial.logoSrc ? (
+        <div class="bg-white rounded-2xl h-16 w-16 flex items-center justify-center mr-4 shrink-0 overflow-hidden p-1.5 shadow-sm shadow-black/10">
+          <img src={testimonial.logoSrc} alt={testimonial.logoAlt || `Logo de ${testimonial.company}`} class="h-full w-full object-contain" loading="lazy" />
+        </div>
+      ) : (
+        <div class="bg-primary-900 rounded-2xl h-14 w-14 flex items-center justify-center mr-4 shrink-0">
+          <span class="text-primary-400 font-bold text-xl">{testimonial.name[0]}</span>
+        </div>
+      )}
+      <div class="min-w-0 flex-1">
+        <h4 class="font-semibold text-lg">{testimonial.name}</h4>
+        {testimonial.position && <p class="text-gray-400">{testimonial.position}</p>}
+        <p class="text-gray-400 text-sm">{testimonial.company}</p>
+      </div>
+    </div>
+
+    <div class="mt-4 flex flex-wrap items-center gap-3">
+      <span class="px-3 py-1 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-xs whitespace-nowrap">{testimonial.result}</span>
+      {testimonial.links ? (
+        <div class="flex flex-wrap items-center gap-3">
+          {testimonial.links.map((link) => (
+            <a
+              href={link.href}
+              target="_blank"
+              rel="noreferrer"
+              class="text-xs text-primary hover:text-primary-light transition-colors"
+            >
+              {link.label}
+            </a>
+          ))}
+        </div>
+      ) : testimonial.companyUrl && (
+        <a
+          href={testimonial.companyUrl}
+          target="_blank"
+          rel="noreferrer"
+          class="text-xs text-primary hover:text-primary-light transition-colors"
+        >
+          Ver empresa
+        </a>
+      )}
+    </div>
+  </div>
+
+  <div class="mb-6">
+    <p class="text-gray-300 text-lg italic">"{testimonial.content}"</p>
+  </div>
+
+  <div class="grid grid-cols-2 gap-4 mt-6 pt-6 border-t border-dark-500">
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-red-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" />
+        </svg>
+        <span class="text-sm text-gray-400">Antes</span>
+      </div>
+      <p class="text-sm text-gray-300">{testimonial.before}</p>
+    </div>
+    <div>
+      <div class="flex items-center gap-2 mb-2">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-500" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" />
+        </svg>
+        <span class="text-sm text-gray-400">Ahora</span>
+      </div>
+      <p class="text-sm text-gray-300">{testimonial.after}</p>
+    </div>
+  </div>
+
+  <div class="mt-4 pt-4 border-t border-dark-500">
+    <div class="flex items-center gap-2">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" />
+      </svg>
+      <span class="text-sm text-primary">{testimonial.impact}</span>
+    </div>
+  </div>
+</article>

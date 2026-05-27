@@ -1,6 +1,6 @@
 ---
 import { testimonials } from '../data/testimonials';
-import TestimonialsGrid from './TestimonialsGrid.astro';
+import TestimonialCard from './TestimonialCard.astro';
 ---
 
 <section id="testimonials" class="py-20 relative bg-dark-800">
@@ -15,7 +15,242 @@ import TestimonialsGrid from './TestimonialsGrid.astro';
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Historias reales de empresas que ya ordenaron su operación</h2>
       <p class="text-gray-300 max-w-3xl mx-auto">Casos concretos de equipos que pasaron de trabajar con dispersión y tareas manuales a operar con más control.</p>
     </div>
-    
-    <TestimonialsGrid testimonials={testimonials} />
+    <div class="testimonial-carousel animate-on-scroll" data-testimonial-carousel>
+      <div class="flex items-center justify-between gap-4 mb-8">
+        <div class="testimonial-progress-track">
+          <div class="testimonial-progress-bar" data-carousel-progress></div>
+        </div>
+
+        <div class="flex items-center gap-3 shrink-0">
+          <button
+            type="button"
+            class="testimonial-nav"
+            data-carousel-prev
+            aria-label="Ver testimonios anteriores"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+              <path fill-rule="evenodd" d="M11.78 4.97a.75.75 0 010 1.06L7.81 10l3.97 3.97a.75.75 0 11-1.06 1.06l-4.5-4.5a.75.75 0 010-1.06l4.5-4.5a.75.75 0 011.06 0z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <button
+            type="button"
+            class="testimonial-nav"
+            data-carousel-next
+            aria-label="Ver siguientes testimonios"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+              <path fill-rule="evenodd" d="M8.22 4.97a.75.75 0 011.06 0l4.5 4.5a.75.75 0 010 1.06l-4.5 4.5a.75.75 0 11-1.06-1.06L12.19 10 8.22 6.03a.75.75 0 010-1.06z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="testimonial-viewport" data-carousel-viewport tabindex="0" aria-label="Carrusel de testimonios">
+        <div class="testimonial-track" data-carousel-track>
+          {testimonials.map((testimonial, index) => (
+            <div class="testimonial-slide" data-carousel-slide>
+              <TestimonialCard testimonial={testimonial} className="h-full animate-on-scroll" style={`animation-delay: ${index * 0.08}s`} />
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="testimonial-dots" data-carousel-dots aria-label="Paginación de testimonios"></div>
+    </div>
   </div>
 </section>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('[data-testimonial-carousel]');
+    if (!root) return;
+
+    const viewport = root.querySelector('[data-carousel-viewport]');
+    const slides = Array.from(root.querySelectorAll('[data-carousel-slide]'));
+    const prevButton = root.querySelector('[data-carousel-prev]');
+    const nextButton = root.querySelector('[data-carousel-next]');
+    const dotsRoot = root.querySelector('[data-carousel-dots]');
+    const progressBar = root.querySelector('[data-carousel-progress]');
+
+    if (!viewport || !slides.length || !prevButton || !nextButton || !dotsRoot || !progressBar) return;
+
+    let currentPage = 0;
+    let totalPages = 1;
+    let autoTimer;
+    let resumeTimer;
+
+    const visibleSlides = () => {
+      if (window.innerWidth >= 1280) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    };
+
+    const pageWidth = () => viewport.clientWidth;
+
+    const buildDots = () => {
+      dotsRoot.innerHTML = '';
+      for (let i = 0; i < totalPages; i += 1) {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'testimonial-dot';
+        dot.setAttribute('aria-label', 'Ir al grupo ' + (i + 1) + ' de testimonios');
+        dot.addEventListener('click', () => goToPage(i));
+        dotsRoot.appendChild(dot);
+      }
+    };
+
+    const updateUi = () => {
+      Array.from(dotsRoot.children).forEach((dot, index) => {
+        dot.classList.toggle('is-active', index === currentPage);
+      });
+      progressBar.style.width = ((currentPage + 1) / totalPages) * 100 + '%';
+      prevButton.disabled = totalPages <= 1;
+      nextButton.disabled = totalPages <= 1;
+    };
+
+    const goToPage = (page, behavior = 'smooth') => {
+      currentPage = Math.max(0, Math.min(page, totalPages - 1));
+      viewport.scrollTo({ left: pageWidth() * currentPage, behavior });
+      updateUi();
+    };
+
+    const recalc = (behavior = 'auto') => {
+      totalPages = Math.max(1, Math.ceil(slides.length / visibleSlides()));
+      currentPage = Math.min(currentPage, totalPages - 1);
+      buildDots();
+      goToPage(currentPage, behavior);
+    };
+
+    const stopAuto = () => {
+      window.clearInterval(autoTimer);
+      autoTimer = undefined;
+    };
+
+    const startAuto = () => {
+      stopAuto();
+      if (totalPages <= 1) return;
+      autoTimer = window.setInterval(() => {
+        goToPage((currentPage + 1) % totalPages);
+      }, 5500);
+    };
+
+    const pauseAndResume = () => {
+      stopAuto();
+      window.clearTimeout(resumeTimer);
+      resumeTimer = window.setTimeout(startAuto, 7000);
+    };
+
+    prevButton.addEventListener('click', () => {
+      goToPage((currentPage - 1 + totalPages) % totalPages);
+      pauseAndResume();
+    });
+
+    nextButton.addEventListener('click', () => {
+      goToPage((currentPage + 1) % totalPages);
+      pauseAndResume();
+    });
+
+    viewport.addEventListener('mouseenter', stopAuto);
+    viewport.addEventListener('mouseleave', startAuto);
+    viewport.addEventListener('focusin', stopAuto);
+    viewport.addEventListener('focusout', startAuto);
+
+    let resizeRaf = 0;
+    window.addEventListener('resize', () => {
+      window.cancelAnimationFrame(resizeRaf);
+      resizeRaf = window.requestAnimationFrame(() => recalc('auto'));
+    });
+
+    recalc('auto');
+    startAuto();
+  })();
+</script>
+
+<style>
+  .testimonial-viewport {
+    overflow: hidden;
+  }
+
+  .testimonial-track {
+    display: flex;
+    gap: 1.5rem;
+    scroll-snap-type: x mandatory;
+  }
+
+  .testimonial-slide {
+    min-width: 100%;
+    scroll-snap-align: start;
+  }
+
+  .testimonial-progress-track {
+    height: 4px;
+    width: 100%;
+    border-radius: 9999px;
+    background: rgba(172, 105, 255, 0.12);
+    overflow: hidden;
+  }
+
+  .testimonial-progress-bar {
+    height: 100%;
+    width: 0;
+    background: linear-gradient(90deg, rgba(172, 105, 255, 0.95), rgba(0, 126, 255, 0.9));
+    transition: width 450ms ease;
+  }
+
+  .testimonial-nav {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(172, 105, 255, 0.25);
+    background: rgba(11, 15, 26, 0.9);
+    color: #d8b4fe;
+    transition: transform 180ms ease, border-color 180ms ease, color 180ms ease;
+  }
+
+  .testimonial-nav:hover {
+    transform: translateY(-1px);
+    border-color: rgba(172, 105, 255, 0.5);
+    color: white;
+  }
+
+  .testimonial-nav:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  .testimonial-dots {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-top: 1.5rem;
+  }
+
+  .testimonial-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 9999px;
+    border: 0;
+    background: rgba(148, 163, 184, 0.28);
+    transition: transform 180ms ease, background-color 180ms ease;
+  }
+
+  .testimonial-dot.is-active {
+    transform: scale(1.15);
+    background: #ac69ff;
+  }
+
+  @media (min-width: 768px) {
+    .testimonial-slide {
+      min-width: calc((100% - 1.5rem) / 2);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .testimonial-slide {
+      min-width: calc((100% - 3rem) / 3);
+    }
+  }
+</style>

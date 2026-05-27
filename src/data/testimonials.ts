@@ -39,7 +39,7 @@ export const testimonials: TestimonialEntry[] = [
     position: 'Gerente',
     company: 'Limpieza Blue Gualeguaychu',
     companyUrl: 'https://www.instagram.com/limpiezablue_gchu/',
-    logoSrc: '/img/testimonials/limpieza-blue.svg',
+    logoSrc: '/img/testimonials/limpieza-blue.png',
     logoAlt: 'Logo de Limpieza Blue Gualeguaychu',
     content:
       'ZinkERP nos permitió tener todo en un solo lugar: stock, finanzas, ventas, proveedores y clientes. Lo mejor es que cada movimiento queda registrado automáticamente. Es ideal tanto para emprendedores nuevos como para negocios con experiencia.',
@@ -54,7 +54,7 @@ export const testimonials: TestimonialEntry[] = [
     position: 'Encargada',
     company: 'Dietéticas Naturales - Sucursal Tortuguitas',
     companyUrl: 'https://www.instagram.com/dieteticasnaturales_/?hl=es',
-    logoSrc: '/img/testimonials/dieteticas-naturales.svg',
+    logoSrc: '/img/testimonials/dieteticas-naturales.jpeg',
     logoAlt: 'Logo de Dietéticas Naturales',
     content:
       'Pasamos de tener todo disperso a manejar nuestras 3 sucursales desde un solo lugar. Ahora controlamos ventas, stock y caja en tiempo real, sin importar dónde estemos.',
@@ -93,7 +93,7 @@ export const testimonials: TestimonialEntry[] = [
         href: 'http://quimicaelcruce.com.ar/',
       },
     ],
-    logoSrc: '/img/testimonials/quimica-el-cruce.svg',
+    logoSrc: '/img/testimonials/quimica-el-cruce.png',
     logoAlt: 'Logo de Química Tortuguitas y El Cruce',
     content:
       'Antes no estaba todo integrado y manejar varias sucursales implicaba demasiados pasos sueltos. Ahora pueden controlar stock, compras y operación desde un solo lugar, con una base mucho más preparada para sumar una nueva sucursal.',
