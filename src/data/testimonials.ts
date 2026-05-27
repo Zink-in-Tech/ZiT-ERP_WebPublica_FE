@@ -26,6 +26,8 @@ export const testimonials: TestimonialEntry[] = [
     position: 'Cajera y Atención al Cliente',
     company: 'Papelera Pilar Manualidades',
     companyUrl: 'https://www.papelerapilarmanualidades.com.ar/',
+    logoSrc: '/img/testimonials/papelera-pilar.webp',
+    logoAlt: 'Logo de Papelera Pilar Manualidades',
     content:
       'Desde que empezamos a usar ZinkERP, las ventas y los pagos se registran automáticamente. Antes lo hacíamos todo manual y perdíamos mucho tiempo. Ahora es super práctico y ágil, tanto para nosotros como para los clientes.',
     before: 'Registros manuales y pérdida de tiempo',
