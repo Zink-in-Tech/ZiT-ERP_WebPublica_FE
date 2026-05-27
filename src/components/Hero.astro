@@ -64,12 +64,13 @@
       </div>
       
       <div class="animate-on-scroll" style="animation-delay: 0.3s;">
-        <div class="relative">
-          <div class="">
+        <div class="group relative">
+          <div class="pointer-events-none absolute inset-6 rounded-[2rem] bg-primary/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
+          <div class="relative transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-[1.015] group-hover:drop-shadow-[0_28px_60px_rgba(2,6,23,0.4)]">
             <img 
               src="/img/hero-img.png" 
               alt="ZinkERP Dashboard" 
-              class="rounded-lg w-full"
+              class="rounded-lg w-full transition-transform duration-500"
             />
           </div>
         </div>
