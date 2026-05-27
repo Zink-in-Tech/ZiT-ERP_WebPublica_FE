@@ -1,0 +1,69 @@
+---
+type UseCaseFamily = 'storefront' | 'replenishment' | 'validation';
+
+interface Props {
+  features: string[];
+  family: UseCaseFamily;
+}
+
+const { features, family } = Astro.props;
+
+const title =
+  family === 'validation'
+    ? 'Capacidades a revisar en demo'
+    : 'Funciones y módulos útiles';
+
+const intro =
+  family === 'validation'
+    ? 'Estas capacidades suelen ser las primeras que conviene revisar cuando el negocio tiene particularidades propias del rubro.'
+    : 'Estas son algunas de las funciones que suelen tener más impacto cuando el negocio necesita vender, controlar y facturar sin cortar el ritmo de trabajo.';
+---
+
+<section class="py-20 bg-dark-800">
+  <div class="container mx-auto px-4">
+    <div class="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-start">
+      <div class="animate-on-scroll">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">{title}</h2>
+        <p class="text-lg text-gray-300">{intro}</p>
+      </div>
+      {family === 'replenishment' ? (
+        <div class="grid sm:grid-cols-2 gap-4 animate-on-scroll">
+          {features.map((feature) => (
+            <div class="rounded-xl border border-emerald-400/10 bg-dark-900 px-5 py-4 flex items-center gap-3">
+              <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-emerald-400/10 text-emerald-200">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                </svg>
+              </span>
+              <p class="font-semibold text-gray-100">{feature}</p>
+            </div>
+          ))}
+        </div>
+      ) : family === 'validation' ? (
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 animate-on-scroll">
+          {features.map((feature) => (
+            <div class="bg-dark-900 border border-amber-400/10 rounded-xl p-5">
+              <p class="text-xs uppercase tracking-[0.18em] text-amber-200/70 mb-2">A revisar</p>
+              <p class="font-semibold text-gray-100">{feature}</p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="bg-dark-900 border border-white/5 rounded-2xl p-6 md:p-7 animate-on-scroll">
+          <div class="grid sm:grid-cols-2 gap-4">
+            {features.map((feature) => (
+              <div class="rounded-xl border border-cyan-400/10 bg-cyan-400/[0.03] px-4 py-4 flex items-center gap-3">
+                <span class="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-cyan-400/10 text-cyan-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+                  </svg>
+                </span>
+                <p class="font-semibold text-gray-100">{feature}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </div>
+</section>

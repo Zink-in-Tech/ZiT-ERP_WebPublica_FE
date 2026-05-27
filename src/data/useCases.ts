@@ -9,6 +9,7 @@ export type UseCaseFaq = {
 };
 
 export type UseCaseEntry = {
+  family: 'storefront' | 'replenishment' | 'validation';
   pageTitle: string;
   pageDescription: string;
   caseName: string;
@@ -30,6 +31,7 @@ export type UseCaseEntry = {
 
 export const useCases: Record<string, UseCaseEntry> = {
   ferreterias: {
+    family: 'storefront',
     pageTitle: 'ERP para ferreterías | ZinkERP',
     pageDescription:
       'Gestioná ventas, stock, POS, facturación y sucursales de tu ferretería con ZinkERP, un ERP SaaS para comercios argentinos.',
@@ -153,6 +155,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       'En una demo podemos revisar cómo ordenar venta de mostrador, consulta de stock, precios y facturación según la operación de tu ferretería.',
   },
   dieteticas: {
+    family: 'storefront',
     pageTitle: 'ERP para dietéticas | ZinkERP',
     pageDescription:
       'Ordená ventas, stock, POS y facturación de tu dietética con ZinkERP, una base operativa para comercios argentinos con catálogo amplio.',
@@ -262,6 +265,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       'En una demo podemos revisar mostrador, disponibilidad, catálogo y facturación para entender cómo ordenar mejor la operación diaria de tu dietética.',
   },
   'articulos-de-limpieza': {
+    family: 'replenishment',
     pageTitle: 'ERP para artículos de limpieza | ZinkERP',
     pageDescription:
       'Gestioná ventas, stock, facturación y reposición en negocios de artículos de limpieza con ZinkERP.',
@@ -371,6 +375,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       'Podemos revisar venta diaria, reposición, disponibilidad y facturación para ver dónde ZinkERP puede ordenar mejor tu operación.',
   },
   papeleras: {
+    family: 'storefront',
     pageTitle: 'ERP para papeleras y librerías comerciales | ZinkERP',
     pageDescription:
       'Gestioná catálogo, stock, ventas y facturación de papeleras y librerías comerciales con ZinkERP.',
@@ -480,6 +485,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       'En una demo podemos revisar catálogo, mostrador, temporadas, stock y facturación para ver cómo ordenar mejor la operación diaria de tu negocio.',
   },
   'insumos-de-reposteria': {
+    family: 'replenishment',
     pageTitle: 'ERP para insumos de repostería | ZinkERP',
     pageDescription:
       'Ordená ventas, stock, POS y facturación de tu negocio de insumos de repostería con ZinkERP.',
@@ -593,6 +599,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       'Podemos revisar mostrador, productos de alta rotación, temporadas y facturación para ver cómo ordenar mejor la operación de tu local.',
   },
   florerias: {
+    family: 'validation',
     noindex: true,
     pageTitle: 'ERP para florerías | ZinkERP',
     pageDescription:
@@ -698,6 +705,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       'En una demo podemos revisar cómo toman pedidos, cómo manejan disponibilidad y hasta dónde ZinkERP puede ordenar la parte comercial con prudencia.',
   },
   'zingueria-metalurgica': {
+    family: 'validation',
     noindex: true,
     pageTitle: 'ERP para zinguería y metalúrgica | ZinkERP',
     pageDescription:
@@ -798,6 +806,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       'Podemos revisar ventas, materiales, pedidos y facturación para ver hasta dónde ZinkERP puede ordenar la parte comercial y administrativa de tu operación.',
   },
   cultivos: {
+    family: 'validation',
     noindex: true,
     pageTitle: 'ERP para negocios vinculados a cultivos | ZinkERP',
     pageDescription:

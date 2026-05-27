@@ -4,6 +4,10 @@ import Header from './Header.astro';
 import Footer from './Footer.astro';
 import TestimonialsGrid from './TestimonialsGrid.astro';
 import { getTestimonialsByIds } from '../data/testimonials';
+import UseCasePainsSection from './use-cases/UseCasePainsSection.astro';
+import UseCaseHelpsSection from './use-cases/UseCaseHelpsSection.astro';
+import UseCaseFeaturesSection from './use-cases/UseCaseFeaturesSection.astro';
+import UseCaseWorkflowsSection from './use-cases/UseCaseWorkflowsSection.astro';
 
 type UseCaseLink = {
   name: string;
@@ -16,6 +20,7 @@ type UseCaseFaq = {
 };
 
 interface Props {
+  family: 'storefront' | 'replenishment' | 'validation';
   pageTitle: string;
   pageDescription: string;
   caseName: string;
@@ -38,6 +43,7 @@ interface Props {
 }
 
 const {
+  family,
   pageTitle,
   pageDescription,
   caseName,
@@ -64,6 +70,26 @@ const demoUrl = 'https://cal.com/zinkintech';
 const integrationsGridClass =
   integrations.length >= 3 ? 'grid md:grid-cols-2 xl:grid-cols-3 gap-6' : 'grid md:grid-cols-2 gap-6';
 const useCaseTestimonials = getTestimonialsByIds(testimonialIds);
+const familyMeta = {
+  storefront: {
+    heroPanelTitle: 'Áreas clave',
+    heroPanelClass: 'bg-dark-800 border-dark-700',
+    heroGridClass: 'grid sm:grid-cols-2 gap-3',
+    heroItemClass: 'rounded-lg bg-dark-700 border border-dark-600 p-4',
+  },
+  replenishment: {
+    heroPanelTitle: 'Puntos a controlar',
+    heroPanelClass: 'bg-dark-900 border-emerald-400/10',
+    heroGridClass: 'grid gap-3',
+    heroItemClass: 'rounded-xl bg-emerald-400/[0.03] border border-emerald-400/10 p-4',
+  },
+  validation: {
+    heroPanelTitle: 'Aspectos a validar',
+    heroPanelClass: 'bg-dark-900 border-amber-400/10',
+    heroGridClass: 'grid gap-3',
+    heroItemClass: 'rounded-xl bg-amber-400/[0.03] border border-amber-400/10 p-4',
+  },
+}[family];
 ---
 
 <Layout title={pageTitle} description={pageDescription} noindex={noindex}>
@@ -98,11 +124,11 @@ const useCaseTestimonials = getTestimonialsByIds(testimonialIds);
             </div>
           </div>
 
-          <div class="bg-dark-800 border border-dark-700 rounded-lg p-6 md:p-8 animate-on-scroll" style="animation-delay: 0.2s;">
-            <p class="text-sm text-gray-400 mb-4">Áreas clave</p>
-            <div class="grid sm:grid-cols-2 gap-3">
+          <div class={`border rounded-lg p-6 md:p-8 animate-on-scroll ${familyMeta.heroPanelClass}`} style="animation-delay: 0.2s;">
+            <p class="text-sm text-gray-400 mb-4">{familyMeta.heroPanelTitle}</p>
+            <div class={familyMeta.heroGridClass}>
               {features.map((item) => (
-                <div class="rounded-lg bg-dark-700 border border-dark-600 p-4">
+                <div class={familyMeta.heroItemClass}>
                   <p class="font-medium">{item}</p>
                 </div>
               ))}
@@ -115,91 +141,32 @@ const useCaseTestimonials = getTestimonialsByIds(testimonialIds);
       </div>
     </section>
 
-    <section class="py-20 bg-dark-800">
-      <div class="container mx-auto px-4">
-        <div class="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] items-start">
-          <div class="animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Problemas comunes del rubro</h2>
-            <p class="text-lg text-gray-300">
-              {caseName} suele exigir ventas bien resueltas, control operativo y decisiones rápidas sin perder ritmo en el día a día.
-            </p>
-          </div>
-          <div class="grid md:grid-cols-2 gap-4">
-            {pains.map((pain) => (
-              <div class="bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll">
-                <p class="text-gray-200">{pain}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
+    {family === 'storefront' && (
+      <>
+        <UseCasePainsSection caseName={caseName} pains={pains} family={family} />
+        <UseCaseHelpsSection helps={helps} family={family} />
+        <UseCaseFeaturesSection features={features} family={family} />
+        <UseCaseWorkflowsSection workflows={workflows} family={family} />
+      </>
+    )}
 
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mb-12 animate-on-scroll">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Cómo ayuda ZinkERP</h2>
-          <p class="text-lg text-gray-300">
-            ZinkERP ayuda a que ventas, stock, POS y facturación trabajen dentro del mismo circuito operativo, con menos fricción para el equipo.
-          </p>
-        </div>
-        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6">
-          {helps.map((item) => (
-            <article class="bg-dark-800 border border-dark-700 rounded-lg p-6 hover:border-primary/40 transition-colors animate-on-scroll">
-              <div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center mb-5">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                </svg>
-              </div>
-              <h2 class="text-xl font-bold mb-3">{item.title}</h2>
-              <p class="text-gray-300">{item.text}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+    {family === 'replenishment' && (
+      <>
+        <UseCaseHelpsSection helps={helps} family={family} />
+        <UseCaseWorkflowsSection workflows={workflows} family={family} />
+        <UseCasePainsSection caseName={caseName} pains={pains} family={family} />
+        <UseCaseFeaturesSection features={features} family={family} />
+      </>
+    )}
 
-    <section class="py-20 bg-dark-800">
-      <div class="container mx-auto px-4">
-        <div class="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] items-start">
-          <div class="animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Funciones y módulos útiles</h2>
-            <p class="text-lg text-gray-300">
-              Estas son algunas de las funciones que suelen tener más impacto cuando el negocio necesita vender, controlar y facturar sin cortar el ritmo de trabajo.
-            </p>
-        </div>
-          <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {features.map((feature) => (
-              <div class="bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll">
-                <p class="font-bold">{feature}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mx-auto text-center mb-12 animate-on-scroll">
-          <h2 class="text-3xl md:text-4xl font-bold mb-4">Flujos que se pueden ordenar</h2>
-          <p class="text-lg text-gray-300">
-            Estos suelen ser algunos de los momentos donde más se nota la diferencia entre operar con método o apagar incendios sobre la marcha.
-          </p>
-        </div>
-        <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {workflows.map((workflow, index) => (
-            <article class="bg-dark-800 border border-dark-700 rounded-lg p-6 animate-on-scroll">
-              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold mb-5">
-                {index + 1}
-              </span>
-              <h3 class="text-xl font-bold mb-3">{workflow.title}</h3>
-              <p class="text-gray-300">{workflow.text}</p>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
+    {family === 'validation' && (
+      <>
+        <UseCasePainsSection caseName={caseName} pains={pains} family={family} />
+        <UseCaseWorkflowsSection workflows={workflows} family={family} />
+        <UseCaseHelpsSection helps={helps} family={family} />
+        <UseCaseFeaturesSection features={features} family={family} />
+      </>
+    )}
 
     {integrations.length > 0 && (
       <section class="py-20 bg-dark-800">
