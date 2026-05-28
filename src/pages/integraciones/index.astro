@@ -69,18 +69,18 @@ const integrations = [
             <a
               id={integration.id}
               href={integration.href}
-              class="group block scroll-mt-28 bg-dark-800 border border-dark-700 rounded-lg p-6 min-h-[300px] hover:border-primary/40 hover:-translate-y-1 transition-all duration-300 animate-on-scroll focus:outline-none focus:ring-2 focus:ring-primary/60"
+              class="group block scroll-mt-28 bg-dark-800/95 border border-white/8 rounded-[1.4rem] p-7 min-h-[300px] hover:border-primary/20 hover:-translate-y-1 hover:bg-white/[0.015] transition-all duration-300 animate-on-scroll focus:outline-none focus:ring-2 focus:ring-primary/60"
               aria-label={`${integration.cta}: ${integration.name}`}
             >
               <div class="flex items-start justify-between gap-4 mb-6">
-                <div class="h-16 w-28 rounded-lg bg-white flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-2">
+                <div class="h-16 w-28 rounded-xl bg-white flex items-center justify-center shrink-0 shadow-lg overflow-hidden p-2">
                   <img src={integration.logoSrc} alt={integration.logoAlt} class="h-full w-full object-contain" loading="lazy" />
                 </div>
                 <span class={`px-3 py-1 rounded-full text-xs border ${integration.statusLabel === 'Nativa' ? 'bg-sky-500/10 text-sky-300 border-sky-500/30' : 'bg-green-500/10 text-green-300 border-green-500/30'}`}>{integration.statusLabel}</span>
               </div>
-              <p class="text-sm text-primary-light mb-1">{integration.category}</p>
+              <p class="text-[11px] uppercase tracking-[0.18em] text-primary-light/85 mb-2">{integration.category}</p>
               <h2 class="text-2xl font-bold mb-4 group-hover:text-primary-light transition-colors">{integration.name}</h2>
-              <p class="text-gray-300 mb-6">{integration.description}</p>
+              <p class="text-gray-300 mb-6 leading-7">{integration.description}</p>
               <span class="inline-flex items-center gap-2 text-primary group-hover:text-primary-light transition-colors font-medium">
                 {integration.cta}
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 group-hover:translate-x-1 transition-transform">
@@ -103,17 +103,17 @@ const integrations = [
             </p>
           </div>
           <div class="grid gap-4">
-            <div class="group bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-cyan-400/[0.04]">
+            <div class="group bg-dark-800/95 border border-white/8 rounded-[1.25rem] p-6 animate-on-scroll transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300/20 hover:bg-cyan-400/[0.03]">
               <h3 class="font-bold mb-2">Menos trabajo duplicado</h3>
-              <p class="text-gray-300">Reducí tareas manuales entre ecommerce, pagos, facturación y gestión.</p>
+              <p class="text-gray-300 leading-7">Reducí tareas manuales entre ecommerce, pagos, facturación y gestión.</p>
             </div>
-            <div class="group bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-cyan-400/[0.04]">
+            <div class="group bg-dark-800/95 border border-white/8 rounded-[1.25rem] p-6 animate-on-scroll transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300/20 hover:bg-cyan-400/[0.03]">
               <h3 class="font-bold mb-2">Más contexto operativo</h3>
-              <p class="text-gray-300">La información comercial tiene más valor cuando se conecta con la operación diaria.</p>
+              <p class="text-gray-300 leading-7">La información comercial tiene más valor cuando se conecta con la operación diaria.</p>
             </div>
-            <div class="group bg-dark-700 border border-dark-600 rounded-lg p-5 animate-on-scroll transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300/25 hover:bg-cyan-400/[0.04]">
+            <div class="group bg-dark-800/95 border border-white/8 rounded-[1.25rem] p-6 animate-on-scroll transition-all duration-200 hover:-translate-y-1 hover:border-cyan-300/20 hover:bg-cyan-400/[0.03]">
               <h3 class="font-bold mb-2">Acompañamiento local</h3>
-              <p class="text-gray-300">ZinkERP está pensado para pymes argentinas que necesitan orden sin complejidad innecesaria.</p>
+              <p class="text-gray-300 leading-7">ZinkERP está pensado para pymes argentinas que necesitan orden sin complejidad innecesaria.</p>
             </div>
           </div>
         </div>

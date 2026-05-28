@@ -3,7 +3,7 @@ import { testimonials } from '../data/testimonials';
 import TestimonialCard from './TestimonialCard.astro';
 ---
 
-<section id="testimonials" class="py-20 relative bg-dark-800">
+<section id="testimonials" class="py-24 relative bg-dark-900">
   <div class="absolute inset-0 z-0 opacity-20">
     <div class="absolute top-0 right-0 w-80 h-80 rounded-full bg-primary-600/20 blur-3xl"></div>
     <div class="absolute bottom-0 left-0 w-80 h-80 rounded-full bg-secondary-600/20 blur-3xl"></div>
@@ -11,9 +11,9 @@ import TestimonialCard from './TestimonialCard.astro';
 
   <div class="container mx-auto px-4 z-10 relative">
     <div class="text-center mb-16 animate-on-scroll">
-      <p class="text-primary font-medium mb-3">Prueba social</p>
+      <p class="text-primary/90 font-medium mb-3 tracking-[0.24em] uppercase text-xs">Prueba social</p>
       <h2 class="text-3xl md:text-4xl font-bold mb-4">Historias reales de empresas que ya ordenaron su operación</h2>
-      <p class="text-gray-300 max-w-3xl mx-auto">Casos concretos de equipos que pasaron de trabajar con dispersión y tareas manuales a operar con más control.</p>
+      <p class="text-gray-300 max-w-3xl mx-auto text-lg">Casos concretos de equipos que pasaron de trabajar con dispersión y tareas manuales a operar con más control.</p>
     </div>
     <div class="testimonial-carousel animate-on-scroll" data-testimonial-carousel>
       <div class="testimonial-toolbar">
@@ -172,7 +172,7 @@ import TestimonialCard from './TestimonialCard.astro';
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin-bottom: 1.75rem;
+    margin-bottom: 2rem;
   }
 
   .testimonial-toolbar-rail {
@@ -189,7 +189,7 @@ import TestimonialCard from './TestimonialCard.astro';
 
   .testimonial-track {
     display: flex;
-    gap: 1.5rem;
+    gap: 1.75rem;
     scroll-snap-type: x mandatory;
   }
 
@@ -199,10 +199,10 @@ import TestimonialCard from './TestimonialCard.astro';
   }
 
   .testimonial-progress-track {
-    height: 6px;
+    height: 4px;
     width: 100%;
     border-radius: 9999px;
-    background: rgba(61, 41, 94, 0.55);
+    background: rgba(255, 255, 255, 0.08);
     overflow: hidden;
   }
 
@@ -227,10 +227,10 @@ import TestimonialCard from './TestimonialCard.astro';
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 9999px;
-    border: 1px solid rgba(172, 105, 255, 0.25);
-    background: linear-gradient(180deg, rgba(18, 24, 40, 0.96), rgba(11, 15, 26, 0.96));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(14, 19, 31, 0.96);
     color: #d8b4fe;
-    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.28);
+    box-shadow: 0 10px 24px rgba(2, 6, 23, 0.18);
     transition: transform 180ms ease, border-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
   }
 
@@ -238,7 +238,7 @@ import TestimonialCard from './TestimonialCard.astro';
     transform: translateY(-1px);
     border-color: rgba(172, 105, 255, 0.5);
     color: white;
-    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.18);
+    box-shadow: 0 14px 30px rgba(37, 99, 235, 0.12);
   }
 
   .testimonial-nav:disabled {
@@ -250,7 +250,7 @@ import TestimonialCard from './TestimonialCard.astro';
   .testimonial-footer {
     display: grid;
     gap: 0.9rem;
-    margin-top: 1.5rem;
+    margin-top: 1.75rem;
   }
 
   .testimonial-dots {

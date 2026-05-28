@@ -197,39 +197,39 @@ const includedFeatures = [
       <div class="container mx-auto px-4">
         <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan) => (
-            <div class={`group bg-dark-700 rounded-xl overflow-hidden border transition-all duration-200 hover:-translate-y-1 hover:bg-white/[0.02] ${
+            <div class={`group bg-dark-800/95 rounded-[1.6rem] overflow-hidden border transition-all duration-200 hover:-translate-y-1 hover:bg-white/[0.015] ${
               plan.popular ? 'border-primary' : 
               plan.hasPromo ? 'border-blue-primary' :
-              'border-primary'
+              'border-white/10'
             } ${
               plan.popular
                 ? 'hover:border-primary-400 hover:shadow-[0_24px_60px_-32px_rgba(167,91,255,0.45)]'
                 : plan.hasPromo
                 ? 'hover:border-cyan-300/40 hover:shadow-[0_24px_60px_-32px_rgba(47,128,237,0.35)]'
-                : 'hover:border-primary-400/70 hover:shadow-[0_24px_60px_-32px_rgba(167,91,255,0.35)]'
+                : 'hover:border-white/15 hover:shadow-[0_24px_60px_-32px_rgba(15,23,42,0.5)]'
             } animate-on-scroll`}>
               {plan.popular && (
-                <div class="bg-primary text-center py-2 text-sm font-medium">
+                <div class="bg-primary/95 text-center py-2 text-sm font-medium">
                   El más elegido por negocios en crecimiento
                 </div>
               )}
               {plan.hasPromo && (
-                <div class="bg-blue-primary text-center py-2 text-sm font-medium">
+                <div class="bg-blue-primary/95 text-center py-2 text-sm font-medium">
                   50% OFF primeros 3 meses
                 </div>
               )}
               {plan.hasHeader && (
-                <div class="bg-primary text-center py-2 text-sm font-medium">
+                <div class="bg-primary/95 text-center py-2 text-sm font-medium">
                   {plan.headerText}
                 </div>
               )}
-              <div class="p-8">
+              <div class="p-8 md:p-9">
                 <div class="flex items-center gap-3 mb-4">
                   <span class="text-2xl">{plan.icon}</span>
                   <h3 class="text-2xl font-bold">{plan.name}</h3>
                 </div>
 
-                <p class="text-gray-300 mb-6">{plan.scenario}</p>
+                <p class="text-gray-300 mb-7 leading-7">{plan.scenario}</p>
 
                 <div class="mb-8">
                   {plan.hasPromo ? (
@@ -271,15 +271,15 @@ const includedFeatures = [
                 </div>
 
                 <div class="mb-6 space-y-3">
-                  <div class="p-4 bg-dark-600/50 rounded-lg transition-colors duration-200 group-hover:bg-dark-600/80">
-                    <p class="text-sm font-medium text-gray-300">
+                  <div class="p-4 bg-white/[0.03] rounded-2xl border border-white/6 transition-colors duration-200 group-hover:bg-white/[0.045]">
+                    <p class="text-xs uppercase tracking-[0.18em] font-medium text-gray-400">
                       Límite fiscal:
-                      <span class="block text-white mt-1">{plan.fiscalLimit}</span>
+                      <span class="block text-white mt-2 normal-case tracking-normal text-sm font-medium">{plan.fiscalLimit}</span>
                     </p>
                   </div>
                 </div>
 
-                <ul class="space-y-4 mb-8">
+                <ul class="space-y-4 mb-9">
                   {plan.features.map((feature) => (
                     <li class="flex items-start gap-2">
                       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0 mt-0.5">
@@ -292,7 +292,7 @@ const includedFeatures = [
 
                 <a 
                   href="https://cal.com/zinkintech" 
-                  class={`block text-center py-3 px-6 rounded-lg transition-colors ${
+                  class={`block text-center py-3.5 px-6 rounded-xl transition-colors ${
                     plan.popular 
                       ? 'bg-blue-primary hover:bg-blue-primary/90'
                       : plan.hasPromo
@@ -324,7 +324,7 @@ const includedFeatures = [
         <div class="max-w-4xl mx-auto">
           <h2 class="text-3xl font-bold mb-12 text-center">ZinkERP vs ERP Tradicional</h2>
           
-          <div class="bg-dark-700 rounded-xl overflow-hidden">
+          <div class="bg-dark-800/95 rounded-[1.4rem] overflow-hidden border border-white/8">
             <div class="overflow-x-auto">
               <table class="w-full min-w-[500px]">
                 <thead>
