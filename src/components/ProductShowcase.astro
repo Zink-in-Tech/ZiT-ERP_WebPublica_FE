@@ -1,0 +1,83 @@
+---
+const productShots = [
+  {
+    title: "POS listo para vender",
+    description: "Mostrador ágil, cliente, total y acciones principales en una sola vista.",
+    image: "/img/product-captures/pos-nuevo.png",
+    alt: "Pantalla del POS de ZinkERP",
+    eyebrow: "Venta rápida",
+    layout: "feature",
+  },
+  {
+    title: "Actualización masiva",
+    description: "Buscar, seleccionar y ajustar productos en bloque sin rehacer la operación.",
+    image: "/img/product-captures/actualizacion-masiva-productos.png",
+    alt: "Pantalla de actualización masiva de productos en ZinkERP",
+    eyebrow: "Gestión de catálogo",
+    layout: "support",
+  },
+  {
+    title: "Caja diaria y control",
+    description: "Resumen operativo y financiero para entender el día sin salir del sistema.",
+    image: "/img/product-captures/caja-diaria.png",
+    alt: "Pantalla de caja diaria de ZinkERP",
+    eyebrow: "Visión financiera",
+    layout: "support",
+  },
+];
+
+const [featureShot, ...supportShots] = productShots;
+---
+
+<section class="relative py-24 bg-dark-900 before:absolute before:inset-x-0 before:top-0 before:h-px before:bg-gradient-to-r before:from-transparent before:via-slate-700/55 before:to-transparent">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mb-14 animate-on-scroll">
+      <p class="text-primary/90 font-medium mb-3 tracking-[0.22em] uppercase text-xs">Producto visible</p>
+      <h2 class="text-3xl md:text-4xl font-bold tracking-[-0.02em] mb-4">Pantallas reales de una operación que ya está en marcha</h2>
+      <p class="text-lg text-gray-300 leading-8">
+        No hace falta imaginar cómo se usa ZinkERP. Estas capturas muestran flujos concretos para vender, actualizar productos y controlar la caja diaria.
+      </p>
+    </div>
+
+    <div class="grid lg:grid-cols-[1.15fr_0.85fr] gap-6 items-stretch">
+      <article class="group rounded-[1.7rem] border border-white/8 bg-dark-800/95 p-5 md:p-6 hover:border-primary/20 hover:-translate-y-1 transition-all duration-300 animate-on-scroll">
+        <div class="flex flex-wrap items-center gap-3 mb-4">
+          <span class="px-3 py-1 rounded-full border border-primary/15 bg-primary/[0.06] text-primary-light text-xs whitespace-nowrap">{featureShot.eyebrow}</span>
+          <p class="text-sm text-gray-400">{featureShot.description}</p>
+        </div>
+        <h3 class="text-2xl font-bold mb-5">{featureShot.title}</h3>
+        <div class="rounded-[1.35rem] overflow-hidden border border-white/8 bg-white">
+          <img
+            src={featureShot.image}
+            alt={featureShot.alt}
+            class="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+      </article>
+
+      <div class="grid gap-6">
+        {supportShots.map((shot, index) => (
+          <article
+            class="group rounded-[1.5rem] border border-white/8 bg-dark-800/95 p-5 hover:border-primary/20 hover:-translate-y-1 transition-all duration-300 animate-on-scroll"
+            style={`animation-delay: ${index * 0.08}s`}
+          >
+            <div class="flex flex-wrap items-center gap-3 mb-4">
+              <span class="px-3 py-1 rounded-full border border-primary/15 bg-primary/[0.06] text-primary-light text-xs whitespace-nowrap">{shot.eyebrow}</span>
+            </div>
+            <h3 class="text-xl font-bold mb-3">{shot.title}</h3>
+            <p class="text-sm text-gray-300 leading-6 mb-4">{shot.description}</p>
+            <div class="rounded-[1.2rem] overflow-hidden border border-white/8 bg-white">
+              <img
+                src={shot.image}
+                alt={shot.alt}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

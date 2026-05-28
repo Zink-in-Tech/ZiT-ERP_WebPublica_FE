@@ -8,16 +8,24 @@ export type TestimonialEntry = {
   name: string;
   position?: string;
   company: string;
+  industry?: string;
   companyUrl?: string;
   links?: TestimonialLink[];
   logoSrc?: string;
   logoAlt?: string;
+  homeQuote?: string;
   content: string;
   before: string;
   after: string;
   impact: string;
   result: string;
 };
+
+export const featuredHomeTestimonialIds = [
+  'martina-papelera-pilar',
+  'antonella-limpieza-blue',
+  'julieta-dieteticas-naturales',
+] as const;
 
 export const testimonials: TestimonialEntry[] = [
   {
@@ -28,6 +36,9 @@ export const testimonials: TestimonialEntry[] = [
     companyUrl: 'https://www.papelerapilarmanualidades.com.ar/',
     logoSrc: '/img/testimonials/papelera-pilar.webp',
     logoAlt: 'Logo de Papelera Pilar Manualidades',
+    industry: 'Papelería retail',
+    homeQuote:
+      'Las ventas y los pagos se registran automáticamente. La atención en mostrador es mucho más ágil y los controles, más simples.',
     content:
       'Desde que empezamos a usar ZinkERP, las ventas y los pagos se registran automáticamente. Antes lo hacíamos todo manual y perdíamos mucho tiempo. Ahora es super práctico y ágil, tanto para nosotros como para los clientes.',
     before: 'Registros manuales y pérdida de tiempo',
@@ -58,6 +69,9 @@ export const testimonials: TestimonialEntry[] = [
     companyUrl: 'https://www.instagram.com/limpiezablue_gchu/',
     logoSrc: '/img/testimonials/limpieza-blue.png',
     logoAlt: 'Logo de Limpieza Blue Gualeguaychu',
+    industry: 'Artículos de limpieza',
+    homeQuote:
+      'Stock, finanzas, ventas, proveedores y clientes en un solo lugar. Cada movimiento queda registrado automáticamente.',
     content:
       'ZinkERP nos permitió tener todo en un solo lugar: stock, finanzas, ventas, proveedores y clientes. Lo mejor es que cada movimiento queda registrado automáticamente. Es ideal tanto para emprendedores nuevos como para negocios con experiencia.',
     before: 'Información dispersa en varios lugares',
@@ -73,6 +87,9 @@ export const testimonials: TestimonialEntry[] = [
     companyUrl: 'https://www.instagram.com/dieteticasnaturales_/?hl=es',
     logoSrc: '/img/testimonials/dieteticas-naturales.jpeg',
     logoAlt: 'Logo de Dietéticas Naturales',
+    industry: 'Dietética · Multi-sucursal',
+    homeQuote:
+      'Manejamos 3 sucursales desde un solo lugar. Controlamos ventas, stock y caja en tiempo real, sin importar dónde estemos.',
     content:
       'Pasamos de tener todo disperso a manejar nuestras 3 sucursales desde un solo lugar. Ahora controlamos ventas, stock y caja en tiempo real, sin importar dónde estemos.',
     before: 'Sistemas separados para cada tarea',
@@ -144,4 +161,8 @@ export function getTestimonialsByIds(ids: string[]) {
   return ids
     .map((id) => testimonialsById[id])
     .filter((testimonial): testimonial is TestimonialEntry => Boolean(testimonial));
+}
+
+export function getFeaturedHomeTestimonials() {
+  return getTestimonialsByIds([...featuredHomeTestimonialIds]);
 }

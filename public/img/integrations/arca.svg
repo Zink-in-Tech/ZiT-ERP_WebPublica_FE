@@ -1,9 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="140" height="64" viewBox="0 0 140 64" role="img" aria-labelledby="title">
+<svg xmlns="http://www.w3.org/2000/svg" width="172" height="176" viewBox="0 0 172 176" role="img" aria-labelledby="title">
   <title id="title">ARCA</title>
-  <rect x="6" y="10" width="128" height="44" rx="12" fill="#0B0F1A"/>
-  <rect x="6.75" y="10.75" width="126.5" height="42.5" rx="11.25" stroke="#0EA5E9" stroke-opacity=".35" stroke-width="1.5"/>
-  <path d="M35.4 42 31.8 33h-8.2L20 42h-5.6l9.1-20.3h8L40.7 42h-5.3Zm-7.7-15.1-2.5 6.1h5Z" fill="#38BDF8"/>
-  <path d="M49.3 42h-5.1V21.7h9.2c5.7 0 8.7 2.8 8.7 7.6 0 3.4-1.6 5.7-4.6 6.8l5.2 5.9h-6.4l-4.1-5.1h-2.9V42Zm0-9.3h3.5c2.7 0 4-1.1 4-3.2s-1.3-3.2-4-3.2h-3.5v6.4Z" fill="#F8FAFC"/>
-  <path d="M75.8 42.4c-6.4 0-11.2-4.4-11.2-10.6s4.9-10.5 11.4-10.5c3.2 0 6 .9 8.3 2.7l-2.9 3.8c-1.6-1.2-3.4-1.8-5.3-1.8-3.6 0-6.1 2.3-6.1 5.8 0 3.4 2.5 5.9 6 5.9 2 0 3.8-.6 5.5-1.9l3 3.5c-2.4 2.1-5.4 3.1-8.7 3.1Z" fill="#F8FAFC"/>
-  <path d="M103.7 42 100.1 33h-8.2L88.3 42h-5.6l9.1-20.3h8l9.2 20.3h-5.3ZM96 26.9l-2.5 6.1h5l-2.5-6.1Z" fill="#38BDF8"/>
+  <rect width="172" height="176" fill="#2C3362"/>
+  <text
+    x="16"
+    y="116"
+    fill="#FFFFFF"
+    font-family="Arial, Helvetica, sans-serif"
+    font-size="58"
+    font-weight="700"
+    letter-spacing="-1.5"
+  >
+    ARCA
+  </text>
 </svg>

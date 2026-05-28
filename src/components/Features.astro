@@ -21,7 +21,7 @@ const stages = [
 ];
 ---
 
-<section id="features" class="py-20 relative">
+<section id="features" class="py-24 relative">
   <div class="absolute inset-0 z-0 opacity-30">
     <div class="absolute inset-0 bg-gradient-to-b from-dark-900 via-dark-800 to-dark-900"></div>
   </div>
@@ -29,10 +29,11 @@ const stages = [
   <div class="container mx-auto px-4 z-10 relative">
     <div class="max-w-4xl mx-auto">
       <div class="text-center mb-16 animate-on-scroll">
-        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+        <p class="text-primary/90 font-medium mb-3 tracking-[0.22em] uppercase text-xs">Cómo se ordena</p>
+        <h2 class="text-3xl md:text-4xl font-bold tracking-[-0.02em] mb-4">
           Todo cambia cuando empezás a tener el control
         </h2>
-        <p class="text-gray-300 text-lg">
+        <p class="text-gray-300 text-lg leading-8">
           ZinkERP te acompaña paso a paso para que dejes atrás el caos operativo y empieces a tomar decisiones con claridad.
         </p>
       </div>
@@ -43,17 +44,17 @@ const stages = [
 
         <div class="space-y-16">
           {stages.map((stage, index) => (
-            <div class="relative animate-on-scroll" style={`animation-delay: ${index * 0.2}s`}>
+            <div class="group relative animate-on-scroll" style={`animation-delay: ${index * 0.2}s`}>
               {/* Stage number indicator */}
-              <div class="absolute left-0 top-0 w-20 h-20 bg-dark-700 rounded-full border-4 border-primary/20 flex items-center justify-center z-10">
+              <div class="absolute left-0 top-0 w-20 h-20 bg-dark-800/95 rounded-full border border-white/10 flex items-center justify-center z-10 shadow-[0_18px_32px_rgba(2,6,23,0.22)]">
                 <span class="text-2xl font-bold text-primary">{index + 1}</span>
               </div>
 
               <div class="pl-28 pt-4">
-                <div class="bg-dark-700 rounded-xl p-8 border border-dark-600 hover:border-primary/50 hover:ring-1 hover:ring-primary/30 transition-all duration-300">
+                <div class="bg-dark-800/95 rounded-[1.45rem] p-8 md:p-9 border border-white/8 hover:border-primary/20 hover:bg-white/[0.015] transition-all duration-300">
                   <h3 class="text-2xl font-bold mb-2">{stage.title}</h3>
                   <p class="text-primary-400 text-lg mb-4">{stage.subtitle}</p>
-                  <p class="text-gray-300">{stage.description}</p>
+                  <p class="text-gray-300 leading-7">{stage.description}</p>
                 </div>
               </div>
 
@@ -68,12 +69,12 @@ const stages = [
         </div>
 
         <div class="text-center mt-16 animate-on-scroll">
-          <p class="text-lg text-gray-300 mb-6">
+          <p class="text-lg text-gray-300 mb-6 leading-8">
             Empezás a ver menos errores.<br>
             Tus decisiones se basan en datos, no en intuición.<br>
             Y por primera vez en mucho tiempo… dormís más tranquilo.
           </p>
-          <a href="https://cal.com/zinkintech" class="inline-flex items-center gap-2 px-6 py-3 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors text-center font-medium group">
+          <a href="https://cal.com/zinkintech" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-blue-primary hover:bg-blue-primary/90 transition-colors text-center font-medium group">
             Agendá una demo
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 group-hover:translate-x-1 transition-transform">
               <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
@@ -84,10 +85,3 @@ const stages = [
     </div>
   </div>
 </section>
-
-<style>
-  /* Hover effects */
-  .group:hover .group-hover\:opacity-100 {
-    opacity: 1;
-  }
-</style>
