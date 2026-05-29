@@ -5,176 +5,129 @@ import Footer from '../../components/Footer.astro';
 import PricingWizard from '../../components/PricingWizard.astro';
 import FAQ from '../../components/FAQ.astro';
 
+const WHATSAPP_CTA_NUMBER = '5491135598389';
+const yearlyDiscountLabel = '2 meses gratis';
+const buildWhatsAppUrl = (message: string) => `https://wa.me/${WHATSAPP_CTA_NUMBER}?text=${encodeURIComponent(message)}`;
+
 const plans = [
   {
-    name: "Plan Emprendedor",
-    icon: "🟢",
+    name: 'Emprendedor',
+    icon: '🟢',
+    tone: 'entry',
     price: {
       monthly: 29,
       promo: {
         price: 15,
-        duration: 3
-      }
+        duration: 3,
+      },
     },
-    scenario: "Negocios de una sola sucursal y operación inicial",
-    description: "Ideal para empezar a ordenar tu negocio con todas las herramientas necesarias",
+    context: 'Para empezar con orden y previsibilidad.',
+    salesLimit: 'Hasta USD 5.000/mes en ventas',
+    ladder: 'Punto de partida claro.',
     features: [
-      "Usuarios ilimitados",
-      "Módulos base",
-      "1 sede",
-      "ARCA nativa y MercadoPago incluidos",
+      '1 sede operativa',
+      'ARCA y Mercado Pago incluidos',
+      'Implementación guiada',
     ],
-    cta: "Empezar con 50% OFF",
+    cta: 'Comenzar hoy',
+    whatsappUrl: buildWhatsAppUrl('Quiero comenzar hoy mismo con Plan Emprendedor'),
     hasPromo: true,
-    fiscalLimit: "hasta 500 comprobantes fiscales/mes"
   },
   {
-    name: "Plan Pyme",
-    icon: "🔵",
+    name: 'Pyme',
+    icon: '🔵',
+    tone: 'growth',
     price: {
       monthly: 70,
-      yearly: 700
+      yearly: 700,
     },
-    scenario: "Empresas en crecimiento, con operación intermedia",
-    description: "Para negocios que necesitan más control y funcionalidades avanzadas",
+    context: 'Para negocios con más movimiento comercial.',
+    salesLimit: 'Hasta USD 20.000/mes en ventas',
+    ladder: 'Incluye además:',
     features: [
-      "Usuarios ilimitados",
-      "Módulos base",
-      "1 sede",
-      "Todas las integraciones",
-      "Soporte por WhatsApp y email",
-      "Onboarding completo + importación",
+      'Integraciones y onboarding',
+      'Soporte por WhatsApp y email',
+      'Más rango operativo mensual',
     ],
-    cta: "Elegir Plan Pyme",
+    cta: 'Comenzar hoy',
+    whatsappUrl: buildWhatsAppUrl('Quiero comenzar hoy mismo con Plan Pyme'),
     popular: true,
-    fiscalLimit: "hasta 1.500 comprobantes fiscales/mes"
   },
   {
-    name: "Plan Escala",
-    icon: "🟣",
+    name: 'Escala',
+    icon: '🟣',
+    tone: 'scale',
     price: {
       monthly: 99,
-      yearly: 990
+      yearly: 990,
     },
-    scenario: "Negocios con múltiples sucursales y operación avanzada",
-    description: "La solución completa para empresas que necesitan control total",
+    context: 'Para operaciones que ya crecen con estructura.',
+    salesLimit: 'Hasta USD 45.000/mes en ventas',
+    ladder: 'Suma además:',
     features: [
-      "Usuarios ilimitados",
-      "Módulos base + opcionales",
-      "Sucursales al 50% por 12 meses",
-      "Todas las integraciones",
-      "Soporte prioritario multicanal",
-      "Onboarding completo + importación",
-      "Seguridad avanzada"
+      'Sucursales al 50% por 6 meses',
+      'Soporte prioritario',
+      'Más margen para crecer',
     ],
-    cta: "Elegir Plan Escala",
-    fiscalLimit: "hasta 4.500 comprobantes fiscales/mes",
+    cta: 'Comenzar hoy',
+    whatsappUrl: buildWhatsAppUrl('Quiero comenzar hoy mismo con Plan Escala'),
     hasHeader: true,
-    headerText: "Ideal si tenés más de una sucursal de venta"
+    headerText: 'Ideal si tenés más de una sucursal de venta',
   },
   {
-    name: "Plan Enterprise Fiscal",
-    icon: "🟠",
+    name: 'Enterprise',
+    icon: '🟠',
+    tone: 'enterprise',
     price: {
       monthly: 149,
-      yearly: 1490
+      yearly: 1490,
     },
-    scenario: "Operaciones con alto volumen fiscal y mayor complejidad",
-    description: "Para empresas que superan el volumen fiscal de los planes estándar",
+    context: 'Para operaciones de mayor escala o complejidad especial.',
+    salesLimit: 'Por encima de USD 45.000/mes o con complejidad especial',
+    ladder: 'También incorpora:',
     features: [
-      "Usuarios ilimitados",
-      "Módulos base + opcionales",
-      "Más de una sede o sucursal",
-      "Sucursales al 50% por 12 meses",
-      "Todas las integraciones",
-      "Soporte prioritario multicanal",
-      "Onboarding completo + importación",
-      "Seguridad avanzada"
+      'Esquema comercial a medida',
+      'Acompañamiento prioritario',
+      'Evaluación fiscal y operativa',
     ],
-    cta: "Hablar con ventas",
-    fiscalLimit: "más de 4.500 comprobantes fiscales/mes"
-  }
+    cta: 'Comenzar hoy',
+    whatsappUrl: buildWhatsAppUrl('Quiero comenzar hoy mismo con Plan Enterprise'),
+  },
 ];
 
 const comparisons = [
   {
-    feature: "Precio por usuario",
+    feature: 'Precio por usuario',
     zinkERP: false,
-    traditional: true
+    traditional: true,
   },
   {
-    feature: "Planes claros por tamaño de operación",
+    feature: 'Planes claros por tamaño de operación',
     zinkERP: true,
-    traditional: false
+    traditional: false,
   },
   {
-    feature: "Flexibilidad para aplicar módulos especiales",
+    feature: 'Toda la funcionalidad base incluida',
     zinkERP: true,
-    traditional: false
+    traditional: false,
   },
   {
-    feature: "Soporte local incluido",
+    feature: 'Soporte local incluido',
     zinkERP: true,
-    traditional: false
+    traditional: false,
   },
   {
-    feature: "Previsión de costos clara",
+    feature: 'Previsión de costos clara',
     zinkERP: true,
-    traditional: false
-  }
-];
-
-const testimonials = [
-  {
-    quote: "Pasamos de tener todo disperso a manejar nuestras 3 sucursales desde un solo lugar. Ahora controlamos ventas, stock y caja en tiempo real, sin importar dónde estemos.",
-    impact: [
-      "Gestión completa desde cualquier dispositivo",
-      "Ahorro en equipos de facturación",
-      "Control total del stock entre sucursales",
-      "Información centralizada y segura"
-    ],
-    beforeAfter: [
-      {
-        before: "Sistemas separados para cada tarea",
-        after: "Todo integrado en una sola plataforma"
-      },
-      {
-        before: "Trabajo 100% presencial",
-        after: "Gestión remota desde cualquier lugar"
-      },
-      {
-        before: "Múltiples equipos y licencias",
-        after: "Acceso ilimitado sin costos extra"
-      },
-      {
-        before: "Datos dispersos y poco seguros",
-        after: "Información centralizada y respaldada"
-      },
-      {
-        before: "Sin control en tiempo real",
-        after: "Visibilidad total del negocio"
-      }
-    ],
-    author: "Gustavo",
-    company: "Dietética multisucursal"
-  }
-];
-
-const includedFeatures = [
-  "Funciones base siempre incluidas",
-  "Usuarios ilimitados",
-  "Soporte local",
-  "Implementación guiada",
-  "Sin costos ocultos",
-  "Artículos en stock ilimitados"
+    traditional: false,
+  },
 ];
 ---
 
 <Layout title="Precios | ZinkERP - El modelo de precios más accesible para Emprendedores y PyMES.">
   <Header />
   <main>
-    {/* Hero Section */}
-    <section class="pt-32 pb-20 relative">
+    <section class="pt-32 pb-14 relative">
       <div class="absolute inset-0 z-0 opacity-20">
         <div class="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-primary-600/30 blur-3xl"></div>
         <div class="absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full bg-primary-600/30 blur-3xl"></div>
@@ -183,86 +136,115 @@ const includedFeatures = [
       <div class="container mx-auto px-4 relative z-10">
         <div class="max-w-4xl mx-auto text-center">
           <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-on-scroll">
-            El modelo de precios más accesible para Emprendedores y PyMES. 
+            El modelo de precios más accesible para Emprendedores y PyMES.
           </h1>
-          <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
-            Sin cobrarte por usuario. Con planes claros según el tamaño y la complejidad de tu operación.
+          <p class="text-xl text-gray-300 mb-4 animate-on-scroll" style="animation-delay: 0.1s;">
+            Elegí el plan según el volumen mensual de tu operación, sin cobrar por usuario ni sumar addons sorpresa.
           </p>
         </div>
       </div>
     </section>
 
-    {/* Pricing Plans */}
-    <section id="planes" class="py-20 bg-dark-800">
+    <section id="planes" class="pt-6 pb-20 bg-dark-800">
       <div class="container mx-auto px-4">
-        <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto flex justify-center mb-4 animate-on-scroll">
+          <div class="inline-flex items-center rounded-full bg-white/[0.035] p-1 ring-1 ring-inset ring-white/8" data-price-toggle>
+            <button type="button" class="price-mode-toggle rounded-full px-5 py-2 text-sm font-medium text-gray-300 transition-colors hover:text-white" data-mode="monthly" aria-pressed="false">
+              Mensual
+            </button>
+            <button type="button" class="price-mode-toggle rounded-full px-5 py-2 text-sm font-medium bg-white text-dark-900 shadow-sm" data-mode="yearly" aria-pressed="true">
+              Anual <span class="text-green-600 font-semibold">({yearlyDiscountLabel})</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="max-w-4xl mx-auto text-center text-gray-400 mb-6 animate-on-scroll">
+          Todos incluyen funcionalidad base y usuarios ilimitados. En plan anual, {yearlyDiscountLabel.toLowerCase()}.
+        </p>
+
+        <div class="pricing-grid grid md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
           {plans.map((plan) => (
-            <div class={`group bg-dark-800/95 rounded-[1.6rem] overflow-hidden border transition-all duration-200 hover:-translate-y-1 hover:bg-white/[0.015] ${
-              plan.popular ? 'border-primary' : 
-              plan.hasPromo ? 'border-blue-primary' :
-              'border-white/10'
-            } ${
+            <div class={`pricing-card group relative overflow-hidden rounded-[1.6rem] border bg-dark-800/95 transition-all duration-300 hover:-translate-y-2 hover:bg-white/[0.02] animate-on-scroll flex flex-col ${
               plan.popular
-                ? 'hover:border-primary-400 hover:shadow-[0_24px_60px_-32px_rgba(167,91,255,0.45)]'
-                : plan.hasPromo
-                ? 'hover:border-cyan-300/40 hover:shadow-[0_24px_60px_-32px_rgba(47,128,237,0.35)]'
-                : 'hover:border-white/15 hover:shadow-[0_24px_60px_-32px_rgba(15,23,42,0.5)]'
-            } animate-on-scroll`}>
-              {plan.popular && (
-                <div class="bg-primary/95 text-center py-2 text-sm font-medium">
-                  El más elegido por negocios en crecimiento
-                </div>
-              )}
-              {plan.hasPromo && (
-                <div class="bg-blue-primary/95 text-center py-2 text-sm font-medium">
-                  50% OFF primeros 3 meses
-                </div>
-              )}
-              {plan.hasHeader && (
-                <div class="bg-primary/95 text-center py-2 text-sm font-medium">
-                  {plan.headerText}
-                </div>
-              )}
-              <div class="p-8 md:p-9">
+                ? 'border-primary/55 shadow-[0_22px_54px_-34px_rgba(167,91,255,0.34)] hover:border-primary-300/80 hover:shadow-[0_34px_74px_-38px_rgba(167,91,255,0.44)]'
+                : plan.tone === 'enterprise'
+                ? 'border-white/14 shadow-[0_18px_44px_-34px_rgba(15,23,42,0.38)] hover:border-white/24 hover:shadow-[0_30px_66px_-38px_rgba(15,23,42,0.5)]'
+                : 'border-white/10 shadow-[0_16px_38px_-32px_rgba(15,23,42,0.34)] hover:border-white/18 hover:shadow-[0_28px_60px_-36px_rgba(15,23,42,0.46)]'
+            }`}>
+              <div class={`pointer-events-none absolute inset-x-0 top-0 h-20 opacity-70 blur-2xl ${
+                plan.popular
+                  ? 'bg-primary/16'
+                  : plan.tone === 'enterprise'
+                  ? 'bg-white/8'
+                  : 'bg-white/4'
+              }`}></div>
+              <div class="min-h-10 flex items-center">
+                {plan.popular && (
+                  <div class="w-full bg-primary/95 text-center py-2 text-sm font-medium">
+                    El más elegido por negocios en crecimiento
+                  </div>
+                )}
+                {plan.hasPromo && (
+                  <div class="w-full bg-white/[0.06] text-center py-2 text-sm font-medium text-blue-200">
+                    50% OFF por 3 meses
+                  </div>
+                )}
+                {plan.hasHeader && (
+                  <div class="w-full bg-white/[0.06] text-center py-2 text-sm font-medium text-cyan-200">
+                    {plan.headerText}
+                  </div>
+                )}
+              </div>
+
+              <div class="relative p-7 md:p-8 pb-8 md:pb-9 h-full flex flex-col flex-1">
                 <div class="flex items-center gap-3 mb-4">
                   <span class="text-2xl">{plan.icon}</span>
                   <h3 class="text-2xl font-bold">{plan.name}</h3>
                 </div>
 
-                <p class="text-gray-300 mb-7 leading-7">{plan.scenario}</p>
+                <p class="text-gray-300 mb-2 leading-7">{plan.context}</p>
 
-                <div class="mb-8">
+                <div class="mb-4 min-h-[8.75rem] flex flex-col justify-start">
                   {plan.hasPromo ? (
                     <>
-                      <div class="flex items-end gap-2 mb-1">
-                        <span class="text-4xl font-bold">USD {plan.price.promo.price}</span>
-                        <span class="text-gray-400">/mes</span>
-                        <span class="text-sm text-gray-400 line-through">USD {plan.price.monthly}</span>
+                      <div class="price-display hidden min-h-[8.75rem] flex flex-col justify-start" data-mode-value="monthly">
+                        <div class="flex items-end gap-2 mb-1">
+                          <span class="text-4xl font-bold">USD {plan.price.promo.price}</span>
+                          <span class="text-gray-400">/mes</span>
+                          <span class="text-sm text-gray-400 line-through">USD {plan.price.monthly}</span>
+                        </div>
+                        <p class="text-blue-primary text-sm font-medium">50% OFF por {plan.price.promo.duration} meses</p>
+                        <p class="text-gray-400 text-sm mt-2">Luego USD {plan.price.monthly}/mes</p>
                       </div>
-                      <p class="text-blue-primary text-sm font-medium">
-                        Primeros {plan.price.promo.duration} meses
-                      </p>
-                      <p class="text-gray-400 text-sm mt-2">
-                        Luego USD {plan.price.monthly}/mes
-                      </p>
+                      <div class="price-display flex min-h-[8.75rem] flex-col justify-start" data-mode-value="yearly">
+                        <div class="flex items-end gap-2 mb-1">
+                          <span class="text-4xl font-bold">USD {plan.price.monthly}</span>
+                          <span class="text-gray-400">/mes</span>
+                        </div>
+                        <p class="text-blue-primary text-sm font-medium">Disponible solo en modalidad mensual</p>
+                        <p class="text-gray-400 text-sm mt-2">La promo vigente sigue siendo 50% OFF por 3 meses</p>
+                      </div>
                     </>
                   ) : (
                     <>
-                      <div class="flex items-end gap-2 mb-1">
-                        <span class="text-4xl font-bold">USD {plan.price.monthly}</span>
-                        <span class="text-gray-400">/mes</span>
+                      <div class="price-display hidden min-h-[8.75rem] flex flex-col justify-start" data-mode-value="monthly">
+                        <div class="flex items-end gap-2 mb-1">
+                          <span class="text-4xl font-bold">USD {plan.price.monthly}</span>
+                          <span class="text-gray-400">/mes</span>
+                        </div>
                       </div>
                       {plan.price.yearly && (
-                        <div class="mt-4 pt-4 border-t border-dark-600">
+                        <div class={`price-display flex min-h-[8.75rem] flex-col justify-start`} data-mode-value="yearly">
                           <div class="flex items-end gap-2 mb-2">
-                            <span class="text-2xl font-bold">USD {plan.price.yearly}</span>
+                            <span class="text-4xl font-bold">USD {plan.price.yearly}</span>
                             <span class="text-gray-400">/año</span>
                           </div>
-                          <div class="inline-flex items-center gap-1 px-3 py-1 bg-green-500/10 border border-green-500/20 rounded-full">
+                          <p class="text-gray-400 text-sm">Equivale a USD {Math.round((plan.price.yearly / 12) * 100) / 100}/mes · pagás 10, usás 12</p>
+                          <div class="inline-flex items-center gap-1 px-3 py-1 mt-3 bg-green-500/10 border border-green-500/20 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-green-500">
                               <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" clip-rule="evenodd" />
                             </svg>
-                            <span class="text-sm text-green-500 font-medium">Ahorrás USD {plan.price.monthly * 12 - plan.price.yearly} (2 meses gratis)</span>
+                            <span class="text-sm text-green-500 font-medium">{yearlyDiscountLabel}</span>
                           </div>
                         </div>
                       )}
@@ -270,38 +252,46 @@ const includedFeatures = [
                   )}
                 </div>
 
-                <div class="mb-6 space-y-3">
-                  <div class="p-4 bg-white/[0.03] rounded-2xl border border-white/6 transition-colors duration-200 group-hover:bg-white/[0.045]">
-                    <p class="text-xs uppercase tracking-[0.18em] font-medium text-gray-400">
-                      Límite fiscal:
-                      <span class="block text-white mt-2 normal-case tracking-normal text-sm font-medium">{plan.fiscalLimit}</span>
-                    </p>
-                  </div>
+                <div class="mb-5">
+                  <a
+                    href={plan.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class={`block text-center py-3.5 px-6 rounded-xl transition-colors ${
+                      plan.popular
+                        ? 'bg-primary hover:bg-primary/90'
+                        : 'bg-blue-primary hover:bg-blue-primary/90'
+                    }`}
+                  >
+                    {plan.cta}
+                  </a>
                 </div>
 
-                <ul class="space-y-4 mb-9">
+                <div class="mb-5 space-y-3">
+                  <div class={`p-4 rounded-2xl border transition-colors duration-200 ${
+                    plan.popular
+                      ? 'bg-primary/[0.035] border-primary/10 group-hover:bg-primary/[0.05]'
+                      : 'bg-white/[0.03] border-white/6 group-hover:bg-white/[0.045]'
+                  }`}>
+                    <p class="text-sm font-medium text-white leading-6">{plan.salesLimit}</p>
+                  </div>
+                  <p class={`text-sm leading-6 ${
+                    plan.popular ? 'text-primary-light' : 'text-gray-300'
+                  }`}>{plan.ladder}</p>
+                </div>
+
+                <ul class="space-y-4">
                   {plan.features.map((feature) => (
                     <li class="flex items-start gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0 mt-0.5">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class={`w-5 h-5 shrink-0 mt-0.5 ${
+                        plan.popular ? 'text-primary' : 'text-blue-300'
+                      }`}>
                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                       </svg>
-                      <span class="text-gray-300">{feature}</span>
+                      <span class="text-gray-300 leading-6">{feature}</span>
                     </li>
                   ))}
                 </ul>
-
-                <a 
-                  href="https://cal.com/zinkintech" 
-                  class={`block text-center py-3.5 px-6 rounded-xl transition-colors ${
-                    plan.popular 
-                      ? 'bg-blue-primary hover:bg-blue-primary/90'
-                      : plan.hasPromo
-                      ? 'bg-blue-primary hover:bg-blue-primary/90'
-                      : 'bg-blue-primary hover:bg-blue-primary/90'
-                  }`}
-                >
-                  {plan.cta}
-                </a>
               </div>
             </div>
           ))}
@@ -309,7 +299,32 @@ const includedFeatures = [
       </div>
     </section>
 
-    {/* Pricing Wizard */}
+    <section class="py-14 bg-dark-800/75">
+      <div class="container mx-auto px-4">
+        <div class="max-w-6xl mx-auto bg-dark-800/95 rounded-[1.6rem] border border-white/8 p-8 md:p-10 animate-on-scroll">
+          <p class="text-primary/90 font-medium mb-3 tracking-[0.18em] uppercase text-xs">Crecimiento claro</p>
+          <h2 class="text-3xl font-bold mb-4">Acompañamos tu crecimiento</h2>
+          <p class="text-gray-300 text-lg leading-8 max-w-4xl mb-8">
+            Toda la funcionalidad base está incluida. Si tu operación suma sucursales o necesita un esquema especial, te acompañamos con condiciones claras para crecer sin perder previsibilidad.
+          </p>
+          <div class="grid md:grid-cols-3 gap-5">
+            <div class="rounded-[1.25rem] border border-white/8 bg-white/[0.025] p-6">
+              <h3 class="font-semibold text-lg mb-2">Sucursal adicional</h3>
+              <p class="text-gray-300 leading-7">50% de bonificación por 6 meses.</p>
+            </div>
+            <div class="rounded-[1.25rem] border border-white/8 bg-white/[0.025] p-6">
+              <h3 class="font-semibold text-lg mb-2">Operaciones de mayor escala</h3>
+              <p class="text-gray-300 leading-7">Si tu negocio supera el rango estándar, evaluamos un esquema comercial acorde a su complejidad.</p>
+            </div>
+            <div class="rounded-[1.25rem] border border-white/8 bg-white/[0.025] p-6">
+              <h3 class="font-semibold text-lg mb-2">Soporte para expansión</h3>
+              <p class="text-gray-300 leading-7">Onboarding y acompañamiento comercial para ordenar el crecimiento de la operación.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section id="simulator" class="py-20">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
@@ -318,12 +333,11 @@ const includedFeatures = [
       </div>
     </section>
 
-    {/* Comparison Table */}
     <section class="py-20 bg-dark-800">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto">
           <h2 class="text-3xl font-bold mb-12 text-center">ZinkERP vs ERP Tradicional</h2>
-          
+
           <div class="bg-dark-800/95 rounded-[1.4rem] overflow-hidden border border-white/8">
             <div class="overflow-x-auto">
               <table class="w-full min-w-[500px]">
@@ -339,18 +353,10 @@ const includedFeatures = [
                     <tr class="border-b border-dark-600">
                       <td class="py-4 px-6">{item.feature}</td>
                       <td class="py-4 px-6 text-center">
-                        {item.zinkERP ? (
-                          <span class="text-green-500">✓</span>
-                        ) : (
-                          <span class="text-red-500">✗</span>
-                        )}
+                        {item.zinkERP ? <span class="text-green-500">✓</span> : <span class="text-red-500">✗</span>}
                       </td>
                       <td class="py-4 px-6 text-center">
-                        {item.traditional ? (
-                          <span class="text-green-500">✓</span>
-                        ) : (
-                          <span class="text-red-500">✗</span>
-                        )}
+                        {item.traditional ? <span class="text-green-500">✓</span> : <span class="text-red-500">✗</span>}
                       </td>
                     </tr>
                   ))}
@@ -358,7 +364,7 @@ const includedFeatures = [
               </table>
             </div>
           </div>
-          
+
           <p class="text-center text-lg text-gray-300 mt-8">
             Con ZinkERP, sabés desde el primer día cuánto vas a pagar, y qué recibís a cambio.
           </p>
@@ -366,122 +372,32 @@ const includedFeatures = [
       </div>
     </section>
 
-    {/* Testimonials */}
-    <section class="py-20">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto">
-          {testimonials.map((testimonial) => (
-            <div class="bg-dark-700 rounded-xl border border-dark-600 overflow-hidden">
-              {/* Header */}
-              <div class="p-8 border-b border-dark-600">
-                <div class="flex items-center gap-4 mb-6">
-                  <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center">
-                    <span class="text-2xl font-bold">{testimonial.author[0]}</span>
-                  </div>
-                  <div>
-                    <h3 class="text-xl font-bold">{testimonial.author}</h3>
-                    <p class="text-gray-400">{testimonial.company}</p>
-                  </div>
-                </div>
-                <p class="text-xl text-gray-300 italic">"{testimonial.quote}"</p>
-              </div>
-
-              {/* Impact Grid */}
-              <div class="p-8 bg-dark-800/50">
-                {/* Before/After Comparisons */}
-                <h4 class="text-lg font-semibold mb-4">Cambios notables</h4>
-                <div class="grid sm:grid-cols-2 gap-4">
-                  {testimonial.beforeAfter.map((comparison) => (
-                    <div class="grid grid-cols-2 gap-4">
-                      <div class="p-3 bg-dark-800 rounded-lg">
-                        <div class="flex items-center gap-2 mb-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-red-500">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.28 7.22a.75.75 0 00-1.06 1.06L8.94 10l-1.72 1.72a.75.75 0 101.06 1.06L10 11.06l1.72 1.72a.75.75 0 101.06-1.06L11.06 10l1.72-1.72a.75.75 0 00-1.06-1.06L10 8.94 8.28 7.22z" />
-                          </svg>
-                          <span class="text-sm text-gray-400">Antes</span>
-                        </div>
-                        <p class="text-sm text-gray-300">{comparison.before}</p>
-                      </div>
-                      <div class="p-3 bg-dark-800 rounded-lg">
-                        <div class="flex items-center gap-2 mb-2">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-green-500">
-                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z" />
-                          </svg>
-                          <span class="text-sm text-gray-400">Ahora</span>
-                        </div>
-                        <p class="text-sm text-gray-300">{comparison.after}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Impact Summary */}
-              <div class="p-8 bg-primary/10 border-t border-primary/20">
-                <h4 class="text-lg font-semibold mb-4">Impacto en el negocio</h4>
-                <div class="grid sm:grid-cols-2 gap-4">
-                  {testimonial.impact.map((item) => (
-                    <div class="flex items-center gap-3">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0">
-                        <path fill-rule="evenodd" d="M5.5 17a4.5 4.5 0 01-1.44-8.765 4.5 4.5 0 018.302-3.046 3.5 3.5 0 014.504 4.272A4 4 0 0115 17H5.5zm3.75-2.75a.75.75 0 001.5 0V9.66l1.95 2.1a.75.75 0 101.1-1.02l-3.25-3.5a.75.75 0 00-1.1 0l-3.25 3.5a.75.75 0 101.1 1.02l1.95-2.1v4.59z" />
-                      </svg>
-                      <span class="text-gray-300">{item}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-
-    {/* What We Don't Charge For */}
-    <section class="py-20 bg-dark-800">
-      <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center">
-          <h2 class="text-3xl font-bold mb-12">Lo que no te cobramos</h2>
-          
-          <div class="grid md:grid-cols-3 gap-8">
-            {includedFeatures.map((feature) => (
-              <div class="bg-dark-700 p-6 rounded-xl border border-dark-600">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-8 h-8 text-primary mx-auto mb-4">
-                  <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
-                </svg>
-                <p class="text-gray-300">{feature}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-
-    {/* FAQ Section */}
     <FAQ />
 
-    {/* Final CTA */}
     <section class="py-20">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
           <h2 class="text-3xl font-bold mb-6">¿No sabés qué plan elegir?</h2>
           <p class="text-xl text-gray-300 mb-8">
             Respondé 3 preguntas rápidas o hablá con nuestro equipo.
-            <br>
+            <br />
             En menos de 10 minutos sabés cuál es el mejor modelo para tu negocio.
           </p>
-          
+
           <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a 
-              href="#simulator" 
+            <a
+              href="#simulator"
               class="px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors"
             >
               Simular mi precio
             </a>
-            <a 
-              href="https://cal.com/zinkintech" 
+            <a
+              href={buildWhatsAppUrl('Quiero ayuda para elegir el plan ideal de ZinkERP para mi negocio')}
+              target="_blank"
+              rel="noopener noreferrer"
               class="px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors"
             >
-              Agendar llamada
+              Hablar por WhatsApp
             </a>
           </div>
         </div>
@@ -490,3 +406,47 @@ const includedFeatures = [
   </main>
   <Footer />
 </Layout>
+
+<style>
+  .pricing-grid:hover .pricing-card {
+    opacity: 0.9;
+  }
+
+  .pricing-grid:hover .pricing-card:hover {
+    opacity: 1;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.querySelector('[data-price-toggle]');
+    if (!toggle) return;
+
+    const buttons = Array.from(toggle.querySelectorAll<HTMLElement>('.price-mode-toggle'));
+    const displays = Array.from(document.querySelectorAll<HTMLElement>('[data-mode-value]'));
+
+    const setMode = (mode: string) => {
+      buttons.forEach((button) => {
+        const isActive = button.dataset.mode === mode;
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+        button.classList.toggle('bg-white', isActive);
+        button.classList.toggle('text-dark-900', isActive);
+        button.classList.toggle('shadow-sm', isActive);
+        button.classList.toggle('text-gray-300', !isActive);
+      });
+
+      displays.forEach((display) => {
+        display.classList.toggle('hidden', display.dataset.modeValue !== mode);
+      });
+    };
+
+    setMode('yearly');
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const mode = button.dataset.mode;
+        if (mode) setMode(mode);
+      });
+    });
+  });
+</script>
