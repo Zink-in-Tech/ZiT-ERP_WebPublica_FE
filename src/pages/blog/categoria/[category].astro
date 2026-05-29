@@ -4,25 +4,45 @@ import Header from '../../../components/Header.astro';
 import Footer from '../../../components/Footer.astro';
 import { fetchSanityData } from '../../../lib/sanity';
 
+type CategoryPath = {
+  slug: string;
+  title: string;
+};
+
+type CategoryPost = {
+  slug: string;
+  title: string;
+  mainImageUrl: string;
+  publishedAt: string;
+  excerpt: string;
+  author: {
+    name: string;
+    role?: string;
+  };
+  categories?: Array<{
+    title: string;
+    slug: string;
+  }>;
+};
+
 export async function getStaticPaths() {
-  // Fetch all categories and ensure we have a valid array
-  const categories = await fetchSanityData(`*[_type=="category"]{
+  const categories = ((await fetchSanityData(`*[_type=="category"]{
     "slug": slug.current,
     title
-  }`) || [];
-  
-  // Map each category to a path parameter
+  }`)) as CategoryPath[] | null) || [];
+
   return categories.map((category) => ({
-    params: { category: category.slug || 'default' }, // Ensure we never return null
-    props: { categoryTitle: category.title }
+    params: { category: category.slug || 'default' },
+    props: { categoryTitle: category.title },
   }));
 }
 
-const { category } = Astro.params;
-const { categoryTitle } = Astro.props;
+const { category = '' } = Astro.params;
+const { categoryTitle } = Astro.props as { categoryTitle?: string };
 
-// Fetch posts for this category
-const posts = await fetchSanityData(`
+const posts =
+  ((await fetchSanityData(
+    `
   *[_type=="post" && $category in categories[]->slug.current] {
     title,
     "slug": slug.current,
@@ -39,10 +59,14 @@ const posts = await fetchSanityData(`
       "slug": slug.current
     }
   }
-`, { category }) || [];
+`,
+    { category },
+  )) as CategoryPost[] | null) || [];
 
-// Fallback title if props are not available
-const displayTitle = categoryTitle || category?.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') || 'Categoría';
+const displayTitle =
+  categoryTitle ||
+  category.split('-').map((word: string) => word.charAt(0).toUpperCase() + word.slice(1)).join(' ') ||
+  'Categoría';
 ---
 
 <Layout title={`${displayTitle} | Blog ZinkERP`}>
@@ -97,7 +121,7 @@ const displayTitle = categoryTitle || category?.split('-').map(word => word.char
               </div>
               <div class="p-6">
                 <div class="flex items-center gap-4 mb-4">
-                  {post.categories?.map((cat) => (
+                  {post.categories?.map((cat: { title: string }) => (
                     <span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm">
                       {cat.title}
                     </span>

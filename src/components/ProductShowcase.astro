@@ -128,13 +128,13 @@ const initialSupportMoment = supportMoments[0];
 
 <script>
   const supportCard = document.getElementById('product-showcase-support-video')?.closest('article');
-  const supportVideo = document.getElementById('product-showcase-support-video');
-  const supportSource = document.getElementById('product-showcase-support-source');
+  const supportVideo = document.getElementById('product-showcase-support-video') as HTMLVideoElement | null;
+  const supportSource = document.getElementById('product-showcase-support-source') as HTMLSourceElement | null;
   const supportEyebrow = document.getElementById('product-showcase-support-eyebrow');
   const supportTitle = document.getElementById('product-showcase-support-title');
   const supportDescription = document.getElementById('product-showcase-support-description');
   const supportCopy = document.getElementById('product-showcase-support-copy');
-  const supportTabs = Array.from(document.querySelectorAll('.product-showcase-tab'));
+  const supportTabs = Array.from(document.querySelectorAll<HTMLElement>('.product-showcase-tab'));
 
   const playPreview = () => {
     if (!supportVideo) return;
@@ -148,7 +148,7 @@ const initialSupportMoment = supportMoments[0];
     supportVideo.currentTime = 0;
   };
 
-  const setActiveTab = async (activeTab) => {
+  const setActiveTab = async (activeTab: HTMLElement) => {
     if (!supportVideo || !supportSource || !supportEyebrow || !supportTitle || !supportDescription || !supportCopy) return;
 
     for (const tab of supportTabs) {

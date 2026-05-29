@@ -206,19 +206,20 @@ const modules = [
 <script>
   document.addEventListener('DOMContentLoaded', () => {
     const container = document.getElementById('modules-container');
-    const prevButton = document.getElementById('prev-module');
-    const nextButton = document.getElementById('next-module');
-    const dots = document.querySelectorAll('[data-module-dot]');
+    const prevButton = document.getElementById('prev-module') as HTMLButtonElement | null;
+    const nextButton = document.getElementById('next-module') as HTMLButtonElement | null;
+    const dots = document.querySelectorAll<HTMLElement>('[data-module-dot]');
     
     if (!container || !prevButton || !nextButton) return;
 
     let isDragging = false;
-    let startX;
-    let startScrollLeft;
+    let startX = 0;
+    let startScrollLeft = 0;
     let currentModule = 0;
+    const moduleCount = dots.length;
 
     const getModuleWidth = () => {
-      const firstModule = container.querySelector('[data-module-id]');
+      const firstModule = container.querySelector<HTMLElement>('[data-module-id]');
       return firstModule ? firstModule.offsetWidth + 32 : 0; // width + gap
     };
 
@@ -230,15 +231,15 @@ const modules = [
       });
 
       // Update buttons
-      prevButton.disabled = currentModule === 0;
-      nextButton.disabled = currentModule === dots.length - 1;
+      prevButton!.disabled = currentModule === 0;
+      nextButton!.disabled = currentModule === dots.length - 1;
     }
 
-    function scrollToModule(index) {
+    function scrollToModule(index: number) {
       const moduleWidth = getModuleWidth();
       currentModule = index;
       const translateX = -(moduleWidth * index);
-      container.style.transform = `translateX(${translateX}px)`;
+      container!.style.transform = `translateX(${translateX}px)`;
       updateNavigation();
     }
 
@@ -268,12 +269,14 @@ const modules = [
     });
 
     function snapToNearestModule() {
+      if (!container) return;
+
       container.style.transition = 'transform 300ms ease-out';
       const moduleWidth = getModuleWidth();
       const currentTransform = new WebKitCSSMatrix(container.style.transform);
       const currentX = Math.abs(currentTransform.m41);
       const nearestModule = Math.round(currentX / moduleWidth);
-      scrollToModule(Math.min(Math.max(nearestModule, 0), modules.length - 1));
+      scrollToModule(Math.min(Math.max(nearestModule, 0), moduleCount - 1));
     }
 
     container.addEventListener('mousemove', (e) => {
@@ -282,7 +285,7 @@ const modules = [
       const x = e.pageX - container.offsetLeft;
       const walk = (x - startX);
       const newPosition = startScrollLeft - walk;
-      const maxScroll = (modules.length - 1) * getModuleWidth();
+      const maxScroll = (moduleCount - 1) * getModuleWidth();
       const boundedPosition = Math.max(Math.min(newPosition, maxScroll), 0);
       container.style.transform = `translateX(-${boundedPosition}px)`;
     });
@@ -325,7 +328,7 @@ const modules = [
       const x = e.touches[0].pageX - container.offsetLeft;
       const walk = (x - startX);
       const newPosition = startScrollLeft - walk;
-      const maxScroll = (modules.length - 1) * getModuleWidth();
+      const maxScroll = (moduleCount - 1) * getModuleWidth();
       const boundedPosition = Math.max(Math.min(newPosition, maxScroll), 0);
       container.style.transform = `translateX(-${boundedPosition}px)`;
     });

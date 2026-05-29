@@ -392,17 +392,26 @@ import Footer from '../../../components/Footer.astro';
 
   <script>
     import Chart from 'chart.js/auto';
+    import type { Chart as ChartInstance } from 'chart.js';
     import { format } from 'date-fns';
 
+    type Movement = {
+      type: 'ingreso' | 'egreso';
+      amount: number;
+      description: string;
+      timestamp: string;
+    };
+
     // Estado inicial
-    let movements = JSON.parse(localStorage.getItem('movements') || '[]');
-    let barChart, lineChart;
+    let movements: Movement[] = JSON.parse(localStorage.getItem('movements') || '[]');
+    let barChart: ChartInstance<'bar'> | undefined;
+    let lineChart: ChartInstance<'line'> | undefined;
 
     // Elementos DOM
     const modal = document.getElementById('movementModal');
-    const form = document.getElementById('movementForm');
+    const form = document.getElementById('movementForm') as HTMLFormElement | null;
     const modalTitle = document.getElementById('modalTitle');
-    const typeInput = document.getElementById('type');
+    const typeInput = document.getElementById('type') as HTMLInputElement | null;
     const quickIncomeBtn = document.getElementById('quickIncomeBtn');
     const quickExpenseBtn = document.getElementById('quickExpenseBtn');
     const cancelButton = document.getElementById('cancelButton');
@@ -411,7 +420,7 @@ import Footer from '../../../components/Footer.astro';
     const printButton = document.getElementById('printButton');
 
     // Función para formatear números al estilo argentino
-    function formatNumber(number) {
+    function formatNumber(number: number) {
       return new Intl.NumberFormat('es-AR', {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2
@@ -438,8 +447,8 @@ import Footer from '../../../components/Footer.astro';
 
     // Inicializar gráficos
     function initCharts() {
-      const barCtx = document.getElementById('barChart')?.getContext('2d');
-      const lineCtx = document.getElementById('lineChart')?.getContext('2d');
+      const barCtx = (document.getElementById('barChart') as HTMLCanvasElement | null)?.getContext('2d');
+      const lineCtx = (document.getElementById('lineChart') as HTMLCanvasElement | null)?.getContext('2d');
 
       if (barCtx && lineCtx) {
         barChart = new Chart(barCtx, {
@@ -521,11 +530,11 @@ import Footer from '../../../components/Footer.astro';
 
     // Actualizar UI
     function updateUI() {
-      const incomeMovements = movements.filter(m => m.type === 'ingreso');
-      const expenseMovements = movements.filter(m => m.type === 'egreso');
+      const incomeMovements = movements.filter((m: Movement) => m.type === 'ingreso');
+      const expenseMovements = movements.filter((m: Movement) => m.type === 'egreso');
       
-      const totalIncome = incomeMovements.reduce((sum, m) => sum + m.amount, 0);
-      const totalExpenses = expenseMovements.reduce((sum, m) => sum + m.amount, 0);
+      const totalIncome = incomeMovements.reduce((sum: number, m: Movement) => sum + m.amount, 0);
+      const totalExpenses = expenseMovements.reduce((sum: number, m: Movement) => sum + m.amount, 0);
       const balance = totalIncome - totalExpenses;
       
       const averageTicket = incomeMovements.length > 0 
@@ -557,12 +566,12 @@ import Footer from '../../../components/Footer.astro';
       // Actualizar gráfico de línea
       if (lineChart) {
         let runningBalance = 0;
-        const balanceData = movements.map(m => {
+        const balanceData = movements.map((m: Movement) => {
           runningBalance += m.type === 'ingreso' ? m.amount : -m.amount;
           return runningBalance;
         });
 
-        lineChart.data.labels = movements.map(m => format(new Date(m.timestamp), 'HH:mm'));
+        lineChart.data.labels = movements.map((m: Movement) => format(new Date(m.timestamp), 'HH:mm'));
         lineChart.data.datasets[0].data = balanceData;
         lineChart.update();
       }
@@ -571,7 +580,7 @@ import Footer from '../../../components/Footer.astro';
       const tbody = document.getElementById('movementsList');
       if (tbody) {
         tbody.innerHTML = movements
-          .map(m => `
+          .map((m: Movement) => `
             <tr class="border-t border-dark-600">
               <td class="px-4 py-3 text-sm">${format(new Date(m.timestamp), 'HH:mm')}</td>
               <td class="px-4 py-3 text-sm">
@@ -627,7 +636,7 @@ import Footer from '../../../components/Footer.astro';
       }
 
       movements.push({
-        type: typeInput?.value,
+        type: (typeInput?.value as Movement['type']) ?? 'ingreso',
         amount,
         description: descriptionInput.value,
         timestamp: new Date().toISOString()
@@ -647,7 +656,7 @@ import Footer from '../../../components/Footer.astro';
     exportButton?.addEventListener('click', () => {
       const csv = [
         ['Fecha', 'Hora', 'Tipo', 'Descripción', 'Monto'].join(','),
-        ...movements.map(m => [
+        ...movements.map((m: Movement) => [
           format(new Date(m.timestamp), 'yyyy-MM-dd'),
           format(new Date(m.timestamp), 'HH:mm'),
           m.type,

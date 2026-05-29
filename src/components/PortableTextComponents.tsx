@@ -1,4 +1,5 @@
 import React from 'react';
+import type { PortableTextMarkComponentProps, PortableTextReactComponents } from '@portabletext/react';
 import { urlFor } from '../lib/sanity';
 
 // Función para extraer el ID del video de YouTube
@@ -151,12 +152,12 @@ export const portableTextComponents = {
     ),
   },
   marks: {
-    link: ({ children, value }: { children: React.ReactNode; value: any }) => (
+    link: ({ children, value }: PortableTextMarkComponentProps) => (
       <a
-        href={value.href}
+        href={(value as { href?: string } | undefined)?.href ?? '#'}
         className="text-primary hover:text-primary-light transition-colors underline"
-        target={value.blank ? '_blank' : undefined}
-        rel={value.blank ? 'noopener noreferrer' : undefined}
+        target={(value as { blank?: boolean } | undefined)?.blank ? '_blank' : undefined}
+        rel={(value as { blank?: boolean } | undefined)?.blank ? 'noopener noreferrer' : undefined}
       >
         {children}
       </a>
@@ -184,4 +185,4 @@ export const portableTextComponents = {
       <li className="text-gray-300">{children}</li>
     ),
   },
-};
+} as Partial<PortableTextReactComponents>;

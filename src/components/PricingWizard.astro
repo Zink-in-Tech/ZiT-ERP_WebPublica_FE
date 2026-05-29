@@ -1,4 +1,7 @@
 ---
+const WHATSAPP_CTA_NUMBER = '5491135598389';
+const buildWhatsAppUrl = (message: string) => `https://wa.me/${WHATSAPP_CTA_NUMBER}?text=${encodeURIComponent(message)}`;
+
 const questions = [
   {
     id: 'locations',
@@ -10,13 +13,13 @@ const questions = [
     ]
   },
   {
-    id: 'fiscalVolume',
-    text: '¿Cuántos comprobantes fiscales emitís por mes?',
+    id: 'salesVolume',
+    text: '¿Qué volumen mensual de ventas tiene hoy tu operación?',
     options: [
-      { value: 'starter', label: 'Hasta 500', icon: '🟢' },
-      { value: 'pro', label: 'Hasta 1.500', icon: '🔵' },
-      { value: 'full', label: 'Hasta 4.500', icon: '🟣' },
-      { value: 'enterprise', label: 'Más de 4.500', icon: '🟠' }
+      { value: 'starter', label: 'Hasta USD 5.000/mes', icon: '🟢' },
+      { value: 'pro', label: 'Hasta USD 20.000/mes', icon: '🔵' },
+      { value: 'full', label: 'Hasta USD 40.000/mes', icon: '🟣' },
+      { value: 'enterprise', label: 'Por encima de ese rango', icon: '🟠' }
     ]
   },
   {
@@ -25,34 +28,10 @@ const questions = [
     options: [
       { value: 'basic', label: 'Básica (ventas + stock)', icon: '🟢' },
       { value: 'medium', label: 'Intermedia (ventas, stock, compras, usuarios)', icon: '🔵' },
-      { value: 'complex', label: 'Compleja (sucursales conectadas, producción, logística, beneficios)', icon: '🟣' }
+      { value: 'complex', label: 'Compleja (sucursales conectadas, logística o requerimientos especiales)', icon: '🟣' }
     ]
   }
 ];
-
-const plans = {
-  starter: {
-    name: 'Plan Emprendedor',
-    price: 15,
-    description: 'Tu negocio está dando sus primeros pasos, y ZinkERP puede ayudarte a ordenarlo desde el primer día sin gastar de más.',
-    promo: '50% OFF por 3 meses. Luego USD 29/mes'
-  },
-  pro: {
-    name: 'Plan Pyme',
-    price: 70,
-    description: 'Tu empresa está en pleno crecimiento. Este plan acompaña una operación con más movimiento sin cobrar por usuario.'
-  },
-  full: {
-    name: 'Plan Escala',
-    price: 99,
-    description: 'Este plan está diseñado para negocios con varias sedes o una operación fiscal más intensa.'
-  },
-  enterprise: {
-    name: 'Plan Enterprise Fiscal',
-    price: 149,
-    description: 'Para operaciones que superan los 4.500 comprobantes fiscales mensuales y necesitan una arquitectura comercial superior.'
-  }
-};
 ---
 
 <div class="bg-dark-700 rounded-xl p-8 border border-primary/20">
@@ -61,8 +40,7 @@ const plans = {
     <p class="text-gray-300">Respondé 3 preguntas simples y te lo mostramos.</p>
   </div>
 
-  <div id="wizard" class="max-w-2xl mx-auto">
-    {/* Questions */}
+  <div id="wizard" class="max-w-2xl mx-auto" data-whatsapp-base={buildWhatsAppUrl('')}>
     <div id="questions" class="space-y-8">
       {questions.map((question, index) => (
         <div class="question-step hidden" data-step={index}>
@@ -84,7 +62,6 @@ const plans = {
       ))}
     </div>
 
-    {/* Result */}
     <div id="result" class="hidden">
       <div class="text-center mb-8">
         <h3 class="text-2xl font-bold mb-4">Plan recomendado</h3>
@@ -103,13 +80,16 @@ const plans = {
           <span id="plan-promo" class="text-blue-primary text-sm font-medium"></span>
         </div>
         <div class="flex gap-4">
-          <a 
-            href="https://cal.com/zinkintech" 
+          <a
+            id="plan-cta"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
             class="flex-1 text-center py-3 px-6 bg-blue-primary hover:bg-blue-primary/90 rounded-lg transition-colors"
           >
             Elegir este plan
           </a>
-          <button 
+          <button
             id="restart-wizard"
             class="py-3 px-6 border border-gray-600 hover:border-gray-400 rounded-lg transition-colors"
           >
@@ -120,8 +100,10 @@ const plans = {
 
       <div class="text-center">
         <p class="text-gray-300 mb-4">¿No estás seguro?</p>
-        <a 
-          href="https://cal.com/zinkintech" 
+        <a
+          href={buildWhatsAppUrl('Quiero ayuda para elegir el mejor plan de ZinkERP para mi negocio')}
+          target="_blank"
+          rel="noopener noreferrer"
           class="text-primary hover:text-primary-light transition-colors"
         >
           Hablá con nuestro equipo y te ayudamos a elegir el mejor plan para tu negocio
@@ -132,58 +114,101 @@ const plans = {
 </div>
 
 <script>
+  type PlanKey = 'starter' | 'pro' | 'full' | 'enterprise';
+
+  type Plan = {
+    name: string;
+    price: number;
+    icon: string;
+    description: string;
+    promo?: string;
+    message: string;
+  };
+
   document.addEventListener('DOMContentLoaded', () => {
     const wizard = document.getElementById('wizard');
-    const questions = document.getElementById('questions');
-    const result = document.getElementById('result');
+    const questionsEl = document.getElementById('questions');
+    const resultEl = document.getElementById('result');
     const restartButton = document.getElementById('restart-wizard');
+    const planCta = document.getElementById('plan-cta') as HTMLAnchorElement | null;
+
+    if (!wizard || !questionsEl || !resultEl || !restartButton) return;
 
     let currentStep = 0;
-    const answers = {};
-    const steps = document.querySelectorAll('.question-step');
+    const answers: Partial<Record<number, string>> = {};
+    const steps = Array.from(document.querySelectorAll<HTMLElement>('.question-step'));
 
-    // Show first question
-    steps[0].classList.remove('hidden');
+    const plans: Record<PlanKey, Plan> = {
+      starter: {
+        name: 'Emprendedor',
+        price: 15,
+        icon: '🟢',
+        description: 'Recomendado para operaciones chicas que quieren empezar con orden, usuarios ilimitados y toda la funcionalidad base incluida.',
+        promo: '50% OFF por 3 meses. Luego USD 29/mes',
+        message: 'Quiero comenzar hoy mismo con Plan Emprendedor'
+      },
+      pro: {
+        name: 'Pyme',
+        price: 70,
+        icon: '🔵',
+        description: 'Ideal para una operación en crecimiento que ya necesita más volumen, más previsibilidad y más acompañamiento.',
+        message: 'Quiero comenzar hoy mismo con Plan Pyme'
+      },
+      full: {
+        name: 'Escala',
+        price: 99,
+        icon: '🟣',
+        description: 'Pensado para operaciones más conectadas, con varias sedes o más exigencia de coordinación diaria.',
+        message: 'Quiero comenzar hoy mismo con Plan Escala'
+      },
+      enterprise: {
+        name: 'Enterprise',
+        price: 149,
+        icon: '🟠',
+        description: 'Para negocios que superan el rango estándar o necesitan un esquema comercial acorde a una complejidad mayor.',
+        message: 'Quiero comenzar hoy mismo con Plan Enterprise'
+      }
+    };
 
-    // Handle option selection
-    questions.addEventListener('click', (e) => {
-      const button = e.target.closest('button');
+    const buildWhatsAppUrl = (text: string) => {
+      const base = wizard.dataset.whatsappBase ?? 'https://wa.me/?text=';
+      return `${base}${encodeURIComponent(text)}`;
+    };
+
+    steps[0]?.classList.remove('hidden');
+
+    questionsEl.addEventListener('click', (e) => {
+      const target = e.target as Element | null;
+      const button = target?.closest('button');
       if (!button) return;
 
-      const step = button.closest('.question-step');
       const value = button.dataset.value;
-      
-      // Store answer
+      if (!value) return;
+
       answers[currentStep] = value;
 
-      // Move to next question or show result
       if (currentStep < steps.length - 1) {
-        steps[currentStep].classList.add('hidden');
+        steps[currentStep]?.classList.add('hidden');
         currentStep++;
-        steps[currentStep].classList.remove('hidden');
+        steps[currentStep]?.classList.remove('hidden');
       } else {
         showResult();
       }
     });
 
-    // Restart wizard
     restartButton.addEventListener('click', () => {
       currentStep = 0;
-      result.classList.add('hidden');
-      questions.classList.remove('hidden');
+      resultEl.classList.add('hidden');
+      questionsEl.classList.remove('hidden');
+      Object.keys(answers).forEach((key) => delete answers[Number(key)]);
       steps.forEach((step, index) => {
-        if (index === 0) {
-          step.classList.remove('hidden');
-        } else {
-          step.classList.add('hidden');
-        }
+        step.classList.toggle('hidden', index !== 0);
       });
     });
 
     function showResult() {
-      // Simple logic to determine plan
-      let recommendedPlan;
-      
+      let recommendedPlan: PlanKey;
+
       if (answers[1] === 'enterprise' || answers[0] === 'large') {
         recommendedPlan = 'enterprise';
       } else if (answers[1] === 'full' || answers[2] === 'complex') {
@@ -194,45 +219,17 @@ const plans = {
         recommendedPlan = 'starter';
       }
 
-      // Update UI with plan details
-      const plans = {
-        starter: {
-          name: 'Plan Emprendedor',
-          price: 15,
-          icon: '🟢',
-          description: 'Tu negocio está dando sus primeros pasos, y ZinkERP puede ayudarte a ordenarlo desde el primer día sin gastar de más.',
-          promo: '50% OFF por 3 meses. Luego USD 29/mes'
-        },
-        pro: {
-          name: 'Plan Pyme',
-          price: 70,
-          icon: '🔵',
-          description: 'Tu empresa está en pleno crecimiento. Este plan acompaña una operación con más movimiento sin cobrar por usuario.'
-        },
-        full: {
-          name: 'Plan Escala',
-          price: 99,
-          icon: '🟣',
-          description: 'Este plan está diseñado para negocios con varias sedes o una operación fiscal más intensa.'
-        },
-        enterprise: {
-          name: 'Plan Enterprise Fiscal',
-          price: 149,
-          icon: '🟠',
-          description: 'Para operaciones que superan los 4.500 comprobantes fiscales mensuales y necesitan una arquitectura comercial superior.'
-        }
-      };
-
       const plan = plans[recommendedPlan];
-      
-      document.getElementById('plan-icon').textContent = plan.icon;
-      document.getElementById('plan-name').textContent = plan.name;
-      document.getElementById('plan-description').textContent = plan.description;
-      document.getElementById('plan-price').textContent = plan.price;
-      document.getElementById('plan-promo').textContent = plan.promo || '';
 
-      questions.classList.add('hidden');
-      result.classList.remove('hidden');
+      document.getElementById('plan-icon')!.textContent = plan.icon;
+      document.getElementById('plan-name')!.textContent = plan.name;
+      document.getElementById('plan-description')!.textContent = plan.description;
+      document.getElementById('plan-price')!.textContent = String(plan.price);
+      document.getElementById('plan-promo')!.textContent = plan.promo || '';
+      if (planCta) planCta.href = buildWhatsAppUrl(plan.message);
+
+      questionsEl!.classList.add('hidden');
+      resultEl!.classList.remove('hidden');
     }
   });
 </script>

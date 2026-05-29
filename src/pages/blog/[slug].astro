@@ -50,11 +50,12 @@ if (!post) {
 }
 
 // Social sharing URLs
+const pageUrl = Astro.url.toString();
 const shareUrls = {
-  twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(Astro.url)}`,
-  facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(Astro.url)}`,
-  linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(Astro.url)}&title=${encodeURIComponent(post.title)}`,
-  whatsapp: `https://wa.me/?text=${encodeURIComponent(`${post.title} ${Astro.url}`)}`,
+  twitter: `https://twitter.com/intent/tweet?text=${encodeURIComponent(post.title)}&url=${encodeURIComponent(pageUrl)}`,
+  facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(pageUrl)}`,
+  linkedin: `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(pageUrl)}&title=${encodeURIComponent(post.title)}`,
+  whatsapp: `https://wa.me/?text=${encodeURIComponent(`${post.title} ${pageUrl}`)}`,
 };
 ---
 
