@@ -1,0 +1,23 @@
+---
+const signupUrl = '/agendar-demo';
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="refresh" content={`0;url=${signupUrl}`} />
+    <link rel="canonical" href={signupUrl} />
+    <title>Redirigiendo</title>
+  </head>
+  <body>
+    <p>
+      Redirigiendo.
+      <a href={signupUrl}>Continuar</a>
+    </p>
+    <script is:inline>
+      window.location.replace('/agendar-demo');
+    </script>
+  </body>
+</html>

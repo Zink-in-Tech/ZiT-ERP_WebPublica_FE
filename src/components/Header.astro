@@ -1,123 +1,677 @@
 ---
-const docsUrl = "https://docs.zinkerp.com/";
+const demoUrl = '/agendar-demo';
+const docsUrl = 'https://docs.zinkerp.com/';
+const erpUrl = 'https://ziterp.zinkintech.com';
+
+const productColumns = [
+  {
+    title: 'Control Operativo',
+    items: [
+      {
+        href: '/producto/ventas-y-pos',
+        title: 'Ventas y POS',
+        description: 'Gestiona ventas, presupuestos y cobros en punto de venta',
+        icon: 'ticket',
+      },
+      {
+        href: '/producto/compras',
+        title: 'Compras',
+        description: 'Automatiza pedidos, aprobaciones y control de proveedores',
+        icon: 'cart',
+      },
+      {
+        href: '/producto/inventario',
+        title: 'Inventario',
+        description: 'Stock en tiempo real por sucursal con alertas de reposicion',
+        icon: 'shelf',
+      },
+    ],
+  },
+  {
+    title: 'Vision Financiera',
+    items: [
+      {
+        href: '/producto/finanzas',
+        title: 'Finanzas',
+        description: 'Cuentas claras, ingresos y egresos en tiempo real',
+        icon: 'money',
+      },
+      {
+        href: '/producto/facturacion',
+        title: 'Facturacion AFIP/ARCA',
+        description: 'Factura electronica AFIP/ARCA integrada a tu operacion diaria',
+        icon: 'document',
+      },
+      {
+        href: '/producto/reportes',
+        title: 'Reportes y Dashboard',
+        description: 'Ventas diarias, cobros y ganancia bruta al instante',
+        icon: 'chart',
+      },
+    ],
+  },
+  {
+    title: 'Negocio Conectado',
+    items: [
+      {
+        href: '/producto/sucursales',
+        title: 'Sucursales',
+        description: 'Todas tus sucursales sincronizadas en un solo lugar',
+        icon: 'building',
+      },
+      {
+        href: '/producto/control-de-acceso',
+        title: 'Control de Acceso y Perfiles',
+        description: 'Permisos claros: cada persona ve lo que tiene que ver',
+        icon: 'shield',
+      },
+    ],
+  },
+];
+
+const productIntegrations = [
+  {
+    href: '/integraciones/arca',
+    title: 'ARCA',
+    description: 'Facturacion nativa para el contexto argentino',
+  },
+  {
+    href: '/integraciones/mercadopago',
+    title: 'Mercado Pago',
+    description: 'Cobros conectados a la operacion comercial',
+  },
+  {
+    href: '/integraciones/woocommerce',
+    title: 'WooCommerce',
+    description: 'Ecommerce sincronizado con stock y precios',
+  },
+  {
+    href: '/integraciones',
+    title: 'Ver todas las integraciones',
+    description: 'Recorre ecommerce, pagos y facturacion conectados',
+  },
+];
+
+const solutionLinks = [
+  {
+    href: '/casos-de-uso',
+    title: 'Casos de uso',
+    description: 'Explora como se adapta ZinkERP a cada rubro.',
+  },
+  {
+    href: '/clientes',
+    title: 'Testimonios',
+    description: 'Lee casos de exito y experiencias de clientes.',
+  },
+];
+
+const resourceLinks = [
+  {
+    href: '/blog',
+    title: 'Blog',
+    description: 'Ideas y contenido para ordenar tu operacion.',
+  },
+  {
+    href: docsUrl,
+    title: 'Documentacion',
+    description: 'Base de conocimiento publica y sin friccion.',
+    external: true,
+  },
+  {
+    href: '/recursos',
+    title: 'Herramientas',
+    description: 'Recursos practicos para tu negocio.',
+  },
+];
+
+const mobileGroups = [
+  {
+    id: 'producto',
+    label: 'Producto',
+    columns: productColumns,
+  },
+  {
+    id: 'soluciones',
+    label: 'Soluciones',
+    links: solutionLinks,
+  },
+  {
+    id: 'recursos',
+    label: 'Recursos',
+    links: resourceLinks,
+  },
+];
 ---
 
-<header class="fixed w-full z-50 transition-all duration-300" id="header">
-  <div class="container mx-auto px-4 py-4">
-    <div class="relative flex justify-between items-center">
-      <a href="/" class="flex items-center gap-2">
-        <img src="/zinkerp-logo.png" alt="ZinkERP Logo" class="h-8 w-auto" />
-      </a>
-      
-      <nav class="hidden lg:flex items-center gap-8">
-        <a href="/modulos" class="text-gray-300 hover:text-white transition-colors">Módulos</a>
-        <a href="/casos-de-uso" class="text-gray-300 hover:text-white transition-colors">Casos de uso</a>
-        <a href="/integraciones" class="text-gray-300 hover:text-white transition-colors">Integraciones</a>
-        <a href="/precios" class="text-gray-300 hover:text-white transition-colors">Precios</a>
-        <a href="/recursos" class="text-gray-300 hover:text-white transition-colors">Recursos</a>
-        <a href={docsUrl} class="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noreferrer">Documentación</a>
-        <a href="/blog" class="text-gray-300 hover:text-white transition-colors">Blog</a>
-      </nav>
-      
-      <div class="flex items-center gap-3">
-        <a href="https://ziterp.zinkintech.com" class="hidden lg:block px-4 py-2 rounded-md border border-dark-600 text-gray-300 hover:text-white hover:border-gray-500 transition-colors">
-          Acceder al ERP
+<header class="fixed inset-x-0 top-0 z-50 transition-all duration-300" id="site-header">
+  <a
+    href="#main-content"
+    class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[60] focus:rounded-md focus:bg-white focus:px-4 focus:py-2 focus:text-dark-900"
+  >
+    Saltar al contenido principal
+  </a>
+
+  <div class="border-b border-white/5 bg-dark-900/90 backdrop-blur-md" id="header-shell">
+    <div class="container mx-auto px-4">
+      <div class="relative flex h-20 items-center justify-between gap-6">
+        <a href="/" class="shrink-0">
+          <img src="/zinkerp-logo.png" alt="ZinkERP Logo" class="h-8 w-auto" />
         </a>
-        <a href="https://cal.com/zinkintech" class="hidden lg:block px-5 py-2 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors">
-          Agendá una demo
-        </a>
-        <button 
-          class="lg:hidden text-white p-2" 
-          id="mobile-menu-button" 
-          aria-label="Menu"
-          aria-expanded="false"
+
+        <nav class="hidden lg:flex items-center gap-8" aria-label="Principal">
+          <div class="group" data-nav-item="producto">
+            <button
+              type="button"
+              class="flex items-center gap-2 text-gray-300 transition-colors hover:text-white"
+              data-nav-trigger="producto"
+              aria-expanded="false"
+              aria-controls="desktop-product-panel"
+              aria-haspopup="true"
+            >
+              <span>Producto</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4 transition-transform duration-200">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+          </div>
+
+          <div class="relative group" data-nav-item="soluciones">
+            <button
+              type="button"
+              class="flex items-center gap-2 text-gray-300 transition-colors hover:text-white"
+              data-nav-trigger="soluciones"
+              aria-expanded="false"
+              aria-controls="desktop-solutions-panel"
+              aria-haspopup="true"
+            >
+              <span>Soluciones</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4 transition-transform duration-200">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            <div
+              id="desktop-solutions-panel"
+              class="absolute left-1/2 top-full hidden w-80 -translate-x-1/2 pt-4"
+              data-nav-panel="soluciones"
+              role="region"
+              aria-label="Soluciones"
+              aria-hidden="true"
+            >
+              <div class="rounded-2xl border border-dark-700 bg-dark-800/95 p-2 shadow-2xl backdrop-blur-md">
+                {solutionLinks.map((link) => (
+                  <a href={link.href} class="block rounded-xl px-4 py-3 transition-colors hover:bg-dark-700">
+                    <span class="block text-sm font-semibold text-white">{link.title}</span>
+                    <span class="mt-1 block text-sm text-gray-400">{link.description}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div class="relative group" data-nav-item="recursos">
+            <button
+              type="button"
+              class="flex items-center gap-2 text-gray-300 transition-colors hover:text-white"
+              data-nav-trigger="recursos"
+              aria-expanded="false"
+              aria-controls="desktop-resources-panel"
+              aria-haspopup="true"
+            >
+              <span>Recursos</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4 transition-transform duration-200">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            <div
+              id="desktop-resources-panel"
+              class="absolute left-1/2 top-full hidden w-80 -translate-x-1/2 pt-4"
+              data-nav-panel="recursos"
+              role="region"
+              aria-label="Recursos"
+              aria-hidden="true"
+            >
+              <div class="rounded-2xl border border-dark-700 bg-dark-800/95 p-2 shadow-2xl backdrop-blur-md">
+                {resourceLinks.map((link) => (
+                  <a
+                    href={link.href}
+                    class="block rounded-xl px-4 py-3 transition-colors hover:bg-dark-700"
+                    target={link.external ? '_blank' : undefined}
+                    rel={link.external ? 'noreferrer' : undefined}
+                  >
+                    <span class="block text-sm font-semibold text-white">{link.title}</span>
+                    <span class="mt-1 block text-sm text-gray-400">{link.description}</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <a href="/precios" class="text-gray-300 transition-colors hover:text-white">Precios</a>
+        </nav>
+
+        <div class="flex items-center gap-3">
+          <a
+            href={demoUrl}
+            class="inline-flex lg:hidden items-center justify-center rounded-md bg-blue-primary px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-primary/90"
+          >
+            Demo
+          </a>
+
+          <a
+            href={erpUrl}
+            class="hidden lg:inline-flex items-center justify-center rounded-md border border-dark-600 px-4 py-2 text-sm text-gray-300 transition-colors hover:border-gray-500 hover:text-white"
+          >
+            Acceder al ERP
+          </a>
+
+          <a
+            href={demoUrl}
+            class="hidden lg:inline-flex items-center justify-center rounded-md bg-blue-primary px-5 py-2 text-sm font-medium text-white transition-colors hover:bg-blue-primary/90"
+          >
+            Agendá una demo
+          </a>
+
+          <button
+            type="button"
+            class="inline-flex lg:hidden items-center justify-center p-2 text-white"
+            id="mobile-menu-button"
+            aria-expanded="false"
+            aria-controls="mobile-drawer"
+            aria-label="Abrir menu"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+            </svg>
+          </button>
+        </div>
+
+        <div
+          id="desktop-product-panel"
+          class="absolute left-0 right-0 top-full hidden pt-4"
+          data-nav-panel="producto"
+          role="region"
+          aria-label="Producto - Modulos del sistema"
+          aria-hidden="true"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-        </button>
+          <div class="rounded-[28px] border border-dark-700 bg-dark-900 shadow-2xl backdrop-blur-xl">
+            <div class="container mx-auto px-4 py-8">
+              <div class="grid gap-8 lg:grid-cols-3">
+                {productColumns.map((column, columnIndex) => (
+                  <section class="border-dark-700 lg:border-r lg:pr-8">
+                    <p class="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">{column.title}</p>
+                    <div class="space-y-2">
+                      {column.items.map((item) => (
+                        <a href={item.href} class="group flex items-start gap-4 rounded-2xl px-4 py-4 transition-colors hover:bg-dark-800">
+                          <span class="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.8" stroke="currentColor" class="h-5 w-5">
+                              {item.icon === 'ticket' && <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 6.75V6a2.25 2.25 0 0 0-2.25-2.25h-4.5A2.25 2.25 0 0 0 7.5 6v.75m9 0A2.25 2.25 0 0 1 18.75 9v6A2.25 2.25 0 0 1 16.5 17.25m0-10.5h-9m9 0A2.25 2.25 0 0 0 14.25 9m-6.75-2.25A2.25 2.25 0 0 0 5.25 9v6A2.25 2.25 0 0 0 7.5 17.25m0-10.5A2.25 2.25 0 0 1 9.75 9m4.5 0v6m-4.5-6v6" />}
+                              {item.icon === 'cart' && <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386a.75.75 0 0 1 .728.572L5.61 8.25m0 0h12.64a.75.75 0 0 0 .728-.572l1.5-6A.75.75 0 0 0 19.75.75H4.864m.746 7.5 1.356 6.105a.75.75 0 0 0 .728.595h8.712a.75.75 0 0 0 .728-.595L18.39 8.25M8.25 19.5a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Zm9 0a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />}
+                              {item.icon === 'shelf' && <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 6.75h15m-15 0v10.5m15-10.5v10.5m-15 0h15M8.25 10.5v3m7.5-3v3" />}
+                              {item.icon === 'money' && <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18m3.75-13.5c0-1.243-1.679-2.25-3.75-2.25S8.25 6.257 8.25 7.5 9.929 9.75 12 9.75s3.75 1.007 3.75 2.25S14.071 14.25 12 14.25s-3.75 1.007-3.75 2.25S9.929 18.75 12 18.75s3.75-1.007 3.75-2.25" />}
+                              {item.icon === 'document' && <path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 3h6m-6-9h3m-6 15h8.25A2.25 2.25 0 0 0 18.75 18.75V7.5L14.25 3H8.25A2.25 2.25 0 0 0 6 5.25v13.5A2.25 2.25 0 0 0 8.25 21Z" />}
+                              {item.icon === 'chart' && <path stroke-linecap="round" stroke-linejoin="round" d="M3 3v18h18M7.5 15.75v-3m4.5 3v-6m4.5 6V9" />}
+                              {item.icon === 'building' && <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 21h16.5M6 21V6.75A2.25 2.25 0 0 1 8.25 4.5h7.5A2.25 2.25 0 0 1 18 6.75V21M9 8.25h.008v.008H9V8.25Zm0 3h.008v.008H9v-.008Zm0 3h.008v.008H9v-.008Zm3-6h.008v.008H12V8.25Zm0 3h.008v.008H12v-.008Zm0 3h.008v.008H12v-.008Zm3-6h.008v.008H15V8.25Zm0 3h.008v.008H15v-.008Zm0 3h.008v.008H15v-.008Z" />}
+                              {item.icon === 'shield' && <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75m6-3.375c0 8.625-8.25 12.375-8.25 12.375S4.5 15 4.5 6.375c1.5 0 3.75-.75 5.25-2.25 1.5 1.5 3.75 2.25 5.25 2.25Z" />}
+                              {item.icon === 'plug' && <path stroke-linecap="round" stroke-linejoin="round" d="M9 6v6m6-6v6M7.5 12h9m-6 0v3.75A2.25 2.25 0 0 1 8.25 18H7.5m9 0h-.75a2.25 2.25 0 0 1-2.25-2.25V12" />}
+                            </svg>
+                          </span>
+                          <span class="min-w-0">
+                            <span class="block text-base font-semibold text-white transition-colors group-hover:text-primary-light">{item.title}</span>
+                            <span class="mt-1 block text-sm leading-6 text-gray-400">{item.description}</span>
+                          </span>
+                        </a>
+                      ))}
+                    </div>
+
+                    {columnIndex === 2 && (
+                      <div class="mt-8 border-t border-dark-700 pt-6">
+                        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Integraciones</p>
+                        <div class="grid gap-2 md:grid-cols-2">
+                          {productIntegrations.map((integration) => (
+                            <a href={integration.href} class="block rounded-xl border border-white/8 bg-dark-800 px-4 py-3 transition-colors hover:border-white/12 hover:bg-dark-700">
+                              <span class="block text-sm font-semibold text-white">{integration.title}</span>
+                              <span class="mt-1 block text-xs leading-5 text-gray-400">{integration.description}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </section>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  
-  <!-- Mobile menu -->
-  <div 
-    class="lg:hidden hidden absolute top-full left-0 right-0 bg-dark-800 border-t border-dark-700 shadow-lg" 
-    id="mobile-menu"
+
+  <div
+    id="mobile-menu-overlay"
+    class="fixed inset-0 z-40 hidden bg-black/55 lg:hidden"
+    aria-hidden="true"
+  ></div>
+
+  <div
+    id="mobile-drawer"
+    class="fixed inset-y-0 right-0 z-50 hidden w-full max-w-sm translate-x-full border-l border-dark-700 bg-dark-900 shadow-2xl transition-transform duration-300 lg:hidden"
+    aria-hidden="true"
   >
-    <nav class="container mx-auto px-4 py-4 flex flex-col">
-      <a href="/modulos" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
-        Módulos
-      </a>
-      <a href="/casos-de-uso" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
-        Casos de uso
-      </a>
-      <a href="/integraciones" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
-        Integraciones
-      </a>
-      <a href="/precios" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
-        Precios
-      </a>
-      <a href="/recursos" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
-        Recursos
-      </a>
-      <a href={docsUrl} class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700" target="_blank" rel="noreferrer">
-        Documentación
-      </a>
-      <a href="/blog" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
-        Blog
-      </a>
-      <a 
-        href="https://cal.com/zinkintech" 
-        class="mt-4 px-5 py-3 rounded-md bg-blue-primary hover:bg-blue-primary/90 transition-colors text-center"
-      >
-        Agendá una demo
-      </a>
-      <a 
-        href="https://ziterp.zinkintech.com" 
-        class="mt-3 px-5 py-3 rounded-md border border-dark-600 text-gray-300 hover:text-white hover:border-gray-500 transition-colors text-center"
-      >
-        Acceder al ERP
-      </a>
-    </nav>
+    <div class="flex h-full flex-col">
+      <div class="flex items-center justify-between border-b border-dark-700 px-4 py-5">
+        <span class="text-sm font-semibold uppercase tracking-[0.18em] text-gray-400">Menu</span>
+        <button type="button" id="mobile-menu-close" class="p-2 text-white" aria-label="Cerrar menu">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <nav class="flex-1 overflow-y-auto px-4 py-4" aria-label="Menu mobile">
+        {mobileGroups.map((group) => (
+          <div class="border-b border-dark-700" data-mobile-group={group.id}>
+            <button
+              type="button"
+              class="flex w-full items-center justify-between py-4 text-left text-gray-200 transition-colors hover:text-white"
+              data-mobile-trigger={group.id}
+              aria-expanded="false"
+            >
+              <span>{group.label}</span>
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-4 w-4 transition-transform duration-200">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+              </svg>
+            </button>
+
+            <div class="hidden pb-4" data-mobile-panel={group.id}>
+              {group.columns ? (
+                group.columns.map((column) => (
+                  <div class="pb-4">
+                    <p class="px-2 pb-2 pt-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">{column.title}</p>
+                    {column.items.map((item) => (
+                      <a href={item.href} class="block rounded-xl px-3 py-3 transition-colors hover:bg-dark-800">
+                        <span class="block text-sm font-medium text-gray-100">{item.title}</span>
+                        <span class="mt-1 block text-xs leading-5 text-gray-400">{item.description}</span>
+                      </a>
+                    ))}
+
+                    {column.title === 'Negocio Conectado' && (
+                      <>
+                        <p class="px-2 pb-2 pt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">Integraciones</p>
+                        <div class="grid gap-2">
+                          {productIntegrations.map((integration) => (
+                            <a href={integration.href} class="block rounded-xl border border-white/6 bg-dark-900/45 px-3 py-3 transition-colors hover:bg-dark-800">
+                              <span class="block text-sm font-medium text-gray-100">{integration.title}</span>
+                              <span class="mt-1 block text-xs leading-5 text-gray-400">{integration.description}</span>
+                            </a>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                ))
+              ) : (
+                group.links?.map((link) => (
+                  <a
+                    href={link.href}
+                    class="block rounded-xl px-3 py-3 transition-colors hover:bg-dark-800"
+                    target={link.external ? '_blank' : undefined}
+                    rel={link.external ? 'noreferrer' : undefined}
+                  >
+                    <span class="block text-sm font-medium text-gray-100">{link.title}</span>
+                    <span class="mt-1 block text-xs leading-5 text-gray-400">{link.description}</span>
+                  </a>
+                ))
+              )}
+            </div>
+          </div>
+        ))}
+
+        <a href="/precios" class="block border-b border-dark-700 py-4 text-gray-200 transition-colors hover:text-white">Precios</a>
+
+        <div class="mt-6 border-t border-dark-700 pt-6">
+          <a
+            href={erpUrl}
+            class="block rounded-xl border border-dark-600 px-4 py-3 text-center text-sm font-medium text-gray-200 transition-colors hover:border-gray-500 hover:text-white"
+          >
+            Acceder al ERP
+          </a>
+          <a
+            href={demoUrl}
+            class="mt-3 block rounded-xl bg-blue-primary px-4 py-3 text-center text-sm font-medium text-white transition-colors hover:bg-blue-primary/90"
+          >
+            Agendá una demo
+          </a>
+        </div>
+      </nav>
+    </div>
+  </div>
+
+  <div id="mobile-sticky-cta" class="fixed inset-x-4 bottom-4 z-40 lg:hidden">
+    <a
+      href={demoUrl}
+      class="block rounded-xl bg-blue-primary px-4 py-4 text-center text-sm font-semibold text-white shadow-2xl transition-colors hover:bg-blue-primary/90"
+    >
+      Agendá una demo
+    </a>
   </div>
 </header>
 
 <script>
-  const header = document.getElementById('header');
+  const header = document.getElementById('site-header');
+  const headerShell = document.getElementById('header-shell');
+  const desktopItems = Array.from(document.querySelectorAll('[data-nav-item]'));
+  const desktopTriggers = Array.from(document.querySelectorAll('[data-nav-trigger]'));
+  const desktopPanels = Array.from(document.querySelectorAll('[data-nav-panel]'));
   const mobileMenuButton = document.getElementById('mobile-menu-button');
-  const mobileMenu = document.getElementById('mobile-menu');
-  
-  // Handle header background on scroll
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      header?.classList.add('bg-dark-800/90', 'backdrop-blur-sm');
-    } else {
-      header?.classList.remove('bg-dark-800/90', 'backdrop-blur-sm');
+  const mobileMenuClose = document.getElementById('mobile-menu-close');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const mobileOverlay = document.getElementById('mobile-menu-overlay');
+  const mobileStickyCta = document.getElementById('mobile-sticky-cta');
+  const pageStickyCta = document.getElementById('page-sticky-cta');
+  const mobileTriggers = Array.from(document.querySelectorAll('[data-mobile-trigger]'));
+  let openDesktopPanel = '';
+  let hoverTimer = 0;
+
+  const closeDesktopPanels = () => {
+    openDesktopPanel = '';
+
+    desktopPanels.forEach((panel) => {
+      panel.classList.add('hidden');
+      panel.setAttribute('aria-hidden', 'true');
+    });
+
+    desktopTriggers.forEach((trigger) => {
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.querySelector('svg')?.classList.remove('rotate-180');
+    });
+  };
+
+  const openDesktopDropdown = (id) => {
+    closeDesktopPanels();
+
+    const panel = document.querySelector(`[data-nav-panel="${id}"]`);
+    const trigger = document.querySelector(`[data-nav-trigger="${id}"]`);
+
+    if (!panel || !trigger) {
+      return;
     }
-  });
-  
-  // Handle mobile menu
-  mobileMenuButton?.addEventListener('click', () => {
-    const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-    mobileMenuButton.setAttribute('aria-expanded', (!isExpanded).toString());
-    mobileMenu?.classList.toggle('hidden');
-  });
-  
-  // Close mobile menu when clicking on a link
-  document.querySelectorAll('#mobile-menu a').forEach(link => {
-    link.addEventListener('click', () => {
-      mobileMenu?.classList.add('hidden');
-      mobileMenuButton?.setAttribute('aria-expanded', 'false');
+
+    openDesktopPanel = id;
+    panel.classList.remove('hidden');
+    panel.setAttribute('aria-hidden', 'false');
+    trigger.setAttribute('aria-expanded', 'true');
+    trigger.querySelector('svg')?.classList.add('rotate-180');
+  };
+
+  const scheduleOpen = (id) => {
+    window.clearTimeout(hoverTimer);
+    hoverTimer = window.setTimeout(() => openDesktopDropdown(id), 300);
+  };
+
+  const scheduleClose = () => {
+    window.clearTimeout(hoverTimer);
+    hoverTimer = window.setTimeout(() => closeDesktopPanels(), 180);
+  };
+
+  desktopItems.forEach((item) => {
+    const id = item.getAttribute('data-nav-item');
+
+    item.addEventListener('mouseenter', () => {
+      if (window.innerWidth < 1024 || !id) {
+        return;
+      }
+
+      scheduleOpen(id);
+    });
+
+    item.addEventListener('mouseleave', () => {
+      if (window.innerWidth < 1024) {
+        return;
+      }
+
+      scheduleClose();
     });
   });
 
-  // Close mobile menu when clicking outside
+  desktopPanels.forEach((panel) => {
+    panel.addEventListener('mouseenter', () => {
+      window.clearTimeout(hoverTimer);
+    });
+
+    panel.addEventListener('mouseleave', () => {
+      if (window.innerWidth < 1024) {
+        return;
+      }
+
+      scheduleClose();
+    });
+  });
+
+  desktopTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const id = trigger.getAttribute('data-nav-trigger');
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+      if (!id) {
+        return;
+      }
+
+      if (isExpanded) {
+        closeDesktopPanels();
+      } else {
+        openDesktopDropdown(id);
+      }
+    });
+  });
+
+  const closeMobileGroups = () => {
+    document.querySelectorAll('[data-mobile-panel]').forEach((panel) => {
+      panel.classList.add('hidden');
+    });
+
+    mobileTriggers.forEach((trigger) => {
+      trigger.setAttribute('aria-expanded', 'false');
+      trigger.querySelector('svg')?.classList.remove('rotate-180');
+    });
+  };
+
+  const setMobileMenuState = (isOpen) => {
+    if (!mobileDrawer || !mobileOverlay || !mobileMenuButton) {
+      return;
+    }
+
+    const activeStickyCta = pageStickyCta ?? mobileStickyCta;
+
+    mobileMenuButton.setAttribute('aria-expanded', String(isOpen));
+    mobileDrawer.setAttribute('aria-hidden', String(!isOpen));
+    mobileOverlay.setAttribute('aria-hidden', String(!isOpen));
+
+    if (isOpen) {
+      mobileDrawer.classList.remove('hidden');
+      mobileOverlay.classList.remove('hidden');
+      requestAnimationFrame(() => {
+        mobileDrawer.classList.remove('translate-x-full');
+      });
+      activeStickyCta?.classList.add('hidden');
+      document.body.classList.add('overflow-hidden');
+    } else {
+      mobileDrawer.classList.add('translate-x-full');
+      mobileOverlay.classList.add('hidden');
+      activeStickyCta?.classList.remove('hidden');
+      document.body.classList.remove('overflow-hidden');
+      window.setTimeout(() => {
+        mobileDrawer.classList.add('hidden');
+      }, 300);
+      closeMobileGroups();
+    }
+  };
+
+  mobileMenuButton?.addEventListener('click', () => {
+    const isOpen = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+    setMobileMenuState(!isOpen);
+  });
+
+  mobileMenuClose?.addEventListener('click', () => setMobileMenuState(false));
+  mobileOverlay?.addEventListener('click', () => setMobileMenuState(false));
+
+  mobileTriggers.forEach((trigger) => {
+    trigger.addEventListener('click', () => {
+      const id = trigger.getAttribute('data-mobile-trigger');
+      const panel = document.querySelector(`[data-mobile-panel="${id}"]`);
+      const isExpanded = trigger.getAttribute('aria-expanded') === 'true';
+
+      closeMobileGroups();
+
+      if (!isExpanded && panel) {
+        panel.classList.remove('hidden');
+        trigger.setAttribute('aria-expanded', 'true');
+        trigger.querySelector('svg')?.classList.add('rotate-180');
+      }
+    });
+  });
+
+  mobileDrawer?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => setMobileMenuState(false));
+  });
+
+  if (pageStickyCta) {
+    mobileStickyCta?.classList.add('hidden');
+  }
+
   document.addEventListener('click', (event) => {
     const target = event.target as HTMLElement;
-    if (!target.closest('#mobile-menu') && !target.closest('#mobile-menu-button')) {
-      mobileMenu?.classList.add('hidden');
-      mobileMenuButton?.setAttribute('aria-expanded', 'false');
+
+    if (!target.closest('[data-nav-item]') && !target.closest('[data-nav-panel]')) {
+      closeDesktopPanels();
+    }
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') {
+      closeDesktopPanels();
+      setMobileMenuState(false);
+    }
+  });
+
+  window.addEventListener('scroll', () => {
+    closeDesktopPanels();
+
+    if (window.scrollY > 24) {
+      headerShell?.classList.add('bg-dark-900/95');
+      header?.classList.add('shadow-xl');
+    } else {
+      headerShell?.classList.remove('bg-dark-900/95');
+      header?.classList.remove('shadow-xl');
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+      setMobileMenuState(false);
+    } else {
+      closeDesktopPanels();
     }
   });
 </script>
