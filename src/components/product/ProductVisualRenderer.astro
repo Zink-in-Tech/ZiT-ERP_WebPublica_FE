@@ -1,0 +1,430 @@
+---
+import type { ProductVisual } from '../../data/productPages';
+
+interface Props {
+  visual: ProductVisual;
+}
+
+const { visual } = Astro.props;
+
+const getGridColsClass = (count: number) => {
+  if (count <= 2) return 'md:grid-cols-2';
+  if (count === 3) return 'md:grid-cols-3';
+  return 'md:grid-cols-4';
+};
+
+const getScopeOffsetClass = (index: number, total: number) => {
+  if (index === total - 1) return 'md:mx-0';
+  if (index === 1) return 'md:mx-6';
+  return 'md:mx-12';
+};
+---
+
+{(visual.kind === 'flow' || visual.kind === 'callouts' || visual.kind === 'cards' || visual.kind === 'map' || visual.kind === 'kpis' || visual.kind === 'pricing') && (
+  <div
+    class:list={[
+      'grid gap-4',
+      visual.kind === 'flow'
+        ? getGridColsClass(Math.min(visual.items.length, 4))
+        : getGridColsClass(Math.min(visual.items.length, 3)),
+    ]}
+  >
+    {visual.items.map((item, index) => (
+      <div
+        class:list={[
+          'rounded-2xl p-4',
+          visual.kind === 'pricing'
+            ? index === 1
+              ? 'border border-primary/40 bg-primary/10'
+              : 'border border-white/8 bg-dark-900/70'
+            : visual.kind === 'map'
+              ? 'border border-white/8 bg-dark-800'
+              : 'border border-white/8 bg-dark-900/70',
+          visual.kind === 'cards' || visual.kind === 'kpis' || visual.kind === 'pricing' ? 'p-5' : '',
+        ]}
+      >
+        {visual.kind === 'flow' && (
+          <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-light">Paso {index + 1}</p>
+        )}
+        <h3 class:list={['text-base font-semibold text-white', visual.kind === 'flow' ? 'mt-3' : '']}>{item.title}</h3>
+        {item.subtitle && (
+          <p class:list={['text-sm leading-6 text-gray-400', visual.kind === 'kpis' ? 'mt-4 text-gray-300' : 'mt-2']}>
+            {item.subtitle}
+          </p>
+        )}
+        {item.meta && (
+          <p class="mt-3 text-xs font-medium uppercase tracking-[0.16em] text-primary-light">{item.meta}</p>
+        )}
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'device' && (
+  <div class="mx-auto max-w-sm rounded-[32px] border border-white/10 bg-dark-900 p-5 shadow-inner">
+    <div class="mx-auto mb-4 h-2 w-20 rounded-full bg-white/10"></div>
+    {visual.items.map((item) => (
+      <div class="mb-3 rounded-2xl border border-white/8 bg-dark-800 p-4">
+        <h3 class="text-sm font-semibold text-white">{item.title}</h3>
+        {item.subtitle && <p class="mt-1 text-sm text-gray-400">{item.subtitle}</p>}
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'logos' && (
+  <div class="grid gap-3 md:grid-cols-2">
+    {visual.items.map((item) => (
+      <div class="rounded-2xl border border-white/8 bg-dark-900/70 p-4">
+        <p class="text-base font-semibold text-white">{item.title}</p>
+        {item.subtitle && <p class="mt-2 text-sm text-gray-400">{item.subtitle}</p>}
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'timeline' && (
+  <div class="space-y-4">
+    {visual.items.map((item) => (
+      <div class="flex gap-4">
+        <div class="mt-1 h-3 w-3 shrink-0 rounded-full bg-primary"></div>
+        <div class="min-w-0 rounded-2xl border border-white/8 bg-dark-900/70 p-4">
+          <h3 class="text-base font-semibold text-white">{item.title}</h3>
+          {item.subtitle && <p class="mt-2 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'accordion' && (
+  <div class="space-y-3">
+    {visual.items.map((item) => (
+      <div class="rounded-2xl border border-white/8 bg-dark-900/70 p-4">
+        <div class="flex items-center justify-between gap-4">
+          <h3 class="text-base font-semibold text-white">{item.title}</h3>
+          <span class="text-primary">+</span>
+        </div>
+        {item.subtitle && <p class="mt-2 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'chips' && (
+  <div class="grid grid-cols-2 gap-3 md:grid-cols-4">
+    {visual.items.map((item) => (
+      <div class="rounded-full border border-white/10 bg-dark-900/70 px-4 py-3 text-center text-sm font-medium text-white">
+        {item.title}
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'comparison' && (
+  <div class="overflow-hidden rounded-2xl border border-white/8">
+    {visual.items.map((item, index) => (
+      <div class:list={['grid gap-3 bg-dark-900/70 p-4 md:grid-cols-[1.1fr_1fr_auto]', index < visual.items.length - 1 ? 'border-b border-white/8' : '']}>
+        <p class="font-semibold text-white">{item.title}</p>
+        {item.subtitle && <p class="text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+        {item.meta && <p class="text-xs font-medium uppercase tracking-[0.16em] text-primary-light">{item.meta}</p>}
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'scope' && (
+  <div class="space-y-4">
+    {visual.items.map((item, index) => (
+      <div class:list={['rounded-full border border-white/8 bg-dark-900/70 px-6 py-4', getScopeOffsetClass(index, visual.items.length)]}>
+        <p class="text-base font-semibold text-white">{item.title}</p>
+        {item.subtitle && <p class="mt-2 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'providerSheet' && (
+  <div class="space-y-4">
+    {visual.items.map((item) => (
+      <div class="rounded-2xl border border-white/8 bg-dark-900/70 p-5">
+        <div class="flex items-start justify-between gap-4 border-b border-white/8 pb-3">
+          <div>
+            <p class="text-base font-semibold text-white">{item.title}</p>
+            {item.subtitle && <p class="mt-2 text-sm text-gray-400">{item.subtitle}</p>}
+          </div>
+          <span class="rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-light">
+            Proveedor
+          </span>
+        </div>
+        {item.meta && (
+          <div class="mt-4 grid gap-3 md:grid-cols-2">
+            <div class="rounded-xl bg-white/[0.03] px-4 py-3 text-xs uppercase tracking-[0.16em] text-gray-500">
+              Histórico de OC
+            </div>
+            <div class="rounded-xl bg-white/[0.03] px-4 py-3 text-sm text-gray-300">
+              {item.meta}
+            </div>
+          </div>
+        )}
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'emailFlow' && (
+  <div class="rounded-[28px] border border-white/8 bg-dark-900/70 p-6">
+    <div class="grid items-center gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
+      {visual.items.map((item, index) => (
+        <>
+          <div class="rounded-2xl border border-white/8 bg-dark-800 p-4">
+            <p class="text-base font-semibold text-white">{item.title}</p>
+            {item.subtitle && <p class="mt-2 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+          </div>
+          {index < visual.items.length - 1 && (
+            <div class="hidden md:flex items-center justify-center text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="h-5 w-5">
+                <path fill-rule="evenodd" d="M3 10a.75.75 0 0 1 .75-.75h10.638L10.23 5.29a.75.75 0 1 1 1.04-1.08l5.5 5.25a.75.75 0 0 1 0 1.08l-5.5 5.25a.75.75 0 1 1-1.04-1.08l4.158-3.96H3.75A.75.75 0 0 1 3 10Z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          )}
+        </>
+      ))}
+    </div>
+  </div>
+)}
+
+{visual.kind === 'integrationSteps' && (
+  <div class="space-y-4">
+    {visual.items.map((item, index) => (
+      <div class="flex gap-4 rounded-2xl border border-white/8 bg-dark-900/70 p-5">
+        <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-sm font-semibold text-primary-light">
+          {index + 1}
+        </div>
+        <div>
+          <p class="text-base font-semibold text-white">{item.title}</p>
+          {item.subtitle && <p class="mt-2 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+        </div>
+      </div>
+    ))}
+  </div>
+)}
+
+{visual.kind === 'reportSplit' && (
+  <div class="grid gap-4 md:grid-cols-[1.2fr_0.8fr]">
+    <div class="rounded-2xl border border-white/8 bg-dark-900/70 p-5">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-light">Vista principal</p>
+      <div class="mt-4 space-y-3">
+        {visual.items.slice(0, 2).map((item) => (
+          <div class="rounded-xl bg-white/[0.03] px-4 py-4">
+            <p class="text-base font-semibold text-white">{item.title}</p>
+            {item.subtitle && <p class="mt-2 text-2xl font-bold text-white">{item.subtitle}</p>}
+            {item.meta && <p class="mt-2 text-xs uppercase tracking-[0.16em] text-gray-500">{item.meta}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+    <div class="rounded-2xl border border-white/8 bg-dark-900/70 p-5">
+      <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-light">Seguimiento</p>
+      <div class="mt-4 space-y-3">
+        {visual.items.slice(2).map((item) => (
+          <div class="rounded-xl border border-white/8 px-4 py-4">
+            <p class="text-base font-semibold text-white">{item.title}</p>
+            {item.subtitle && <p class="mt-2 text-sm text-gray-300">{item.subtitle}</p>}
+            {item.meta && <p class="mt-2 text-xs uppercase tracking-[0.16em] text-gray-500">{item.meta}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+{visual.kind === 'permissionsBuilder' && (
+  <div class="rounded-[28px] border border-white/8 bg-dark-900/70 p-6">
+    <div class="grid gap-6 lg:grid-cols-[0.95fr_1.05fr]">
+      <div class="rounded-2xl border border-white/8 bg-dark-800 p-5">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-light">Perfiles</p>
+        <div class="mt-4 space-y-3">
+          {visual.items.map((item, index) => (
+            <div class:list={['rounded-xl px-4 py-3', index === 0 ? 'bg-primary/12 border border-primary/20' : 'bg-white/[0.03] border border-white/6']}>
+              <p class="text-base font-semibold text-white">{item.title}</p>
+              {item.subtitle && <p class="mt-1 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/8 bg-dark-800 p-5">
+        <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-light">Permisos del perfil seleccionado</p>
+        <div class="mt-4 space-y-3">
+          <div class="flex items-center justify-between rounded-xl bg-white/[0.03] px-4 py-3">
+            <span class="text-sm text-white">Ver precios</span>
+            <span class="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-300">Permitido</span>
+          </div>
+          <div class="flex items-center justify-between rounded-xl bg-white/[0.03] px-4 py-3">
+            <span class="text-sm text-white">Cobrar y cerrar venta</span>
+            <span class="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-300">Permitido</span>
+          </div>
+          <div class="flex items-center justify-between rounded-xl bg-white/[0.03] px-4 py-3">
+            <span class="text-sm text-white">Ver costo</span>
+            <span class="text-xs font-semibold uppercase tracking-[0.16em] text-amber-300">Solo lectura</span>
+          </div>
+          <div class="flex items-center justify-between rounded-xl bg-white/[0.03] px-4 py-3">
+            <span class="text-sm text-white">Editar costo</span>
+            <span class="text-xs font-semibold uppercase tracking-[0.16em] text-rose-300">Bloqueado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+{visual.kind === 'syncNodes' && (
+  <div class="rounded-[28px] border border-white/8 bg-dark-900/70 p-6">
+    <div class="grid gap-4 md:grid-cols-[1fr_auto_1fr_auto_1fr]">
+      {visual.items.map((item, index) => (
+        <>
+          <div class="rounded-2xl border border-white/8 bg-dark-800 p-4 text-center">
+            <div class="mx-auto mb-3 h-12 w-12 rounded-full bg-primary/12"></div>
+            <p class="text-base font-semibold text-white">{item.title}</p>
+            {item.subtitle && <p class="mt-2 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+          </div>
+          {index < visual.items.length - 1 && (
+            <div class="hidden md:flex items-center justify-center text-primary/70">
+              <div class="h-px w-10 bg-primary/40"></div>
+            </div>
+          )}
+        </>
+      ))}
+    </div>
+  </div>
+)}
+
+{visual.kind === 'posConsole' && (
+  <div class="rounded-[28px] border border-white/8 bg-dark-900/70 p-5">
+    <div class="rounded-2xl border border-white/8 bg-dark-800 p-4">
+      <div class="flex items-center justify-between border-b border-white/8 pb-3">
+        <div>
+          <p class="text-sm font-semibold text-white">POS</p>
+          <p class="text-xs uppercase tracking-[0.16em] text-gray-500">Venta rápida</p>
+        </div>
+        <div class="rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold text-primary-light">Caja 03</div>
+      </div>
+      <div class="mt-4 grid gap-3 lg:grid-cols-[1.2fr_0.8fr]">
+        <div class="space-y-3">
+          {visual.items.slice(0, 2).map((item) => (
+            <div class="rounded-xl bg-white/[0.03] px-4 py-4">
+              <p class="text-sm font-semibold text-white">{item.title}</p>
+              {item.subtitle && <p class="mt-2 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+            </div>
+          ))}
+        </div>
+        <div class="rounded-xl border border-white/8 bg-dark-900 px-4 py-4">
+          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary-light">Resumen</p>
+          <div class="mt-4 space-y-3">
+            <div class="flex items-center justify-between text-sm text-gray-300">
+              <span>Productos</span>
+              <span>12</span>
+            </div>
+            <div class="flex items-center justify-between text-sm text-gray-300">
+              <span>Total</span>
+              <span>$ 148.320</span>
+            </div>
+            <div class="flex items-center justify-between text-sm text-gray-300">
+              <span>{visual.items[2]?.title ?? 'Pago'}</span>
+              <span class="text-white">Activo</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+{visual.kind === 'invoiceMockup' && (
+  <div class="rounded-[28px] border border-white/8 bg-dark-900/70 p-6">
+    <div class="mx-auto max-w-md rounded-2xl border border-white/8 bg-white text-slate-900 shadow-2xl">
+      <div class="border-b border-slate-200 px-5 py-4">
+        <p class="text-sm font-semibold">Comprobante electrónico</p>
+        <p class="text-xs uppercase tracking-[0.16em] text-slate-500">Integrado con ARCA</p>
+      </div>
+      <div class="space-y-4 px-5 py-5">
+        {visual.items.map((item, index) => (
+          <div class:list={['rounded-xl px-4 py-3', index === 0 ? 'bg-slate-100' : 'border border-slate-200']}>
+            <p class="text-sm font-semibold">{item.title}</p>
+            {item.subtitle && <p class="mt-1 text-sm text-slate-600">{item.subtitle}</p>}
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+)}
+
+{visual.kind === 'reportBoard' && (
+  <div class="rounded-[28px] border border-white/8 bg-dark-900/70 p-6">
+    <div class="grid gap-4 lg:grid-cols-[1fr_1fr]">
+      <div class="grid gap-4 sm:grid-cols-2">
+        {visual.items.map((item) => (
+          <div class="rounded-2xl border border-white/8 bg-dark-800 p-4">
+            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary-light">{item.title}</p>
+            {item.subtitle && <p class="mt-3 text-sm leading-6 text-gray-300">{item.subtitle}</p>}
+          </div>
+        ))}
+      </div>
+      <div class="rounded-2xl border border-white/8 bg-dark-800 p-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary-light">Evolución diaria</p>
+        <div class="mt-5 flex h-40 items-end gap-3">
+          <div class="w-full rounded-t-xl bg-primary/25" style="height: 35%"></div>
+          <div class="w-full rounded-t-xl bg-primary/35" style="height: 58%"></div>
+          <div class="w-full rounded-t-xl bg-primary/50" style="height: 46%"></div>
+          <div class="w-full rounded-t-xl bg-primary/65" style="height: 72%"></div>
+          <div class="w-full rounded-t-xl bg-primary" style="height: 84%"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+{visual.kind === 'cashDesk' && (
+  <div class="rounded-[28px] border border-white/8 bg-dark-900/70 p-6">
+    <div class="grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+      <div class="rounded-2xl border border-white/8 bg-dark-800 p-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary-light">Caja por operador</p>
+        <div class="mt-4 space-y-3">
+          {visual.items.map((item) => (
+            <div class="rounded-xl bg-white/[0.03] px-4 py-3">
+              <p class="text-sm font-semibold text-white">{item.title}</p>
+              {item.subtitle && <p class="mt-1 text-sm text-gray-400">{item.subtitle}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="rounded-2xl border border-white/8 bg-dark-800 p-4">
+        <p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary-light">Cierre del día</p>
+        <div class="mt-4 grid gap-3 sm:grid-cols-2">
+          <div class="rounded-xl border border-emerald-400/20 bg-emerald-400/10 px-4 py-4">
+            <p class="text-xs uppercase tracking-[0.16em] text-emerald-200">Ingresos</p>
+            <p class="mt-2 text-xl font-bold text-white">$ 842.900</p>
+          </div>
+          <div class="rounded-xl border border-rose-400/20 bg-rose-400/10 px-4 py-4">
+            <p class="text-xs uppercase tracking-[0.16em] text-rose-200">Egresos</p>
+            <p class="mt-2 text-xl font-bold text-white">$ 118.450</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+)}
+
+{visual.kind === 'paymentRail' && (
+  <div class="rounded-[28px] border border-white/8 bg-dark-900/70 p-6">
+    <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      {visual.items.map((item) => (
+        <div class="rounded-2xl border border-white/8 bg-dark-800 px-4 py-5">
+          <div class="mb-3 h-10 w-10 rounded-full bg-primary/10"></div>
+          <p class="text-sm font-semibold text-white">{item.title}</p>
+          {item.subtitle && <p class="mt-2 text-sm leading-6 text-gray-400">{item.subtitle}</p>}
+        </div>
+      ))}
+    </div>
+  </div>
+)}
