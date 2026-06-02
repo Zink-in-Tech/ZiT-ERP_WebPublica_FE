@@ -60,6 +60,11 @@ export type ProductPage = {
   finalBannerCtaHref: string;
   noindex?: boolean;
   prelaunchWarning?: string;
+  faqTitle?: string;
+  faqs?: Array<{
+    question: string;
+    answer: string;
+  }>;
   sections: ProductSection[];
 };
 
@@ -166,6 +171,24 @@ export const productPages: ProductPage[] = [
     finalBannerText: 'Ventas + POS + factura + ecommerce. Un solo sistema.',
     finalBannerCtaLabel: 'Proba gratis',
     finalBannerCtaHref: '/registro',
+    faqTitle: 'Preguntas frecuentes sobre Ventas y POS',
+    faqs: [
+      {
+        question: '¿ZinkPOS funciona sin conexión a internet?',
+        answer:
+          'ZinkPOS usa un caché de 400 productos para operar a velocidad local, pero necesita conexión para sincronizar ventas, stock y medios de pago. No está diseñado para operar sin internet de forma prolongada.',
+      },
+      {
+        question: '¿Puedo usar ZinkPOS en una tablet?',
+        answer:
+          'Sí. ZinkPOS está optimizado para pantallas táctiles y funciona en tablets Android y iPad desde el navegador. También se puede operar 100% con teclado en PC.',
+      },
+      {
+        question: '¿Las ventas de ZinkPOS descuentan stock automáticamente?',
+        answer:
+          'Sí. Cada venta realizada en POS descuenta el stock de la sucursal donde se vendió al instante. Si tenés varias sucursales, cada una descuenta su propio stock.',
+      },
+    ],
   },
   {
     slug: 'compras',
@@ -325,6 +348,24 @@ export const productPages: ProductPage[] = [
     finalBannerText: 'Stock desordenado, negocio que pierde plata. Stock claro, negocio que crece.',
     finalBannerCtaLabel: 'Proba gratis',
     finalBannerCtaHref: '/registro',
+    faqTitle: 'Preguntas frecuentes sobre Inventario',
+    faqs: [
+      {
+        question: '¿El stock se actualiza automáticamente cuando vendo?',
+        answer:
+          'Sí. Cada venta descuenta stock al instante. Cada compra lo incrementa. Cada ajuste queda registrado. No necesitás hacer nada manual.',
+      },
+      {
+        question: '¿Puedo tener precios distintos en cada sucursal?',
+        answer:
+          'Sí. Definís listas de precios por sucursal y por canal, como mayorista, minorista o promoción. Cada sucursal opera con sus precios y vos ves todo consolidado.',
+      },
+      {
+        question: '¿Hay alertas cuando un producto está por debajo del mínimo?',
+        answer:
+          'Sí. El sistema marca los productos con stock crítico y podés verlos en el reporte correspondiente. También ayuda a decidir qué reponer en cada sucursal.',
+      },
+    ],
   },
   {
     slug: 'facturacion',
@@ -399,6 +440,24 @@ export const productPages: ProductPage[] = [
     finalBannerText: 'Facturá sin salir de tu operación diaria. Simple, rápido, integrado.',
     finalBannerCtaLabel: 'Probá gratis',
     finalBannerCtaHref: '/registro',
+    faqTitle: 'Preguntas frecuentes sobre Facturación',
+    faqs: [
+      {
+        question: '¿Factura para monotributo y responsable inscripto?',
+        answer:
+          'Sí. ZinkERP soporta Facturas A, B, C y M, más Notas de Crédito y Débito. Cubre los regímenes más comunes de monotributo y responsable inscripto.',
+      },
+      {
+        question: '¿Tengo que hacer algún trámite en ARCA antes de facturar?',
+        answer:
+          'Sí. Necesitás autorizar a la CUIT de ZinkInTech a emitir comprobantes en tu nombre. El trámite se hace desde la página de ARCA y la habilitación puede demorar hasta 24 horas. Nosotros te guiamos en el proceso.',
+      },
+      {
+        question: '¿Puedo facturar directamente desde una venta de POS?',
+        answer:
+          'Sí. Desde el sistema podés generar el comprobante vinculado a una venta existente. La factura queda asociada al cliente y a la operación.',
+      },
+    ],
   },
   {
     slug: 'finanzas',
@@ -646,6 +705,24 @@ export const productPages: ProductPage[] = [
     finalBannerText: 'Crece sin limites. Cada sucursal, conectada.',
     finalBannerCtaLabel: 'Proba gratis',
     finalBannerCtaHref: '/registro',
+    faqTitle: 'Preguntas frecuentes sobre Sucursales',
+    faqs: [
+      {
+        question: '¿Cada sucursal paga un plan por separado?',
+        answer:
+          'No. El plan es por organización. Las sucursales adicionales tienen un costo del 50% sobre el plan base. Todos los usuarios de todas las sucursales están incluidos sin costo extra.',
+      },
+      {
+        question: '¿Puedo tener permisos distintos en cada sucursal?',
+        answer:
+          'Sí. Cada usuario puede tener un perfil distinto en cada sucursal. Por ejemplo: un encargado ve todo en su sucursal pero no accede a las otras. El dueño ve todo de todas.',
+      },
+      {
+        question: '¿El stock se sincroniza solo entre sucursales?',
+        answer:
+          'Sí. Cada venta, compra o ajuste se refleja al instante en la sucursal correspondiente. Además, podés configurar qué stock ve cada sucursal: visibilidad total, parcial o solo la propia.',
+      },
+    ],
   },
   {
     slug: 'control-de-acceso',

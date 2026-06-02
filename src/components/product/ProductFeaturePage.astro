@@ -211,6 +211,38 @@ const breadcrumbs = {
       </div>
     </section>
 
+    {page.faqs && page.faqs.length > 0 && (
+      <section class="bg-dark-900 py-20">
+        <div class="container mx-auto px-4">
+          <div class="mx-auto max-w-4xl">
+            <div class="mb-12 text-center">
+              <h2 class="text-3xl font-bold md:text-4xl">{page.faqTitle ?? 'Preguntas frecuentes'}</h2>
+            </div>
+
+            <div class="space-y-5">
+              {page.faqs.map((faq, index) => (
+                <div
+                  class="group overflow-hidden rounded-[1.25rem] border border-white/8 bg-dark-800/95 transition-all duration-200 hover:-translate-y-1 hover:border-primary/20 hover:bg-white/[0.015]"
+                  style={`animation-delay: ${index * 0.08}s`}
+                  data-product-faq
+                >
+                  <button class="flex w-full items-center justify-between gap-4 px-7 py-5 text-left focus:outline-none" data-product-faq-button>
+                    <span class="text-base font-medium md:text-lg">{faq.question}</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform transition-all duration-300 group-hover:text-primary" data-product-faq-icon fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </button>
+                  <div class="hidden px-7 pb-6 text-gray-300" data-product-faq-content>
+                    <p class="leading-7">{faq.answer}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+    )}
+
     <section class="bg-dark-800 py-12">
       <div class="container mx-auto px-4">
         <div class="flex flex-col items-start justify-between gap-6 rounded-[28px] border border-white/8 bg-dark-900/70 p-8 lg:flex-row lg:items-center">
@@ -246,3 +278,33 @@ const breadcrumbs = {
 
   <Footer />
 </Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqItems = document.querySelectorAll('[data-product-faq]');
+
+    faqItems.forEach((item) => {
+      const button = item.querySelector('[data-product-faq-button]');
+      const content = item.querySelector('[data-product-faq-content]');
+      const icon = item.querySelector('[data-product-faq-icon]');
+
+      if (button && content && icon) {
+        button.addEventListener('click', () => {
+          faqItems.forEach((otherItem) => {
+            if (otherItem !== item) {
+              const otherContent = otherItem.querySelector('[data-product-faq-content]');
+              const otherIcon = otherItem.querySelector('[data-product-faq-icon]');
+              if (otherContent && otherIcon) {
+                otherContent.classList.add('hidden');
+                otherIcon.classList.remove('rotate-180');
+              }
+            }
+          });
+
+          content.classList.toggle('hidden');
+          icon.classList.toggle('rotate-180');
+        });
+      }
+    });
+  });
+</script>
