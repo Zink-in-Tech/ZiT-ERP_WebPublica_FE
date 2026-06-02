@@ -1,4 +1,5 @@
 ---
+const docsUrl = "https://zinkintech.notion.site/Zink-ERP-Base-de-Conocimientos-704802d3583a492da3d0735835100c06";
 ---
 
 <header class="fixed w-full z-50 transition-all duration-300" id="header">
@@ -14,6 +15,7 @@
         <a href="/integraciones" class="text-gray-300 hover:text-white transition-colors">Integraciones</a>
         <a href="/precios" class="text-gray-300 hover:text-white transition-colors">Precios</a>
         <a href="/recursos" class="text-gray-300 hover:text-white transition-colors">Recursos</a>
+        <a href={docsUrl} class="text-gray-300 hover:text-white transition-colors" target="_blank" rel="noreferrer">Documentación</a>
         <a href="/blog" class="text-gray-300 hover:text-white transition-colors">Blog</a>
       </nav>
       
@@ -58,6 +60,9 @@
       </a>
       <a href="/recursos" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
         Recursos
+      </a>
+      <a href={docsUrl} class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700" target="_blank" rel="noreferrer">
+        Documentación
       </a>
       <a href="/blog" class="text-gray-300 hover:text-white transition-colors py-3 border-b border-dark-700">
         Blog
