@@ -201,6 +201,7 @@ export const productPages: ProductPage[] = [
       'Ordena tus compras con sugerencias automaticas, control de proveedores y sincronizacion con tu stock. Multi-sucursal. Proba ZinkERP.',
     eyebrow: 'Compras',
     theme: 'procurement',
+    heroImageSrc: '/images/hero-compras.png?v=1',
     heroTitle: 'Compra lo que necesitas, cuando lo necesitas. Centralizado o por sucursal. Vos decidis.',
     heroSubtitle:
       'Ordenes de compra con sugerencias automaticas, control de proveedores y sincronizacion con tu stock.',
@@ -738,6 +739,7 @@ export const productPages: ProductPage[] = [
       'Define perfiles a medida con permisos precisos. Cada persona ve solo lo que necesita. Caja diaria por operador. Agenda una demo.',
     eyebrow: 'Control de Acceso',
     theme: 'access',
+    heroImageSrc: '/images/hero-control-de-acceso.png?v=1',
     heroTitle: 'Cada persona en tu negocio ve solo lo que necesita. Ni mas, ni menos.',
     heroSubtitle:
       'Perfiles a medida, permisos precisos y caja diaria por operador. Control sin volverte loco.',

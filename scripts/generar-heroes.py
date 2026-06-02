@@ -15,6 +15,7 @@ Requiere:
 import argparse
 import base64
 import sys
+from contextlib import ExitStack
 from pathlib import Path
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -143,11 +144,16 @@ PAGES = [
         "module_name": "access control and permissions module",
         "ambient_context": "the permissions interface is softly blurred and slightly dimmed so it reads as ambient context, not the focus",
         "focus_components": [
-            "the profile builder showing permission checkboxes grouped by module",
-            "the user list with roles assigned to each person",
-            "the profile or scope view that makes clear what each user can access",
+            "the permissions matrix showing granular toggles grouped by module and action",
+            "the user state and assigned profile area showing whether a user is active, blocked and what profile they have",
+            "the profile definition view showing profile name, description and a searchable permissions setup",
         ],
-        "extra_direction": "The image should communicate clarity, structure and security rather than metrics.",
+        "extra_direction": "Use the attached extra references to ground the floating cards. The image should communicate clarity, structure and security rather than metrics, with a strong sense of role-based access control.",
+        "reference_images": [
+            "references/seguridad-permisos.png",
+            "references/seguridad-usuario.png",
+            "references/seguridad-perfiles.png",
+        ],
     },
     {
         "slug": "compras",
@@ -157,11 +163,16 @@ PAGES = [
         "module_name": "procurement and purchasing module",
         "ambient_context": "the purchasing interface is softly blurred and slightly dimmed so it reads as ambient context, not the focus",
         "focus_components": [
-            "the purchase orders table showing order status such as pendiente, aprobada or recibida",
-            "the supplier profile card with contact info and last orders",
-            "the inter-branch request or replenishment flow showing sucursales requesting to central",
+            "the purchase order item table with products, quantities, subtotals and total amount",
+            "the purchase orders list with visible order states such as confirmado, aprobado or borrador",
+            "the critical stock by supplier view showing products that need replenishment",
         ],
-        "extra_direction": "Make this one feel operational and coordination-heavy, with clear signals of approvals and supplier control.",
+        "extra_direction": "Use the attached extra references to ground the floating cards. Make this one feel operational and coordination-heavy, with clear signals of approvals, supplier control and replenishment urgency.",
+        "reference_images": [
+            "references/compras-stock-critico.png",
+            "references/compras-listado.png",
+            "references/compras-estados.png",
+        ],
     },
 ]
 
@@ -196,17 +207,25 @@ def generar_hero(page_config):
     slug = page_config["slug"]
     screenshot_path = SCREENSHOTS_DIR / page_config["screenshot"]
     output_path = PUBLIC_IMAGES_DIR / page_config["output"]
+    reference_paths = [SCREENSHOTS_DIR / ref for ref in page_config.get("reference_images", [])]
 
     if not screenshot_path.exists():
         print(f"  ⚠️  Screenshot no encontrado: {screenshot_path}")
         return False
 
+    for reference_path in reference_paths:
+        if not reference_path.exists():
+            print(f"  ⚠️  Referencia no encontrada: {reference_path}")
+            return False
+
     print(f"  📸  Procesando {slug}...")
 
     try:
-        with screenshot_path.open("rb") as image_file:
+        with ExitStack() as stack:
+            opened_images = [stack.enter_context(screenshot_path.open("rb"))]
+            opened_images.extend(stack.enter_context(reference_path.open("rb")) for reference_path in reference_paths)
             response = client.images.edit(
-                image=image_file,
+                image=opened_images,
                 prompt=build_prompt(page_config),
                 model="gpt-image-2",
                 n=1,
