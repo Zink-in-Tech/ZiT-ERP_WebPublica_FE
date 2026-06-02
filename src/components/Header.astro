@@ -74,21 +74,25 @@ const productIntegrations = [
     href: '/integraciones/arca',
     title: 'ARCA',
     description: 'Facturacion nativa para el contexto argentino',
+    logoSrc: '/img/integrations/arca.svg',
   },
   {
     href: '/integraciones/mercadopago',
     title: 'Mercado Pago',
     description: 'Cobros conectados a la operacion comercial',
+    logoSrc: '/img/integrations/mercadopago.svg',
   },
   {
     href: '/integraciones/woocommerce',
     title: 'WooCommerce',
     description: 'Ecommerce sincronizado con stock y precios',
+    logoSrc: '/img/integrations/woocommerce.svg',
   },
   {
     href: '/integraciones',
     title: 'Ver todas las integraciones',
     description: 'Recorre ecommerce, pagos y facturacion conectados',
+    icon: 'plus',
   },
 ];
 
@@ -297,7 +301,7 @@ const mobileGroups = [
         >
           <div class="rounded-[28px] border border-dark-700 bg-dark-900 shadow-2xl backdrop-blur-xl">
             <div class="container mx-auto px-4 py-8">
-              <div class="grid gap-8 lg:grid-cols-3">
+              <div class="grid gap-8 lg:grid-cols-[1fr_1fr_1fr_0.9fr]">
                 {productColumns.map((column, columnIndex) => (
                   <section class="border-dark-700 lg:border-r lg:pr-8">
                     <p class="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">{column.title}</p>
@@ -324,22 +328,30 @@ const mobileGroups = [
                         </a>
                       ))}
                     </div>
-
-                    {columnIndex === 2 && (
-                      <div class="mt-8 border-t border-dark-700 pt-6">
-                        <p class="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Integraciones</p>
-                        <div class="grid gap-2 md:grid-cols-2">
-                          {productIntegrations.map((integration) => (
-                            <a href={integration.href} class="block rounded-xl border border-white/8 bg-dark-800 px-4 py-3 transition-colors hover:border-white/12 hover:bg-dark-700">
-                              <span class="block text-sm font-semibold text-white">{integration.title}</span>
-                              <span class="mt-1 block text-xs leading-5 text-gray-400">{integration.description}</span>
-                            </a>
-                          ))}
-                        </div>
-                      </div>
-                    )}
                   </section>
                 ))}
+
+                <section class="relative lg:pl-8">
+                  <div class="absolute bottom-0 left-0 top-0 hidden w-px bg-gradient-to-b from-transparent via-white/10 to-transparent lg:block"></div>
+                  <p class="mb-5 text-xs font-semibold uppercase tracking-[0.18em] text-gray-400">Integraciones</p>
+                  <div class="space-y-1">
+                    {productIntegrations.map((integration) => (
+                      <a href={integration.href} class="flex items-center gap-4 rounded-xl px-3 py-3 transition-colors hover:bg-dark-800">
+                        <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white shadow-sm">
+                          {integration.logoSrc ? (
+                            <img src={integration.logoSrc} alt={`Logo de ${integration.title}`} class="h-6 w-6 object-contain" loading="lazy" />
+                          ) : (
+                            <span class="text-lg font-semibold text-dark-900">+</span>
+                          )}
+                        </span>
+                        <span class="min-w-0">
+                          <span class="block text-sm font-semibold text-white">{integration.title}</span>
+                          <span class="mt-1 block text-xs leading-5 text-gray-400">{integration.description}</span>
+                        </span>
+                      </a>
+                    ))}
+                  </div>
+                </section>
               </div>
             </div>
           </div>
@@ -399,11 +411,20 @@ const mobileGroups = [
                     {column.title === 'Negocio Conectado' && (
                       <>
                         <p class="px-2 pb-2 pt-4 text-[11px] font-semibold uppercase tracking-[0.18em] text-gray-500">Integraciones</p>
-                        <div class="grid gap-2">
+                        <div class="space-y-2">
                           {productIntegrations.map((integration) => (
-                            <a href={integration.href} class="block rounded-xl border border-white/6 bg-dark-900/45 px-3 py-3 transition-colors hover:bg-dark-800">
-                              <span class="block text-sm font-medium text-gray-100">{integration.title}</span>
-                              <span class="mt-1 block text-xs leading-5 text-gray-400">{integration.description}</span>
+                            <a href={integration.href} class="flex items-start gap-3 rounded-xl border border-white/6 bg-dark-900/45 px-3 py-3 transition-colors hover:bg-dark-800">
+                              <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white">
+                                {integration.logoSrc ? (
+                                  <img src={integration.logoSrc} alt={`Logo de ${integration.title}`} class="h-5 w-5 object-contain" loading="lazy" />
+                                ) : (
+                                  <span class="text-base font-semibold text-dark-900">+</span>
+                                )}
+                              </span>
+                              <span>
+                                <span class="block text-sm font-medium text-gray-100">{integration.title}</span>
+                                <span class="mt-1 block text-xs leading-5 text-gray-400">{integration.description}</span>
+                              </span>
                             </a>
                           ))}
                         </div>
