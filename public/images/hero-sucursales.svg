@@ -1,0 +1,88 @@
+<svg width="1792" height="1024" viewBox="0 0 1792 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1792" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1020" />
+      <stop offset="1" stop-color="#0A0D18" />
+    </linearGradient>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(412 244) rotate(64.2) scale(451.94 514.095)">
+      <stop stop-color="#3E1B2B" />
+      <stop offset="1" stop-color="#3E1B2B" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1360 814) rotate(90) scale(300 300)">
+      <stop stop-color="#1A294B" />
+      <stop offset="1" stop-color="#1A294B" stop-opacity="0" />
+    </radialGradient>
+    <radialGradient id="coreGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(896 512) rotate(90) scale(310 310)">
+      <stop stop-color="#5A2240" stop-opacity="0.34" />
+      <stop offset="1" stop-color="#5A2240" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shadow" x="0" y="0" width="1792" height="1024" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feDropShadow dx="0" dy="36" stdDeviation="44" flood-color="#05070F" flood-opacity="0.45" />
+    </filter>
+  </defs>
+
+  <rect width="1792" height="1024" rx="44" fill="url(#bg)" />
+  <rect width="1792" height="1024" rx="44" fill="url(#glowA)" />
+  <rect width="1792" height="1024" rx="44" fill="url(#glowB)" />
+
+  <g filter="url(#shadow)">
+    <rect x="92" y="76" width="1608" height="872" rx="56" fill="rgba(255,255,255,0.02)" stroke="rgba(255,255,255,0.08)" />
+  </g>
+
+  <circle cx="896" cy="512" r="286" fill="url(#coreGlow)" />
+  <circle cx="896" cy="512" r="288" stroke="rgba(255,255,255,0.08)" stroke-width="3" />
+  <circle cx="896" cy="512" r="396" stroke="rgba(255,255,255,0.05)" stroke-width="3" />
+
+  <path d="M635 360L784 462" stroke="#FF8CA5" stroke-width="4" stroke-dasharray="9 10" />
+  <path d="M1018 448L1173 348" stroke="#FF8CA5" stroke-width="4" stroke-dasharray="9 10" />
+  <path d="M665 646L802 554" stroke="#FF8CA5" stroke-width="4" stroke-dasharray="9 10" />
+  <path d="M1012 580L1156 668" stroke="#FF8CA5" stroke-width="4" stroke-dasharray="9 10" />
+  <path d="M896 426L896 306" stroke="rgba(255,255,255,0.11)" stroke-width="3" stroke-dasharray="8 10" />
+
+  <circle cx="782" cy="462" r="12" fill="#FF8CA5" />
+  <circle cx="1170" cy="350" r="12" fill="#FF8CA5" />
+  <circle cx="804" cy="554" r="12" fill="#FF8CA5" />
+  <circle cx="1156" cy="668" r="12" fill="#FF8CA5" />
+  <circle cx="896" cy="308" r="12" fill="#FF8CA5" />
+
+  <g>
+    <rect x="802" y="442" width="188" height="140" rx="28" fill="#141B2D" stroke="rgba(255,255,255,0.12)" />
+    <rect x="846" y="484" width="100" height="56" rx="18" fill="rgba(255,255,255,0.05)" />
+    <text x="896" y="408" fill="rgba(255,255,255,0.8)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24" font-weight="600" letter-spacing="0.18em" text-anchor="middle">CASA CENTRAL</text>
+    <text x="896" y="519" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="28" font-weight="600" text-anchor="middle">Control total</text>
+  </g>
+
+  <g>
+    <rect x="430" y="248" width="276" height="152" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
+    <circle cx="494" cy="312" r="22" fill="rgba(255,140,165,0.14)" />
+    <text x="534" y="303" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="600">Sucursal Norte</text>
+    <text x="534" y="346" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Ventas y usuarios propios</text>
+  </g>
+
+  <g>
+    <rect x="1116" y="244" width="258" height="140" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
+    <circle cx="1178" cy="304" r="22" fill="rgba(255,140,165,0.14)" />
+    <text x="1218" y="296" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="32" font-weight="600">Sucursal Sur</text>
+    <text x="1218" y="338" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">Mismo sistema, contexto local</text>
+  </g>
+
+  <g>
+    <rect x="430" y="628" width="284" height="146" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
+    <circle cx="492" cy="688" r="22" fill="rgba(255,140,165,0.14)" />
+    <text x="532" y="680" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="600">Stock visible</text>
+    <text x="532" y="722" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Disponibilidad por nodo en tiempo real</text>
+  </g>
+
+  <g>
+    <rect x="1090" y="626" width="322" height="152" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
+    <circle cx="1154" cy="688" r="22" fill="rgba(255,140,165,0.14)" />
+    <text x="1194" y="680" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="600">Precios y reglas</text>
+    <text x="1194" y="722" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Sincronización sin planillas ni esperas</text>
+  </g>
+
+  <g>
+    <rect x="764" y="150" width="264" height="108" rx="28" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
+    <text x="896" y="195" fill="rgba(255,255,255,0.76)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="20" font-weight="600" letter-spacing="0.18em" text-anchor="middle">SINCRONIZACIÓN</text>
+    <text x="896" y="229" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="28" font-weight="600" text-anchor="middle">En tiempo real</text>
+  </g>
+</svg>

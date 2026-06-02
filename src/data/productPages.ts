@@ -664,13 +664,14 @@ export const productPages: ProductPage[] = [
       'Stock, precios, usuarios y reportes sincronizados al instante entre todas tus sucursales. Precio plano sin sorpresas. Agenda una demo.',
     eyebrow: 'Sucursales',
     theme: 'network',
+    heroImageSrc: '/images/hero-sucursales.svg?v=1',
     ogImageSrc: '/images/og-sucursales.svg?v=1',
     heroTitle: 'Controla 2 sucursales o 20. Desde el celular. Sin drama.',
     heroSubtitle:
       'Stock, precios, usuarios y reportes sincronizados al instante entre todas tus sucursales.',
     heroCtaLabel: 'Agenda una demo',
     heroCtaHref: '/agendar-demo',
-    heroVisualLabel: 'Vista multi-sucursal',
+    heroVisualLabel: 'Red multi-sucursal',
     heroVisual: {
       kind: 'syncNodes',
       items: [
