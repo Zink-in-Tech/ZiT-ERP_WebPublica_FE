@@ -49,6 +49,9 @@ export type ProductPage = {
   metaDescription: string;
   eyebrow?: string;
   theme?: 'sales' | 'procurement' | 'inventory' | 'fiscal' | 'finance' | 'analytics' | 'network' | 'access';
+  heroImageSrc?: string;
+  ogImageSrc?: string;
+  ogImageAlt?: string;
   heroTitle: string;
   heroSubtitle: string;
   heroCtaLabel: string;
@@ -76,6 +79,7 @@ export const productPages: ProductPage[] = [
       'Gestiona presupuestos, POS y factura electronica en un solo flujo. Stock y precios sincronizados en todas tus sucursales. Proba ZinkERP gratis.',
     eyebrow: 'Ventas y POS',
     theme: 'sales',
+    heroImageSrc: '/images/hero-ventas-y-pos.png?v=3',
     heroTitle: 'Ventas agiles, con stock y precios sincronizados en todas tus sucursales.',
     heroSubtitle:
       'Presupuesto, POS y factura electronica en un mismo flujo. Con stock y precios sincronizados en todas tus sucursales.',
@@ -284,6 +288,7 @@ export const productPages: ProductPage[] = [
       'Controla tu stock en todas tus sucursales al instante. Alertas, movimientos auditados y catalogo centralizado. Empeza hoy gratis.',
     eyebrow: 'Inventario',
     theme: 'inventory',
+    heroImageSrc: '/images/hero-inventario.png?v=2',
     heroTitle: 'Sabe exactamente que tienes y donde. En tiempo real, sin contar a mano.',
     heroSubtitle:
       'Stock multi-sucursal actualizado al instante. Alertas, movimientos auditados y catalogo centralizado.',
@@ -374,6 +379,7 @@ export const productPages: ProductPage[] = [
       'Facturacion electronica AFIP/ARCA integrada a tu operacion diaria. Facturas A, B, C, M, NC, ND. Para monotributo y RI. Sin salir del sistema.',
     eyebrow: 'Facturacion AFIP/ARCA',
     theme: 'fiscal',
+    heroImageSrc: '/images/hero-facturacion.png?v=1',
     heroTitle: 'Facturá desde donde manejás tu negocio. Sin sistemas paralelos.',
     heroSubtitle:
       'Factura electronica AFIP/ARCA integrada a tu operacion diaria. Para monotributo y responsable inscripto.',
@@ -466,10 +472,10 @@ export const productPages: ProductPage[] = [
       'Controla la caja de cada sucursal por separado y consolida al instante. Cuenta corriente, ingresos, egresos y vencimientos. Agenda una demo.',
     eyebrow: 'Finanzas',
     theme: 'finance',
-    heroTitle:
-      'Tus finanzas claras. Tu negocio, bajo control. Con la caja de cada sucursal separada y consolidada al instante.',
+    heroImageSrc: '/images/hero-finanzas.png?v=2',
+    heroTitle: 'Tus finanzas claras, con cada sucursal bajo control.',
     heroSubtitle:
-      'Cuenta corriente, caja diaria, ingresos, egresos y vencimientos. Todo actualizado, todo en un lugar.',
+      'Cuenta corriente, caja diaria, ingresos, egresos y vencimientos. Separá y consolidá cajas por sucursal al instante.',
     heroCtaLabel: 'Agenda una demo',
     heroCtaHref: '/agendar-demo',
     heroVisualLabel: 'Panel financiero',
@@ -538,6 +544,7 @@ export const productPages: ProductPage[] = [
       'Ventas diarias, cobros pendientes, ganancia bruta, productos incumplidos. Reportes simples para dueños de pyme que toman decisiones.',
     eyebrow: 'Reportes y Dashboard',
     theme: 'analytics',
+    heroImageSrc: '/images/hero-reportes.png?v=2',
     heroTitle: 'Los números que importan de tu negocio. Claros, simples, actualizados.',
     heroSubtitle:
       'Ventas diarias, cobros pendientes, ganancia bruta. Lo que necesitás saber para decidir.',

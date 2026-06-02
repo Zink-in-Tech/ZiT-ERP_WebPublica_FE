@@ -87,6 +87,10 @@ const themes = {
 } as const;
 
 const theme = themes[page.theme ?? 'sales'];
+const heroImageSrc = page.heroImageSrc;
+const hasHeroImage = Boolean(heroImageSrc);
+const socialImageSrc = page.ogImageSrc ?? page.heroImageSrc;
+const socialImageAlt = page.ogImageAlt ?? `Vista del módulo ${page.eyebrow ?? page.heroTitle} en ZinkERP`;
 
 const breadcrumbs = {
   '@context': 'https://schema.org',
@@ -114,7 +118,13 @@ const breadcrumbs = {
 };
 ---
 
-<Layout title={page.title} description={page.metaDescription} noindex={page.noindex}>
+<Layout
+  title={page.title}
+  description={page.metaDescription}
+  image={socialImageSrc}
+  imageAlt={socialImageAlt}
+  noindex={page.noindex}
+>
   <Header />
   <main>
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}></script>
@@ -126,12 +136,12 @@ const breadcrumbs = {
       </div>
 
       <div class="container relative z-10 mx-auto px-4">
-        <div class="grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-          <div class="max-w-3xl">
+        <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,0.97fr)_minmax(0,1.03fr)] xl:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)] xl:gap-14">
+          <div class="max-w-2xl xl:max-w-[44rem]">
             <p class:list={['mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium', theme.badge]}>
               {page.eyebrow ?? 'Producto'}
             </p>
-            <h1 class="text-4xl font-bold leading-tight md:text-6xl">{page.heroTitle}</h1>
+            <h1 class="max-w-[12ch] text-4xl font-bold leading-[0.98] tracking-[-0.03em] md:text-[4.5rem] xl:text-[4.85rem]">{page.heroTitle}</h1>
             <p class="mt-6 max-w-2xl text-lg text-gray-300 md:text-xl">{page.heroSubtitle}</p>
             <div class="mt-8 flex flex-col gap-4 sm:flex-row">
               <a
@@ -149,9 +159,29 @@ const breadcrumbs = {
             </div>
           </div>
 
-          <div class:list={['rounded-[28px] border bg-dark-800/95 p-6 shadow-2xl', theme.panel]}>
-            <p class:list={['mb-5 text-xs font-semibold uppercase tracking-[0.18em]', theme.accentText]}>{page.heroVisualLabel}</p>
-            <ProductVisualRenderer visual={page.heroVisual} />
+          <div
+            class:list={[
+              'overflow-hidden rounded-[30px] border shadow-2xl',
+              hasHeroImage ? 'bg-white/5 p-3 lg:p-4' : 'bg-dark-800/95 p-6',
+              theme.panel,
+              hasHeroImage ? 'lg:-mr-8 xl:-mr-12' : '',
+            ]}
+          >
+            <p class:list={['mb-5 text-xs font-semibold uppercase tracking-[0.18em]', theme.accentText, hasHeroImage ? 'px-3 pt-3' : '']}>
+              {page.heroVisualLabel}
+            </p>
+            {hasHeroImage ? (
+              <img
+                src={heroImageSrc}
+                alt={`Vista del módulo ${page.eyebrow ?? page.heroTitle} en ZinkERP`}
+                class="w-full rounded-[24px] border border-white/10 object-cover shadow-[0_24px_70px_rgba(8,12,24,0.45)]"
+                loading="eager"
+                width="1792"
+                height="1024"
+              />
+            ) : (
+              <ProductVisualRenderer visual={page.heroVisual} />
+            )}
           </div>
         </div>
       </div>

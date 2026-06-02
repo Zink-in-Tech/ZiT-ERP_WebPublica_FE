@@ -6,6 +6,7 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   noindex?: boolean;
 }
 
@@ -13,10 +14,12 @@ const {
   title, 
   description = "ZinkERP: El ERP operativo que piensa como vos. Simple, rápido y hecho para crecer. Ideal para negocios con una o múltiples sucursales.",
   image = "https://zinkerp.com/img/og-hero-zinkerp.png",
+  imageAlt = "ZinkERP: Controlá tu negocio. Desde una sucursal o veinte.",
   noindex = false
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const resolvedImage = image.startsWith('http') ? image : new URL(image, Astro.site).toString();
 ---
 
 <!doctype html>
@@ -47,11 +50,11 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         basic: {
           title,
           type: "website",
-          image,
+          image: resolvedImage,
           url: canonicalURL,
         },
         image: {
-          alt: "ZinkERP: Controlá tu negocio. Desde una sucursal o veinte.",
+          alt: imageAlt,
         },
       }}
       twitter={{
@@ -60,19 +63,19 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         site: "@zinkerp",
         title,
         description,
-        image,
+        image: resolvedImage,
       }}
       extend={{
         meta: [
-          { property: "og:image:secure_url", content: image },
+          { property: "og:image:secure_url", content: resolvedImage },
           { property: "og:image:width", content: "1200" },
           { property: "og:image:height", content: "630" },
           { property: "og:image:type", content: "image/png" },
-          { name: "twitter:image:alt", content: "ZinkERP: Controlá tu negocio. Desde una sucursal o veinte." },
+          { name: "twitter:image:alt", content: imageAlt },
           { name: "theme-color", content: "#7500B9" },
         ],
         link: [
-          { rel: "preload", as: "image", href: image },
+          { rel: "preload", as: "image", href: resolvedImage },
         ],
       }}
     />
