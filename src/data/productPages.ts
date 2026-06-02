@@ -9,6 +9,12 @@ export type VisualListItem = {
   meta?: string;
 };
 
+export type VisualImageItem = {
+  src: string;
+  alt: string;
+  caption?: string;
+};
+
 export type ProductVisual =
   | { kind: 'flow'; items: VisualListItem[] }
   | { kind: 'callouts'; items: VisualListItem[] }
@@ -33,7 +39,9 @@ export type ProductVisual =
   | { kind: 'invoiceMockup'; items: VisualListItem[] }
   | { kind: 'reportBoard'; items: VisualListItem[] }
   | { kind: 'cashDesk'; items: VisualListItem[] }
-  | { kind: 'paymentRail'; items: VisualListItem[] };
+  | { kind: 'paymentRail'; items: VisualListItem[] }
+  | { kind: 'image'; src: string; alt: string; caption?: string }
+  | { kind: 'imageGrid'; images: VisualImageItem[] };
 
 export type ProductSection = {
   title: string;
@@ -80,6 +88,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Ventas y POS',
     theme: 'sales',
     heroImageSrc: '/images/hero-ventas-y-pos.png?v=3',
+    ogImageSrc: '/images/og-ventas-y-pos.svg?v=1',
     heroTitle: 'Ventas agiles, con stock y precios sincronizados en todas tus sucursales.',
     heroSubtitle:
       'Presupuesto, POS y factura electronica en un mismo flujo. Con stock y precios sincronizados en todas tus sucursales.',
@@ -202,6 +211,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Compras',
     theme: 'procurement',
     heroImageSrc: '/images/hero-compras.png?v=1',
+    ogImageSrc: '/images/og-compras.svg?v=1',
     heroTitle: 'Compra lo que necesitas, cuando lo necesitas. Centralizado o por sucursal. Vos decidis.',
     heroSubtitle:
       'Ordenes de compra con sugerencias automaticas, control de proveedores y sincronizacion con tu stock.',
@@ -290,6 +300,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Inventario',
     theme: 'inventory',
     heroImageSrc: '/images/hero-inventario.png?v=2',
+    ogImageSrc: '/images/og-inventario.svg?v=1',
     heroTitle: 'Sabe exactamente que tienes y donde. En tiempo real, sin contar a mano.',
     heroSubtitle:
       'Stock multi-sucursal actualizado al instante. Alertas, movimientos auditados y catalogo centralizado.',
@@ -381,6 +392,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Facturacion AFIP/ARCA',
     theme: 'fiscal',
     heroImageSrc: '/images/hero-facturacion.png?v=1',
+    ogImageSrc: '/images/og-facturacion.svg?v=1',
     heroTitle: 'Facturá desde donde manejás tu negocio. Sin sistemas paralelos.',
     heroSubtitle:
       'Factura electronica AFIP/ARCA integrada a tu operacion diaria. Para monotributo y responsable inscripto.',
@@ -474,6 +486,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Finanzas',
     theme: 'finance',
     heroImageSrc: '/images/hero-finanzas.png?v=2',
+    ogImageSrc: '/images/og-finanzas.svg?v=1',
     heroTitle: 'Tus finanzas claras, con cada sucursal bajo control.',
     heroSubtitle:
       'Cuenta corriente, caja diaria, ingresos, egresos y vencimientos. Separá y consolidá cajas por sucursal al instante.',
@@ -510,11 +523,23 @@ export const productPages: ProductPage[] = [
         links: [{ label: 'Ver Control de Acceso', href: '/producto/control-de-acceso' }],
         reverse: true,
         visual: {
-          kind: 'cashDesk',
-          items: [
-            { title: 'Operador', subtitle: 'Maria Diaz - Sucursal centro' },
-            { title: 'Monto inicial', subtitle: '$ 120.000' },
-            { title: 'Diferencia', subtitle: '$ 0 - cierre en verde' },
+          kind: 'imageGrid',
+          images: [
+            {
+              src: '/images/caja-efectivo-caja.png',
+              alt: 'Recorte de caja diaria mostrando el efectivo actual en caja',
+              caption: 'Efectivo en caja',
+            },
+            {
+              src: '/images/caja-cantidad-ventas.png',
+              alt: 'Recorte de caja diaria mostrando la cantidad total de ventas',
+              caption: 'Cantidad de ventas',
+            },
+            {
+              src: '/images/caja-total-fiscal.png',
+              alt: 'Recorte de caja diaria mostrando el total fiscal con pendiente y autorizado',
+              caption: 'Total fiscal',
+            },
           ],
         },
       },
@@ -524,12 +549,23 @@ export const productPages: ProductPage[] = [
           'Efectivo, transferencia, Mercado Pago, cheque o tarjeta: la forma cambia, la trazabilidad no.',
         links: [{ label: 'Ver Facturacion', href: '/producto/facturacion' }],
         visual: {
-          kind: 'paymentRail',
-          items: [
-            { title: 'Efectivo', subtitle: 'Caja operativa por turno y sucursal' },
-            { title: 'Transferencia', subtitle: 'Registro bancario y conciliacion' },
-            { title: 'Mercado Pago', subtitle: 'Cobro digital conectado' },
-            { title: 'Tarjeta y cheque', subtitle: 'Seguimiento de vencimientos y liquidacion' },
+          kind: 'imageGrid',
+          images: [
+            {
+              src: '/images/caja-total-ingresos-ventas.png',
+              alt: 'Recorte de caja diaria mostrando el total de ingresos por ventas desglosado por medio de cobro',
+              caption: 'Ingresos por ventas',
+            },
+            {
+              src: '/images/caja-total-egresos-compras.png',
+              alt: 'Recorte de caja diaria mostrando el total de egresos por compras desglosado por medio de pago',
+              caption: 'Egresos por compras',
+            },
+            {
+              src: '/images/caja-total-otros-egresos.png',
+              alt: 'Recorte de caja diaria mostrando otros egresos operativos',
+              caption: 'Otros egresos',
+            },
           ],
         },
       },
@@ -546,6 +582,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Reportes y Dashboard',
     theme: 'analytics',
     heroImageSrc: '/images/hero-reportes.png?v=2',
+    ogImageSrc: '/images/og-reportes.svg?v=1',
     heroTitle: 'Los números que importan de tu negocio. Claros, simples, actualizados.',
     heroSubtitle:
       'Ventas diarias, cobros pendientes, ganancia bruta. Lo que necesitás saber para decidir.',
@@ -561,8 +598,6 @@ export const productPages: ProductPage[] = [
       ],
     },
     noindex: true,
-    prelaunchWarning:
-      'Esta pagina no debe lanzarse publicamente hasta contar con screenshots reales de al menos 2 reportes existentes y validacion del equipo de producto.',
     sections: [
       {
         title: 'Lo que importa: ventas, cobros y ganancia.',
@@ -602,10 +637,18 @@ export const productPages: ProductPage[] = [
         description:
           'Sabé cuánto te deben y cuánto debés. Sin conciliaciones manuales.',
         visual: {
-          kind: 'paymentRail',
-          items: [
-            { title: 'Cobros pendientes', subtitle: 'Monto total + cantidad de movimientos' },
-            { title: 'Pagos pendientes', subtitle: 'Monto total + cantidad de compromisos' },
+          kind: 'imageGrid',
+          images: [
+            {
+              src: '/images/reportes-flujo-cobros.png',
+              alt: 'Recorte del dashboard con el flujo de cobros pendientes y montos por vencer',
+              caption: 'Cobros pendientes visibles en un solo vistazo.',
+            },
+            {
+              src: '/images/reportes-flujo-pagos.png',
+              alt: 'Recorte del dashboard con el flujo de pagos pendientes y montos por vencer',
+              caption: 'Pagos pendientes con su compromiso financiero.',
+            },
           ],
         },
       },
@@ -621,6 +664,7 @@ export const productPages: ProductPage[] = [
       'Stock, precios, usuarios y reportes sincronizados al instante entre todas tus sucursales. Precio plano sin sorpresas. Agenda una demo.',
     eyebrow: 'Sucursales',
     theme: 'network',
+    ogImageSrc: '/images/og-sucursales.svg?v=1',
     heroTitle: 'Controla 2 sucursales o 20. Desde el celular. Sin drama.',
     heroSubtitle:
       'Stock, precios, usuarios y reportes sincronizados al instante entre todas tus sucursales.',
@@ -740,6 +784,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Control de Acceso',
     theme: 'access',
     heroImageSrc: '/images/hero-control-de-acceso.png?v=1',
+    ogImageSrc: '/images/og-control-de-acceso.svg?v=1',
     heroTitle: 'Cada persona en tu negocio ve solo lo que necesita. Ni mas, ni menos.',
     heroSubtitle:
       'Perfiles a medida, permisos precisos y caja diaria por operador. Control sin volverte loco.',

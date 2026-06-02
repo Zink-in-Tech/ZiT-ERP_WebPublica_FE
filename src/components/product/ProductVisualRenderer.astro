@@ -83,6 +83,47 @@ const getScopeOffsetClass = (index: number, total: number) => {
   </div>
 )}
 
+{visual.kind === 'image' && (
+  <figure class="group overflow-hidden rounded-[28px] border border-white/8 bg-dark-900/70 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/14 hover:shadow-[0_24px_70px_rgba(8,12,24,0.38)]">
+    <img
+      src={visual.src}
+      alt={visual.alt}
+      class="w-full object-cover transition-transform duration-500 group-hover:scale-[1.015]"
+      loading="lazy"
+    />
+    {visual.caption && (
+      <figcaption class="border-t border-white/8 px-5 py-4 text-sm text-gray-400 transition-colors duration-300 group-hover:text-gray-300">
+        {visual.caption}
+      </figcaption>
+    )}
+  </figure>
+)}
+
+{visual.kind === 'imageGrid' && (
+  <div class="grid gap-4 md:grid-cols-2">
+    {visual.images.map((image, index) => (
+      <figure
+        class:list={[
+          'group overflow-hidden rounded-[24px] border border-white/8 bg-dark-900/70 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/14 hover:shadow-[0_24px_70px_rgba(8,12,24,0.38)]',
+          index === 0 ? 'md:col-span-2' : '',
+        ]}
+      >
+        <img
+          src={image.src}
+          alt={image.alt}
+          class="w-full object-cover transition-transform duration-500 group-hover:scale-[1.015]"
+          loading="lazy"
+        />
+        {image.caption && (
+          <figcaption class="border-t border-white/8 px-5 py-4 text-sm text-gray-400 transition-colors duration-300 group-hover:text-gray-300">
+            {image.caption}
+          </figcaption>
+        )}
+      </figure>
+    ))}
+  </div>
+)}
+
 {visual.kind === 'timeline' && (
   <div class="space-y-4">
     {visual.items.map((item) => (

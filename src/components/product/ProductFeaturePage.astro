@@ -187,14 +187,6 @@ const breadcrumbs = {
       </div>
     </section>
 
-    {page.prelaunchWarning && (
-      <section class="border-b border-amber-500/20 bg-amber-500/10 py-4">
-        <div class="container mx-auto px-4">
-          <p class="text-sm text-amber-100">{page.prelaunchWarning}</p>
-        </div>
-      </section>
-    )}
-
     {page.sections.map((section, index) => (
       <section class:list={['py-20', index % 2 === 1 ? 'bg-dark-800/65' : 'bg-dark-900']}>
         <div class="container mx-auto px-4">

@@ -117,10 +117,14 @@ PAGES = [
         "ambient_context": "the financial dashboard is softly blurred and slightly dimmed so it reads as ambient context, not the focus",
         "focus_components": [
             'the "Ventas a vencer" card showing accounts receivable',
-            'the "Ganancia bruta" line chart',
-            'the "Importe de ventas por período" chart or the strongest financial performance chart available',
+            'the "Compras a vencer" card showing accounts payable',
+            'the "Ganancia bruta" line chart or the strongest executive performance chart available',
         ],
-        "extra_direction": "This one should feel the most executive and premium of the set, with strong readability on the extracted cards.",
+        "extra_direction": "Use the attached extra references to ground the floating cards. This one should feel the most executive and premium of the set, emphasizing cashflow visibility: what you need to collect, what you need to pay, and how margin is evolving.",
+        "reference_images": [
+            "references/dashboard-flujo-cobros.png",
+            "references/dashboard-flujo-pagos.png",
+        ],
     },
     {
         "slug": "reportes",
