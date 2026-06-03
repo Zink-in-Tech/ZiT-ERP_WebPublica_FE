@@ -84,20 +84,21 @@ const getScopeOffsetClass = (index: number, total: number) => {
 )}
 
 {visual.kind === 'image' && (
-  <div class="relative px-2 py-3 md:px-4 md:py-4">
-    <figure class="group relative overflow-hidden rounded-[28px] border border-white/8 bg-[#0f1220] shadow-[0_20px_55px_rgba(6,10,20,0.26)] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/12 hover:shadow-[0_26px_70px_rgba(8,12,24,0.32)]">
-      <div class="relative p-4 pb-20 md:p-5 md:pb-[5.5rem]">
-        <div class="overflow-hidden rounded-[24px] border border-white/8 bg-white shadow-[0_12px_30px_rgba(4,8,18,0.18)]">
+  <div class="relative w-full py-2 md:py-3">
+    <figure class="group relative w-full overflow-hidden rounded-[24px] bg-transparent transition-all duration-300">
+      <div class:list={['relative w-full', visual.caption ? 'p-3 pb-16 md:p-4 md:pb-[4.75rem]' : 'p-2 md:p-3']}>
+        <div class="w-full overflow-hidden rounded-[22px] bg-white shadow-[0_14px_30px_rgba(4,8,18,0.18)]">
           <img
             src={visual.src}
             alt={visual.alt}
-            class="relative z-0 w-full object-cover transition-transform duration-500 group-hover:scale-[1.008]"
+            class="relative z-0 w-full object-cover transition-transform duration-500"
+            style={`transform: scale(${visual.zoom ?? 1}); transform-origin: center center;`}
             loading="lazy"
           />
         </div>
         {visual.caption && (
-          <figcaption class="absolute inset-x-5 bottom-5 z-20 md:bottom-6 md:left-6 md:right-auto">
-            <span class="inline-flex max-w-full rounded-full border border-white/12 bg-[#151926] px-4 py-2 text-[13px] font-medium tracking-[0.01em] text-white shadow-[0_12px_28px_rgba(5,7,15,0.34)] transition-all duration-300 group-hover:border-white/16 group-hover:bg-[#111624]">
+          <figcaption class="absolute inset-x-4 bottom-4 z-20 md:bottom-5 md:left-5 md:right-auto">
+            <span class="inline-flex max-w-full rounded-full border border-white/10 bg-[#141826] px-3.5 py-1.5 text-[12px] font-medium tracking-[0.01em] text-white shadow-[0_10px_24px_rgba(5,7,15,0.28)] transition-all duration-300 group-hover:border-white/14 group-hover:bg-[#101421]">
               {visual.caption}
             </span>
           </figcaption>
@@ -118,7 +119,7 @@ const getScopeOffsetClass = (index: number, total: number) => {
           class:list={[
             visual.layout === 'balanced'
               ? 'group relative'
-              : 'group relative overflow-hidden rounded-[26px] border border-white/8 bg-[#0f1220] shadow-[0_18px_46px_rgba(8,12,24,0.24)] transition-all duration-300 hover:-translate-y-0.5 hover:border-white/12 hover:shadow-[0_26px_72px_rgba(8,12,24,0.32)]',
+              : 'group relative overflow-hidden rounded-[24px] bg-transparent transition-all duration-300',
             visual.layout === 'balanced'
               ? ''
               : index === 0
@@ -143,8 +144,8 @@ const getScopeOffsetClass = (index: number, total: number) => {
             visual.layout === 'balanced' ? 'space-y-3' : 'p-3 pb-[4.75rem] md:p-4 md:pb-20',
           ]}>
             <div class:list={[
-              'overflow-hidden rounded-[22px] border border-white/8 bg-white shadow-[0_10px_24px_rgba(4,8,18,0.16)]',
-              visual.layout === 'balanced' ? 'transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_16px_32px_rgba(4,8,18,0.2)]' : '',
+              'overflow-hidden rounded-[22px] bg-white shadow-[0_12px_28px_rgba(4,8,18,0.18)]',
+              visual.layout === 'balanced' ? 'transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:shadow-[0_16px_32px_rgba(4,8,18,0.2)]' : 'group-hover:-translate-y-0.5 group-hover:shadow-[0_18px_36px_rgba(4,8,18,0.22)]',
             ]}>
               <img
                 src={image.src}

@@ -40,7 +40,7 @@ export type ProductVisual =
   | { kind: 'reportBoard'; items: VisualListItem[] }
   | { kind: 'cashDesk'; items: VisualListItem[] }
   | { kind: 'paymentRail'; items: VisualListItem[] }
-  | { kind: 'image'; src: string; alt: string; caption?: string }
+  | { kind: 'image'; src: string; alt: string; caption?: string; zoom?: number }
   | { kind: 'imageGrid'; images: VisualImageItem[]; layout?: 'featured' | 'balanced' };
 
 export type ProductSection = {
@@ -49,6 +49,7 @@ export type ProductSection = {
   links?: LinkItem[];
   reverse?: boolean;
   visual: ProductVisual;
+  visualWidth?: 'default' | 'wide';
 };
 
 export type ProductPage = {
@@ -82,44 +83,40 @@ export type ProductPage = {
 export const productPages: ProductPage[] = [
   {
     slug: 'ventas-y-pos',
-    title: 'Ventas y POS | ZinkERP - Vende mas y mas rapido en todas tus sucursales',
+    title: 'Ventas y POS | ZinkERP - Vendé más y más rápido en todas tus sucursales',
     metaDescription:
-      'Gestiona presupuestos, POS y factura electronica en un solo flujo. Stock y precios sincronizados en todas tus sucursales. Proba ZinkERP gratis.',
+      'Gestioná presupuestos, POS y factura electrónica en un solo flujo. Stock y precios sincronizados en todas tus sucursales. Probá ZinkERP gratis.',
     eyebrow: 'Ventas y POS',
     theme: 'sales',
     heroImageSrc: '/images/hero-ventas-y-pos.png?v=3',
     ogImageSrc: '/images/og-ventas-y-pos.svg?v=1',
-    heroTitle: 'Ventas agiles, con stock y precios sincronizados en todas tus sucursales.',
+    heroTitle: 'Ventas ágiles, con stock y precios sincronizados en todas tus sucursales.',
     heroSubtitle:
-      'Presupuesto, POS y factura electronica en un mismo flujo. Con stock y precios sincronizados en todas tus sucursales.',
+      'Presupuesto, POS y factura electrónica en un mismo flujo. Con stock y precios sincronizados en todas tus sucursales.',
     heroCtaLabel: 'Agenda una demo',
     heroCtaHref: '/agendar-demo',
     heroVisualLabel: 'Vista operativa',
     heroVisual: {
       kind: 'posConsole',
       items: [
-        { title: 'POS rapido', subtitle: 'Busqueda instantanea, medios de pago y total visible' },
+        { title: 'POS rápido', subtitle: 'Búsqueda instantánea, medios de pago y total visible' },
         { title: 'Precio vigente', subtitle: 'Listas y promociones sincronizadas' },
-        { title: 'Metodo de pago', subtitle: 'Efectivo, transferencia, MP, tarjeta' },
+        { title: 'Método de pago', subtitle: 'Efectivo, transferencia, MP, tarjeta' },
       ],
     },
     sections: [
       {
         title: 'Venta asistida o consultiva, sin perder el hilo del proceso.',
         description:
-          'Arrancas por donde te llegue la oportunidad: cotizacion, presupuesto, pedido o venta directa. Despues podes sumar productos con upselling sin perder la trazabilidad.',
+          'Arrancás por donde te llegue la oportunidad: cotización, presupuesto, pedido o venta directa. Después podés sumar productos con upselling sin perder la trazabilidad.',
         links: [
-          { label: 'Ver Facturacion', href: '/producto/facturacion' },
+          { label: 'Ver Facturación', href: '/producto/facturacion' },
           { label: 'Ver Inventario', href: '/producto/inventario' },
         ],
         visual: {
-          kind: 'flow',
-          items: [
-            { title: 'Cotizacion', subtitle: 'Capturas la necesidad inicial y ordenas la oportunidad comercial' },
-            { title: 'Presupuesto', subtitle: 'Presentas precios, alternativas y condiciones para avanzar' },
-            { title: 'Pedido', subtitle: 'Confirmas lo acordado y reservas mercaderia si hace falta' },
-            { title: 'Venta', subtitle: 'Cierras la operacion y registras el cobro dentro del sistema' },
-          ],
+          kind: 'image',
+          src: '/images/ventas-flujo-comercial.png',
+          alt: 'Ilustración del flujo comercial asistido desde cotización hasta venta, con un atajo para POS directo',
         },
       },
       {
@@ -131,16 +128,16 @@ export const productPages: ProductPage[] = [
         visual: {
           kind: 'posConsole',
           items: [
-            { title: 'Busqueda veloz', subtitle: 'Encuentra productos por codigo, nombre o atajo' },
-            { title: 'Atajos de teclado', subtitle: 'Agiliza la atencion sin depender del mouse' },
-            { title: 'Cache inteligente', subtitle: 'Hasta 400 items listos para una experiencia instantanea' },
+            { title: 'Búsqueda veloz', subtitle: 'Encontrá productos por código, nombre o atajo' },
+            { title: 'Atajos de teclado', subtitle: 'Agilizá la atención sin depender del mouse' },
+            { title: 'Caché inteligente', subtitle: 'Hasta 400 items listos para una experiencia instantánea' },
           ],
         },
       },
       {
         title: 'Consulta precios sin abrir una venta',
         description:
-          'Ideal para showroom o salon: el equipo puede responder rapido sin ensuciar el flujo de caja.',
+          'Ideal para showroom o salón: el equipo puede responder rápido sin ensuciar el flujo de caja.',
         visual: {
           kind: 'device',
           items: [
@@ -150,34 +147,31 @@ export const productPages: ProductPage[] = [
         },
       },
       {
-        title: 'Tambien acompana a vendedores de calle',
+        title: 'También acompaña a vendedores de calle',
         description:
-          'Cuando la venta ocurre fuera del mostrador, el equipo comercial puede trabajar cotizaciones, presupuestos, pedidos y ventas desde un flujo mas consultivo. Hoy no incluye calculo de comisiones, pero si ordena la gestion comercial de punta a punta.',
+          'Cuando la venta ocurre fuera del mostrador, el equipo comercial puede trabajar cotizaciones, presupuestos, pedidos y ventas desde un flujo más consultivo. Hoy no incluye cálculo de comisiones, pero sí ordena la gestión comercial de punta a punta.',
         visual: {
           kind: 'timeline',
           items: [
             { title: 'Visita comercial', subtitle: 'El vendedor releva necesidad y arma la oportunidad' },
             { title: 'Seguimiento', subtitle: 'Presupuesto, ajustes y upselling dentro del mismo circuito' },
-            { title: 'Cierre', subtitle: 'El pedido o la venta quedan registrados en la operacion central' },
+            { title: 'Cierre', subtitle: 'El pedido o la venta quedan registrados en la operación central' },
           ],
         },
       },
       {
-        title: 'Tu tienda online sincronizada con tu negocio fisico',
+        title: 'Tu tienda online sincronizada con tu negocio físico',
         description:
-          'Ecommerce, pagos y operacion conviven sin depender de procesos manuales entre sistemas distintos.',
+          'Ecommerce, pagos y operación conviven sin depender de procesos manuales entre sistemas distintos.',
         links: [
           { label: 'WooCommerce', href: '/integraciones/woocommerce' },
           { label: 'Mercado Pago', href: '/integraciones/mercadopago' },
         ],
         reverse: true,
         visual: {
-          kind: 'logos',
-          items: [
-            { title: 'WooCommerce', subtitle: 'Catalogo, stock y precios conectados' },
-            { title: 'Mercado Pago', subtitle: 'Cobros y autorizaciones con trazabilidad' },
-            { title: 'Operacion fisica', subtitle: 'Ventas y stock alineados con la tienda' },
-          ],
+          kind: 'image',
+          src: '/images/ventas-sincronizacion-omnichannel.png',
+          alt: 'Ilustración del ERP sincronizando WooCommerce, Mercado Pago y la operación física en un mismo sistema',
         },
       },
     ],

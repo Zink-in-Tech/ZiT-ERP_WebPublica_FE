@@ -93,6 +93,23 @@ const socialImageSrc = page.ogImageSrc ?? page.heroImageSrc;
 const socialImageAlt = page.ogImageAlt ?? `Vista del módulo ${page.eyebrow ?? page.heroTitle} en ZinkERP`;
 const immersiveVisualKinds = new Set(['image', 'imageGrid']);
 
+const getSectionGridClass = (section: ProductPage['sections'][number]) => {
+  if (!immersiveVisualKinds.has(section.visual.kind)) return 'lg:grid-cols-2';
+  return 'lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] xl:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] xl:gap-16';
+};
+
+const getSectionTextClass = (section: ProductPage['sections'][number]) => {
+  if (!immersiveVisualKinds.has(section.visual.kind)) return 'max-w-2xl';
+  return 'max-w-lg xl:max-w-[33rem]';
+};
+
+const getSectionVisualClass = (section: ProductPage['sections'][number], index: number) => {
+  if (immersiveVisualKinds.has(section.visual.kind)) {
+    return '';
+  }
+  return index % 2 === 0 ? theme.panel : 'border-white/10';
+};
+
 const breadcrumbs = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -163,7 +180,7 @@ const breadcrumbs = {
           <div
             class:list={[
               'overflow-hidden rounded-[30px] border shadow-2xl',
-              hasHeroImage ? 'bg-white/5 p-3 lg:p-4' : 'bg-dark-800/95 p-6',
+              hasHeroImage ? 'bg-white/[0.03] p-2 lg:p-3' : 'bg-dark-800/95 p-6',
               theme.panel,
               hasHeroImage ? 'lg:-mr-8 xl:-mr-12' : '',
             ]}
@@ -191,8 +208,14 @@ const breadcrumbs = {
     {page.sections.map((section, index) => (
       <section class:list={['py-20', index % 2 === 1 ? 'bg-dark-800/65' : 'bg-dark-900']}>
         <div class="container mx-auto px-4">
-          <div class:list={['grid items-center gap-10 lg:grid-cols-2', section.reverse ? 'lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1' : '']}>
-            <div class="max-w-2xl">
+          <div
+            class:list={[
+              'grid items-center gap-10',
+              getSectionGridClass(section),
+              section.reverse ? 'lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1' : '',
+            ]}
+          >
+            <div class:list={[getSectionTextClass(section)]}>
               <h2 class="text-3xl font-bold leading-tight md:text-4xl">{section.title}</h2>
               <p class="mt-5 text-lg text-gray-300">{section.description}</p>
               {section.links && (
@@ -214,14 +237,11 @@ const breadcrumbs = {
 
             <div
               class:list={[
+                'w-full',
                 immersiveVisualKinds.has(section.visual.kind)
                   ? 'bg-transparent p-0 shadow-none'
                   : 'rounded-[28px] border bg-dark-800/95 p-6 shadow-xl',
-                immersiveVisualKinds.has(section.visual.kind)
-                  ? ''
-                  : index % 2 === 0
-                    ? theme.panel
-                    : 'border-white/10',
+                getSectionVisualClass(section, index),
               ]}
             >
               <ProductVisualRenderer visual={section.visual} />
