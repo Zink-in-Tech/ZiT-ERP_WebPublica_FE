@@ -41,7 +41,7 @@ export type ProductVisual =
   | { kind: 'cashDesk'; items: VisualListItem[] }
   | { kind: 'paymentRail'; items: VisualListItem[] }
   | { kind: 'image'; src: string; alt: string; caption?: string }
-  | { kind: 'imageGrid'; images: VisualImageItem[] };
+  | { kind: 'imageGrid'; images: VisualImageItem[]; layout?: 'featured' | 'balanced' };
 
 export type ProductSection = {
   title: string;
@@ -262,6 +262,7 @@ export const productPages: ProductPage[] = [
         ],
         visual: {
           kind: 'imageGrid',
+          layout: 'balanced',
           images: [
             {
               src: '/images/compras-listado.png',
@@ -510,12 +511,10 @@ export const productPages: ProductPage[] = [
           'La cuenta corriente deja de ser una caja negra: ves saldo, antiguedad y ultimo movimiento de cada cliente.',
         links: [{ label: 'Ver Ventas y POS', href: '/producto/ventas-y-pos' }],
         visual: {
-          kind: 'comparison',
-          items: [
-            { title: 'Cliente Alvarez', subtitle: '$ 420.000', meta: '30 dias' },
-            { title: 'Distribuidora Sol', subtitle: '$ 1.280.000', meta: '60 dias' },
-            { title: 'Comercial Norte', subtitle: '$ 2.040.000', meta: '90+ dias' },
-          ],
+          kind: 'image',
+          src: '/images/cuenta-corriente-cliente.png',
+          alt: 'Vista de cuenta corriente de cliente con saldo actual, vencimientos y movimientos registrados',
+          caption: 'Cuenta corriente con saldo, vencimientos y pagos en un solo lugar.',
         },
       },
       {
@@ -526,6 +525,7 @@ export const productPages: ProductPage[] = [
         reverse: true,
         visual: {
           kind: 'imageGrid',
+          layout: 'balanced',
           images: [
             {
               src: '/images/caja-efectivo-caja.png',
@@ -552,6 +552,7 @@ export const productPages: ProductPage[] = [
         links: [{ label: 'Ver Facturacion', href: '/producto/facturacion' }],
         visual: {
           kind: 'imageGrid',
+          layout: 'balanced',
           images: [
             {
               src: '/images/caja-total-ingresos-ventas.png',
@@ -640,6 +641,7 @@ export const productPages: ProductPage[] = [
           'Sabé cuánto te deben y cuánto debés. Sin conciliaciones manuales.',
         visual: {
           kind: 'imageGrid',
+          layout: 'balanced',
           images: [
             {
               src: '/images/reportes-flujo-cobros.png',
@@ -810,6 +812,7 @@ export const productPages: ProductPage[] = [
         links: [{ label: 'Ver Sucursales', href: '/producto/sucursales' }],
         visual: {
           kind: 'imageGrid',
+          layout: 'balanced',
           images: [
             {
               src: '/images/seguridad-perfiles.png',

@@ -91,6 +91,7 @@ const heroImageSrc = page.heroImageSrc;
 const hasHeroImage = Boolean(heroImageSrc);
 const socialImageSrc = page.ogImageSrc ?? page.heroImageSrc;
 const socialImageAlt = page.ogImageAlt ?? `Vista del módulo ${page.eyebrow ?? page.heroTitle} en ZinkERP`;
+const immersiveVisualKinds = new Set(['image', 'imageGrid']);
 
 const breadcrumbs = {
   '@context': 'https://schema.org',
@@ -211,7 +212,18 @@ const breadcrumbs = {
               )}
             </div>
 
-            <div class:list={['rounded-[28px] border bg-dark-800/95 p-6 shadow-xl', index % 2 === 0 ? theme.panel : 'border-white/10']}>
+            <div
+              class:list={[
+                immersiveVisualKinds.has(section.visual.kind)
+                  ? 'bg-transparent p-0 shadow-none'
+                  : 'rounded-[28px] border bg-dark-800/95 p-6 shadow-xl',
+                immersiveVisualKinds.has(section.visual.kind)
+                  ? ''
+                  : index % 2 === 0
+                    ? theme.panel
+                    : 'border-white/10',
+              ]}
+            >
               <ProductVisualRenderer visual={section.visual} />
             </div>
           </div>
