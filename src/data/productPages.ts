@@ -233,12 +233,10 @@ export const productPages: ProductPage[] = [
           'Las sugerencias parten del stock real, los minimos y la demanda para ayudarte a comprar con mas contexto.',
         links: [{ label: 'Ver Inventario', href: '/producto/inventario' }],
         visual: {
-          kind: 'callouts',
-          items: [
-            { title: 'Productos sugeridos', subtitle: 'Priorizados por faltante y rotacion' },
-            { title: 'Cantidad recomendada', subtitle: 'Basada en stock y politica de reposicion' },
-            { title: 'Impacto inmediato', subtitle: 'La recepcion actualiza stock al instante' },
-          ],
+          kind: 'image',
+          src: '/images/compras-stock-critico-proveedor.png',
+          alt: 'Vista de productos con stock critico filtrados por proveedor para preparar reposicion',
+          caption: 'Stock crítico por proveedor para anticipar reposición.',
         },
       },
       {
@@ -248,12 +246,10 @@ export const productPages: ProductPage[] = [
         links: [{ label: 'Ver Inventario', href: '/producto/inventario' }],
         reverse: true,
         visual: {
-          kind: 'providerSheet',
-          items: [
-            { title: 'Proveedor Norte', subtitle: 'CUIT 30-71234567-8 · Tel. +54 11 5555-1122', meta: 'Ultimas OC: 12/05 y 27/05' },
-            { title: 'Mayorista Delta', subtitle: 'ventas@delta.com · Contacto comercial y datos fiscales', meta: 'Ultimas OC: $420.000 y $185.000' },
-            { title: 'Distribuidora Sur', subtitle: 'CUIT, email y telefono siempre disponibles', meta: 'Ultimas OC: 3 registradas en el mes' },
-          ],
+          kind: 'image',
+          src: '/images/compras-form.png',
+          alt: 'Formulario de orden de compra con proveedor, items, cantidades y total consolidado',
+          caption: 'La orden sale con proveedor, ítems, cantidades y total en un solo flujo.',
         },
       },
       {
@@ -265,12 +261,18 @@ export const productPages: ProductPage[] = [
           { label: 'Ver Inventario', href: '/producto/inventario' },
         ],
         visual: {
-          kind: 'flow',
-          items: [
-            { title: 'Sucursales', subtitle: 'Registran sus necesidades y pedidos' },
-            { title: 'Central recibe pedidos', subtitle: 'Consolida la demanda y define proveedor' },
-            { title: 'Central genera OC', subtitle: 'Emite la compra consolidada al proveedor' },
-            { title: 'Stock actualizado por sucursal', subtitle: 'Cada sede sabe que pidio y cuando llega' },
+          kind: 'imageGrid',
+          images: [
+            {
+              src: '/images/compras-listado.png',
+              alt: 'Listado de ordenes de compra con proveedor, importe, fecha y estado',
+              caption: 'Central ve todo el historial de compras en una sola lista.',
+            },
+            {
+              src: '/images/compras-estados.png',
+              alt: 'Detalle de estados de ordenes de compra como confirmado, aprobado y borrador',
+              caption: 'Estados claros para saber qué ya fue aprobado o confirmado.',
+            },
           ],
         },
       },
@@ -807,12 +809,18 @@ export const productPages: ProductPage[] = [
           'Los perfiles se arman segun tu operacion real, no segun tres roles fijos que no reflejan como trabaja tu equipo.',
         links: [{ label: 'Ver Sucursales', href: '/producto/sucursales' }],
         visual: {
-          kind: 'permissionsBuilder',
-          items: [
-            { title: 'Cajero', subtitle: 'Venta, cobro y consulta basica' },
-            { title: 'Encargado', subtitle: 'Stock, caja y aprobaciones locales' },
-            { title: 'Dueno', subtitle: 'Vision global y reportes ejecutivos' },
-            { title: 'Contador', subtitle: 'Acceso financiero y fiscal especifico' },
+          kind: 'imageGrid',
+          images: [
+            {
+              src: '/images/seguridad-perfiles.png',
+              alt: 'Vista de creación de perfiles con nombre, descripción y acciones habilitadas',
+              caption: 'Perfiles creados según la operación real del negocio.',
+            },
+            {
+              src: '/images/seguridad-usuario.png',
+              alt: 'Vista de usuario con estado, datos generales y perfil asignado',
+              caption: 'Cada usuario con estado, perfil y permisos asignados.',
+            },
           ],
         },
       },
@@ -823,12 +831,10 @@ export const productPages: ProductPage[] = [
         links: [{ label: 'Ver Inventario', href: '/producto/inventario' }],
         reverse: true,
         visual: {
-          kind: 'comparison',
-          items: [
-            { title: 'Sistema tipico', subtitle: 'Tres roles fijos, poco adaptables' },
-            { title: 'ZinkERP', subtitle: 'Permisos finos por accion, dato y sucursal' },
-            { title: 'Resultado', subtitle: 'Mas control sin frenar al equipo' },
-          ],
+          kind: 'image',
+          src: '/images/seguridad-permisos.png',
+          alt: 'Matriz de permisos granulares con acciones habilitadas y restringidas por modulo',
+          caption: 'Permisos finos por acción, dato y módulo.',
         },
       },
       {

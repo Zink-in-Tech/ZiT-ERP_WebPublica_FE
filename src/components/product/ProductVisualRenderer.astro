@@ -84,43 +84,54 @@ const getScopeOffsetClass = (index: number, total: number) => {
 )}
 
 {visual.kind === 'image' && (
-  <figure class="group overflow-hidden rounded-[28px] border border-white/8 bg-dark-900/70 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/14 hover:shadow-[0_24px_70px_rgba(8,12,24,0.38)]">
-    <img
-      src={visual.src}
-      alt={visual.alt}
-      class="w-full object-cover transition-transform duration-500 group-hover:scale-[1.015]"
-      loading="lazy"
-    />
-    {visual.caption && (
-      <figcaption class="border-t border-white/8 px-5 py-4 text-sm text-gray-400 transition-colors duration-300 group-hover:text-gray-300">
-        {visual.caption}
-      </figcaption>
-    )}
-  </figure>
+  <div class="relative overflow-hidden rounded-[32px] border border-white/8 bg-gradient-to-br from-white/[0.05] via-dark-900/90 to-dark-950 p-3 shadow-[0_24px_80px_rgba(6,10,20,0.45)]">
+    <div class="pointer-events-none absolute inset-x-10 top-0 h-24 rounded-full bg-primary/10 blur-3xl"></div>
+    <figure class="group relative overflow-hidden rounded-[26px] border border-white/8 bg-dark-900/80 transition-all duration-300 hover:-translate-y-1 hover:border-white/14 hover:shadow-[0_28px_80px_rgba(8,12,24,0.42)]">
+      <div class="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-dark-950/10 via-transparent to-white/10 opacity-70"></div>
+      <img
+        src={visual.src}
+        alt={visual.alt}
+        class="relative z-0 w-full object-cover transition-transform duration-500 group-hover:scale-[1.018]"
+        loading="lazy"
+      />
+      {visual.caption && (
+        <figcaption class="relative z-20 border-t border-white/8 bg-dark-950/80 px-5 py-4 text-sm text-gray-400 backdrop-blur-sm transition-colors duration-300 group-hover:text-gray-300">
+          {visual.caption}
+        </figcaption>
+      )}
+    </figure>
+  </div>
 )}
 
 {visual.kind === 'imageGrid' && (
-  <div class="grid gap-4 md:grid-cols-2">
+  <div class="relative overflow-hidden rounded-[32px] border border-white/8 bg-gradient-to-br from-white/[0.04] via-dark-900/90 to-dark-950 p-4 shadow-[0_24px_80px_rgba(6,10,20,0.45)]">
+    <div class="pointer-events-none absolute left-8 top-4 h-24 w-36 rounded-full bg-primary/8 blur-3xl"></div>
+    <div class="pointer-events-none absolute bottom-4 right-8 h-28 w-44 rounded-full bg-primary/10 blur-3xl"></div>
+    <div class="relative grid gap-4 md:grid-cols-2">
     {visual.images.map((image, index) => (
       <figure
         class:list={[
-          'group overflow-hidden rounded-[24px] border border-white/8 bg-dark-900/70 shadow-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/14 hover:shadow-[0_24px_70px_rgba(8,12,24,0.38)]',
-          index === 0 ? 'md:col-span-2' : '',
+          'group relative overflow-hidden rounded-[24px] border border-white/8 bg-dark-900/80 shadow-[0_18px_48px_rgba(8,12,24,0.3)] transition-all duration-300 hover:-translate-y-1.5 hover:border-white/14 hover:shadow-[0_30px_85px_rgba(8,12,24,0.45)]',
+          index === 0 ? 'md:col-span-2' : 'md:translate-y-3',
+          index === 1 ? 'md:-rotate-[0.8deg]' : '',
+          index === 2 ? 'md:rotate-[0.8deg]' : '',
         ]}
       >
+        <div class="pointer-events-none absolute inset-0 z-10 bg-gradient-to-t from-dark-950/12 via-transparent to-white/10 opacity-70"></div>
         <img
           src={image.src}
           alt={image.alt}
-          class="w-full object-cover transition-transform duration-500 group-hover:scale-[1.015]"
+          class="relative z-0 w-full object-cover transition-transform duration-500 group-hover:scale-[1.02]"
           loading="lazy"
         />
         {image.caption && (
-          <figcaption class="border-t border-white/8 px-5 py-4 text-sm text-gray-400 transition-colors duration-300 group-hover:text-gray-300">
+          <figcaption class="relative z-20 border-t border-white/8 bg-dark-950/80 px-5 py-4 text-sm text-gray-400 backdrop-blur-sm transition-colors duration-300 group-hover:text-gray-300">
             {image.caption}
           </figcaption>
         )}
       </figure>
     ))}
+    </div>
   </div>
 )}
 
