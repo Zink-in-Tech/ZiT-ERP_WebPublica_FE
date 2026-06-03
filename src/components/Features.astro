@@ -40,18 +40,18 @@ const stages = [
 
       <div class="relative">
         {/* Vertical connecting line */}
-        <div class="absolute left-[39px] top-[80px] w-1 h-[calc(100%-160px)] bg-primary/20 md:left-[47px]"></div>
+        <div class="absolute left-[31px] top-[72px] w-1 h-[calc(100%-144px)] bg-primary/20 sm:left-[39px] sm:top-[80px] sm:h-[calc(100%-160px)] md:left-[47px]"></div>
 
-        <div class="space-y-16">
+        <div class="space-y-12 sm:space-y-16">
           {stages.map((stage, index) => (
             <div class="group relative animate-on-scroll" style={`animation-delay: ${index * 0.2}s`}>
               {/* Stage number indicator */}
-              <div class="absolute left-0 top-0 w-20 h-20 bg-dark-800/95 rounded-full border border-white/10 flex items-center justify-center z-10 shadow-[0_18px_32px_rgba(2,6,23,0.22)]">
-                <span class="text-2xl font-bold text-primary">{index + 1}</span>
+              <div class="absolute left-0 top-0 flex h-16 w-16 items-center justify-center rounded-full border border-white/10 bg-dark-800/95 z-10 shadow-[0_18px_32px_rgba(2,6,23,0.22)] sm:h-20 sm:w-20">
+                <span class="text-xl font-bold text-primary sm:text-2xl">{index + 1}</span>
               </div>
 
-              <div class="pl-28 pt-4">
-                <div class="bg-dark-800/95 rounded-[1.45rem] p-8 md:p-9 border border-white/8 hover:border-primary/20 hover:bg-white/[0.015] transition-all duration-300">
+              <div class="pl-20 pt-3 sm:pl-28 sm:pt-4">
+                <div class="bg-dark-800/95 rounded-[1.45rem] border border-white/8 p-6 transition-all duration-300 hover:border-primary/20 hover:bg-white/[0.015] sm:p-8 md:p-9">
                   <h3 class="text-2xl font-bold mb-2">{stage.title}</h3>
                   <p class="text-primary-400 text-lg mb-4">{stage.subtitle}</p>
                   <p class="text-gray-300 leading-7">{stage.description}</p>
@@ -59,7 +59,7 @@ const stages = [
               </div>
 
               {/* Checkmark that appears on hover */}
-              <div class="absolute left-[22px] top-[22px] w-12 h-12 bg-primary rounded-full flex items-center justify-center opacity-0 transition-opacity duration-300 group-hover:opacity-100 md:left-[30px]">
+              <div class="absolute left-[18px] top-[18px] flex h-10 w-10 items-center justify-center rounded-full bg-primary opacity-0 transition-opacity duration-300 group-hover:opacity-100 sm:left-[22px] sm:top-[22px] sm:h-12 sm:w-12 md:left-[30px]">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-white">
                   <path fill-rule="evenodd" d="M19.916 4.626a.75.75 0 01.208 1.04l-9 13.5a.75.75 0 01-1.154.114l-6-6a.75.75 0 011.06-1.06l5.353 5.353 8.493-12.739a.75.75 0 011.04-.208z" clip-rule="evenodd" />
                 </svg>

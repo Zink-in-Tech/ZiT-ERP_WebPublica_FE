@@ -84,16 +84,18 @@ const getScopeOffsetClass = (index: number, total: number) => {
 )}
 
 {visual.kind === 'image' && (
-  <div class="relative w-full py-2 md:py-3">
+  <div class="relative w-full py-1 sm:py-2 md:py-3">
     <figure class="group relative w-full overflow-hidden rounded-[24px] bg-transparent transition-all duration-300">
-      <div class:list={['relative w-full', visual.caption ? 'p-3 pb-16 md:p-4 md:pb-[4.75rem]' : 'p-2 md:p-3']}>
-        <div class="w-full overflow-hidden rounded-[22px] bg-white shadow-[0_14px_30px_rgba(4,8,18,0.18)]">
+      <div class:list={['relative w-full', visual.caption ? 'p-2 pb-14 sm:p-3 sm:pb-16 md:p-4 md:pb-[4.75rem]' : 'p-1.5 sm:p-2 md:p-3']}>
+        <div class="aspect-[16/9] w-full overflow-hidden rounded-[22px] bg-white shadow-[0_14px_30px_rgba(4,8,18,0.18)]">
           <img
             src={visual.src}
             alt={visual.alt}
-            class="relative z-0 w-full object-cover transition-transform duration-500"
+            class="relative z-0 h-full w-full object-contain transition-transform duration-500"
             style={`transform: scale(${visual.zoom ?? 1}); transform-origin: center center;`}
             loading="lazy"
+            width="1792"
+            height="1024"
           />
         </div>
         {visual.caption && (

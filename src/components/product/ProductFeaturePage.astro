@@ -95,12 +95,22 @@ const immersiveVisualKinds = new Set(['image', 'imageGrid']);
 
 const getSectionGridClass = (section: ProductPage['sections'][number]) => {
   if (!immersiveVisualKinds.has(section.visual.kind)) return 'lg:grid-cols-2';
-  return 'lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] xl:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] xl:gap-16';
+  const base = 'grid-cols-1 min-w-0 gap-8 lg:gap-10';
+  // Con reverse, el visual va a la columna 1 vía order; invertimos fr para que ocupe el mismo ancho (0.6fr).
+  if (section.reverse) {
+    return `${base} lg:grid-cols-[minmax(0,0.6fr)_minmax(0,0.4fr)] xl:grid-cols-[minmax(0,0.62fr)_minmax(0,0.38fr)] xl:gap-16`;
+  }
+  return `${base} lg:grid-cols-[minmax(0,0.4fr)_minmax(0,0.6fr)] xl:grid-cols-[minmax(0,0.38fr)_minmax(0,0.62fr)] xl:gap-16`;
+};
+
+const getSectionOrderClass = (section: ProductPage['sections'][number]) => {
+  if (!section.reverse) return '';
+  return '[&>*:first-child]:order-2 [&>*:last-child]:order-1';
 };
 
 const getSectionTextClass = (section: ProductPage['sections'][number]) => {
   if (!immersiveVisualKinds.has(section.visual.kind)) return 'max-w-2xl';
-  return 'max-w-lg xl:max-w-[33rem]';
+  return 'min-w-0 max-w-none lg:max-w-lg xl:max-w-[33rem]';
 };
 
 const getSectionVisualClass = (section: ProductPage['sections'][number], index: number) => {
@@ -144,22 +154,22 @@ const breadcrumbs = {
   noindex={page.noindex}
 >
   <Header />
-  <main>
+  <main class="pb-24 md:pb-0">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}></script>
 
-    <section class:list={['relative overflow-hidden border-b border-dark-700 bg-dark-900 pt-32 pb-20', theme.accentBorder]}>
+    <section class:list={['relative overflow-hidden border-b border-dark-700 bg-dark-900 pt-28 pb-14 md:pt-32 md:pb-20', theme.accentBorder]}>
       <div class="absolute inset-0 opacity-25">
         <div class:list={['absolute left-[-8rem] top-16 h-72 w-72 rounded-full blur-3xl', theme.glowA]}></div>
         <div class:list={['absolute bottom-0 right-[-5rem] h-80 w-80 rounded-full blur-3xl', theme.glowB]}></div>
       </div>
 
-      <div class="container relative z-10 mx-auto px-4">
-        <div class="grid items-center gap-12 lg:grid-cols-[minmax(0,0.97fr)_minmax(0,1.03fr)] xl:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)] xl:gap-14">
-          <div class="max-w-2xl xl:max-w-[44rem]">
+      <div class="container relative z-10 mx-auto min-w-0 px-4">
+        <div class="grid min-w-0 items-center gap-10 lg:grid-cols-[minmax(0,0.97fr)_minmax(0,1.03fr)] xl:grid-cols-[minmax(0,0.94fr)_minmax(0,1.06fr)] xl:gap-14">
+          <div class="min-w-0 max-w-2xl xl:max-w-[44rem]">
             <p class:list={['mb-5 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium', theme.badge]}>
               {page.eyebrow ?? 'Producto'}
             </p>
-            <h1 class="max-w-[12ch] text-4xl font-bold leading-[0.98] tracking-[-0.03em] md:text-[4.5rem] xl:text-[4.85rem]">{page.heroTitle}</h1>
+            <h1 class="max-w-[12ch] text-3xl font-bold leading-[0.98] tracking-[-0.03em] sm:text-4xl md:text-[4.5rem] xl:text-[4.85rem]">{page.heroTitle}</h1>
             <p class="mt-6 max-w-2xl text-lg text-gray-300 md:text-xl">{page.heroSubtitle}</p>
             <div class="mt-8 flex flex-col gap-4 sm:flex-row">
               <a
@@ -206,18 +216,19 @@ const breadcrumbs = {
     </section>
 
     {page.sections.map((section, index) => (
-      <section class:list={['py-20', index % 2 === 1 ? 'bg-dark-800/65' : 'bg-dark-900']}>
-        <div class="container mx-auto px-4">
+      <section class:list={['py-14 md:py-20', index % 2 === 1 ? 'bg-dark-800/65' : 'bg-dark-900']}>
+        <div class="container mx-auto min-w-0 px-4">
           <div
             class:list={[
-              'grid items-center gap-10',
+              'grid items-center',
+              immersiveVisualKinds.has(section.visual.kind) ? '' : 'gap-10',
               getSectionGridClass(section),
-              section.reverse ? 'lg:[&>*:first-child]:order-2 lg:[&>*:last-child]:order-1' : '',
+              getSectionOrderClass(section),
             ]}
           >
             <div class:list={[getSectionTextClass(section)]}>
-              <h2 class="text-3xl font-bold leading-tight md:text-4xl">{section.title}</h2>
-              <p class="mt-5 text-lg text-gray-300">{section.description}</p>
+              <h2 class="text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">{section.title}</h2>
+              <p class="mt-4 text-base text-gray-300 sm:mt-5 sm:text-lg">{section.description}</p>
               {section.links && (
                 <div class="mt-6 flex flex-wrap gap-x-6 gap-y-3">
                   {section.links.map((link) => (
@@ -237,7 +248,7 @@ const breadcrumbs = {
 
             <div
               class:list={[
-                'w-full',
+                'w-full min-w-0',
                 immersiveVisualKinds.has(section.visual.kind)
                   ? 'bg-transparent p-0 shadow-none'
                   : 'rounded-[28px] border bg-dark-800/95 p-6 shadow-xl',
@@ -251,10 +262,10 @@ const breadcrumbs = {
       </section>
     ))}
 
-    <section class="bg-dark-900 py-20">
-      <div class="container mx-auto px-4">
-        <div class:list={['rounded-[32px] border p-10 text-center shadow-2xl bg-gradient-to-br', theme.accentBorder, theme.surface]}>
-          <h2 class="mx-auto max-w-3xl text-3xl font-bold leading-tight md:text-4xl">{page.finalBannerText}</h2>
+    <section class="bg-dark-900 py-14 md:py-20">
+      <div class="container mx-auto min-w-0 px-4">
+        <div class:list={['rounded-[32px] border p-6 text-center shadow-2xl bg-gradient-to-br sm:p-8 md:p-10', theme.accentBorder, theme.surface]}>
+          <h2 class="mx-auto max-w-3xl text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">{page.finalBannerText}</h2>
           <a
             href={page.finalBannerCtaHref}
             class="mt-8 inline-flex justify-center rounded-xl bg-blue-primary px-8 py-4 text-base font-medium text-white transition-colors hover:bg-blue-primary/90"
@@ -266,8 +277,8 @@ const breadcrumbs = {
     </section>
 
     {page.faqs && page.faqs.length > 0 && (
-      <section class="bg-dark-900 py-20">
-        <div class="container mx-auto px-4">
+      <section class="bg-dark-900 py-14 md:py-20">
+        <div class="container mx-auto min-w-0 px-4">
           <div class="mx-auto max-w-4xl">
             <div class="mb-12 text-center">
               <h2 class="text-3xl font-bold md:text-4xl">{page.faqTitle ?? 'Preguntas frecuentes'}</h2>
@@ -297,9 +308,9 @@ const breadcrumbs = {
       </section>
     )}
 
-    <section class="bg-dark-800 py-12">
-      <div class="container mx-auto px-4">
-        <div class="flex flex-col items-start justify-between gap-6 rounded-[28px] border border-white/8 bg-dark-900/70 p-8 lg:flex-row lg:items-center">
+    <section class="bg-dark-800 py-10 md:py-12">
+      <div class="container mx-auto min-w-0 px-4">
+        <div class="flex flex-col items-start justify-between gap-6 rounded-[28px] border border-white/8 bg-dark-900/70 p-6 sm:p-8 lg:flex-row lg:items-center">
           <div>
             <p class:list={['text-sm font-semibold uppercase tracking-[0.18em]', theme.accentText]}>Multi-sucursal</p>
             <h2 class="mt-3 text-2xl font-bold">¿Tenes mas de una sucursal?</h2>
