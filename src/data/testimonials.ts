@@ -128,6 +128,21 @@ export const testimonials: TestimonialEntry[] = [
     result: 'Multi-sucursal manejable',
   },
   {
+    id: 'juan-ostuni-marotas',
+    name: 'Juan Ostuni',
+    position: 'Dueño',
+    company: 'Marotas',
+    companyUrl: 'https://www.instagram.com/marotas.sr/',
+    logoSrc: '/img/testimonials/marota.jpeg',
+    logoAlt: 'Logo de Marotas',
+    content:
+      'El acompañamiento de ZinkERP fue espectacular. Apostar por un equipo cercano, que entiende lo que necesitamos, fue la decisión correcta.',
+    before: 'Buscando un sistema y un equipo que acompañe de verdad',
+    after: 'Acompañamiento cercano de un equipo que entiende el negocio',
+    impact: 'Más confianza para decidir e implementar',
+    result: 'La decisión correcta',
+  },
+  {
     id: 'miguel-alberto-quimica',
     name: 'Miguel y Alberto',
     position: 'Dueños',
