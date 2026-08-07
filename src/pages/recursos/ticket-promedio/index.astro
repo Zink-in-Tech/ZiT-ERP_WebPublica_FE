@@ -1,0 +1,615 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+// Número de WhatsApp para CTA (vacío = solo prellenar mensaje)
+const WHATSAPP_CTA_NUMBER = '5491135598389';
+---
+
+<Layout title="Calculadora de Ticket Promedio Gratis | ZinkERP" description="Calculá tu ticket promedio (total facturado ÷ cantidad de ventas), comparalo entre períodos e importá tus ventas en CSV. Sin registro, 100% online. Herramienta gratuita de ZinkERP.">
+  <Header />
+  <main>
+    {/* Hero */}
+    <section class="pt-32 pb-20 relative">
+      <div class="absolute inset-0 z-0 opacity-20">
+        <div class="absolute top-1/4 right-1/4 w-96 h-96 rounded-full bg-primary/30 blur-3xl"></div>
+        <div class="absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full bg-primary/30 blur-3xl"></div>
+      </div>
+      <div class="container mx-auto px-4 relative z-10">
+        <div class="max-w-4xl mx-auto text-center">
+          <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/20 text-primary rounded-full text-sm font-medium mb-6">
+            <span>🎫</span>
+            Herramienta gratuita
+          </div>
+          <h1 class="text-4xl md:text-5xl font-bold mb-6 animate-on-scroll">Ticket promedio: sabé cuánto sale en promedio cada venta</h1>
+          <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+            Cargá tus ventas o solo el total y la cantidad, y obtené tu ticket promedio al instante. Guardá un período y compará cómo mejoró.
+          </p>
+          <ul class="flex flex-wrap justify-center gap-3 sm:gap-4 mb-8">
+            <li class="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-800/60 border border-dark-600/60">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+              <span class="text-gray-300">Total facturado y cantidad de ventas → ticket promedio</span>
+            </li>
+            <li class="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-800/60 border border-dark-600/60">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+              <span class="text-gray-300">Lista de montos manual o importar CSV</span>
+            </li>
+            <li class="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-800/60 border border-dark-600/60">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+              <span class="text-gray-300">Compará con tu período anterior</span>
+            </li>
+            <li class="flex items-center gap-2 px-4 py-2 rounded-lg bg-dark-800/60 border border-dark-600/60">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 text-primary shrink-0"><path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" /></svg>
+              <span class="text-gray-300">Consejos para mejorar el ticket (upsell, combos)</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* Qué es el ticket promedio y cómo se calcula */}
+    <section class="py-12 border-y border-dark-700">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold mb-4">Qué es el ticket promedio y cómo se calcula</h2>
+          <p class="text-gray-300 mb-4">
+            El <strong>ticket promedio</strong> es cuánto gasta, en promedio, cada cliente en una venta. Se calcula dividiendo el total facturado en un período por la cantidad de ventas de ese mismo período. Es uno de los indicadores más simples y más útiles para un comercio: te dice si tus ventas crecen porque vendés más caro, porque vendés más seguido, o ambas cosas.
+          </p>
+          <p class="text-gray-300 mb-4">
+            Podés cargarlo de dos formas: sumando cada venta a una lista (manual o importando un CSV), o directamente con el total facturado y la cantidad de ventas si ya los tenés a mano. Guardá el resultado como un período con nombre (por ejemplo "julio") para compararlo con el siguiente.
+          </p>
+          <div class="bg-dark-800 rounded-xl p-5 border border-dark-600 mb-4">
+            <p class="text-gray-300 text-sm mb-2 font-medium">Fórmula que aplicamos en esta herramienta:</p>
+            <ul class="text-gray-300 text-sm space-y-2">
+              <li><strong>Ticket promedio</strong> = Total facturado ÷ Cantidad de ventas. Ej.: total $450.000, 300 ventas → $450.000 ÷ 300 = $1.500.</li>
+            </ul>
+          </div>
+          <p class="text-gray-400 text-sm">
+            En <a href="https://zinkerp.com" class="text-primary hover:underline" target="_blank" rel="noopener noreferrer">ZinkERP</a> el ticket promedio se calcula solo, a partir de tus ventas reales, sin cargar nada a mano.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Herramienta */}
+    <section id="herramienta" class="py-12">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto">
+          <h2 class="text-3xl font-bold mb-8">Calculá tu ticket promedio</h2>
+
+          <div class="bg-dark-800 rounded-xl p-6 md:p-8">
+            {/* Tabs */}
+            <div role="tablist" aria-label="Modo de carga" class="flex flex-wrap gap-2 mb-6">
+              <button
+                type="button"
+                id="tabLista"
+                role="tab"
+                aria-selected="true"
+                aria-controls="panelLista"
+                class="tab-btn px-4 py-2 rounded-lg font-medium text-sm border transition-colors bg-primary/20 text-primary border-primary/40 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >Cargar lista de ventas</button>
+              <button
+                type="button"
+                id="tabRapido"
+                role="tab"
+                aria-selected="false"
+                aria-controls="panelRapido"
+                tabindex="-1"
+                class="tab-btn px-4 py-2 rounded-lg font-medium text-sm border transition-colors border-dark-600 text-gray-300 hover:border-primary/50 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+              >Cálculo rápido</button>
+            </div>
+
+            {/* Panel: Lista de ventas */}
+            <div id="panelLista" role="tabpanel" aria-labelledby="tabLista">
+              <div class="flex flex-wrap items-end gap-3 mb-4">
+                <div class="flex-1 min-w-[160px]">
+                  <label for="amountInput" class="block text-sm font-medium text-gray-400 mb-1">Monto de la venta ($)</label>
+                  <input type="text" inputmode="decimal" id="amountInput" placeholder="Ej. 1.500" class="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-sm text-right focus:ring-2 focus:ring-primary" />
+                </div>
+                <button id="addAmountBtn" type="button" class="px-4 py-2 bg-blue-primary hover:bg-blue-primary/90 rounded-lg font-medium text-sm">Agregar monto</button>
+                <input type="file" id="importCsvInput" accept=".csv" class="hidden" />
+                <div class="relative inline-flex items-center gap-1.5 group">
+                  <button id="importCsvBtn" type="button" class="px-4 py-2 border border-dark-600 hover:border-primary/50 rounded-lg font-medium text-sm transition-colors">Importar CSV</button>
+                  <span
+                    tabindex="0"
+                    role="button"
+                    aria-describedby="importCsvTooltip"
+                    class="cursor-help text-gray-400 hover:text-primary focus:outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-full text-sm"
+                  >ⓘ</span>
+                  <span
+                    id="importCsvTooltip"
+                    role="tooltip"
+                    class="absolute bottom-full left-0 mb-1 px-3 py-2 text-xs text-gray-200 bg-dark-700 border border-dark-600 rounded-lg shadow-xl whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible group-focus-within:opacity-100 group-focus-within:visible transition-all duration-200 z-50 pointer-events-none"
+                  >Una columna de montos, encabezado opcional, separador «,» o «;»</span>
+                </div>
+              </div>
+              <p id="importCsvMessage" role="status" class="text-sm mb-3 hidden"></p>
+              <div class="max-h-[320px] overflow-y-auto rounded-lg border border-dark-700 mb-4">
+                <ul id="amountsList" class="divide-y divide-dark-700"></ul>
+              </div>
+              <div class="flex justify-end">
+                <button id="exportBtn" type="button" class="px-3 py-1.5 text-sm border border-dark-600 hover:border-primary/50 rounded-lg transition-colors">Exportar CSV</button>
+              </div>
+            </div>
+
+            {/* Panel: Cálculo rápido */}
+            <div id="panelRapido" role="tabpanel" aria-labelledby="tabRapido" class="hidden">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div>
+                  <label for="quickTotal" class="block text-sm font-medium text-gray-400 mb-1">Total facturado</label>
+                  <input type="text" inputmode="decimal" id="quickTotal" placeholder="Ej. 450.000" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-lg text-right focus:ring-2 focus:ring-primary" />
+                </div>
+                <div>
+                  <label for="quickCount" class="block text-sm font-medium text-gray-400 mb-1">Cantidad de ventas</label>
+                  <input type="number" min="0" step="1" id="quickCount" placeholder="Ej. 300" class="w-full px-4 py-3 bg-dark-700 border border-dark-600 rounded-lg text-lg text-right focus:ring-2 focus:ring-primary" />
+                </div>
+              </div>
+            </div>
+
+            {/* Resultados (compartidos entre ambos modos) */}
+            <div class="grid grid-cols-3 gap-3 sm:gap-4 mt-8" aria-live="polite" aria-atomic="true">
+              <div class="bg-dark-700 p-4 rounded-xl border border-dark-600 text-center">
+                <h3 class="text-xs font-medium text-gray-400 mb-1">Total facturado</h3>
+                <p id="resTotal" class="text-lg font-bold text-gray-200">—</p>
+              </div>
+              <div class="bg-dark-700 p-4 rounded-xl border border-dark-600 text-center">
+                <h3 class="text-xs font-medium text-gray-400 mb-1">Cantidad de ventas</h3>
+                <p id="resCount" class="text-lg font-bold text-gray-200">—</p>
+              </div>
+              <div class="bg-primary/10 p-4 rounded-xl border border-primary/30 text-center">
+                <h3 class="text-xs font-medium text-primary mb-1">Ticket promedio</h3>
+                <p id="resAverage" class="text-2xl font-bold text-primary">—</p>
+              </div>
+            </div>
+
+            {/* Guardar período + comparación */}
+            <div class="mt-8 bg-dark-900/40 rounded-xl p-6 border border-dark-700">
+              <h3 class="text-lg font-bold mb-1">Guardar período</h3>
+              <p class="text-gray-400 text-sm mb-4">Guardá el promedio actual con un nombre (ej. «julio») para compararlo con el próximo.</p>
+              <div class="flex flex-wrap items-end gap-3 mb-4">
+                <div class="flex-1 min-w-[160px]">
+                  <label for="periodName" class="block text-sm font-medium text-gray-400 mb-1">Nombre del período</label>
+                  <input type="text" id="periodName" placeholder="Ej. julio" class="w-full px-3 py-2 bg-dark-700 border border-dark-600 rounded-lg text-sm focus:ring-2 focus:ring-primary" />
+                </div>
+                <button id="savePeriodBtn" type="button" disabled class="px-4 py-2 bg-blue-primary hover:bg-blue-primary/90 disabled:opacity-50 disabled:cursor-not-allowed rounded-lg font-medium text-sm">Guardar período</button>
+              </div>
+              <div id="comparisonBlock" class="hidden"></div>
+            </div>
+
+            <p class="text-gray-500 text-sm mt-6 mb-0">
+              <button id="clearDataBtn" type="button" class="text-amber-400/90 hover:text-amber-400 font-medium underline-offset-2 hover:underline">Limpiar</button>
+              <span class="text-gray-500"> — Borrar montos y períodos guardados para empezar de cero</span>
+            </p>
+          </div>
+
+          <p class="text-gray-500 text-sm mt-6">
+            ¿Ya usás <a href="/recursos/caja-diaria" class="text-primary hover:underline">Caja Diaria</a>? Ahí también podés ver tu ticket promedio, calculado automáticamente a partir de tus ingresos del día.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    {/* Cómo mejorar tu ticket */}
+    <section class="py-12 border-t border-dark-700">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto">
+          <h2 class="text-2xl font-bold mb-6">Cómo mejorar tu ticket</h2>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+              <h3 class="font-bold mb-2">Upsell</h3>
+              <p class="text-gray-300 text-sm">Ofrecé una versión superior o más grande del producto que el cliente ya eligió, justo antes de cerrar la venta.</p>
+            </div>
+            <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+              <h3 class="font-bold mb-2">Combos</h3>
+              <p class="text-gray-300 text-sm">Armá combos de productos que suelen comprarse juntos, con un pequeño beneficio por llevarlos combinados.</p>
+            </div>
+            <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+              <h3 class="font-bold mb-2">Productos complementarios</h3>
+              <p class="text-gray-300 text-sm">Sugerí en la caja un producto relacionado con lo que el cliente ya está llevando (cross-selling).</p>
+            </div>
+            <div class="bg-dark-800 rounded-xl p-5 border border-dark-600">
+              <h3 class="font-bold mb-2">Monto mínimo</h3>
+              <p class="text-gray-300 text-sm">Definí un monto mínimo de compra para acceder a un beneficio (envío gratis, descuento, regalo).</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* Modal post-exportación CTA WhatsApp */}
+    <div id="postExportModal" class="fixed inset-0 z-50 hidden" aria-modal="true" aria-labelledby="postExportTitle">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-md" id="postExportOverlay"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div class="bg-dark-800 rounded-2xl p-8 max-w-md w-full border border-dark-600 shadow-2xl">
+          <div class="flex justify-center mb-4">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-green-500/20 text-green-400" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
+              </svg>
+            </span>
+          </div>
+          <h3 id="postExportTitle" class="text-xl font-bold text-center mb-2">Estamos preparando tu archivo</h3>
+          <p class="text-gray-300 text-center text-sm leading-relaxed mb-1">Mientras se descarga, ¿querés que te ayudemos a analizar tu ticket promedio?</p>
+          <p class="text-gray-400 text-center text-sm leading-relaxed mb-6">Te podemos abrir WhatsApp con un mensaje listo para enviar.</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a id="whatsappExportBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 px-5 py-3 bg-green-600 hover:bg-green-500 rounded-xl font-medium transition-colors shrink-0">Abrir WhatsApp</a>
+            <button type="button" id="postExportClose" class="px-5 py-3 text-gray-300 border border-dark-500 hover:bg-dark-700 rounded-xl transition-colors">Ahora no</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* Modal lista vacía */}
+    <div id="emptyAmountsModal" class="fixed inset-0 z-50 hidden" aria-modal="true" aria-labelledby="emptyAmountsTitle">
+      <div class="absolute inset-0 bg-black/70 backdrop-blur-md" id="emptyAmountsOverlay"></div>
+      <div class="absolute inset-0 flex items-center justify-center p-4">
+        <div class="bg-dark-800 rounded-2xl p-8 max-w-md w-full border border-dark-600 shadow-2xl">
+          <div class="flex justify-center mb-4">
+            <span class="flex h-12 w-12 items-center justify-center rounded-full bg-primary/20 text-primary" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-6 h-6">
+                <path d="M3 4a1 1 0 011-1h12a1 1 0 011 1v2a1 1 0 01-1 1H4a1 1 0 01-1-1V4zM3 10a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1v-6zM14 9a1 1 0 00-1 1v6a1 1 0 001 1h2a1 1 0 001-1v-6a1 1 0 00-1-1h-2z" />
+              </svg>
+            </span>
+          </div>
+          <h3 id="emptyAmountsTitle" class="text-xl font-bold text-center mb-2">Todavía no cargaste montos</h3>
+          <p class="text-gray-300 text-center text-sm leading-relaxed mb-1">Agregá ventas una por una o importá un CSV para poder exportar tu lista.</p>
+          <p class="text-gray-400 text-center text-sm leading-relaxed mb-6">Si querés ayuda para empezar, te abrimos WhatsApp con un mensaje listo.</p>
+          <div class="flex flex-col sm:flex-row gap-3 justify-center">
+            <a id="whatsappEmptyBtn" href="#" target="_blank" rel="noopener noreferrer" class="inline-flex justify-center items-center gap-2 px-5 py-3 bg-green-600 hover:bg-green-500 rounded-xl font-medium transition-colors shrink-0">Abrir WhatsApp</a>
+            <button type="button" id="emptyAmountsClose" class="px-5 py-3 text-gray-300 border border-dark-500 hover:bg-dark-700 rounded-xl transition-colors">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {/* CTA final */}
+    <section class="py-20 bg-dark-800">
+      <div class="container mx-auto px-4">
+        <div class="max-w-2xl mx-auto text-center">
+          <h2 class="text-2xl font-bold mb-4">¿Querés automatizar el cálculo de tu ticket promedio?</h2>
+          <p class="text-gray-300 mb-6">Con ZinkERP tu ticket promedio se calcula solo, a partir de tus ventas reales, sin cargar nada a mano.</p>
+          <a href="/precios" class="inline-flex items-center gap-2 px-6 py-3 bg-blue-primary hover:bg-blue-primary/90 rounded-lg font-medium transition-colors">Ver planes</a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <Footer />
+
+  <script define:vars={{ WHATSAPP_CTA_NUMBER }}>
+    const STORAGE_KEY = 'ticket-promedio-v1';
+    let mode = 'lista'; // 'lista' | 'rapido'
+
+    function loadData() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return { amounts: [], periods: [] };
+        const data = JSON.parse(raw);
+        if (!data || typeof data !== 'object') return { amounts: [], periods: [] };
+        if (!Array.isArray(data.amounts)) data.amounts = [];
+        if (!Array.isArray(data.periods)) data.periods = [];
+        data.amounts = data.amounts.filter((n) => typeof n === 'number' && Number.isFinite(n) && n >= 0);
+        return data;
+      } catch {
+        return { amounts: [], periods: [] };
+      }
+    }
+
+    function saveData(data) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    }
+
+    // Parsea montos en formato es-AR: "$1.500", "1.234,50", "1500", etc.
+    function parseAmountAR(raw) {
+      if (raw == null) return NaN;
+      let s = String(raw).trim().replace(/[$\s]/g, '');
+      if (s === '') return NaN;
+      const hasDot = s.includes('.');
+      const hasComma = s.includes(',');
+      if (hasDot && hasComma) {
+        s = s.replace(/\./g, '').replace(',', '.');
+      } else if (hasComma) {
+        s = s.replace(',', '.');
+      } else if (hasDot) {
+        const parts = s.split('.');
+        const looksLikeThousands = parts.length > 1 && parts.slice(1).every((p) => p.length === 3);
+        if (looksLikeThousands) s = parts.join('');
+      }
+      const n = parseFloat(s);
+      if (!Number.isFinite(n) || n < 0) return NaN;
+      return n;
+    }
+
+    function formatMoney(n) {
+      return '$' + new Intl.NumberFormat('es-AR', { maximumFractionDigits: 0 }).format(n);
+    }
+
+    function formatPercent(n) {
+      const formatted = new Intl.NumberFormat('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(n);
+      return (n >= 0 ? '+' : '') + formatted + '%';
+    }
+
+    function escapeHtml(s) {
+      if (s == null) return '';
+      const div = document.createElement('div');
+      div.textContent = String(s);
+      return div.innerHTML;
+    }
+
+    // Deriva total/cantidad según el modo activo
+    function getCurrentTotals(data) {
+      if (mode === 'lista') {
+        const total = data.amounts.reduce((sum, n) => sum + n, 0);
+        return { total, count: data.amounts.length, hasResult: true };
+      }
+      const totalRaw = (document.getElementById('quickTotal').value || '').trim();
+      const countRaw = (document.getElementById('quickCount').value || '').trim();
+      const t = parseAmountAR(totalRaw);
+      const c = parseInt(countRaw, 10);
+      const totalValid = totalRaw !== '' && Number.isFinite(t);
+      const countValid = countRaw !== '' && Number.isInteger(c) && c > 0;
+      return {
+        total: totalValid ? t : 0,
+        count: countValid ? c : 0,
+        hasResult: totalValid && countValid
+      };
+    }
+
+    function renderAmountsList(amounts) {
+      const list = document.getElementById('amountsList');
+      if (amounts.length === 0) {
+        list.innerHTML = '<li class="py-6 text-center text-gray-500 text-sm">No hay montos cargados. Agregá uno o importá un CSV.</li>';
+        return;
+      }
+      list.innerHTML = amounts.map((n, i) => `
+        <li class="flex items-center justify-between py-2 px-3">
+          <span class="text-gray-300">${formatMoney(n)}</span>
+          <button type="button" class="delete-amount p-1 text-gray-400 hover:text-red-400 rounded" data-index="${i}" aria-label="Eliminar monto ${formatMoney(n)}">✕</button>
+        </li>
+      `).join('');
+      list.querySelectorAll('.delete-amount').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const i = parseInt(btn.dataset.index, 10);
+          const data = loadData();
+          data.amounts.splice(i, 1);
+          saveData(data);
+          render();
+        });
+      });
+    }
+
+    function renderResults(total, count, average, hasResult) {
+      const resTotal = document.getElementById('resTotal');
+      const resCount = document.getElementById('resCount');
+      const resAverage = document.getElementById('resAverage');
+      if (hasResult) {
+        resTotal.textContent = formatMoney(total);
+        resCount.textContent = String(count);
+        resAverage.textContent = formatMoney(average);
+      } else {
+        resTotal.textContent = '—';
+        resCount.textContent = '—';
+        resAverage.textContent = '—';
+      }
+    }
+
+    function renderComparison(periods) {
+      const block = document.getElementById('comparisonBlock');
+      if (periods.length < 2) {
+        block.classList.add('hidden');
+        block.innerHTML = '';
+        return;
+      }
+      const [prev, cur] = periods;
+      block.classList.remove('hidden');
+      if (prev.average === 0) {
+        block.innerHTML = `<p class="text-gray-300">Ticket promedio de <strong>${escapeHtml(cur.name)}</strong>: <strong>${formatMoney(cur.average)}</strong> — <span class="text-gray-400">sin base de comparación</span></p>`;
+        return;
+      }
+      const deltaPct = ((cur.average - prev.average) / prev.average) * 100;
+      const colorClass = deltaPct > 0 ? 'text-emerald-400' : deltaPct < 0 ? 'text-red-400' : 'text-gray-400';
+      block.innerHTML = `<p class="text-gray-300">Ticket promedio de <strong>${escapeHtml(cur.name)}</strong>: <strong>${formatMoney(cur.average)}</strong> — <span class="${colorClass} font-medium">${formatPercent(deltaPct)} vs ${escapeHtml(prev.name)}</span></p>`;
+    }
+
+    function render() {
+      const data = loadData();
+      const { total, count, hasResult } = getCurrentTotals(data);
+      const average = count > 0 ? total / count : 0;
+      renderAmountsList(data.amounts);
+      renderResults(total, count, average, hasResult);
+      renderComparison(data.periods);
+      document.getElementById('savePeriodBtn').disabled = count === 0;
+    }
+
+    // Tabs
+    const tabs = [document.getElementById('tabLista'), document.getElementById('tabRapido')];
+    function activateTab(tab) {
+      tabs.forEach((t) => {
+        const active = t === tab;
+        t.setAttribute('aria-selected', String(active));
+        t.tabIndex = active ? 0 : -1;
+        t.classList.toggle('bg-primary/20', active);
+        t.classList.toggle('text-primary', active);
+        t.classList.toggle('border-primary/40', active);
+        t.classList.toggle('border-dark-600', !active);
+        t.classList.toggle('text-gray-300', !active);
+      });
+      document.getElementById('panelLista').classList.toggle('hidden', tab.id !== 'tabLista');
+      document.getElementById('panelRapido').classList.toggle('hidden', tab.id !== 'tabRapido');
+      mode = tab.id === 'tabLista' ? 'lista' : 'rapido';
+      render();
+    }
+    tabs.forEach((tab, i) => {
+      tab.addEventListener('click', () => activateTab(tab));
+      tab.addEventListener('keydown', (e) => {
+        if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+        e.preventDefault();
+        const dir = e.key === 'ArrowRight' ? 1 : -1;
+        const next = tabs[(i + dir + tabs.length) % tabs.length];
+        next.focus();
+        activateTab(next);
+      });
+    });
+
+    // Lista: agregar monto
+    function addAmount() {
+      const input = document.getElementById('amountInput');
+      const n = parseAmountAR(input.value);
+      if (!Number.isFinite(n)) {
+        input.focus();
+        return;
+      }
+      const data = loadData();
+      data.amounts.push(n);
+      saveData(data);
+      input.value = '';
+      render();
+      input.focus();
+    }
+    document.getElementById('addAmountBtn').addEventListener('click', addAmount);
+    document.getElementById('amountInput').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        addAmount();
+      }
+    });
+
+    // Cálculo rápido: recalcular en vivo
+    document.getElementById('quickTotal').addEventListener('input', render);
+    document.getElementById('quickCount').addEventListener('input', render);
+
+    // CSV import
+    function parseCsvAmounts(text) {
+      text = text.replace(/^\uFEFF/, '');
+      const lines = text.split(/\r?\n/).map((l) => l.trim()).filter(Boolean);
+      if (lines.length === 0) return { amounts: [], skipped: 0 };
+      const sep = lines[0].includes(';') ? ';' : ',';
+      const amounts = [];
+      let skipped = 0;
+      lines.forEach((line, i) => {
+        const rawCell = line.split(sep)[0].trim();
+        const n = parseAmountAR(rawCell);
+        if (Number.isFinite(n)) {
+          amounts.push(n);
+        } else if (i > 0) {
+          skipped++;
+        }
+        // i === 0 con valor no numérico se interpreta como encabezado, no se cuenta
+      });
+      return { amounts, skipped };
+    }
+
+    document.getElementById('importCsvBtn').addEventListener('click', () => document.getElementById('importCsvInput').click());
+    document.getElementById('importCsvInput').addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      e.target.value = '';
+      const msgEl = document.getElementById('importCsvMessage');
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onerror = () => {
+        msgEl.textContent = 'No se pudo leer el archivo.';
+        msgEl.classList.remove('hidden');
+      };
+      reader.onload = () => {
+        const { amounts: parsed, skipped } = parseCsvAmounts(String(reader.result));
+        const data = loadData();
+        data.amounts.push(...parsed);
+        saveData(data);
+        render();
+        msgEl.textContent = `Se importaron ${parsed.length} monto${parsed.length === 1 ? '' : 's'}. Se omitieron ${skipped} fila${skipped === 1 ? '' : 's'} sin monto válido.`;
+        msgEl.classList.remove('hidden');
+      };
+      reader.readAsText(file, 'UTF-8');
+    });
+
+    // Modales WhatsApp
+    function buildWhatsAppUrl(text) {
+      const encoded = encodeURIComponent(text);
+      const base = (typeof WHATSAPP_CTA_NUMBER === 'string' && WHATSAPP_CTA_NUMBER.trim()) ? `https://wa.me/${WHATSAPP_CTA_NUMBER.trim()}?text=` : 'https://wa.me/?text=';
+      return base + encoded;
+    }
+
+    function showPostExportModal(count) {
+      const message = `Hola! Exporté el CSV de mi ticket promedio con la herramienta de ZinkERP (${count} montos cargados). Quería contarte cómo me fue:`;
+      document.getElementById('whatsappExportBtn').href = buildWhatsAppUrl(message);
+      document.getElementById('postExportModal').classList.remove('hidden');
+    }
+
+    function closePostExportModal() {
+      document.getElementById('postExportModal').classList.add('hidden');
+    }
+
+    function showEmptyAmountsModal() {
+      const message = 'Hola! Estoy usando la herramienta Ticket promedio de ZinkERP y me gustaría ayuda para empezar a cargar mis ventas.';
+      document.getElementById('whatsappEmptyBtn').href = buildWhatsAppUrl(message);
+      document.getElementById('emptyAmountsModal').classList.remove('hidden');
+    }
+
+    document.getElementById('postExportOverlay').addEventListener('click', closePostExportModal);
+    document.getElementById('postExportClose').addEventListener('click', closePostExportModal);
+    document.getElementById('emptyAmountsOverlay').addEventListener('click', () => document.getElementById('emptyAmountsModal').classList.add('hidden'));
+    document.getElementById('emptyAmountsClose').addEventListener('click', () => document.getElementById('emptyAmountsModal').classList.add('hidden'));
+
+    [document.getElementById('whatsappExportBtn'), document.getElementById('whatsappEmptyBtn')].forEach((btn) => {
+      if (!btn) return;
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (btn.href && btn.href !== '#') window.open(btn.href, '_blank', 'noopener,noreferrer');
+      });
+    });
+
+    // CSV export
+    document.getElementById('exportBtn').addEventListener('click', () => {
+      const data = loadData();
+      if (data.amounts.length === 0) {
+        showEmptyAmountsModal();
+        return;
+      }
+      const rows = data.amounts.map((n) => n.toFixed(2));
+      const BOM = '\uFEFF';
+      const csvContent = BOM + ['monto', ...rows].join('\r\n');
+      const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8' });
+      const today = new Date().toISOString().slice(0, 10);
+      const filename = `ZinkERP-ticket-promedio-${today}.csv`;
+
+      showPostExportModal(data.amounts.length);
+
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      a.click();
+      URL.revokeObjectURL(url);
+    });
+
+    // Guardar período (máx. 2, FIFO)
+    document.getElementById('savePeriodBtn').addEventListener('click', () => {
+      const nameInput = document.getElementById('periodName');
+      const name = nameInput.value.trim();
+      if (!name) {
+        nameInput.focus();
+        return;
+      }
+      const data = loadData();
+      const { total, count } = getCurrentTotals(data);
+      if (count === 0) return;
+      const average = total / count;
+      data.periods.push({ name, average, total, count, savedAt: new Date().toISOString() });
+      if (data.periods.length > 2) data.periods = data.periods.slice(-2);
+      saveData(data);
+      nameInput.value = '';
+      render();
+    });
+
+    // Limpiar
+    document.getElementById('clearDataBtn').addEventListener('click', () => {
+      if (!confirm('¿Borrar todos los montos y períodos guardados? Esta acción no se puede deshacer.')) return;
+      saveData({ amounts: [], periods: [] });
+      document.getElementById('quickTotal').value = '';
+      document.getElementById('quickCount').value = '';
+      document.getElementById('periodName').value = '';
+      render();
+    });
+
+    render();
+  </script>
+</Layout>
