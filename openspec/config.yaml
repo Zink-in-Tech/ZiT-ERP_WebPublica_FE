@@ -1,0 +1,53 @@
+schema: spec-driven
+
+context: |
+  Astro 5 static marketing site (SSG only, no SSR adapter) for ZinkERP.
+  Tailwind CSS 3 for styling; React 19 only for PortableText blog rendering.
+  Sanity CMS powers the blog only; everything else is TS data files in src/data/.
+  Deployed on Netlify (npm run build, Node 18). Content is Spanish (es-AR).
+  No test runner, linter, or formatter configured at the project level.
+  CLAUDE.md lives in the parent checkout, not yet committed to this worktree.
+
+strict_tdd: true
+
+testing:
+  test_command: ""
+  build_command: "npm run build"
+  typecheck_command: "npx astro check"
+  coverage_threshold: 0
+  notes: |
+    No test runner installed (package.json only has astro dev/build/preview).
+    Strict TDD is enabled as a global policy, but cannot be enforced today
+    without first installing a runner — recommend Vitest (+ @testing-library
+    for the one React component, PortableTextComponents.tsx) plus Playwright
+    if E2E coverage is later required. Do not install until explicitly asked.
+
+rules:
+  proposal:
+    - Note whether the change touches src/data/*.ts (data-driven pages), Sanity
+      blog integration, or client-side scripts under src/scripts/
+    - Flag any change requiring a new test runner dependency as a prerequisite step
+  specs:
+    - Use Given/When/Then for scenarios
+    - Use RFC 2119 keywords (MUST, SHALL, SHOULD, MAY)
+    - Content-facing specs should note the required Spanish (es-AR) copy
+  design:
+    - Prefer .astro components; justify any new React island explicitly
+    - Document Netlify build/redirect impacts for routing changes
+  tasks:
+    - Group by phase, use hierarchical numbering
+    - Keep tasks completable in one session
+    - If TDD is required and no runner exists yet, add an explicit
+      "install test runner" task before the first RED task
+  apply:
+    guidelines:
+      - Follow existing code patterns (.astro components, TS data files)
+      - Keep content in Spanish (es-AR)
+    tdd: true
+    test_command: ""
+  verify:
+    test_command: ""
+    build_command: "npm run build"
+    coverage_threshold: 0
+  archive:
+    - Warn before merging destructive deltas

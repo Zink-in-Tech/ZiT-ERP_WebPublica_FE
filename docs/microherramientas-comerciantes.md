@@ -2,9 +2,7 @@
 
 Documento de referencia para ir construyendo las herramientas poco a poco. Todas son solo front-end (sin backend), con valor e impacto para comerciantes.
 
-**Ya en producción:** Caja Diaria, Precios Inteligentes, Generador de códigos de barras, Etiquetas de góndola (PDF).
-
-**Siguiente a implementar:** Ticket promedio (`ticket-promedio`). La tarjeta en "Próximamente" del listado de recursos ya apunta a esta herramienta.
+**Ya en producción:** Caja Diaria, Precios Inteligentes, Generador de códigos de barras, Etiquetas de góndola (PDF), Ticket promedio.
 
 ---
 
@@ -48,7 +46,7 @@ Todas se resuelven con fórmulas o una lista en el cliente; ninguna requiere bac
 - **Valor**: Saber cuánto sale en promedio cada venta. Metas ("subir el ticket") y comparar períodos.
 - **Flujo**: Opción A: cargar lista de montos de ventas (manual o CSV) → total, cantidad, ticket promedio. Opción B: solo dos números (total facturado, cantidad de ventas) → ticket promedio. Breve texto "cómo mejorar tu ticket" (upsell, combos).
 - **Complejidad**: Baja. **Impacto**: Alto.
-- **Estado**: [ ] Pendiente
+- **Estado**: [x] Hecho
 
 ### 3. Impacto del upselling / cross-selling
 
@@ -184,7 +182,7 @@ Prioridad por impacto y simplicidad:
 | Orden | Herramienta                 | Complejidad | Impacto | Estado desarrollo |
 | ----- | --------------------------- | ----------- | ------- | ----------------- |
 | 1     | Calculadora de margen       | Baja        | Alto    | Pendiente         |
-| 2     | Ticket promedio             | Baja        | Alto    | Pendiente         |
+| 2     | Ticket promedio             | Baja        | Alto    | Hecho             |
 | 3     | Upselling / cross-selling   | Baja        | Alto    | Pendiente         |
 | 4     | Rotación de stock           | Baja        | Alto    | Pendiente         |
 | 5     | Deuda promedio y morosidad  | Baja        | Alto    | Pendiente         |
@@ -232,7 +230,7 @@ Resumen para ir tachando según avances. Valores posibles: **Pendiente** | **En 
 | #   | Slug                   | Estado desarrollo |
 | --- | ---------------------- | ----------------- |
 | 1   | calculadora-margen     | Pendiente         |
-| 2   | ticket-promedio        | Pendiente         |
+| 2   | ticket-promedio        | Hecho              |
 | 3   | upselling-crosselling  | Pendiente         |
 | 4   | rotacion-stock         | Pendiente         |
 | 5   | deuda-morosidad        | Pendiente         |

@@ -1,0 +1,45 @@
+schema: spec-driven
+change: ticket-promedio
+created: 2026-08-06
+branch: ch0rch/ticket-promedio
+
+session_preflight:
+  execution_mode: interactive
+  artifact_store: openspec
+  delivery_strategy: single-pr
+  review_budget_lines: 800
+
+phases:
+  explore:
+    status: done
+    artifact: exploration.md
+    completed: 2026-08-06
+    note: Investigation by sdd-explore agent; artifact persisted by orchestrator (agent session lacked write tool).
+  proposal:
+    status: done
+    artifact: proposal.md
+    completed: 2026-08-06
+    note: Product decisions from interactive round are binding (see engram sdd/ticket-promedio/product-decisions). Five owner-review assumptions pending in proposal.md section "Proposal question round".
+  spec:
+    status: done
+    artifact: specs/ticket-promedio-tool/spec.md
+    completed: 2026-08-06
+    note: One spec-level default pending owner confirmation — zero-baseline comparison shows absolute values only, no percentage.
+  design:
+    status: done
+    artifact: design.md
+    completed: 2026-08-06
+    note: Intentional divergence from codebase currency formatting (decimal Intl + literal $ prefix) to match approved copy $1.500 / +10,0%.
+  tasks:
+    status: done
+    artifact: tasks.md
+    completed: 2026-08-06
+    note: "Forecast: ~800 changed lines (new page ~750). 400-budget risk High, 800-budget risk Medium. Decision needed before apply: size:exception under single-pr."
+  apply:
+    status: pending
+  verify:
+    status: pending
+  archive:
+    status: pending
+
+next_recommended: sdd-apply (blocked on size:exception decision)
