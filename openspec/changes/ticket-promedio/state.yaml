@@ -36,10 +36,15 @@ phases:
     completed: 2026-08-06
     note: "Forecast: ~800 changed lines (new page ~750). 400-budget risk High, 800-budget risk Medium. Decision needed before apply: size:exception under single-pr."
   apply:
-    status: pending
+    status: done
+    completed: 2026-08-06
+    commits: [ff935b8, "9120598", a3abf41]
+    changed_lines_authored: 638
+    note: "18/19 tasks done; task 8.3 (manual browser matrix) deferred to verify. astro check: 0 new errors (5 pre-existing in Header.astro). Attempt settled passed in native ledger."
   verify:
-    status: pending
+    status: skipped
+    note: "Owner decision 2026-08-06: skip sdd-verify; deliver via PR. Manual browser matrix (task 8.3) remains owner-executed post-PR."
   archive:
     status: pending
 
-next_recommended: sdd-apply (blocked on size:exception decision)
+next_recommended: deliver PR, then sdd-archive
