@@ -57,17 +57,29 @@ const availableTools = [
     title: "Ticket promedio",
     description: "Sabé cuánto sale en promedio cada venta. Cargá total facturado y cantidad de ventas, o una lista de montos (manual o CSV), y compará tu período actual contra el anterior.",
     features: [
-      "Total facturado y cantidad de ventas → ticket promedio",
+      "Con total y cantidad de ventas, o con una lista de montos",
       "Lista de montos manual o importar CSV",
       "Compará con tu período anterior",
-      "Consejos para mejorar el ticket (upsell, combos)"
+      "Consejos para mejorar el ticket (venta sugerida, combos)"
     ],
     link: "/recursos/ticket-promedio",
     icon: "🎫"
   }
 ];
 
-const upcomingTools: { title: string; description: string; features: string[]; icon: string }[] = [];
+const upcomingTools: { title: string; description: string; features: string[]; icon: string }[] = [
+  {
+    title: "Impacto de la venta sugerida",
+    description: "Calculá cuánto sube tu ticket si más clientes llevan un producto extra (postre, accesorio, garantía). Sin registro, 100% online.",
+    features: [
+      "Ticket actual, % de ventas y precio del ítem extra",
+      "Nuevo ticket promedio e incremento %",
+      "Simulá “si subís a X%…”",
+      "Ideal para combos y producto relacionado"
+    ],
+    icon: "📈"
+  }
+];
 ---
 
 <Layout title="Recursos y Herramientas Gratuitas | ZinkERP">
