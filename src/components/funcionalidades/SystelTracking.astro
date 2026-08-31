@@ -1,0 +1,107 @@
+<script>
+  type CtaName = 'demo' | 'whatsapp' | 'contacto';
+
+  declare global {
+    interface Window {
+      dataLayer?: unknown[];
+      gtag?: (...args: unknown[]) => void;
+    }
+  }
+
+  const track = (eventName: string, params: Record<string, string>) => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, params);
+      return;
+    }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: eventName, ...params });
+  };
+
+  const trackCta = (cta: CtaName, placement: string) => {
+    const eventName =
+      cta === 'demo' ? 'cta_demo' : cta === 'whatsapp' ? 'cta_whatsapp' : 'cta_contacto';
+    track(eventName, {
+      vertical: 'balanza-systel',
+      placement,
+      cta_type: cta,
+    });
+  };
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+
+    const ctaLink = target.closest<HTMLAnchorElement>('[data-track-cta]');
+    if (ctaLink) {
+      const cta = ctaLink.dataset.trackCta as CtaName | undefined;
+      const placement = ctaLink.dataset.trackPlacement ?? 'unknown';
+      if (cta) trackCta(cta, placement);
+    }
+
+    const docsLink = target.closest<HTMLAnchorElement>('[data-track-docs]');
+    if (docsLink) {
+      track('docs_click', {
+        vertical: 'balanza-systel',
+        docs_label: docsLink.dataset.trackDocs ?? docsLink.textContent?.trim() ?? 'docs',
+        docs_href: docsLink.href,
+      });
+    }
+  });
+
+  const seenSections = new Set<string>();
+  const scrollTargets = document.querySelectorAll<HTMLElement>('[data-track-scroll]');
+  if (scrollTargets.length > 0 && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const section = entry.target.getAttribute('data-track-scroll');
+          if (!section || seenSections.has(section)) return;
+          seenSections.add(section);
+          track('scroll_section', {
+            vertical: 'balanza-systel',
+            section,
+          });
+        });
+      },
+      { threshold: 0.4 }
+    );
+    scrollTargets.forEach((target) => observer.observe(target));
+  }
+
+  const form = document.getElementById('systel-compat-form') as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const modelo = String(data.get('modelo') ?? '').trim() || 'No indicado';
+      const ticket = String(data.get('ticket') ?? '').trim();
+      const codigo = String(data.get('codigo') ?? '').trim() || 'No indicado';
+      const rubro = String(data.get('rubro') ?? '').trim();
+      const cajas = String(data.get('cajas') ?? '').trim();
+      const sucursales = String(data.get('sucursales') ?? '').trim();
+      const intro = form.dataset.whatsappIntro ?? 'Hola, tengo una balanza Systel con impresión de ticket y quiero consultar si puedo usarla con ZinkERP.';
+      const message = [
+        intro,
+        `Modelo: ${modelo}.`,
+        `Tipo de ticket: ${ticket}.`,
+        `Ejemplo de código: ${codigo}.`,
+        `Rubro: ${rubro}.`,
+        `Cajas: ${cajas}.`,
+        `Sucursales: ${sucursales}.`,
+      ].join(' ');
+
+      track('form_submit', {
+        vertical: 'balanza-systel',
+        form_name: 'systel_compatibilidad',
+        cajas,
+        sucursales,
+      });
+      trackCta('contacto', 'form');
+
+      const encoded = encodeURIComponent(message);
+      const base = form.dataset.whatsappBase ?? 'https://wa.me/?text=';
+      window.open(`${base}${encoded}`, '_blank', 'noopener,noreferrer');
+    });
+  }
+</script>

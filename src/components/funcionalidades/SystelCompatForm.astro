@@ -1,0 +1,124 @@
+---
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+import { systelLanding } from '../../data/systelLanding';
+
+const ticketTypes = [
+  { value: 'Ticket con código de 13 dígitos', label: 'Ticket con código de 13 dígitos' },
+  { value: 'Etiqueta adhesiva', label: 'Etiqueta adhesiva' },
+  { value: 'No estoy seguro', label: 'No estoy seguro' },
+];
+
+const cajaOptions = [
+  { value: '1', label: '1 caja' },
+  { value: '2-3', label: '2 a 3 cajas' },
+  { value: '4+', label: '4 o más cajas' },
+];
+
+const sucursalOptions = [
+  { value: '1', label: '1 sucursal' },
+  { value: '2-4', label: '2 a 4 sucursales' },
+  { value: '5+', label: '5 o más sucursales' },
+];
+---
+
+<form
+  id="systel-compat-form"
+  class="grid gap-4 text-left"
+  data-track-vertical={systelLanding.slug}
+  data-whatsapp-base={buildWhatsAppUrl('')}
+  data-whatsapp-intro={systelLanding.whatsappMessage}
+>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <label class="block">
+      <span class="mb-2 block text-sm text-gray-300">Modelo de balanza</span>
+      <input
+        type="text"
+        name="modelo"
+        placeholder="Ej. Systel (si lo sabés)"
+        autocomplete="off"
+        class="w-full min-h-12 rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      />
+    </label>
+    <label class="block">
+      <span class="mb-2 block text-sm text-gray-300">Tipo de ticket</span>
+      <select
+        name="ticket"
+        required
+        class="w-full min-h-12 rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      >
+        <option value="" disabled selected>Elegí una opción</option>
+        {ticketTypes.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </label>
+    <label class="block sm:col-span-2">
+      <span class="mb-2 block text-sm text-gray-300">Ejemplo de código (si lo tenés)</span>
+      <input
+        type="text"
+        name="codigo"
+        inputmode="numeric"
+        autocomplete="off"
+        placeholder="Los 13 dígitos del ticket, si podés copiarlos"
+        class="w-full min-h-12 rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      />
+    </label>
+    <label class="block">
+      <span class="mb-2 block text-sm text-gray-300">Rubro</span>
+      <input
+        type="text"
+        name="rubro"
+        required
+        placeholder="Dietética, almacén, autoservicio…"
+        autocomplete="organization-title"
+        class="w-full min-h-12 rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      />
+    </label>
+    <label class="block">
+      <span class="mb-2 block text-sm text-gray-300">Cantidad de cajas</span>
+      <select
+        name="cajas"
+        required
+        class="w-full min-h-12 rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      >
+        <option value="" disabled selected>Elegí una opción</option>
+        {cajaOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </label>
+    <label class="block sm:col-span-2">
+      <span class="mb-2 block text-sm text-gray-300">Cantidad de sucursales</span>
+      <select
+        name="sucursales"
+        required
+        class="w-full min-h-12 rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      >
+        <option value="" disabled selected>Elegí una opción</option>
+        {sucursalOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </label>
+  </div>
+  <div class="flex flex-col sm:flex-row gap-4 pt-2">
+    <button
+      type="submit"
+      class="inline-flex min-h-12 justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-primary"
+    >
+      Enviar consulta por WhatsApp
+    </button>
+    <a
+      href={systelLanding.demoHref}
+      class="inline-flex min-h-12 justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors"
+      data-track-cta="demo"
+      data-track-vertical={systelLanding.slug}
+      data-track-placement="form"
+    >
+      Solicitar una demo
+    </a>
+  </div>
+  <p class="text-sm text-gray-400">
+    El envío abre WhatsApp con tus datos. No pedimos información técnica innecesaria ni inventamos un CRM intermedio.
+  </p>
+</form>

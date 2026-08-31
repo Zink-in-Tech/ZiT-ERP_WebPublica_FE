@@ -1,0 +1,93 @@
+---
+type CtaName = 'demo' | 'whatsapp' | 'contacto';
+
+interface Props {
+  primaryHref: string;
+  secondaryHref: string;
+  whatsappHref?: string;
+  extraHref?: string;
+  placement: 'hero' | 'mid' | 'final' | 'sticky';
+  primaryLabel?: string;
+  secondaryLabel?: string;
+  whatsappLabel?: string;
+  extraLabel?: string;
+  primaryTrack?: CtaName;
+  secondaryTrack?: CtaName;
+  extraTrack?: CtaName | undefined;
+  extraDocs?: string;
+  secondaryExternal?: boolean;
+  extraExternal?: boolean;
+  align?: 'start' | 'center';
+  showWhatsapp?: boolean;
+}
+
+const {
+  primaryHref,
+  secondaryHref,
+  whatsappHref,
+  extraHref,
+  placement,
+  primaryLabel = 'Quiero ver cómo funciona',
+  secondaryLabel = 'Consultar compatibilidad',
+  whatsappLabel = 'WhatsApp',
+  extraLabel,
+  primaryTrack = 'demo',
+  secondaryTrack = 'contacto',
+  extraTrack,
+  extraDocs,
+  secondaryExternal = false,
+  extraExternal = false,
+  align = 'start',
+  showWhatsapp = false,
+} = Astro.props;
+---
+
+<div class:list={['flex flex-col sm:flex-row gap-4 flex-wrap', align === 'center' && 'justify-center']}>
+  <a
+    href={primaryHref}
+    class="inline-flex min-h-12 justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-primary"
+    data-track-cta={primaryTrack}
+    data-track-vertical="balanza-systel"
+    data-track-placement={placement}
+  >
+    {primaryLabel}
+  </a>
+  <a
+    href={secondaryHref}
+    class="inline-flex min-h-12 justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+    data-track-cta={secondaryTrack}
+    data-track-vertical="balanza-systel"
+    data-track-placement={placement}
+    target={secondaryExternal ? '_blank' : undefined}
+    rel={secondaryExternal ? 'noopener noreferrer' : undefined}
+  >
+    {secondaryLabel}
+  </a>
+  {extraHref && extraLabel && (
+    <a
+      href={extraHref}
+      class="inline-flex min-h-12 justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+      data-track-cta={extraTrack}
+      data-track-vertical="balanza-systel"
+      data-track-placement={placement}
+      data-track-docs={extraDocs ?? extraLabel}
+      target={extraExternal ? '_blank' : undefined}
+      rel={extraExternal ? 'noopener noreferrer' : undefined}
+    >
+      {extraLabel}
+    </a>
+  )}
+  {showWhatsapp && whatsappHref && (
+    <a
+      href={whatsappHref}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="inline-flex min-h-12 justify-center items-center px-8 py-4 border border-emerald-500/40 text-emerald-200 hover:border-emerald-400 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
+      data-track-cta="whatsapp"
+      data-track-vertical="balanza-systel"
+      data-track-placement={placement}
+    >
+      {whatsappLabel}
+    </a>
+  )}
+</div>
