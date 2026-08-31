@@ -1,0 +1,44 @@
+---
+interface Props {
+  demoHref: string;
+  whatsappHref: string;
+  vertical: string;
+  placement: 'hero' | 'mid' | 'final' | 'sticky';
+  primaryLabel?: string;
+  secondaryLabel?: string;
+  align?: 'start' | 'center';
+}
+
+const {
+  demoHref,
+  whatsappHref,
+  vertical,
+  placement,
+  primaryLabel = 'Quiero una demo',
+  secondaryLabel = 'Hablar por WhatsApp',
+  align = 'start',
+} = Astro.props;
+---
+
+<div class:list={['flex flex-col sm:flex-row gap-4', align === 'center' && 'justify-center']}>
+  <a
+    href={demoHref}
+    class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-primary"
+    data-track-cta="demo"
+    data-track-vertical={vertical}
+    data-track-placement={placement}
+  >
+    {primaryLabel}
+  </a>
+  <a
+    href={whatsappHref}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+    data-track-cta="whatsapp"
+    data-track-vertical={vertical}
+    data-track-placement={placement}
+  >
+    {secondaryLabel}
+  </a>
+</div>

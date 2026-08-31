@@ -2,72 +2,79 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
+import UseCaseCtas from '../../components/use-cases/UseCaseCtas.astro';
+import UseCaseLeadForm from '../../components/use-cases/UseCaseLeadForm.astro';
+import UseCaseTracking from '../../components/use-cases/UseCaseTracking.astro';
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
 
-const pageTitle = 'Casos de uso | ZinkERP';
-const pageDescription = 'Encontrá rubros y patrones operativos donde ZinkERP ayuda a ordenar ventas, stock, POS, facturación, sucursales y ecommerce.';
+const pageTitle = 'Casos de uso de ZinkERP | Ferreterías, dietéticas, papeleras y más';
+const pageDescription =
+  'Landings por rubro para comercios argentinos de 2 a 4 sedes: ferreterías, dietéticas, artículos de limpieza, papeleras e insumos de repostería. Pedí una demo.';
 
-const whatsappUrl = 'https://wa.link/sgzvr4';
-const demoUrl = 'https://cal.com/zinkintech';
+const whatsappUrl = buildWhatsAppUrl(
+  'Hola, quiero ver el flujo de ZinkERP para mi comercio: ventas, stock y compras.',
+);
+const demoUrl = '/agendar-demo';
 
 const priorityCases = [
   {
     name: 'Ferreterías',
-    kicker: 'Mostrador con ritmo',
-    description: 'Stock amplio, ventas rápidas y precios que cambian.',
-    highlights: ['Venta de mostrador', 'Catálogo amplio', 'Stock crítico'],
+    kicker: 'Cotización → venta → cuenta corriente',
+    description: 'Mostrador, presupuestos a obra, stock amplio y saldos de clientes en un solo circuito.',
+    highlights: ['Presupuesto que se convierte', 'Stock del mostrador', 'Cuenta corriente'],
     accent: 'from-violet-500 to-purple-600',
     iconLabel: 'F',
     href: '/casos-de-uso/ferreterias',
-    cta: 'Ver caso',
+    cta: 'Ver flujo de ferretería',
   },
   {
     name: 'Dietéticas',
-    kicker: 'Disponibilidad bajo control',
-    description: 'Muchos productos, venta diaria y necesidad de controlar disponibilidad.',
-    highlights: ['Venta de mostrador', 'Catálogo amplio', 'Ecommerce'],
+    kicker: 'Pesable → venta → caja',
+    description: 'Venta rápida, productos pesables, factura ARCA y descuento de stock en el mismo paso.',
+    highlights: ['Productos pesables', 'Stock al instante', 'Caja por sucursal'],
     accent: 'from-blue-500 to-cyan-600',
     iconLabel: 'D',
     href: '/casos-de-uso/dieteticas',
-    cta: 'Ver caso',
+    cta: 'Ver flujo de dietética',
   },
   {
     name: 'Artículos de limpieza',
-    kicker: 'Reposición con contexto',
-    description: 'Reposición frecuente, ventas minoristas o mayoristas y control de stock.',
-    highlights: ['Stock crítico', 'B2B / mayorista', 'Multi-sucursal'],
+    kicker: 'Compra → recepción → reposición',
+    description: 'Presentaciones, listas mayorista/minorista y compras que actualizan el stock al recibir.',
+    highlights: ['Órdenes de compra', 'Listas de precios', 'Multi-sucursal'],
     accent: 'from-green-500 to-emerald-600',
     iconLabel: 'L',
     href: '/casos-de-uso/articulos-de-limpieza',
-    cta: 'Ver caso',
+    cta: 'Ver flujo de limpieza',
   },
   {
     name: 'Papeleras / librerías comerciales',
-    kicker: 'Temporadas con orden',
-    description: 'Catálogo grande, temporadas fuertes y ventas a consumidores u organizaciones.',
-    highlights: ['Catálogo amplio', 'Temporadas', 'Venta de mostrador'],
+    kicker: 'Catálogo → precios → caja',
+    description: 'Miles de SKUs, temporadas fuertes y un mostrador que no puede frenarse a buscar un precio.',
+    highlights: ['Catálogo amplio', 'Listas por canal', 'Control de caja'],
     accent: 'from-pink-500 to-rose-600',
     iconLabel: 'P',
     href: '/casos-de-uso/papeleras',
-    cta: 'Ver caso',
+    cta: 'Ver flujo de papelera',
   },
   {
     name: 'Insumos de repostería',
-    kicker: 'Picos de demanda resueltos',
-    description: 'Variedad de productos, picos de demanda y posible venta presencial + online.',
-    highlights: ['Catálogo amplio', 'Temporadas', 'Ecommerce'],
+    kicker: 'Variantes → reposición → venta',
+    description: 'Colores, medidas y picos de demanda con precios que siguen al costo.',
+    highlights: ['Variantes ordenadas', 'Reposición a tiempo', 'Mostrador + caja'],
     accent: 'from-yellow-500 to-orange-600',
     iconLabel: 'R',
     href: '/casos-de-uso/insumos-de-reposteria',
-    cta: 'Ver caso',
+    cta: 'Ver flujo de insumos',
   },
 ];
 
 const discoveryCases = [
   {
     name: 'Florerías',
-    kicker: 'Experiencia real',
-    description: 'Ventas por múltiples canales, disponibilidad cambiante y facturación a ordenar.',
-    tags: ['Temporadas', 'Ecommerce', 'Venta de mostrador'],
+    kicker: 'A validar en demo',
+    description: 'Pedidos por varios canales y facturación a ordenar, sin asumir delivery floral.',
+    tags: ['Pedidos', 'Stock', 'Facturación'],
     accent: 'from-pink-500 to-rose-600',
     iconLabel: 'F',
     href: '/casos-de-uso/florerias',
@@ -75,9 +82,9 @@ const discoveryCases = [
   },
   {
     name: 'Zinguería / metalúrgica',
-    kicker: 'Experiencia real',
-    description: 'Ventas con materiales, servicios y seguimiento comercial que conviene evaluar en demo.',
-    tags: ['Proveedores', 'B2B / mayorista', 'Facturación'],
+    kicker: 'A validar en demo',
+    description: 'Presupuestos, materiales y facturación. La manufactura se revisa aparte.',
+    tags: ['Presupuestos', 'Compras', 'Cuenta corriente'],
     accent: 'from-orange-500 to-red-600',
     iconLabel: 'Z',
     href: '/casos-de-uso/zingueria-metalurgica',
@@ -85,9 +92,9 @@ const discoveryCases = [
   },
   {
     name: 'Cultivos',
-    kicker: 'Experiencia real',
-    description: 'Operaciones con stock, ventas o administración donde primero validamos el flujo real.',
-    tags: ['Stock crítico', 'Proveedores', 'Facturación'],
+    kicker: 'A validar en demo',
+    description: 'Parte comercial y administrativa. Lo agronómico no se da por hecho.',
+    tags: ['Stock', 'Compras', 'Facturación'],
     accent: 'from-teal-500 to-green-600',
     iconLabel: 'C',
     href: '/casos-de-uso/cultivos',
@@ -98,31 +105,58 @@ const discoveryCases = [
 const patternGroups = [
   {
     title: 'Comercios con catálogo amplio',
-    text: 'Negocios donde encontrar productos, ordenar categorías y mantener precios claros impacta todos los días.',
+    text: 'Encontrar el producto, sostener el precio vigente y vender sin frenar el mostrador.',
     tags: ['Ferreterías', 'Papeleras', 'Insumos de repostería', 'Dietéticas'],
   },
   {
     title: 'Reposición frecuente',
-    text: 'Operaciones que necesitan visibilidad de stock para vender sin adivinar y comprar con más contexto.',
+    text: 'Comprar con stock real, recibir y volver a vender sin adivinar qué falta.',
     tags: ['Artículos de limpieza', 'Ferreterías', 'Dietéticas'],
   },
   {
-    title: 'Venta presencial + online',
-    text: 'Comercios que combinan mostrador, ecommerce, cobros e integración con la operación diaria.',
-    tags: ['Mostrador', 'Ecommerce', 'Cobros', 'Integraciones', 'Venta omnicanal'],
+    title: 'Venta presencial + cuenta corriente',
+    text: 'Cobrar en el local y seguir saldos de clientes habituales en el mismo circuito.',
+    tags: ['Mostrador', 'POS', 'Cuenta corriente', 'Caja'],
   },
   {
     title: 'Complejidad a validar',
-    text: 'Rubros con procesos particulares donde conviene revisar alcance, flujo y prioridades antes de prometer encaje.',
+    text: 'Rubros donde primero revisamos el flujo real antes de prometer encaje total.',
     tags: ['Florerías', 'Zinguería / metalúrgica', 'Cultivos'],
   },
 ];
 
+const hubFaqs = [
+  {
+    question: '¿ZinkERP es un sistema distinto para cada rubro?',
+    answer:
+      'No. Es el mismo producto. Cada landing muestra el circuito operativo de ese comercio: compras, stock, precios, ventas, facturación, cuenta corriente y caja.',
+  },
+  {
+    question: '¿Para quién está pensado?',
+    answer:
+      'Comercios y pymes argentinas, en especial de 2 a 4 sedes, que venden productos, reponen seguido y ya superaron Excel, un POS básico o herramientas desconectadas.',
+  },
+  {
+    question: '¿Qué sigue después de elegir un rubro?',
+    answer:
+      'En la landing ves el flujo, los módulos que aplican y un formulario corto. Después coordinamos una demo o seguimos por WhatsApp.',
+  },
+];
+
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', Astro.site).toString() },
+    { '@type': 'ListItem', position: 2, name: 'Casos de uso', item: new URL('/casos-de-uso', Astro.site).toString() },
+  ],
+};
 ---
 
 <Layout title={pageTitle} description={pageDescription}>
   <Header />
-  <main>
+  <main class="pb-24 md:pb-0">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}></script>
     <section class="pt-32 pb-16 bg-dark-900 border-b border-dark-700">
       <div class="container mx-auto px-4">
         <div class="max-w-4xl mx-auto text-center">
@@ -130,18 +164,22 @@ const patternGroups = [
             Casos de uso
           </p>
           <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-on-scroll" style="animation-delay: 0.05s;">
-            ZinkERP para comercios que necesitan ordenar ventas, stock y facturación
+            El sistema que conecta compras, stock, ventas, factura, cuenta corriente y caja
           </h1>
-          <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
-            Encontrá el caso más parecido a tu negocio y descubrí qué flujos podés ordenar con ZinkERP.
+          <p class="text-xl text-gray-300 mb-4 animate-on-scroll" style="animation-delay: 0.1s;">
+            Para comercios argentinos de 2 a 4 sedes que ya no pueden operar con Excel, un POS suelto o herramientas desconectadas.
           </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center animate-on-scroll" style="animation-delay: 0.15s;">
-            <a href={demoUrl} class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors">
-              Solicitar demo
-            </a>
-            <a href={whatsappUrl} class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
-              Hablar por WhatsApp
-            </a>
+          <p class="text-base text-gray-400 mb-8 animate-on-scroll" style="animation-delay: 0.12s;">
+            Elegí el rubro. Vas a ver el flujo concreto, no una lista genérica de módulos.
+          </p>
+          <div class="animate-on-scroll" style="animation-delay: 0.15s;">
+            <UseCaseCtas
+              demoHref="#contacto"
+              whatsappHref={whatsappUrl}
+              vertical="hub"
+              placement="hero"
+              align="center"
+            />
           </div>
         </div>
       </div>
@@ -152,7 +190,7 @@ const patternGroups = [
         <div class="max-w-3xl mb-12 animate-on-scroll">
           <h2 class="text-3xl md:text-4xl font-bold mb-4">Rubros principales</h2>
           <p class="text-lg text-gray-300">
-            Estos casos representan patrones frecuentes en comercios con productos, stock, ventas de mostrador, facturación y equipos que necesitan más control operativo.
+            Cada página muestra el circuito de ese negocio: qué duele, qué hace el equipo y qué queda resuelto en stock, caja o cuenta corriente.
           </p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -175,7 +213,7 @@ const patternGroups = [
                 <ul class="space-y-2 mb-4 flex-1">
                   {useCase.highlights.map((highlight) => (
                     <li class="flex items-center gap-2">
-                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-primary shrink-0">
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-primary shrink-0" aria-hidden="true">
                         <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                       </svg>
                       <span class="text-gray-300 text-sm">{highlight}</span>
@@ -185,10 +223,10 @@ const patternGroups = [
 
                 <a
                   href={useCase.href}
-                  class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors text-sm group-hover:translate-x-1 transition-transform duration-300 mt-auto"
+                  class="inline-flex items-center gap-2 text-primary hover:text-primary-light text-sm group-hover:translate-x-1 transition-transform duration-300 mt-auto"
                 >
                   <span>{useCase.cta}</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true">
                     <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
                   </svg>
                 </a>
@@ -199,13 +237,31 @@ const patternGroups = [
       </div>
     </section>
 
+    <section class="py-16 bg-dark-800 border-y border-dark-700">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center animate-on-scroll">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4">Si tu rubro está, el siguiente paso es una demo corta</h2>
+          <p class="text-lg text-gray-300 mb-8">
+            Contanos sedes, sistema actual y el problema que más te frena. Te mostramos el flujo, no una recorrida de menús.
+          </p>
+          <UseCaseCtas
+            demoHref="#contacto"
+            whatsappHref={whatsappUrl}
+            vertical="hub"
+            placement="mid"
+            align="center"
+          />
+        </div>
+      </div>
+    </section>
+
     <section class="py-20 bg-dark-800">
       <div class="container mx-auto px-4">
         <div class="grid lg:grid-cols-[0.8fr_1.2fr] gap-10 items-start">
           <div class="animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">También evaluamos operaciones similares</h2>
             <p class="text-lg text-gray-300">
-              Además de los rubros principales, ZinkERP ya acompaña operaciones con dinámicas similares. En estos casos, el foco está en entender el flujo real del negocio y ordenar ventas, stock, facturación y seguimiento comercial sin prometer procesos específicos que no correspondan.
+              En estos casos hay experiencia real, pero el encaje se valida. No prometemos procesos específicos que no correspondan.
             </p>
           </div>
           <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -228,7 +284,7 @@ const patternGroups = [
                   <ul class="space-y-2 mb-4 flex-1">
                     {useCase.tags.map((tag) => (
                       <li class="flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-primary shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 text-primary shrink-0" aria-hidden="true">
                           <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
                         </svg>
                         <span class="text-gray-300 text-sm">{tag}</span>
@@ -238,10 +294,10 @@ const patternGroups = [
 
                   <a
                     href={useCase.href}
-                    class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors text-sm group-hover:translate-x-1 transition-transform duration-300 mt-auto"
+                    class="inline-flex items-center gap-2 text-primary hover:text-primary-light text-sm group-hover:translate-x-1 transition-transform duration-300 mt-auto"
                   >
                     <span>{useCase.cta}</span>
-                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4" aria-hidden="true">
                       <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
                     </svg>
                   </a>
@@ -258,7 +314,7 @@ const patternGroups = [
         <div class="max-w-3xl mx-auto text-center mb-12 animate-on-scroll">
           <h2 class="text-3xl md:text-4xl font-bold mb-4">Encontrá tu patrón operativo</h2>
           <p class="text-lg text-gray-300">
-            ZinkERP no es un producto hecho a medida para cada industria. Es una base operativa para comercios que comparten problemas de stock, ventas, facturación y sucursales.
+            ZinkERP no es un producto hecho a medida para cada industria. Es el circuito operativo de un comercio que vende, compra, factura y controla caja.
           </p>
         </div>
         <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
@@ -277,24 +333,74 @@ const patternGroups = [
       </div>
     </section>
 
-    <section id="contacto" class="py-20 bg-dark-800 scroll-mt-28">
+    <section class="py-20 bg-dark-800">
       <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-          <h2 class="text-3xl md:text-5xl font-bold mb-6">¿No encontrás tu rubro?</h2>
-          <p class="text-xl text-gray-300 mb-8">
-            Si tu negocio vende productos, maneja stock, factura y necesita ordenar la operación, probablemente podamos ayudarte. Lo mejor es revisar tu flujo real en una demo.
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href={whatsappUrl} class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors">
-              Hablar por WhatsApp
-            </a>
-            <a href={demoUrl} class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
-              Solicitar demo
-            </a>
+        <div class="max-w-4xl mx-auto">
+          <div class="text-center mb-12 animate-on-scroll">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Preguntas frecuentes</h2>
+          </div>
+          <div class="space-y-4">
+            {hubFaqs.map((faq) => (
+              <details class="group bg-dark-900 border border-dark-700 rounded-lg p-6 animate-on-scroll">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-base md:text-lg">
+                  {faq.question}
+                  <span class="text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+                </summary>
+                <p class="mt-4 text-gray-300">{faq.answer}</p>
+              </details>
+            ))}
           </div>
         </div>
       </div>
     </section>
+
+    <section id="contacto" class="py-20 scroll-mt-28">
+      <div class="container mx-auto px-4">
+        <div class="max-w-4xl mx-auto animate-on-scroll">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">¿No encontrás tu rubro?</h2>
+            <p class="text-xl text-gray-300 mb-8">
+              Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.
+            </p>
+            <UseCaseCtas
+              demoHref={demoUrl}
+              whatsappHref={whatsappUrl}
+              vertical="hub"
+              placement="final"
+              align="center"
+              primaryLabel="Agendar demo"
+            />
+          </div>
+          <UseCaseLeadForm
+            vertical="hub"
+            rubroLabel=""
+            whatsappMessage="Hola, quiero ver el flujo de ZinkERP para mi comercio."
+            formProblems={[
+              'Stock desactualizado',
+              'Precios que cambian todo el tiempo',
+              'Compras difíciles de controlar',
+              'Cuentas corrientes sin seguimiento',
+              'Poca visibilidad entre sucursales',
+            ]}
+            demoHref={demoUrl}
+          />
+        </div>
+      </div>
+    </section>
   </main>
+
+  <div id="page-sticky-cta" class="fixed inset-x-4 bottom-4 z-[55] md:hidden">
+    <a
+      href="#contacto"
+      class="block rounded-xl bg-blue-primary px-4 py-4 text-center text-sm font-semibold text-white shadow-2xl"
+      data-track-cta="demo"
+      data-track-vertical="hub"
+      data-track-placement="sticky"
+    >
+      Quiero una demo
+    </a>
+  </div>
+
   <Footer />
+  <UseCaseTracking />
 </Layout>

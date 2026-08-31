@@ -8,7 +8,49 @@ export type UseCaseFaq = {
   answer: string;
 };
 
+export type UseCaseProblem = {
+  title: string;
+  text: string;
+};
+
+export type UseCaseFlowStep = {
+  title: string;
+  action: string;
+  module: string;
+  moduleHref?: string;
+  result: string;
+  impact?: string;
+};
+
+export type UseCaseModule = {
+  name: string;
+  purpose: string;
+  href: string;
+};
+
+export type UseCaseDifferential = {
+  title: string;
+  text: string;
+};
+
+export type UseCaseExperience = {
+  kind: 'named' | 'anonymized';
+  title: string;
+  business?: string;
+  problem: string;
+  flow: string;
+  result: string;
+  complexity?: string;
+};
+
+export type UseCaseDemoMedia = {
+  kind: 'placeholder';
+  label: string;
+  href?: string;
+};
+
 export type UseCaseEntry = {
+  slug: string;
   family: 'storefront' | 'replenishment' | 'validation';
   pageTitle: string;
   pageDescription: string;
@@ -16,898 +58,1248 @@ export type UseCaseEntry = {
   eyebrow: string;
   heroTitle: string;
   heroText: string;
-  heroNote: string;
-  pains: string[];
-  helps: { title: string; text: string }[];
-  features: string[];
-  workflows: { title: string; text: string }[];
+  audience: string;
+  result: string;
+  problems: UseCaseProblem[];
+  flowSteps: UseCaseFlowStep[];
+  modules: UseCaseModule[];
+  differentials: UseCaseDifferential[];
+  experience?: UseCaseExperience;
+  demoMedia?: UseCaseDemoMedia;
   integrations?: UseCaseLink[];
+  relatedDocs?: UseCaseLink[];
   testimonialIds?: string[];
   faqs: UseCaseFaq[];
   ctaTitle: string;
   ctaText: string;
+  whatsappMessage: string;
+  formProblems: string[];
   noindex?: boolean;
 };
 
+const sharedDifferentials: UseCaseDifferential[] = [
+  {
+    title: 'Cotización → presupuesto → pedido → venta',
+    text: 'El circuito comercial queda encadenado. No tenés que reescribir el mismo pedido en otro sistema para cobrar o facturar.',
+  },
+  {
+    title: 'Orden de compra → compra → stock',
+    text: 'La reposición parte de una orden registrada. Cuando recibís mercadería, el ingreso queda vinculado al stock.',
+  },
+  {
+    title: 'Stock y cuenta corriente conectados',
+    text: 'Una venta o una compra no queda suelta: impacta disponibilidad, saldo del cliente y movimiento de caja cuando corresponde.',
+  },
+  {
+    title: 'Precios a partir de costos',
+    text: 'Cuando cambia el costo, podés actualizar precios desde esa base. Si operás con costos en ARS y USD, el circuito lo contempla.',
+  },
+  {
+    title: 'Permisos por pantalla y acción',
+    text: 'Cajero, encargado y dueño no ven lo mismo. Cada perfil habilita o restringe lo que se puede ver y modificar.',
+  },
+  {
+    title: 'Multi-sucursal con control local',
+    text: 'Cada sede opera su stock, su caja y sus ventas. La central ve la red sin pedir planillas por WhatsApp.',
+  },
+];
+
+const sharedModules = {
+  ventas: {
+    name: 'Ventas / POS',
+    purpose: 'Cobrar, facturar y registrar la venta sin sacarla del circuito operativo.',
+    href: '/producto/ventas-y-pos',
+  },
+  productos: {
+    name: 'Productos',
+    purpose: 'Mantener catálogo, códigos, variantes y precios vigentes.',
+    href: '/producto/inventario',
+  },
+  compras: {
+    name: 'Compras',
+    purpose: 'Ordenar abastecimiento con órdenes de compra y recepción.',
+    href: '/producto/compras',
+  },
+  stock: {
+    name: 'Stock',
+    purpose: 'Saber qué hay, dónde está y qué hay que reponer.',
+    href: '/producto/inventario',
+  },
+  cuentaCorriente: {
+    name: 'Cuenta corriente',
+    purpose: 'Controlar saldos, vencimientos y movimientos de cada cliente.',
+    href: '/producto/finanzas',
+  },
+  caja: {
+    name: 'Caja',
+    purpose: 'Revisar ingresos, egresos y el cierre de cada operador.',
+    href: '/producto/finanzas',
+  },
+  informes: {
+    name: 'Informes',
+    purpose: 'Mirar ventas, cobros pendientes y movimiento del negocio para decidir.',
+    href: '/producto/reportes',
+  },
+} as const;
+
 export const useCases: Record<string, UseCaseEntry> = {
   ferreterias: {
+    slug: 'ferreterias',
     family: 'storefront',
-    pageTitle: 'ERP para ferreterías | ZinkERP',
+    pageTitle: 'ERP para ferreterías: stock, cotizaciones y cuenta corriente | ZinkERP',
     pageDescription:
-      'Gestioná ventas, stock, POS, facturación y sucursales de tu ferretería con ZinkERP, un ERP SaaS para comercios argentinos.',
-    caseName: 'La operación de una ferretería',
+      'Sistema para ferreterías argentinas: cotización, presupuesto, stock, compras, venta de mostrador y cuenta corriente en un solo circuito. Pedí una demo.',
+    caseName: 'una ferretería',
     eyebrow: 'Ferreterías',
-    heroTitle: 'ZinkERP para ferreterías',
+    heroTitle: 'Ferretería con stock real, cotizaciones que se convierten y cuenta corriente al día',
     heroText:
-      'Ordená ventas de mostrador, stock, precios, proveedores y facturación en una plataforma pensada para comercios argentinos.',
-    heroNote:
-      'Un caso fuerte para comercios con catálogo amplio, venta rápida y necesidad de ordenar la operación diaria sin sumar complejidad innecesaria.',
-    pains: [
-      'Muchos SKUs repartidos entre familias, medidas, marcas y proveedores.',
-      'Dudas de stock en el mostrador cuando el cliente necesita una respuesta rápida.',
-      'Ventas presenciales que no pueden esperar procesos administrativos lentos.',
-      'Cambios de precios y márgenes que requieren orden para evitar errores.',
-      'Reposición y seguimiento de proveedores con información dispersa.',
-      'Necesidad de facturar dentro del mismo flujo operativo.',
-      'Crecimiento a más de una sucursal con riesgo de perder visibilidad.',
-    ],
-    helps: [
+      'Para ferreterías que venden de mostrador, cotizan a obra y ya no pueden sostener precios, stock y saldos en Excel o en un POS suelto.',
+    audience: 'Ferreterías y corralones chicos, en especial de 2 a 4 sucursales.',
+    result: 'El mostrador responde con stock real, el presupuesto pasa a pedido y la cuenta corriente queda registrada.',
+    problems: [
       {
-        title: 'Mostrador conectado con la operación',
-        text: 'ZinkPOS ayuda a registrar la venta de mostrador dentro de una operación que también necesita stock, facturación y seguimiento comercial.',
+        title: 'Stock que no coincide con la góndola',
+        text: 'El cliente pregunta si hay un tornillo, un caño o una herramienta y la respuesta depende de ir a buscarlo o de la memoria del que está en el mostrador.',
       },
       {
-        title: 'Stock y ventas en el mismo circuito',
-        text: 'El equipo puede trabajar con información más ordenada sobre productos, movimientos y disponibilidad operativa.',
+        title: 'Precios que cambian todo el tiempo',
+        text: 'Cada lista de proveedor mueve costos. Si el precio de venta no se actualiza desde el costo, se vende mal o se pierde margen.',
       },
       {
-        title: 'Precios y productos con más contexto',
-        text: 'Ayuda a ordenar productos y precios para que el equipo dependa menos de planillas, listas sueltas o memoria de mostrador.',
+        title: 'Cotizaciones que no se convierten',
+        text: 'El presupuesto se arma en un Word, un PDF o un cuaderno. Después hay que cargarlo de nuevo para vender, comprar o facturar.',
       },
       {
-        title: 'Visibilidad para dueños y encargados',
-        text: 'La operación queda en un mismo sistema para revisar ventas, stock, facturación y sucursales cuando aplica.',
+        title: 'Cuentas corrientes sin seguimiento',
+        text: 'Obras, pintores y clientes habituales compran a cuenta. El saldo vive en una planilla aparte y se pierde el control.',
+      },
+      {
+        title: 'Poca visibilidad entre sucursales',
+        text: 'Un local tiene stock y el otro no. Transferir o comprar se decide por WhatsApp, no por disponibilidad real.',
       },
     ],
-    features: [
-      'Stock por producto',
-      'ZinkPOS',
-      'Ventas y comprobantes',
-      'Precios y facturación',
-      'Reportes comerciales',
-      'Sucursales',
+    flowSteps: [
+      {
+        title: 'Cotización',
+        action: 'El vendedor arma la consulta con productos, medidas y precios vigentes.',
+        module: 'Ventas',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'La necesidad del cliente queda registrada, no en un papel suelto.',
+      },
+      {
+        title: 'Presupuesto',
+        action: 'Se formaliza la oferta con lista de precios y condiciones.',
+        module: 'Ventas',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'El cliente recibe un presupuesto que el sistema ya conoce.',
+      },
+      {
+        title: 'Pedido',
+        action: 'Si acepta, el presupuesto pasa a pedido sin recargar ítems.',
+        module: 'Ventas',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'Queda un compromiso comercial listo para abastecer o entregar.',
+        impact: 'Stock y cuenta corriente quedan preparados para el siguiente paso.',
+      },
+      {
+        title: 'Compra / recepción',
+        action: 'Si falta mercadería, se emite la orden de compra y se recibe el ingreso.',
+        module: 'Compras',
+        moduleHref: '/producto/compras',
+        result: 'El abastecimiento queda vinculado al pedido y al stock.',
+        impact: 'El stock de la sucursal se actualiza al recibir.',
+      },
+      {
+        title: 'Venta',
+        action: 'Se cobra en mostrador o se cierra la venta del pedido.',
+        module: 'Ventas / POS',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'La venta descuenta stock de la sucursal y deja el comprobante listo.',
+        impact: 'Impacta stock y, si corresponde, caja.',
+      },
+      {
+        title: 'Cuenta corriente',
+        action: 'Si el cliente compra a cuenta, el movimiento queda en su saldo.',
+        module: 'Finanzas',
+        moduleHref: '/producto/finanzas',
+        result: 'Se ve quién debe, cuánto y desde cuándo.',
+        impact: 'Cuenta corriente y caja quedan conectadas al mismo circuito.',
+      },
     ],
-    workflows: [
-      {
-        title: 'Venta de mostrador',
-        text: 'Cobrar en mostrador sin perder de vista stock, comprobante y registro de la venta.',
-      },
-      {
-        title: 'Búsqueda de productos',
-        text: 'Trabajar con un catálogo más ordenado para ubicar rápido el producto que pide el cliente.',
-      },
-      {
-        title: 'Consulta de stock',
-        text: 'Revisar disponibilidad antes de confirmar una venta y reducir respuestas basadas en memoria o recorridas manuales.',
-      },
-      {
-        title: 'Actualización de precios',
-        text: 'Tener precios más ordenados cuando cambian costos, márgenes o condiciones de compra.',
-      },
-      {
-        title: 'Facturación',
-        text: 'Resolver la facturación dentro de la misma operación, con una base alineada al contexto fiscal argentino.',
-      },
-      {
-        title: 'Visibilidad por sucursal',
-        text: 'Cuando hay más de un local, sumar una mirada central sobre ventas, stock y actividad de cada punto.',
-      },
+    modules: [
+      sharedModules.ventas,
+      sharedModules.productos,
+      sharedModules.compras,
+      sharedModules.stock,
+      sharedModules.cuentaCorriente,
+      sharedModules.caja,
+      sharedModules.informes,
     ],
+    differentials: sharedDifferentials,
+    experience: {
+      kind: 'anonymized',
+      title: 'Caso de uso: ferretería con más de una sede',
+      problem:
+        'El mostrador consultaba stock a ojo, los presupuestos se reescribían para vender y las cuentas de obra se seguían en planillas.',
+      flow: 'Cotización → presupuesto → pedido → compra o venta → cuenta corriente.',
+      result:
+        'La operación comercial, el stock y los saldos pasan a un mismo circuito. No publicamos métricas de este caso.',
+      complexity: 'Comercio con catálogo amplio y venta a mostrador más cuenta corriente.',
+    },
+    demoMedia: {
+      kind: 'placeholder',
+      label: 'Acá va a vivir el video o la captura del flujo cotización → venta de ferretería.',
+      href: '/producto/ventas-y-pos',
+    },
     integrations: [
-      {
-        name: 'ARCA',
-        href: '/integraciones/arca',
-      },
-      {
-        name: 'Mercado Pago',
-        href: '/integraciones/mercadopago',
-      },
-      {
-        name: 'WooCommerce',
-        href: '/integraciones/woocommerce',
-      },
+      { name: 'ARCA', href: '/integraciones/arca' },
+      { name: 'Mercado Pago', href: '/integraciones/mercadopago' },
     ],
-    testimonialIds: ['martina-papelera-pilar'],
+    relatedDocs: [
+      { name: 'Ventas y POS', href: '/producto/ventas-y-pos' },
+      { name: 'Compras', href: '/producto/compras' },
+      { name: 'Inventario', href: '/producto/inventario' },
+      { name: 'Finanzas', href: '/producto/finanzas' },
+    ],
     faqs: [
       {
-        question: '¿Sirve si tengo muchos productos?',
+        question: '¿Puedo manejar varias sucursales?',
         answer:
-          'Sí. Las ferreterías suelen tener catálogos amplios y ZinkERP ayuda a ordenar productos, stock, ventas y facturación dentro del mismo circuito operativo.',
+          'Sí. Cada sucursal opera su stock, su caja y sus ventas. Podés definir qué ve cada usuario y consolidar la red desde un solo lugar.',
       },
       {
-        question: '¿Puedo usarlo para ventas de mostrador?',
+        question: '¿Puedo convertir un presupuesto en pedido y venta?',
         answer:
-          'Sí. ZinkPOS está pensado para venta presencial y se integra con la operación del ERP.',
+          'Sí. El circuito arranca por cotización, presupuesto, pedido o venta directa. No hace falta recargar los productos para avanzar al siguiente paso.',
       },
       {
-        question: '¿Ayuda a controlar stock?',
+        question: '¿Puedo controlar la cuenta corriente de pintores y obras?',
         answer:
-          'Sí. ZinkERP incluye gestión de stock para trabajar con movimientos, disponibilidad y control operativo diario.',
+          'Sí. La cuenta corriente muestra saldo, antigüedad y último movimiento de cada cliente. La venta a cuenta queda vinculada a ese saldo.',
       },
       {
-        question: '¿Sirve para más de una sucursal?',
+        question: '¿Puedo actualizar precios cuando cambia el costo del proveedor?',
         answer:
-          'Sí. ZinkERP soporta operaciones multi-sucursal y ayuda a tener visibilidad centralizada cuando el negocio crece.',
+          'Sí. Los precios se pueden actualizar a partir del costo. Si el proveedor cotiza en ARS o USD, el costo se puede trabajar en esas monedas.',
       },
       {
-        question: '¿Puedo vender online también?',
+        question: '¿Puedo emitir facturas ARCA?',
         answer:
-          'Si la ferretería trabaja con WooCommerce, la integración puede ayudar a conectar ecommerce con la gestión. El alcance puntual conviene revisarlo en demo.',
+          'Sí. La facturación electrónica con ARCA forma parte del flujo: Facturas A, B, C y M, más notas de crédito y débito, vinculadas a la venta.',
       },
       {
-        question: '¿Es un sistema hecho solo para ferreterías?',
+        question: '¿Puedo importar el catálogo desde Excel?',
         answer:
-          'No. ZinkERP resuelve patrones operativos comunes en comercios con catálogo, ventas, stock y facturación; ferreterías es uno de los casos donde ese encaje suele ser fuerte.',
+          'Sí. Se pueden importar productos para arrancar con el catálogo ordenado. En la puesta en marcha te ayudamos a cargar la base si los datos están a mano.',
       },
     ],
-    ctaTitle: 'Ordená la operación diaria de tu ferretería',
+    ctaTitle: 'Veamos el flujo de tu ferretería',
     ctaText:
-      'En una demo podemos revisar cómo ordenar venta de mostrador, consulta de stock, precios y facturación según la operación de tu ferretería.',
+      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+    whatsappMessage:
+      'Hola, tengo una ferretería y quiero ver el flujo de ZinkERP: cotización, stock, compras y cuenta corriente.',
+    formProblems: [
+      'Stock desactualizado en el mostrador',
+      'Precios que cambian todo el tiempo',
+      'Presupuestos que no se convierten en ventas',
+      'Cuentas corrientes sin control',
+      'Poca visibilidad entre sucursales',
+    ],
   },
   dieteticas: {
+    slug: 'dieteticas',
     family: 'storefront',
-    pageTitle: 'ERP para dietéticas | ZinkERP',
+    pageTitle: 'ERP para dietéticas: venta de mostrador, stock y facturación | ZinkERP',
     pageDescription:
-      'Ordená ventas, stock, POS y facturación de tu dietética con ZinkERP, una base operativa para comercios argentinos con catálogo amplio.',
-    caseName: 'La operación de una dietética',
+      'Sistema para dietéticas: productos pesables, venta de mostrador, facturación ARCA, descuento de stock y caja en un mismo circuito. Pedí una demo.',
+    caseName: 'una dietética',
     eyebrow: 'Dietéticas',
-    heroTitle: 'ZinkERP para dietéticas',
+    heroTitle: 'Dietética con venta ágil, stock que se descuenta solo y caja cerrada el mismo día',
     heroText:
-      'Ordená ventas, stock y facturación de tu dietética con un ERP simple de operar y preparado para crecer con tu negocio.',
-    heroNote:
-      'Funciona especialmente bien cuando hay muchos productos, venta diaria y necesidad de sostener orden entre mostrador, catálogo y reposición.',
-    pains: [
-      'Muchos productos chicos, variantes y categorías para mantener organizados.',
-      'Diferencias entre lo que hay en góndola y lo que figura disponible.',
-      'Ventas presenciales que necesitan velocidad y menos pasos manuales.',
-      'Cambios de precios o promociones con riesgo de errores si todo vive en planillas.',
-      'Reposición de proveedores con información dispersa.',
-      'Necesidad de facturar desde la misma operación diaria.',
-    ],
-    helps: [
+      'Para dietéticas que venden mucho y rápido, mezclan productos de góndola con pesables, y necesitan que la venta, la factura y el stock salgan del mismo paso.',
+    audience: 'Dietéticas de 1 a 4 sucursales que ya superaron la balanza suelta y el Excel.',
+    result: 'Cada venta factura, descuenta stock y deja la caja lista para el cierre del turno.',
+    problems: [
       {
-        title: 'POS y stock conectados',
-        text: 'ZinkPOS ayuda a cobrar en mostrador sin separar la venta del stock y la facturación diaria.',
+        title: 'Góndola y sistema no coinciden',
+        text: 'Se vende lo que se ve, pero el stock del sistema quedó atrás. Reponer se decide por ojo, no por rotación.',
       },
       {
-        title: 'Catálogo más ordenado',
-        text: 'Ayuda a ordenar productos, categorías y precios cuando hay muchas referencias y venta diaria.',
+        title: 'Productos pesables y códigos que cambian',
+        text: 'Granel, fiambres secos o códigos variables complican una venta rápida si hay que anotar peso y precio a mano.',
       },
       {
-        title: 'Control comercial en un solo sistema',
-        text: 'Dueños y encargados pueden revisar ventas, stock y movimiento del negocio sin depender de planillas separadas.',
+        title: 'Precios y listas que se desordenan',
+        text: 'Promos, listas distintas y cambios de costo se resuelven en planillas. El mostrador cobra un precio y el dueño pensaba otro.',
       },
       {
-        title: 'Base lista para ecommerce cuando aplica',
-        text: 'Si la cuenta usa WooCommerce y el flujo está validado, puede conectarse con la gestión.',
+        title: 'Caja y sucursales desconectadas',
+        text: 'Cada local cierra como puede. Ver ventas, stock y caja de las tres sedes implica pedir capturas o esperar al final del día.',
+      },
+      {
+        title: 'Facturación aparte de la venta',
+        text: 'Cobrar es un paso y facturar es otro. Se pierde tiempo y aparecen diferencias entre lo vendido y lo fiscal.',
       },
     ],
-    features: [
-      'ZinkPOS',
-      'Gestión de stock',
-      'Gestión de ventas',
-      'Facturación',
-      'Catálogo de productos',
-      'WooCommerce cuando aplica',
-    ],
-    workflows: [
+    flowSteps: [
       {
-        title: 'Venta en mostrador',
-        text: 'Cobrar en mostrador sin perder de vista disponibilidad, comprobante y registro de la venta.',
+        title: 'Producto pesable o código variable',
+        action: 'Se identifica el producto por código, nombre o peso.',
+        module: 'Productos / POS',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'El ítem entra a la venta con precio vigente, sin anotarlo afuera.',
       },
       {
-        title: 'Control de disponibilidad',
-        text: 'Consultar stock antes de vender y reducir diferencias entre sistema y realidad.',
-      },
-      {
-        title: 'Orden del catálogo',
-        text: 'Mantener productos y categorías más ordenados cuando hay mucha variedad y cambios frecuentes.',
-      },
-      {
-        title: 'Reposición',
-        text: 'Usar rotación y disponibilidad para decidir mejor qué reponer y qué producto se está quedando corto.',
+        title: 'Venta',
+        action: 'El mostrador cobra en POS con búsqueda rápida y medios de pago.',
+        module: 'Ventas / POS',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'La venta queda registrada en la sucursal que atendió.',
       },
       {
         title: 'Facturación',
-        text: 'Resolver la facturación dentro de la misma operación, con una base alineada al contexto fiscal argentino.',
+        action: 'Se emite el comprobante ARCA desde la misma operación.',
+        module: 'Facturación',
+        moduleHref: '/producto/facturacion',
+        result: 'La factura queda vinculada a la venta y al cliente.',
+      },
+      {
+        title: 'Descuento de stock',
+        action: 'El sistema descuenta el stock de esa sucursal al instante.',
+        module: 'Stock',
+        moduleHref: '/producto/inventario',
+        result: 'Góndola y sistema vuelven a hablar el mismo idioma.',
+        impact: 'El stock de la sede se actualiza con cada ticket.',
+      },
+      {
+        title: 'Caja',
+        action: 'El operador rinde su caja: ingresos, egresos y cierre.',
+        module: 'Caja',
+        moduleHref: '/producto/finanzas',
+        result: 'El dueño o encargado ve el movimiento del turno sin armar una planilla.',
+        impact: 'Caja y venta quedan conectadas.',
       },
     ],
+    modules: [
+      sharedModules.ventas,
+      sharedModules.productos,
+      sharedModules.compras,
+      sharedModules.stock,
+      sharedModules.caja,
+      sharedModules.informes,
+    ],
+    differentials: sharedDifferentials,
+    experience: {
+      kind: 'named',
+      title: 'Dietéticas Naturales',
+      business: 'Dietéticas Naturales',
+      problem: 'La operación de cada sucursal vivía en sistemas y controles separados.',
+      flow: 'Venta de mostrador, stock y caja de 3 sucursales en un solo sistema.',
+      result:
+        'Hoy controlan ventas, stock y caja en tiempo real, sin importar desde qué sede se mira.',
+      complexity: '3 sucursales.',
+    },
+    demoMedia: {
+      kind: 'placeholder',
+      label: 'Acá va a vivir el video o la captura del flujo pesable → venta → caja de dietética.',
+      href: '/producto/ventas-y-pos',
+    },
     integrations: [
-      {
-        name: 'ARCA',
-        href: '/integraciones/arca',
-      },
-      {
-        name: 'WooCommerce',
-        href: '/integraciones/woocommerce',
-      },
+      { name: 'ARCA', href: '/integraciones/arca' },
+      { name: 'WooCommerce', href: '/integraciones/woocommerce' },
+    ],
+    relatedDocs: [
+      { name: 'Ventas y POS', href: '/producto/ventas-y-pos' },
+      { name: 'Inventario', href: '/producto/inventario' },
+      { name: 'Facturación', href: '/producto/facturacion' },
+      { name: 'Sucursales', href: '/producto/sucursales' },
     ],
     testimonialIds: ['julieta-dieteticas-naturales', 'gustavo-dieteticas-naturales'],
     faqs: [
       {
-        question: '¿Sirve si vendo muchos productos chicos?',
+        question: '¿Puedo trabajar con productos pesables o código variable?',
         answer:
-          'Sí. ZinkERP puede encajar bien en operaciones con catálogo amplio y muchas ventas diarias, siempre que el valor principal esté en ordenar stock, ventas y facturación.',
+          'Sí. El flujo de mostrador contempla productos pesables o con código variable, para vender, facturar y descontar stock en el mismo circuito.',
       },
       {
-        question: '¿Ayuda con la venta presencial?',
+        question: '¿Puedo manejar varias sucursales?',
         answer:
-          'Sí. ZinkPOS está pensado para mostrador y puede ayudar a que el cobro diario no quede separado del resto de la operación.',
+          'Sí. Cada sucursal descuenta su propio stock y rinde su caja. La central ve ventas, stock y caja de toda la red.',
       },
       {
-        question: '¿Puedo conectar una tienda online?',
+        question: '¿Puedo emitir facturas ARCA desde el mostrador?',
         answer:
-          'Si la cuenta trabaja con WooCommerce y el flujo fue validado, la integración puede ayudar. Conviene revisar el alcance puntual en demo.',
+          'Sí. La factura se genera vinculada a la venta. Cubre Facturas A, B, C y M, más notas de crédito y débito.',
       },
       {
-        question: '¿Incluye manejo de vencimientos o lotes?',
+        question: '¿Puedo importar productos desde Excel?',
         answer:
-          'No lo damos por hecho. Ese tipo de necesidad hay que validarla según el negocio antes de prometer encaje.',
+          'Sí. Se pueden importar productos para ordenar el catálogo al inicio. Si los datos están a mano, la puesta en marcha es más rápida.',
       },
       {
-        question: '¿Es una solución hecha solo para dietéticas?',
+        question: '¿Puedo usar listas de precios distintas?',
         answer:
-          'No. Es una base operativa para comercios argentinos, y dietéticas es un segmento donde varios de esos patrones aparecen con fuerza.',
+          'Sí. Se definen listas por sucursal y por canal. Cada local opera con sus precios y vos ves todo consolidado.',
+      },
+      {
+        question: '¿Incluye vencimientos o lotes?',
+        answer:
+          'Eso no lo damos por hecho en esta página. Si tu dietética depende de vencimientos, lo revisamos en la demo según tu flujo real.',
       },
     ],
-    ctaTitle: 'Veamos si ZinkERP encaja en tu dietética',
+    ctaTitle: 'Veamos el flujo de tu dietética',
     ctaText:
-      'En una demo podemos revisar mostrador, disponibilidad, catálogo y facturación para entender cómo ordenar mejor la operación diaria de tu dietética.',
+      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+    whatsappMessage:
+      'Hola, tengo una dietética y quiero ver el flujo de ZinkERP: mostrador, productos pesables, stock y caja.',
+    formProblems: [
+      'Stock que no coincide con la góndola',
+      'Productos pesables o códigos variables',
+      'Precios desordenados entre locales',
+      'Caja y sucursales desconectadas',
+      'Facturación aparte de la venta',
+    ],
   },
   'articulos-de-limpieza': {
+    slug: 'articulos-de-limpieza',
     family: 'replenishment',
-    pageTitle: 'ERP para artículos de limpieza | ZinkERP',
+    pageTitle: 'ERP para artículos de limpieza: compras, stock y reposición | ZinkERP',
     pageDescription:
-      'Gestioná ventas, stock, facturación y reposición en negocios de artículos de limpieza con ZinkERP.',
-    caseName: 'La operación de un negocio de artículos de limpieza',
+      'Sistema para negocios de artículos de limpieza: compras, reposición, listas de precios, venta minorista o mayorista y cuenta corriente. Pedí una demo.',
+    caseName: 'un negocio de artículos de limpieza',
     eyebrow: 'Artículos de limpieza',
-    heroTitle: 'ZinkERP para artículos de limpieza',
+    heroTitle: 'Limpieza con reposición a tiempo, precios al día y saldos de clientes controlados',
     heroText:
-      'Controlá ventas, stock y facturación de tu negocio de artículos de limpieza con una herramienta local para operar mejor todos los días.',
-    heroNote:
-      'Encaja bien en operaciones con variedad de presentaciones, reposición frecuente y mezcla de venta minorista o comercial.',
-    pains: [
-      'Variedad de productos y presentaciones con distinta rotación y margen.',
-      'Reposición frecuente que exige visibilidad de stock para no vender a ciegas.',
-      'Ventas a consumidor final y también a empresas o clientes habituales.',
-      'Cambios de precios y proveedores que pueden desordenar la operación.',
-      'Necesidad de facturar dentro del mismo flujo comercial.',
-      'Sucursales o depósitos que agregan complejidad cuando el negocio crece.',
-    ],
-    helps: [
+      'Para comercios de artículos de limpieza que reponen seguido, venden al público y a empresas, y necesitan ver stock, compras y cuenta corriente en el mismo sistema.',
+    audience: 'Mayoristas y minoristas de limpieza, en especial con 2 a 4 sedes o depósitos.',
+    result: 'Comprás con contexto, vendés sin adivinar stock y seguís la cuenta de cada cliente habitual.',
+    problems: [
       {
-        title: 'Ventas, stock y facturación en una misma base',
-        text: 'Ayuda a que venta diaria, stock y facturación no queden repartidos entre sistemas o planillas distintas.',
+        title: 'Reposición que se decide de memoria',
+        text: 'Bidones, presentaciones y marcas rotan distinto. Si no hay stock crítico a la vista, se compra de más o se queda corto.',
       },
       {
-        title: 'Más contexto para reposición',
-        text: 'Permite mirar mejor qué productos se mueven, cuáles faltan y dónde conviene reponer primero.',
+        title: 'Presentaciones y precios que se mezclan',
+        text: 'El mismo producto existe en 1 L, 5 L y 20 L, con listas distintas para mostrador y para empresa.',
       },
       {
-        title: 'Mejor control diario',
-        text: 'Sirve para vender, consultar disponibilidad y sostener el ritmo comercial con menos desorden operativo.',
+        title: 'Compras difíciles de controlar',
+        text: 'El proveedor manda por WhatsApp, la recepción se anota aparte y nadie sabe qué quedó pendiente.',
       },
       {
-        title: 'Acompaña crecimiento operativo',
-        text: 'Si hay más de una sucursal o depósito, ZinkERP puede sumar visibilidad centralizada cuando aplica.',
+        title: 'Venta minorista y mayorista en circuitos distintos',
+        text: 'El ticket de mostrador vive en un lado y la factura a empresa en otro. El stock no se entera de los dos.',
+      },
+      {
+        title: 'Cuentas corrientes de clientes habituales',
+        text: 'Condominios, empresas y revendedores compran a cuenta. El saldo se pierde entre facturas y mensajes.',
       },
     ],
-    features: [
-      'Gestión de stock',
-      'Gestión de ventas',
-      'ZinkPOS',
-      'Facturación',
-      'Operación multi-sucursal',
-      'Reportes',
+    flowSteps: [
+      {
+        title: 'Catálogo y presentaciones',
+        action: 'Se ordenan productos, presentaciones y códigos.',
+        module: 'Productos',
+        moduleHref: '/producto/inventario',
+        result: 'Cada envase tiene su precio y su stock, no una fila ambigua en Excel.',
+      },
+      {
+        title: 'Listas de precios',
+        action: 'Se definen listas minorista, mayorista o por sucursal.',
+        module: 'Productos',
+        moduleHref: '/producto/inventario',
+        result: 'El mostrador y el vendedor de calle usan el precio que corresponde.',
+      },
+      {
+        title: 'Compra',
+        action: 'Se arma la orden de compra según stock crítico y proveedor.',
+        module: 'Compras',
+        moduleHref: '/producto/compras',
+        result: 'La reposición queda documentada, no en un chat.',
+      },
+      {
+        title: 'Recepción',
+        action: 'Se ingresa la mercadería y se actualiza el stock de la sede o depósito.',
+        module: 'Compras / Stock',
+        moduleHref: '/producto/compras',
+        result: 'Lo recibido está disponible para vender.',
+        impact: 'El stock sube al confirmar la recepción.',
+      },
+      {
+        title: 'Venta',
+        action: 'Se cobra en mostrador o se cierra la venta mayorista.',
+        module: 'Ventas / POS',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'La venta descuenta el stock correcto de esa presentación.',
+        impact: 'Impacta stock y caja o cuenta corriente.',
+      },
+      {
+        title: 'Cuenta corriente / caja',
+        action: 'El cobro al contado va a caja; la venta a cuenta va al saldo del cliente.',
+        module: 'Finanzas',
+        moduleHref: '/producto/finanzas',
+        result: 'Se ve qué entró hoy y quién sigue debiendo.',
+      },
     ],
-    workflows: [
-      {
-        title: 'Venta diaria',
-        text: 'Cobrar venta minorista o comercial sin perder de vista stock, comprobante y registro de la operación.',
-      },
-      {
-        title: 'Consulta de disponibilidad',
-        text: 'Saber si hay producto antes de comprometer una venta o un pedido comercial.',
-      },
-      {
-        title: 'Reposición por proveedor',
-        text: 'Revisar faltantes y compras con más orden cuando cambian precios, proveedores o presentaciones.',
-      },
-      {
-        title: 'Facturación a distintos tipos de cliente',
-        text: 'Resolver la facturación sin sacar la operación del mismo circuito comercial.',
-      },
-      {
-        title: 'Control por sucursal o depósito',
-        text: 'Seguir dónde está el stock cuando la operación se reparte entre sucursales o depósitos.',
-      },
+    modules: [
+      sharedModules.compras,
+      sharedModules.stock,
+      sharedModules.productos,
+      sharedModules.ventas,
+      sharedModules.cuentaCorriente,
+      sharedModules.caja,
+      sharedModules.informes,
     ],
+    differentials: sharedDifferentials,
+    experience: {
+      kind: 'named',
+      title: 'Limpieza Blue y Química Tortuguitas / El Cruce',
+      business: 'Limpieza Blue Gualeguaychú · Química Tortuguitas y El Cruce',
+      problem:
+        'Stock, compras, proveedores y sucursales estaban repartidos. Crecer implicaba más pasos sueltos.',
+      flow: 'Stock, compras, caja y operación de varias sedes en un mismo sistema.',
+      result:
+        'Cada movimiento queda registrado. Las sucursales se controlan desde un solo lugar, con mejor base para sumar otra sede.',
+      complexity: 'Operación multi-sucursal con venta y reposición frecuente.',
+    },
+    demoMedia: {
+      kind: 'placeholder',
+      label: 'Acá va a vivir el video o la captura del flujo compra → recepción → venta de limpieza.',
+      href: '/producto/compras',
+    },
     integrations: [
-      {
-        name: 'ARCA',
-        href: '/integraciones/arca',
-      },
-      {
-        name: 'Mercado Pago',
-        href: '/integraciones/mercadopago',
-      },
+      { name: 'ARCA', href: '/integraciones/arca' },
+      { name: 'Mercado Pago', href: '/integraciones/mercadopago' },
+    ],
+    relatedDocs: [
+      { name: 'Compras', href: '/producto/compras' },
+      { name: 'Inventario', href: '/producto/inventario' },
+      { name: 'Finanzas', href: '/producto/finanzas' },
+      { name: 'Sucursales', href: '/producto/sucursales' },
     ],
     testimonialIds: ['antonella-limpieza-blue', 'miguel-alberto-quimica'],
     faqs: [
       {
-        question: '¿Sirve para venta minorista y también comercial?',
+        question: '¿Sirve para venta minorista y también a empresas?',
         answer:
-          'Puede encajar en ambos casos cuando la necesidad principal es ordenar ventas, stock y facturación. El alcance puntual conviene revisarlo en demo.',
+          'Sí. Podés operar listas distintas y registrar tanto la venta de mostrador como la venta a clientes habituales, con impacto en stock y en cuenta corriente.',
       },
       {
-        question: '¿Ayuda con la reposición?',
+        question: '¿Puedo controlar compras y recepción?',
         answer:
-          'Sí. ZinkERP aporta visibilidad operativa para comprar con más contexto y menos dependencia de memoria o planillas sueltas.',
+          'Sí. Las sucursales pueden pedir, la central consolida y emite la orden de compra. Al recibir, el stock se actualiza.',
       },
       {
-        question: '¿Funciona con más de una sucursal?',
+        question: '¿Puedo tener varias sucursales o depósitos?',
         answer:
-          'Si la operación requiere visibilidad multi-sucursal, ZinkERP puede acompañar ese crecimiento.',
+          'Sí. Cada nodo tiene su stock. Podés transferir entre sedes y decidir qué visibilidad tiene cada usuario.',
       },
       {
-        question: '¿Incluye reglas especiales para productos químicos o peligrosos?',
+        question: '¿Puedo usar listas de precios diferentes?',
         answer:
-          'No lo prometemos de forma pública. Si ese punto es clave para tu negocio, hay que validarlo según el flujo real.',
+          'Sí. Listas por sucursal y por canal, por ejemplo minorista, mayorista o promoción.',
       },
       {
-        question: '¿Es solo para artículos de limpieza?',
+        question: '¿Puedo emitir facturas ARCA?',
         answer:
-          'No. Es una base operativa para comercios argentinos, y este rubro es uno de los patrones donde ZinkERP puede aportar orden con fuerza.',
+          'Sí. La factura queda vinculada a la venta o al cliente, dentro del mismo flujo operativo.',
+      },
+      {
+        question: '¿Incluye reglas especiales para productos químicos?',
+        answer:
+          'No prometemos un módulo de peligrosos. Si ese control es central para tu negocio, lo validamos en la demo.',
       },
     ],
-    ctaTitle: 'Ordená stock y ventas en tu negocio de artículos de limpieza',
+    ctaTitle: 'Veamos el flujo de tu negocio de limpieza',
     ctaText:
-      'Podemos revisar venta diaria, reposición, disponibilidad y facturación para ver dónde ZinkERP puede ordenar mejor tu operación.',
+      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+    whatsappMessage:
+      'Hola, tengo un negocio de artículos de limpieza y quiero ver el flujo de ZinkERP: compras, stock, precios y cuenta corriente.',
+    formProblems: [
+      'Reposición que se decide de memoria',
+      'Presentaciones y precios mezclados',
+      'Compras difíciles de controlar',
+      'Minorista y mayorista desconectados',
+      'Cuentas corrientes sin seguimiento',
+    ],
   },
   papeleras: {
+    slug: 'papeleras',
     family: 'storefront',
-    pageTitle: 'ERP para papeleras y librerías comerciales | ZinkERP',
+    pageTitle: 'ERP para papeleras y librerías: catálogo, precios y caja | ZinkERP',
     pageDescription:
-      'Gestioná catálogo, stock, ventas y facturación de papeleras y librerías comerciales con ZinkERP.',
-    caseName: 'La operación de una papelera o librería comercial',
+      'Sistema para papeleras y librerías comerciales: catálogo amplio, listas de precios, reposición, venta de mostrador y control de caja. Pedí una demo.',
+    caseName: 'una papelera o librería comercial',
     eyebrow: 'Papeleras y librerías comerciales',
-    heroTitle: 'ZinkERP para papeleras y librerías comerciales',
+    heroTitle: 'Papelera con catálogo ordenado, precios claros y caja que cierra sin planilla',
     heroText:
-      'Gestioná tu papelera con ventas, stock y facturación conectados en un solo sistema.',
-    heroNote:
-      'Es un caso fuerte cuando hay catálogo grande, temporadas marcadas y necesidad de sostener orden entre mostrador, stock y clientes de distinto perfil.',
-    pains: [
-      'Catálogo amplio con muchas variantes y productos estacionales.',
-      'Picos de demanda en campañas o fechas donde el mostrador no puede frenarse.',
-      'Consultas frecuentes de stock y disponibilidad.',
-      'Reposición de proveedores con información repartida.',
-      'Ventas a consumidor final y a organizaciones desde una misma base.',
-      'Necesidad de facturar sin sacar la operación del sistema.',
-    ],
-    helps: [
+      'Para papeleras y librerías con miles de SKUs, temporadas fuertes y un mostrador que no puede frenarse a buscar un precio en Excel.',
+    audience: 'Papeleras y librerías comerciales, de una sede o de 2 a 4 locales.',
+    result: 'El catálogo, la reposición, la venta y la caja quedan en el mismo circuito.',
+    problems: [
       {
-        title: 'Mostrador y stock desde la misma base',
-        text: 'ZinkPOS y la gestión de stock ayudan a sostener ritmo de mostrador sin perder de vista disponibilidad y facturación.',
+        title: 'Catálogo demasiado grande para memoria',
+        text: 'Útiles, resmas, manualidades y estacionales. Encontrar el producto y el precio vigente frena al mostrador.',
       },
       {
-        title: 'Más claridad sobre disponibilidad',
-        text: 'Permite ubicar productos y responder stock con más seguridad cuando el cliente necesita resolver rápido.',
+        title: 'Listas de precios que no se sostienen',
+        text: 'Una lista para mostrador, otra para colegios o empresas. Si viven en archivos distintos, se cobra mal.',
       },
       {
-        title: 'Base común para campañas fuertes',
-        text: 'Cuando llegan campañas o fechas fuertes, ayuda a ordenar catálogo, stock y venta para trabajar con menos fricción.',
+        title: 'Reposición a ciegas antes de la temporada',
+        text: 'En la vuelta a clases se compra de más o falta lo que más sale. No hay una foto clara de qué rotó.',
       },
       {
-        title: 'Visibilidad para dueños y encargados',
-        text: 'Dueños y encargados pueden seguir ventas, stock y movimiento comercial con una mirada más ordenada.',
+        title: 'Ventas anotadas en distintos lugares',
+        text: 'Mostrador, encargos y facturas a instituciones no terminan en el mismo registro.',
+      },
+      {
+        title: 'Caja que se arma al final del día',
+        text: 'El cierre depende de sumar tickets, transferencias y fiados. El dueño se entera tarde.',
       },
     ],
-    features: [
-      'ZinkPOS',
-      'Gestión de stock',
-      'Gestión de ventas',
-      'Facturación',
-      'Catálogo amplio',
-      'Operación multi-sucursal',
-    ],
-    workflows: [
+    flowSteps: [
       {
-        title: 'Venta de mostrador',
-        text: 'Sostener ritmo de atención y cobro sin separar la venta del resto de la operación.',
+        title: 'Carga de catálogo',
+        action: 'Se importan o cargan productos, códigos y categorías.',
+        module: 'Productos',
+        moduleHref: '/producto/inventario',
+        result: 'El equipo busca por código o nombre en vez de recorrer góndola.',
       },
       {
-        title: 'Búsqueda de productos',
-        text: 'Trabajar con un catálogo más ordenado para encontrar rápidamente lo que pide el cliente.',
+        title: 'Lista de precios',
+        action: 'Se publican listas por canal o sucursal y se actualizan desde costos.',
+        module: 'Productos',
+        moduleHref: '/producto/inventario',
+        result: 'Mostrador y venta a instituciones usan el precio correcto.',
       },
       {
-        title: 'Preparación de temporadas',
-        text: 'Preparar campañas fuertes con mejor seguimiento de stock, precios y productos de mayor salida.',
-      },
-      {
-        title: 'Facturación a consumidores y organizaciones',
-        text: 'Mantener el paso fiscal dentro del mismo sistema, según el circuito comercial del negocio.',
+        title: 'Compra',
+        action: 'Se genera la orden de compra según faltantes y proveedores.',
+        module: 'Compras',
+        moduleHref: '/producto/compras',
+        result: 'La temporada se abastece con un pedido registrado.',
       },
       {
         title: 'Reposición',
-        text: 'Reponer con mejor criterio según disponibilidad, rotación y fechas de mayor demanda.',
+        action: 'Se recibe mercadería y se actualiza el stock del local.',
+        module: 'Stock',
+        moduleHref: '/producto/inventario',
+        result: 'Lo que llegó ya se puede vender y se ve en el sistema.',
+        impact: 'El stock de la sucursal sube al recibir.',
+      },
+      {
+        title: 'Venta',
+        action: 'Se cobra en POS o se cierra una venta a un colegio o empresa.',
+        module: 'Ventas / POS',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'La venta descuenta stock y deja el comprobante asociado.',
+        impact: 'Impacta stock y caja o cuenta corriente.',
+      },
+      {
+        title: 'Control de caja',
+        action: 'Cada operador rinde su caja; el dueño ve ingresos y egresos.',
+        module: 'Caja',
+        moduleHref: '/producto/finanzas',
+        result: 'El cierre del día no depende de una planilla armada a mano.',
       },
     ],
+    modules: [
+      sharedModules.productos,
+      sharedModules.ventas,
+      sharedModules.compras,
+      sharedModules.stock,
+      sharedModules.caja,
+      sharedModules.cuentaCorriente,
+      sharedModules.informes,
+    ],
+    differentials: sharedDifferentials,
+    experience: {
+      kind: 'named',
+      title: 'Papelera Pilar Manualidades',
+      business: 'Papelera Pilar Manualidades',
+      problem: 'Las ventas y los pagos se registraban a mano. Faltaba una visión clara de stock y caja.',
+      flow: 'Mostrador, pagos, stock y caja en un solo sistema.',
+      result:
+        'Las ventas y los pagos se registran en el momento. El mostrador es más ágil y la dueña ve la situación del local.',
+      complexity: 'Papelería retail con catálogo amplio y venta presencial.',
+    },
+    demoMedia: {
+      kind: 'placeholder',
+      label: 'Acá va a vivir el video o la captura del flujo catálogo → venta → caja de papelera.',
+      href: '/producto/ventas-y-pos',
+    },
     integrations: [
-      {
-        name: 'ARCA',
-        href: '/integraciones/arca',
-      },
-      {
-        name: 'Mercado Pago',
-        href: '/integraciones/mercadopago',
-      },
+      { name: 'ARCA', href: '/integraciones/arca' },
+      { name: 'Mercado Pago', href: '/integraciones/mercadopago' },
+    ],
+    relatedDocs: [
+      { name: 'Ventas y POS', href: '/producto/ventas-y-pos' },
+      { name: 'Inventario', href: '/producto/inventario' },
+      { name: 'Compras', href: '/producto/compras' },
+      { name: 'Finanzas', href: '/producto/finanzas' },
     ],
     testimonialIds: ['martina-papelera-pilar', 'mariela-papelera-pilar'],
     faqs: [
       {
-        question: '¿Sirve si tengo muchos productos y temporadas fuertes?',
+        question: '¿Puedo importar productos desde Excel?',
         answer:
-          'Sí. Ese es uno de los patrones donde ZinkERP suele aportar más orden, sobre todo cuando venta, stock y facturación necesitan trabajar juntos.',
+          'Sí. La importación de productos sirve para levantar un catálogo amplio. En la puesta en marcha te podemos asistir si los datos están ordenados.',
       },
       {
-        question: '¿Puedo usarlo para ventas rápidas en mostrador?',
+        question: '¿Puedo usar listas de precios diferentes?',
         answer:
-          'Sí. ZinkPOS acompaña la venta presencial y la mantiene conectada con la operación del ERP.',
+          'Sí. Listas por sucursal y por canal, por ejemplo mostrador, mayorista o promoción.',
       },
       {
-        question: '¿Ayuda a vender a empresas o instituciones?',
+        question: '¿Puedo vender a colegios o empresas a cuenta?',
         answer:
-          'Puede ayudar cuando la necesidad principal es ordenar catálogo, ventas y facturación en una misma base. El detalle del circuito comercial conviene verlo en demo.',
+          'Sí. La venta queda en el circuito y, si corresponde, impacta la cuenta corriente del cliente.',
       },
       {
-        question: '¿Incluye automatización especial para campañas escolares?',
+        question: '¿Puedo emitir facturas ARCA?',
         answer:
-          'No lo prometemos como funcionalidad específica. Lo que sí ofrece ZinkERP es una base más ordenada para atravesar esas temporadas.',
+          'Sí. El comprobante se genera desde la misma operación, vinculado a la venta y al cliente.',
       },
       {
-        question: '¿Es un sistema vertical para papeleras?',
+        question: '¿Sirve si tengo temporadas muy fuertes?',
         answer:
-          'No. Es una plataforma pensada para patrones operativos de comercios argentinos, y papeleras es uno de los segmentos donde ese encaje puede ser muy claro.',
+          'Sí. No reemplaza tu planificación, pero catálogo, stock, compras y caja quedan ordenados para atravesar esos picos.',
+      },
+      {
+        question: '¿Puedo manejar más de un local?',
+        answer:
+          'Sí. Cada local tiene su stock y su caja. La central ve la red sin pedir el cierre por WhatsApp.',
       },
     ],
-    ctaTitle: 'Veamos tu caso de papelera o librería comercial',
+    ctaTitle: 'Veamos el flujo de tu papelera',
     ctaText:
-      'En una demo podemos revisar catálogo, mostrador, temporadas, stock y facturación para ver cómo ordenar mejor la operación diaria de tu negocio.',
+      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+    whatsappMessage:
+      'Hola, tengo una papelera y quiero ver el flujo de ZinkERP: catálogo, listas de precios, reposición y caja.',
+    formProblems: [
+      'Catálogo demasiado grande para memoria',
+      'Listas de precios desordenadas',
+      'Reposición a ciegas en temporada',
+      'Ventas anotadas en distintos lugares',
+      'Caja que se arma al final del día',
+    ],
   },
   'insumos-de-reposteria': {
+    slug: 'insumos-de-reposteria',
     family: 'replenishment',
-    pageTitle: 'ERP para insumos de repostería | ZinkERP',
+    pageTitle: 'ERP para insumos de repostería: catálogo, stock y ventas | ZinkERP',
     pageDescription:
-      'Ordená ventas, stock, POS y facturación de tu negocio de insumos de repostería con ZinkERP.',
-    caseName: 'La operación de un negocio de insumos de repostería',
+      'Sistema para negocios de insumos de repostería: catálogo de variantes, precios, reposición, venta de mostrador y caja. Pedí una demo.',
+    caseName: 'un negocio de insumos de repostería',
     eyebrow: 'Insumos de repostería',
-    heroTitle: 'ZinkERP para insumos de repostería',
+    heroTitle: 'Insumos de repostería con variantes ordenadas, reposición a tiempo y venta sin anotar afuera',
     heroText:
-      'Ordená ventas, stock y facturación de tu negocio de insumos de repostería desde una plataforma local.',
-    heroNote:
-      'Es un caso interesante cuando hay mucha variedad, artículos chicos, picos de demanda y necesidad de combinar mostrador con mejor control comercial.',
-    pains: [
-      'Muchos productos, variantes y artículos chicos que complican el control diario.',
-      'Picos estacionales de demanda que exigen más orden en stock y venta.',
-      'Cambios de precios con impacto rápido en margen y mostrador.',
-      'Necesidad de identificar que rota y que queda inmovilizado.',
-      'Ventas minoristas y, en algunos casos, comerciales o por encargo.',
-      'Facturación y reposición que no conviene resolver por fuera del sistema.',
-    ],
-    helps: [
+      'Para locales que venden moldes, colorantes, chocolates y descartables, con picos de demanda y un catálogo que no entra en la cabeza de nadie.',
+    audience: 'Negocios de insumos de repostería, de 1 a 4 sucursales, con venta presencial y a veces online.',
+    result: 'Sabés qué rota, qué reponer y qué se vendió, sin separar el mostrador de la caja.',
+    problems: [
       {
-        title: 'POS, stock y ventas conectados',
-        text: 'Ayuda a vender en mostrador sin separar la venta de la disponibilidad y la facturación diaria.',
+        title: 'Muchas variantes chicas',
+        text: 'Colores, medidas y marcas se parecen. Si el catálogo no está ordenado, se vende el ítem equivocado o se pierde tiempo buscándolo.',
       },
       {
-        title: 'Catálogo con más orden',
-        text: 'Permite ordenar productos, categorías y variantes cuando el local trabaja con muchas referencias chicas.',
+        title: 'Picos de demanda que desordenan el stock',
+        text: 'Pascuas, Día de la Madre o fin de año vacían góndola. Reponer tarde significa perder la venta de la semana.',
       },
       {
-        title: 'Mejor visibilidad para decidir compras',
-        text: 'Sirve para mirar mejor que rota, que falta y que conviene reponer antes de las fechas fuertes.',
+        title: 'Precios que se mueven con el dólar o el proveedor',
+        text: 'Si el costo cambia y el precio de góndola no, el margen se come solo.',
       },
       {
-        title: 'Base lista para ecommerce cuando aplica',
-        text: 'Si el negocio vende online con WooCommerce y el flujo fue validado, la integración puede sumar.',
+        title: 'Ventas de mostrador y encargos por separado',
+        text: 'Un pedido por Instagram o WhatsApp no termina en el mismo registro que el ticket del local.',
+      },
+      {
+        title: 'Caja y facturación desconectadas',
+        text: 'Se cobra rápido, se factura después y el stock se ajusta cuando hay tiempo. Ese “después” nunca llega limpio.',
       },
     ],
-    features: [
-      'ZinkPOS',
-      'Gestión de stock',
-      'Gestión de ventas',
-      'Facturación',
-      'Catálogo de productos',
-      'WooCommerce cuando aplica',
+    flowSteps: [
+      {
+        title: 'Catálogo y variantes',
+        action: 'Se cargan productos, variantes y códigos para buscarlos rápido.',
+        module: 'Productos',
+        moduleHref: '/producto/inventario',
+        result: 'El mostrador encuentra el color o la medida sin recorrer la góndola.',
+      },
+      {
+        title: 'Precios',
+        action: 'Se actualizan listas a partir de costos, en ARS o USD cuando aplica.',
+        module: 'Productos',
+        moduleHref: '/producto/inventario',
+        result: 'El precio de venta sigue al costo, no a una planilla vieja.',
+      },
+      {
+        title: 'Compra',
+        action: 'Se arma la orden según lo que falta o lo que va a rotar en la fecha fuerte.',
+        module: 'Compras',
+        moduleHref: '/producto/compras',
+        result: 'La reposición queda pedida y registrada.',
+      },
+      {
+        title: 'Reposición',
+        action: 'Se recibe la mercadería y se actualiza el stock del local.',
+        module: 'Stock',
+        moduleHref: '/producto/inventario',
+        result: 'Lo que llegó ya está disponible para vender.',
+        impact: 'El stock se actualiza al recibir.',
+      },
+      {
+        title: 'Venta de mostrador',
+        action: 'Se cobra en POS y, si hace falta, se factura en el mismo paso.',
+        module: 'Ventas / POS',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'La venta descuenta stock y deja el ticket o la factura.',
+        impact: 'Impacta stock y caja.',
+      },
+      {
+        title: 'Caja',
+        action: 'El operador cierra su caja; el dueño ve el día.',
+        module: 'Caja',
+        moduleHref: '/producto/finanzas',
+        result: 'Ingresos y egresos quedan en el mismo lugar que la venta.',
+      },
     ],
-    workflows: [
-      {
-        title: 'Venta diaria',
-        text: 'Cobrar en mostrador sin perder de vista stock, comprobante y registro de la venta.',
-      },
-      {
-        title: 'Control de productos de alta rotación',
-        text: 'Seguir disponibilidad de los productos que más salen para reponer antes de quedarse cortos.',
-      },
-      {
-        title: 'Orden del catálogo',
-        text: 'Trabajar con un catálogo más claro cuando hay muchas referencias y variantes.',
-      },
-      {
-        title: 'Temporadas y picos de demanda',
-        text: 'Atravesar fechas fuertes con mejor seguimiento de stock, precios y movimiento comercial.',
-      },
-      {
-        title: 'Facturación',
-        text: 'Resolver la facturación dentro de la misma operación, con una base alineada al contexto fiscal argentino.',
-      },
+    modules: [
+      sharedModules.productos,
+      sharedModules.ventas,
+      sharedModules.compras,
+      sharedModules.stock,
+      sharedModules.caja,
+      sharedModules.informes,
     ],
+    differentials: sharedDifferentials,
+    experience: {
+      kind: 'anonymized',
+      title: 'Caso de uso: local de insumos con catálogo amplio y fechas pico',
+      problem:
+        'El catálogo chico-grande se sostenía en memoria, la reposición de fechas fuertes se decidía tarde y la caja se armaba aparte.',
+      flow: 'Catálogo → precios → compra → reposición → venta → caja.',
+      result:
+        'La operación diaria y la reposición quedan en un mismo circuito. No publicamos métricas de este caso.',
+      complexity: 'Comercio con muchas variantes y picos estacionales.',
+    },
+    demoMedia: {
+      kind: 'placeholder',
+      label: 'Acá va a vivir el video o la captura del flujo catálogo → reposición → venta de insumos.',
+      href: '/producto/inventario',
+    },
     integrations: [
-      {
-        name: 'ARCA',
-        href: '/integraciones/arca',
-      },
-      {
-        name: 'WooCommerce',
-        href: '/integraciones/woocommerce',
-      },
+      { name: 'ARCA', href: '/integraciones/arca' },
+      { name: 'WooCommerce', href: '/integraciones/woocommerce' },
     ],
-    testimonialIds: [
-      'martina-papelera-pilar',
-      'mariela-papelera-pilar',
-      'julieta-dieteticas-naturales',
+    relatedDocs: [
+      { name: 'Inventario', href: '/producto/inventario' },
+      { name: 'Ventas y POS', href: '/producto/ventas-y-pos' },
+      { name: 'Compras', href: '/producto/compras' },
+      { name: 'Facturación', href: '/producto/facturacion' },
     ],
     faqs: [
       {
-        question: '¿Sirve para negocios con muchos productos chicos?',
+        question: '¿Sirve si tengo muchísimos productos chicos?',
         answer:
-          'Sí. Ese tipo de complejidad comercial puede encajar bien cuando el objetivo principal es ordenar catálogo, stock, ventas y facturación.',
+          'Sí. El valor está en ordenar catálogo, precios, stock y venta. El POS busca por código o nombre para no frenar el mostrador.',
       },
       {
-        question: '¿Puedo usarlo si vendo online?',
+        question: '¿Puedo importar el catálogo desde Excel?',
         answer:
-          'Si trabajás con WooCommerce y el flujo está validado, la integración puede ayudar a conectar ecommerce con gestión.',
+          'Sí. Se pueden importar productos para levantar la base. Conviene revisar categorías y códigos en la puesta en marcha.',
       },
       {
-        question: '¿Ayuda en temporadas fuertes?',
+        question: '¿Puedo actualizar precios cuando cambia el costo?',
         answer:
-          'Sí. No reemplaza la planificación del negocio, pero una base operativa más ordenada ayuda mucho cuando sube la demanda.',
+          'Sí. Los precios se pueden actualizar a partir del costo. Si el insumo se compra en USD, el costo se puede trabajar en esa moneda.',
       },
       {
-        question: '¿Incluye recetas, producción o vencimientos?',
+        question: '¿Puedo vender online y en el local?',
         answer:
-          'No lo prometemos de forma general. Esos puntos hay que validarlos según el caso antes de afirmar alcance.',
+          'Si usás WooCommerce, la tienda se puede conectar con la operación. El alcance puntual se revisa en la demo.',
       },
       {
-        question: '¿Es solo para repostería?',
+        question: '¿Puedo emitir facturas ARCA?',
         answer:
-          'No. Es un caso de uso dentro de un producto pensado para comercios que necesitan ordenar operación diaria, stock y facturación.',
+          'Sí. La factura se emite desde la misma venta, sin un sistema fiscal paralelo.',
+      },
+      {
+        question: '¿Incluye recetas o producción?',
+        answer:
+          'No lo prometemos como vertical de obrador. Si fabricás y vendés, validamos en demo qué parte del circuito aplica.',
       },
     ],
-    ctaTitle: 'Revisemos el encaje de ZinkERP para tu negocio',
+    ctaTitle: 'Veamos el flujo de tu negocio de insumos',
     ctaText:
-      'Podemos revisar mostrador, productos de alta rotación, temporadas y facturación para ver cómo ordenar mejor la operación de tu local.',
+      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+    whatsappMessage:
+      'Hola, tengo un negocio de insumos de repostería y quiero ver el flujo de ZinkERP: catálogo, precios, reposición y caja.',
+    formProblems: [
+      'Muchas variantes chicas',
+      'Picos de demanda que desordenan el stock',
+      'Precios que no siguen al costo',
+      'Encargos y mostrador desconectados',
+      'Caja y facturación aparte',
+    ],
   },
   florerias: {
+    slug: 'florerias',
     family: 'validation',
     noindex: true,
     pageTitle: 'ERP para florerías | ZinkERP',
     pageDescription:
-      'Ordená ventas, stock y facturación de tu florería con ZinkERP, una base operativa para negocios con pedidos y atención por múltiples canales.',
-    caseName: 'La operación de una florería',
+      'Ordená ventas, stock y facturación de tu florería con ZinkERP. Revisamos el flujo real antes de prometer procesos específicos del rubro.',
+    caseName: 'una florería',
     eyebrow: 'Florerías',
-    heroTitle: 'ZinkERP para florerías',
+    heroTitle: 'Florería con pedidos, stock y facturación en un mismo circuito comercial',
     heroText:
-      'Gestioná ventas, stock y facturación de tu florería con una plataforma simple para ordenar la operación diaria.',
-    heroNote:
-      'Ya hay experiencia real en operaciones con esta dinámica, sobre todo cuando el negocio necesita ordenar pedidos, ventas y facturación sin prometer procesos específicos del rubro que deban validarse aparte.',
-    pains: [
-      'Disponibilidad que cambia rápido y puede ser difícil de sostener en el sistema.',
-      'Ventas por mostrador, teléfono o canales online que necesitan más orden común.',
-      'Picos de demanda en fechas especiales con más presión operativa.',
-      'Seguimiento de pedidos y coordinación comercial dispersos en mensajes o planillas.',
-      'Necesidad de facturar dentro del mismo circuito diario.',
-      'Operación que mezcla productos, arreglos y atención personalizada.',
-    ],
-    helps: [
+      'Para florerías que toman pedidos por mostrador, teléfono o canales online y necesitan ordenar la parte comercial sin asumir logística floral a medida.',
+    audience: 'Florerías que ya superaron el cuaderno y quieren validar si el circuito comercial encaja.',
+    result: 'Ventas, disponibilidad y facturación dejan de vivir en chats y planillas distintas.',
+    problems: [
       {
-        title: 'Base para la operación comercial',
-        text: 'ZinkERP puede ayudar a ordenar ventas, stock y facturación cuando la operación comercial hoy se sigue entre mensajes, planillas y mostrador.',
+        title: 'Disponibilidad que cambia rápido',
+        text: 'Lo que hay a la mañana no está a la tarde. Comprometer un pedido sin stock claro genera reclamos.',
       },
       {
-        title: 'Más orden entre canales',
-        text: 'Cuando un pedido entra por mostrador, teléfono o canales online, ayuda a que la información comercial no quede repartida.',
+        title: 'Pedidos por varios canales',
+        text: 'Mostrador, teléfono e Instagram no terminan en el mismo registro.',
       },
       {
-        title: 'Soporte para ecommerce cuando aplica',
-        text: 'Si la tienda trabaja con WooCommerce y el flujo fue validado, puede sumarse a la gestión.',
+        title: 'Picos en fechas especiales',
+        text: 'San Valentín o el Día de la Madre multiplican encargos y se pierde el hilo de qué está entregado.',
       },
       {
-        title: 'Visibilidad para dueños y encargados',
-        text: 'Permite seguir ventas y actividad diaria con más orden sobre la parte comercial del negocio.',
+        title: 'Facturación aparte de la operación',
+        text: 'Se vende ahora y se factura después, con diferencias entre lo prometido y lo registrado.',
       },
     ],
-    features: [
-      'Gestión de ventas',
-      'ZinkPOS',
-      'Gestión de stock',
-      'Facturación',
-      'WooCommerce cuando aplica',
-      'Reportes',
-    ],
-    workflows: [
+    flowSteps: [
       {
-        title: 'Venta por mostrador o pedido',
-        text: 'Registrar ventas y pedidos desde un mismo circuito comercial, aunque el contacto llegue por distintos canales.',
+        title: 'Pedido o venta',
+        action: 'Se registra el pedido o la venta desde el canal que haya entrado.',
+        module: 'Ventas',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'La operación comercial queda en un solo lugar.',
       },
       {
         title: 'Consulta de disponibilidad',
-        text: 'Revisar disponibilidad antes de confirmar un pedido o comprometer una entrega con el cliente.',
+        action: 'Se revisa stock antes de comprometer el pedido.',
+        module: 'Stock',
+        moduleHref: '/producto/inventario',
+        result: 'Se confirma con datos, no solo con memoria.',
       },
       {
         title: 'Facturación',
-        text: 'Resolver la facturación dentro de la misma operación comercial, sin prometer flujos especiales del rubro.',
+        action: 'Se emite el comprobante vinculado a la venta.',
+        module: 'Facturación',
+        moduleHref: '/producto/facturacion',
+        result: 'Lo vendido y lo facturado coinciden.',
       },
       {
-        title: 'Orden comercial en fechas pico',
-        text: 'Atravesar fechas fuertes con más orden sobre pedidos, ventas y actividad comercial.',
+        title: 'Caja',
+        action: 'El cobro queda en la caja del día.',
+        module: 'Caja',
+        moduleHref: '/producto/finanzas',
+        result: 'El cierre no depende de sumar mensajes y tickets.',
+        impact: 'Impacta caja.',
       },
     ],
+    modules: [sharedModules.ventas, sharedModules.stock, sharedModules.caja, sharedModules.informes],
+    differentials: sharedDifferentials,
+    experience: {
+      kind: 'anonymized',
+      title: 'Caso de uso: operación floral con varios canales',
+      problem: 'Pedidos, disponibilidad y facturación se seguían en canales distintos.',
+      flow: 'Pedido o venta → disponibilidad → facturación → caja.',
+      result: 'La parte comercial se ordena. El detalle de delivery o perecederos se valida en demo.',
+    },
+    demoMedia: {
+      kind: 'placeholder',
+      label: 'Acá se podrá sumar una captura del flujo comercial cuando exista material del rubro.',
+      href: '/producto/ventas-y-pos',
+    },
     integrations: [
-      {
-        name: 'ARCA',
-        href: '/integraciones/arca',
-      },
-      {
-        name: 'WooCommerce',
-        href: '/integraciones/woocommerce',
-      },
+      { name: 'ARCA', href: '/integraciones/arca' },
+      { name: 'WooCommerce', href: '/integraciones/woocommerce' },
     ],
     faqs: [
       {
         question: '¿Sirve para una florería?',
         answer:
-          'Sí, especialmente cuando la necesidad principal es ordenar ventas, stock y facturación. El alcance puntual depende de qué tan particular sea el flujo del negocio.',
-      },
-      {
-        question: '¿Ayuda con pedidos por distintos canales?',
-        answer:
-          'Puede ayudar a centralizar la operación comercial, aunque el detalle del circuito conviene revisarlo en demo.',
+          'Puede servir cuando el problema es ordenar ventas, stock y facturación. El alcance puntual depende del flujo real.',
       },
       {
         question: '¿Incluye logística de delivery?',
-        answer:
-          'No lo prometemos de forma pública. Si delivery es una parte central del negocio, hay que validarlo específicamente.',
+        answer: 'No lo prometemos de forma pública. Si el delivery es central, lo validamos en la demo.',
       },
       {
-        question: '¿Maneja reglas especiales para productos perecederos?',
-        answer:
-          'No asumimos ese alcance. Lo que sí puede aportar es orden operativo general sobre ventas, stock y facturación.',
+        question: '¿Maneja reglas de perecederos?',
+        answer: 'No asumimos ese alcance. Lo que sí puede aportar es el circuito comercial y de stock general.',
       },
       {
-        question: '¿Entonces por qué publicarlo?',
-        answer:
-          'Porque ya hay experiencia real en operaciones con dinámicas similares. Lo mostramos con prudencia para revisar cada flujo sin prometer procesos específicos que no correspondan.',
+        question: '¿Puedo emitir facturas ARCA?',
+        answer: 'Sí. La facturación electrónica forma parte del flujo operativo de ZinkERP.',
       },
     ],
-    ctaTitle: 'Revisemos juntos el flujo real de tu florería',
+    ctaTitle: 'Revisemos el flujo real de tu florería',
     ctaText:
-      'En una demo podemos revisar cómo toman pedidos, cómo manejan disponibilidad y hasta dónde ZinkERP puede ordenar la parte comercial con prudencia.',
+      'Contanos cuántas sedes tenés y cómo tomás pedidos hoy. Te mostramos hasta dónde llega el circuito de ZinkERP.',
+    whatsappMessage: 'Hola, tengo una florería y quiero validar si el flujo comercial de ZinkERP encaja.',
+    formProblems: [
+      'Pedidos por varios canales',
+      'Disponibilidad que cambia rápido',
+      'Picos en fechas especiales',
+      'Facturación desconectada',
+    ],
   },
   'zingueria-metalurgica': {
+    slug: 'zingueria-metalurgica',
     family: 'validation',
     noindex: true,
     pageTitle: 'ERP para zinguería y metalúrgica | ZinkERP',
     pageDescription:
-      'Ordená ventas, materiales, stock y facturación en negocios de zinguería o metalúrgica con ZinkERP.',
-    caseName: 'La operación de una zinguería o metalúrgica',
+      'Ordená ventas, materiales, presupuestos y facturación en zinguería o metalúrgica. Validamos el alcance industrial en demo.',
+    caseName: 'una zinguería o metalúrgica',
     eyebrow: 'Zinguería y metalúrgica',
-    heroTitle: 'ZinkERP para zinguería y metalúrgica',
+    heroTitle: 'Zinguería o metalúrgica con presupuestos, materiales y facturación en un circuito comercial',
     heroText:
-      'Ordená ventas, materiales, facturación y seguimiento comercial en negocios donde la operación no termina en una venta de mostrador.',
-    heroNote:
-      'Ya hay experiencia real en operaciones con esta dinámica, sobre todo en la parte comercial y administrativa. El alcance sobre procesos industriales se valida según el flujo de cada negocio.',
-    pains: [
-      'Ventas que combinan materiales, mano de obra y seguimiento comercial.',
-      'Pedidos más complejos que un ticket minorista tradicional.',
-      'Necesidad de entender costos, materiales y requerimientos del cliente.',
-      'Presupuestos manuales que pueden generar inconsistencias.',
-      'Operación personalizada que pierde visibilidad cuando todo queda repartido.',
-      'Facturación y seguimiento que no conviene manejar en sistemas separados.',
-    ],
-    helps: [
+      'Para talleres que venden materiales y trabajo, y necesitan ordenar la parte comercial sin asumir un sistema de planta.',
+    audience: 'Zinguerías y metalúrgicas que ya no entran en una planilla de presupuestos.',
+    result: 'Presupuesto, pedido, materiales y factura dejan de estar repartidos.',
+    problems: [
       {
-        title: 'Base común para ventas y clientes',
-        text: 'ZinkERP puede ayudar a ordenar ventas, clientes y facturación cuando la operación comercial ya no entra en planillas o seguimiento manual.',
+        title: 'Presupuestos manuales',
+        text: 'Cada oferta se arma de cero. Después hay que cargarla de nuevo para comprar o facturar.',
       },
       {
-        title: 'Control sobre materiales y stock',
-        text: 'Cuando hay materiales o productos involucrados, la gestión de stock puede dar más orden sobre disponibilidad y movimiento.',
+        title: 'Materiales y mano de obra mezclados',
+        text: 'La venta no es un ticket de mostrador. Si no hay un pedido, se pierde qué se comprometió.',
       },
       {
-        title: 'Más visibilidad administrativa',
-        text: 'Dueños y encargados pueden seguir ventas, clientes y facturación con más orden administrativo.',
+        title: 'Poca visibilidad de costos y stock de materiales',
+        text: 'Chapa, perfiles e insumos se controlan aparte de la venta.',
       },
       {
-        title: 'Encaje honesto para flujos mixtos',
-        text: 'Es una base operativa útil cuando el negocio necesita ordenar la parte comercial sin asumir manufactura avanzada.',
+        title: 'Facturación desconectada del trabajo',
+        text: 'Se factura cuando hay tiempo, no cuando el pedido avanza.',
       },
     ],
-    features: [
-      'Gestión de ventas',
-      'Gestión de stock',
-      'Facturación',
-      'Clientes',
-      'Reportes',
-      'Seguimiento comercial',
+    flowSteps: [
+      {
+        title: 'Cotización / presupuesto',
+        action: 'Se arma la oferta con materiales y condiciones.',
+        module: 'Ventas',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'El presupuesto queda en el sistema, no solo en un PDF suelto.',
+      },
+      {
+        title: 'Pedido',
+        action: 'Si se acepta, el presupuesto pasa a pedido.',
+        module: 'Ventas',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'Hay un compromiso comercial para abastecer o entregar.',
+      },
+      {
+        title: 'Compra de materiales',
+        action: 'Se emite la orden de compra de lo que falta.',
+        module: 'Compras',
+        moduleHref: '/producto/compras',
+        result: 'El material queda pedido contra la operación.',
+        impact: 'El stock se actualiza al recibir.',
+      },
+      {
+        title: 'Venta y facturación',
+        action: 'Se cierra la venta y se emite el comprobante.',
+        module: 'Ventas / Facturación',
+        moduleHref: '/producto/facturacion',
+        result: 'Lo vendido, lo facturado y el saldo del cliente coinciden.',
+        impact: 'Puede impactar cuenta corriente y caja.',
+      },
     ],
-    workflows: [
-      {
-        title: 'Ingreso de ventas y pedidos',
-        text: 'Registrar ventas y pedidos cuando el trabajo comercial sigue abierto más allá de una venta rápida de mostrador.',
-      },
-      {
-        title: 'Control de materiales',
-        text: 'Tener mejor seguimiento de materiales o insumos cuando forman parte de la venta o del pedido.',
-      },
-      {
-        title: 'Facturación',
-        text: 'Resolver la facturación dentro del mismo circuito comercial, sin prometer procesos industriales no validados.',
-      },
-      {
-        title: 'Seguimiento comercial',
-        text: 'Ordenar consultas, pedidos o presupuestos cuando cada venta necesita más seguimiento que un ticket simple.',
-      },
+    modules: [
+      sharedModules.ventas,
+      sharedModules.compras,
+      sharedModules.stock,
+      sharedModules.cuentaCorriente,
+      sharedModules.informes,
     ],
+    differentials: sharedDifferentials,
+    experience: {
+      kind: 'anonymized',
+      title: 'Caso de uso: taller con presupuestos y materiales',
+      problem: 'Presupuestos, compras de material y facturación vivían en circuitos distintos.',
+      flow: 'Presupuesto → pedido → compra de materiales → venta / factura.',
+      result: 'La parte comercial y administrativa se ordena. La manufactura avanzada se valida aparte.',
+    },
+    demoMedia: {
+      kind: 'placeholder',
+      label: 'Acá se podrá sumar una captura del flujo presupuesto → pedido cuando exista material del rubro.',
+      href: '/producto/ventas-y-pos',
+    },
     integrations: [
-      {
-        name: 'ARCA',
-        href: '/integraciones/arca',
-      },
-      {
-        name: 'Mercado Pago',
-        href: '/integraciones/mercadopago',
-      },
+      { name: 'ARCA', href: '/integraciones/arca' },
+      { name: 'Mercado Pago', href: '/integraciones/mercadopago' },
     ],
     faqs: [
       {
-        question: '¿Sirve para negocios con productos y mano de obra?',
+        question: '¿Reemplaza un sistema de producción?',
         answer:
-          'Puede servir para ordenar ventas, materiales, clientes y facturación. El alcance sobre procesos más complejos debe validarse en demo.',
+          'No. Ordena ventas, materiales, clientes y facturación. No afirmamos manufactura avanzada sin validación.',
       },
       {
-        question: '¿Reemplaza un sistema de producción o manufactura?',
+        question: '¿Puedo convertir un presupuesto en pedido y venta?',
         answer:
-          'No es lo que prometemos. ZinkERP puede encajar como base comercial y administrativa, pero no afirmamos soporte de manufactura avanzada sin validación.',
+          'Sí. Ese circuito comercial está en el producto. El encaje con tu forma de trabajar se revisa en demo.',
       },
       {
-        question: '¿Ayuda con presupuestos?',
-        answer:
-          'Puede ayudar a ordenar la información comercial alrededor de presupuestos o pedidos, aunque el flujo exacto hay que revisarlo según el negocio.',
+        question: '¿Puedo controlar cuenta corriente?',
+        answer: 'Sí. Saldo, antigüedad y movimientos del cliente quedan en finanzas.',
       },
       {
-        question: '¿Entonces para quién encaja mejor?',
-        answer:
-          'Para negocios donde el problema principal hoy es el desorden entre ventas, materiales, clientes y facturación, más que la gestión industrial en sí misma.',
+        question: '¿Puedo emitir facturas ARCA?',
+        answer: 'Sí. La factura se vincula a la operación comercial.',
       },
     ],
-    ctaTitle: 'Validemos el alcance para tu operación',
+    ctaTitle: 'Validemos el alcance de tu taller',
     ctaText:
-      'Podemos revisar ventas, materiales, pedidos y facturación para ver hasta dónde ZinkERP puede ordenar la parte comercial y administrativa de tu operación.',
+      'Contanos cuántas sedes tenés y cómo armás hoy presupuestos, materiales y facturas. Te mostramos el circuito comercial.',
+    whatsappMessage:
+      'Hola, tengo una zinguería o metalúrgica y quiero validar el flujo comercial de ZinkERP.',
+    formProblems: [
+      'Presupuestos manuales',
+      'Materiales y trabajo desconectados',
+      'Poco control de compras',
+      'Facturación aparte',
+    ],
   },
   cultivos: {
+    slug: 'cultivos',
     family: 'validation',
     noindex: true,
     pageTitle: 'ERP para negocios vinculados a cultivos | ZinkERP',
     pageDescription:
-      'Organizá ventas, stock, compras, facturación y control operativo en negocios vinculados a cultivos con ZinkERP.',
-    caseName: 'La operación de negocios vinculados a cultivos',
+      'Ordená ventas, stock, compras y facturación en negocios vinculados a cultivos. Validamos procesos agronómicos en demo.',
+    caseName: 'un negocio vinculado a cultivos',
     eyebrow: 'Cultivos',
-    heroTitle: 'ZinkERP para operaciones vinculadas a cultivos',
+    heroTitle: 'Operación vinculada a cultivos con ventas, stock y compras en un circuito comercial',
     heroText:
-      'Ordená ventas, stock, compras y facturación en negocios donde la operación vinculada a cultivos necesita más control comercial y administrativo.',
-    heroNote:
-      'Ya hay experiencia en operaciones vinculadas a cultivos donde ZinkERP aporta orden comercial y administrativo, sin asumir funciones agronómicas o productivas específicas.',
-    pains: [
-      'Información comercial y administrativa repartida entre planillas, mensajes y memoria del equipo.',
-      'Necesidad de controlar stock, compras o insumos con más visibilidad.',
-      'Ventas y facturación que no conviene resolver por fuera del mismo sistema.',
-      'Operaciones con sucursales, depósitos o puntos de atención que necesitan visibilidad coordinada.',
-      'Seguimiento de clientes, precios y movimientos con poco contexto consolidado.',
-      'Crecimiento del negocio sin una plataforma única para ordenar el día a día.',
-    ],
-    helps: [
+      'Para negocios que venden, compran y controlan insumos o productos, y necesitan orden administrativo más que un software agronómico.',
+    audience: 'Operaciones vinculadas a cultivos que ya no entran en planillas.',
+    result: 'Ventas, stock, compras y facturación quedan en una sola base comercial.',
+    problems: [
       {
-        title: 'Base para la operación comercial',
-        text: 'ZinkERP puede ayudar a ordenar ventas, stock y facturación cuando la operación comercial hoy se sigue entre planillas, mensajes y control manual.',
+        title: 'Información repartida',
+        text: 'Ventas, stock e insumos se siguen en planillas, mensajes y memoria del equipo.',
       },
       {
-        title: 'Más orden sobre insumos y movimientos',
-        text: 'Cuando hay productos o insumos involucrados, la gestión de stock puede dar más orden sobre disponibilidad y movimientos.',
+        title: 'Compras y stock sin una foto común',
+        text: 'No está claro qué hay, qué se pidió y qué falta en cada punto operativo.',
       },
       {
-        title: 'Mejor contexto para decisiones del negocio',
-        text: 'Dueños y encargados pueden seguir ventas, compras y actividad administrativa con una mirada más ordenada.',
+        title: 'Facturación desconectada',
+        text: 'Se vende o se entrega y se factura en otro momento, con diferencias.',
       },
       {
-        title: 'Encaje evaluado con criterio',
-        text: 'Encaja especialmente cuando la prioridad está en ventas, stock y administración, revisando aparte cualquier necesidad técnica específica del agro.',
+        title: 'Más de un punto operativo',
+        text: 'Sucursales o depósitos no comparten visibilidad.',
       },
     ],
-    features: [
-      'Ventas y clientes',
-      'Stock e insumos',
-      'Compras y abastecimiento',
-      'Facturación',
-      'Sucursales',
-      'Control administrativo',
-    ],
-    workflows: [
+    flowSteps: [
       {
-        title: 'Venta y registro comercial',
-        text: 'Registrar ventas y actividad comercial en un mismo circuito cuando el negocio ya superó el seguimiento manual.',
+        title: 'Venta o registro comercial',
+        action: 'Se registra la venta o el pedido en el sistema.',
+        module: 'Ventas',
+        moduleHref: '/producto/ventas-y-pos',
+        result: 'La operación comercial deja de vivir en una planilla.',
       },
       {
         title: 'Control de stock o insumos',
-        text: 'Seguir disponibilidad y movimientos cuando el negocio trabaja con stock, insumos o más de un punto operativo.',
+        action: 'Se consulta disponibilidad del punto operativo.',
+        module: 'Stock',
+        moduleHref: '/producto/inventario',
+        result: 'Hay una foto de qué hay y dónde.',
       },
       {
-        title: 'Compras y reposición',
-        text: 'Tener mejor orden para revisar faltantes y necesidades de compra o abastecimiento.',
+        title: 'Compra',
+        action: 'Se emite la orden de compra de lo que falta.',
+        module: 'Compras',
+        moduleHref: '/producto/compras',
+        result: 'El abastecimiento queda registrado.',
+        impact: 'El stock se actualiza al recibir.',
       },
       {
         title: 'Facturación',
-        text: 'Resolver la facturación dentro del mismo circuito comercial, sin asumir funciones productivas específicas.',
-      },
-      {
-        title: 'Seguimiento multi-sucursal',
-        text: 'Cuando hay más de un punto operativo, sumar visibilidad sobre ventas, stock y actividad diaria.',
+        action: 'Se emite el comprobante vinculado a la operación.',
+        module: 'Facturación',
+        moduleHref: '/producto/facturacion',
+        result: 'Lo comercial y lo fiscal coinciden.',
       },
     ],
+    modules: [
+      sharedModules.ventas,
+      sharedModules.stock,
+      sharedModules.compras,
+      sharedModules.caja,
+      sharedModules.informes,
+    ],
+    differentials: sharedDifferentials,
+    experience: {
+      kind: 'anonymized',
+      title: 'Caso de uso: operación comercial vinculada a cultivos',
+      problem: 'Ventas, stock y administración estaban repartidos.',
+      flow: 'Venta → stock → compra → facturación.',
+      result: 'La parte comercial y administrativa se ordena. Lo agronómico se valida aparte.',
+    },
+    demoMedia: {
+      kind: 'placeholder',
+      label: 'Acá se podrá sumar una captura del circuito comercial cuando exista material del rubro.',
+      href: '/producto/inventario',
+    },
     integrations: [
-      {
-        name: 'ARCA',
-        href: '/integraciones/arca',
-      },
-      {
-        name: 'Mercado Pago',
-        href: '/integraciones/mercadopago',
-      },
+      { name: 'ARCA', href: '/integraciones/arca' },
+      { name: 'Mercado Pago', href: '/integraciones/mercadopago' },
     ],
     faqs: [
       {
-        question: '¿ZinkERP está pensado para cultivos?',
+        question: '¿ZinkERP es un software de cultivos?',
         answer:
-          'No como vertical exclusivo. Sí puede aportar una base operativa para la parte comercial, de stock y facturación en negocios vinculados a cultivos.',
+          'No como vertical agronómico. Sí puede ordenar ventas, stock, compras y facturación de la parte comercial.',
       },
       {
-        question: '¿Entonces por qué lo muestran como caso?',
-        answer:
-          'Porque ya hay experiencia real en operaciones de este segmento donde ZinkERP aporta valor en la parte comercial y administrativa. Igual, validamos cada flujo antes de prometer alcance total.',
+        question: '¿Puedo manejar sucursales o depósitos?',
+        answer: 'Sí, cuando el problema es visibilidad de stock, ventas y caja entre puntos operativos.',
       },
       {
-        question: '¿Incluye gestión agronómica o productiva específica?',
-        answer:
-          'No lo afirmamos de forma pública. Si tu operación depende de procesos técnicos propios del agro, ese punto debe revisarse en demo.',
+        question: '¿Puedo emitir facturas ARCA?',
+        answer: 'Sí. La facturación electrónica está integrada al flujo operativo.',
       },
       {
-        question: '¿Sirve si tengo stock, compras y más de una sucursal?',
-        answer:
-          'Puede ser un buen encaje si el problema principal es ordenar ventas, stock, facturación y visibilidad operativa.',
+        question: '¿Incluye gestión agronómica?',
+        answer: 'No lo afirmamos. Si tu operación depende de procesos técnicos del agro, lo revisamos en demo.',
       },
     ],
-    ctaTitle: 'Validemos el caso de tu operación vinculada a cultivos',
+    ctaTitle: 'Validemos tu operación vinculada a cultivos',
     ctaText:
-      'En una demo podemos revisar ventas, stock, compras y sucursales para confirmar con honestidad hasta dónde ZinkERP puede ordenar la parte comercial y administrativa.',
+      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el circuito comercial.',
+    whatsappMessage:
+      'Hola, tengo una operación vinculada a cultivos y quiero validar el flujo comercial de ZinkERP.',
+    formProblems: [
+      'Información repartida',
+      'Poco control de stock e insumos',
+      'Compras desordenadas',
+      'Más de un punto operativo',
+    ],
   },
 };
+
+export const commercialUseCaseSlugs = [
+  'ferreterias',
+  'dieteticas',
+  'articulos-de-limpieza',
+  'papeleras',
+  'insumos-de-reposteria',
+] as const;

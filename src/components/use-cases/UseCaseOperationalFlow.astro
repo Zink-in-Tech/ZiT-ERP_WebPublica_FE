@@ -1,0 +1,58 @@
+---
+import type { UseCaseFlowStep } from '../../data/useCases';
+
+interface Props {
+  steps: UseCaseFlowStep[];
+  caseName: string;
+}
+
+const { steps, caseName } = Astro.props;
+---
+
+<section id="flujo" class="py-20 scroll-mt-28" aria-labelledby="use-case-flow-title">
+  <div class="container mx-auto px-4">
+    <div class="max-w-3xl mb-12 animate-on-scroll">
+      <h2 id="use-case-flow-title" class="text-3xl md:text-4xl font-bold mb-4">
+        El flujo operativo de {caseName}
+      </h2>
+      <p class="text-lg text-gray-300">
+        Cada paso dice qué hace el equipo, qué módulo usa y qué queda resuelto en stock, caja o cuenta corriente.
+      </p>
+    </div>
+    <ol class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      {steps.map((step, index) => (
+        <li class="bg-dark-800 border border-dark-700 rounded-2xl p-6 animate-on-scroll h-full">
+          <div class="flex items-center justify-between gap-3 mb-5">
+            <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold">
+              {index + 1}
+            </span>
+            {step.moduleHref ? (
+              <a href={step.moduleHref} class="text-xs font-medium text-primary-light hover:text-primary">
+                {step.module}
+              </a>
+            ) : (
+              <span class="text-xs font-medium text-primary-light">{step.module}</span>
+            )}
+          </div>
+          <h3 class="text-xl font-bold mb-3">{step.title}</h3>
+          <dl class="space-y-3 text-sm">
+            <div>
+              <dt class="text-gray-500 uppercase tracking-[0.14em] text-xs mb-1">Acción</dt>
+              <dd class="text-gray-200">{step.action}</dd>
+            </div>
+            <div>
+              <dt class="text-gray-500 uppercase tracking-[0.14em] text-xs mb-1">Resultado</dt>
+              <dd class="text-gray-200">{step.result}</dd>
+            </div>
+            {step.impact && (
+              <div>
+                <dt class="text-gray-500 uppercase tracking-[0.14em] text-xs mb-1">Impacto</dt>
+                <dd class="text-primary-light">{step.impact}</dd>
+              </div>
+            )}
+          </dl>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

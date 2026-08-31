@@ -2,105 +2,95 @@
 import Layout from '../layouts/Layout.astro';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
-import TestimonialsGrid from './TestimonialsGrid.astro';
-import { getTestimonialsByIds } from '../data/testimonials';
-import UseCasePainsSection from './use-cases/UseCasePainsSection.astro';
-import UseCaseHelpsSection from './use-cases/UseCaseHelpsSection.astro';
-import UseCaseFeaturesSection from './use-cases/UseCaseFeaturesSection.astro';
-import UseCaseWorkflowsSection from './use-cases/UseCaseWorkflowsSection.astro';
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+import type { UseCaseEntry } from '../data/useCases';
+import UseCaseCtas from './use-cases/UseCaseCtas.astro';
+import UseCaseHeroFlow from './use-cases/UseCaseHeroFlow.astro';
+import UseCaseDemoSlot from './use-cases/UseCaseDemoSlot.astro';
+import UseCaseProblemsSection from './use-cases/UseCaseProblemsSection.astro';
+import UseCaseOperationalFlow from './use-cases/UseCaseOperationalFlow.astro';
+import UseCaseModulesSection from './use-cases/UseCaseModulesSection.astro';
+import UseCaseDifferentialsSection from './use-cases/UseCaseDifferentialsSection.astro';
+import UseCaseExperienceSection from './use-cases/UseCaseExperienceSection.astro';
+import UseCaseLeadForm from './use-cases/UseCaseLeadForm.astro';
+import UseCaseTracking from './use-cases/UseCaseTracking.astro';
 
-type UseCaseLink = {
-  name: string;
-  href: string;
-};
-
-type UseCaseFaq = {
-  question: string;
-  answer: string;
-};
-
-interface Props {
-  family: 'storefront' | 'replenishment' | 'validation';
-  pageTitle: string;
-  pageDescription: string;
-  caseName: string;
-  eyebrow: string;
-  heroTitle: string;
-  heroText: string;
-  heroNote: string;
-  pains: string[];
-  helps: { title: string; text: string }[];
-  features: string[];
-  workflows: { title: string; text: string }[];
-  integrations?: UseCaseLink[];
-  testimonialIds?: string[];
-  faqs: UseCaseFaq[];
-  ctaTitle: string;
-  ctaText: string;
+interface Props extends UseCaseEntry {
   backHref?: string;
   backLabel?: string;
-  noindex?: boolean;
 }
 
 const {
-  family,
+  slug,
   pageTitle,
   pageDescription,
   caseName,
   eyebrow,
   heroTitle,
   heroText,
-  heroNote,
-  pains,
-  helps,
-  features,
-  workflows,
+  audience,
+  result,
+  problems,
+  flowSteps,
+  modules,
+  differentials,
+  experience,
+  demoMedia,
   integrations = [],
+  relatedDocs = [],
   testimonialIds = [],
   faqs,
   ctaTitle,
   ctaText,
+  whatsappMessage,
+  formProblems,
   backHref = '/casos-de-uso',
   backLabel = 'Volver a casos de uso',
   noindex = false,
 } = Astro.props;
 
-const whatsappUrl = 'https://wa.link/sgzvr4';
-const demoUrl = 'https://cal.com/zinkintech';
+const demoUrl = '/agendar-demo';
+const whatsappUrl = buildWhatsAppUrl(whatsappMessage);
+const pageUrl = new URL(Astro.url.pathname, Astro.site).toString();
 const integrationsGridClass =
   integrations.length >= 3 ? 'grid md:grid-cols-2 xl:grid-cols-3 gap-6' : 'grid md:grid-cols-2 gap-6';
-const useCaseTestimonials = getTestimonialsByIds(testimonialIds);
-const familyMeta = {
-  storefront: {
-    heroPanelTitle: 'Áreas clave',
-    heroPanelClass: 'bg-dark-800 border-dark-700',
-    heroGridClass: 'grid sm:grid-cols-2 gap-3',
-    heroItemClass: 'rounded-lg bg-dark-700 border border-dark-600 p-4',
-  },
-  replenishment: {
-    heroPanelTitle: 'Puntos a controlar',
-    heroPanelClass: 'bg-dark-900 border-emerald-400/10',
-    heroGridClass: 'grid gap-3',
-    heroItemClass: 'rounded-xl bg-emerald-400/[0.03] border border-emerald-400/10 p-4',
-  },
-  validation: {
-    heroPanelTitle: 'Aspectos a validar',
-    heroPanelClass: 'bg-dark-900 border-amber-400/10',
-    heroGridClass: 'grid gap-3',
-    heroItemClass: 'rounded-xl bg-amber-400/[0.03] border border-amber-400/10 p-4',
-  },
-}[family];
+
+const breadcrumbs = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Inicio', item: new URL('/', Astro.site).toString() },
+    { '@type': 'ListItem', position: 2, name: 'Casos de uso', item: new URL('/casos-de-uso', Astro.site).toString() },
+    { '@type': 'ListItem', position: 3, name: eyebrow, item: pageUrl },
+  ],
+};
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+};
 ---
 
 <Layout title={pageTitle} description={pageDescription} noindex={noindex}>
   <Header />
-  <main>
+  <main class="pb-24 md:pb-0">
+    <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}></script>
+    <script type="application/ld+json" set:html={JSON.stringify(faqSchema)}></script>
+
     <section class="pt-32 pb-20 bg-dark-900 border-b border-dark-700">
       <div class="container mx-auto px-4">
         <div class="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] items-start">
           <div class="max-w-3xl">
             <a href={backHref} class="inline-flex items-center gap-2 text-primary hover:text-primary-light mb-6 animate-on-scroll">
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5" aria-hidden="true">
                 <path fill-rule="evenodd" d="M17 10a.75.75 0 01-.75.75H5.612l4.158 3.96a.75.75 0 11-1.04 1.08l-5.5-5.25a.75.75 0 010-1.08l5.5-5.25a.75.75 0 111.04 1.08L5.612 9.25H16.25A.75.75 0 0117 10z" clip-rule="evenodd" />
               </svg>
               {backLabel}
@@ -108,65 +98,58 @@ const familyMeta = {
             <p class="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-primary/30 bg-primary/10 text-primary-light text-sm font-medium animate-on-scroll">
               {eyebrow}
             </p>
-            <h1 class="text-4xl md:text-6xl font-bold leading-tight mb-6 animate-on-scroll" style="animation-delay: 0.05s;">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-on-scroll" style="animation-delay: 0.05s;">
               {heroTitle}
             </h1>
-            <p class="text-xl text-gray-300 mb-8 animate-on-scroll" style="animation-delay: 0.1s;">
+            <p class="text-xl text-gray-300 mb-4 animate-on-scroll" style="animation-delay: 0.1s;">
               {heroText}
             </p>
-            <div class="flex flex-col sm:flex-row gap-4 animate-on-scroll" style="animation-delay: 0.15s;">
-              <a href={demoUrl} class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors sm:w-auto">
-                Solicitar demo
-              </a>
-              <a href={whatsappUrl} class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors sm:w-auto">
-                Hablar por WhatsApp
-              </a>
+            <p class="text-base text-gray-400 mb-8 animate-on-scroll" style="animation-delay: 0.12s;">
+              {audience} {result}
+            </p>
+            <div class="animate-on-scroll" style="animation-delay: 0.15s;">
+              <UseCaseCtas
+                demoHref="#contacto"
+                whatsappHref={whatsappUrl}
+                vertical={slug}
+                placement="hero"
+                primaryLabel="Quiero una demo"
+              />
             </div>
           </div>
 
-          <div class={`border rounded-lg p-6 md:p-8 animate-on-scroll ${familyMeta.heroPanelClass}`} style="animation-delay: 0.2s;">
-            <p class="text-sm text-gray-400 mb-4">{familyMeta.heroPanelTitle}</p>
-            <div class={familyMeta.heroGridClass}>
-              {features.map((item) => (
-                <div class={familyMeta.heroItemClass}>
-                  <p class="font-medium">{item}</p>
-                </div>
-              ))}
-            </div>
-            <p class="text-gray-300 mt-6">
-              {heroNote}
-            </p>
+          <div class="animate-on-scroll" style="animation-delay: 0.2s;">
+            <UseCaseHeroFlow steps={flowSteps} label={`Flujo de ${eyebrow.toLowerCase()}`} />
+            <UseCaseDemoSlot media={demoMedia} />
           </div>
         </div>
       </div>
     </section>
 
-    {family === 'storefront' && (
-      <>
-        <UseCasePainsSection caseName={caseName} pains={pains} family={family} />
-        <UseCaseHelpsSection helps={helps} family={family} />
-        <UseCaseFeaturesSection features={features} family={family} />
-        <UseCaseWorkflowsSection workflows={workflows} family={family} />
-      </>
-    )}
+    <UseCaseProblemsSection caseName={caseName} problems={problems} />
+    <UseCaseOperationalFlow steps={flowSteps} caseName={caseName} />
 
-    {family === 'replenishment' && (
-      <>
-        <UseCaseHelpsSection helps={helps} family={family} />
-        <UseCaseWorkflowsSection workflows={workflows} family={family} />
-        <UseCasePainsSection caseName={caseName} pains={pains} family={family} />
-        <UseCaseFeaturesSection features={features} family={family} />
-      </>
-    )}
+    <section class="py-16 bg-dark-800 border-y border-dark-700">
+      <div class="container mx-auto px-4">
+        <div class="max-w-3xl mx-auto text-center animate-on-scroll">
+          <h2 class="text-2xl md:text-3xl font-bold mb-4">¿Este circuito se parece al de tu negocio?</h2>
+          <p class="text-lg text-gray-300 mb-8">
+            Contanos cómo operás hoy. Te mostramos el flujo de ZinkERP aplicado a {caseName}.
+          </p>
+          <UseCaseCtas
+            demoHref="#contacto"
+            whatsappHref={whatsappUrl}
+            vertical={slug}
+            placement="mid"
+            align="center"
+          />
+        </div>
+      </div>
+    </section>
 
-    {family === 'validation' && (
-      <>
-        <UseCasePainsSection caseName={caseName} pains={pains} family={family} />
-        <UseCaseWorkflowsSection workflows={workflows} family={family} />
-        <UseCaseHelpsSection helps={helps} family={family} />
-        <UseCaseFeaturesSection features={features} family={family} />
-      </>
-    )}
+    <UseCaseModulesSection modules={modules} />
+    <UseCaseDifferentialsSection differentials={differentials} />
+    <UseCaseExperienceSection experience={experience} testimonialIds={testimonialIds} />
 
     {integrations.length > 0 && (
       <section class="py-20 bg-dark-800">
@@ -174,7 +157,7 @@ const familyMeta = {
           <div class="max-w-3xl mb-12 animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Integraciones relacionadas</h2>
             <p class="text-lg text-gray-300">
-              Cuando el flujo lo requiere, ZinkERP puede conectarse con facturación, pagos o ecommerce.
+              Cuando el flujo lo requiere, ZinkERP conecta facturación, pagos o ecommerce con la operación.
             </p>
           </div>
           <div class={integrationsGridClass}>
@@ -189,19 +172,29 @@ const familyMeta = {
       </section>
     )}
 
-    {useCaseTestimonials.length > 0 && (
-      <section class="py-20 bg-dark-800 border-t border-dark-700">
+    {relatedDocs.length > 0 && (
+      <section class="py-16">
         <div class="container mx-auto px-4">
-          <div class="max-w-3xl mb-12 animate-on-scroll">
-            <h2 class="text-3xl md:text-4xl font-bold mb-4">Historias del rubro</h2>
-            <p class="text-lg text-gray-300">
-              Casos reales de negocios similares que ya usan ZinkERP para ordenar la operación diaria.
-            </p>
+          <div class="max-w-3xl mb-8 animate-on-scroll">
+            <h2 class="text-2xl md:text-3xl font-bold mb-3">Documentación relacionada</h2>
+            <p class="text-gray-300">Más detalle de los módulos que aparecen en este flujo.</p>
           </div>
-          <TestimonialsGrid
-            testimonials={useCaseTestimonials}
-            columnsClass="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto"
-          />
+          <div class="flex flex-wrap gap-3">
+            {relatedDocs.map((doc) => (
+              <a
+                href={doc.href}
+                class="inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm text-gray-200 hover:border-primary/40 hover:text-white"
+              >
+                {doc.name}
+              </a>
+            ))}
+            <a
+              href="#contacto"
+              class="inline-flex items-center rounded-full border border-white/10 px-4 py-2 text-sm text-gray-200 hover:border-primary/40 hover:text-white"
+            >
+              Contacto
+            </a>
+          </div>
         </div>
       </section>
     )}
@@ -211,14 +204,14 @@ const familyMeta = {
         <div class="max-w-4xl mx-auto">
           <div class="text-center mb-12 animate-on-scroll">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Preguntas frecuentes</h2>
-            <p class="text-lg text-gray-300">Respuestas concretas para entender dónde puede aportar valor ZinkERP en este tipo de operación.</p>
+            <p class="text-lg text-gray-300">Respuestas sobre funcionalidades que ZinkERP ya resuelve en este tipo de operación.</p>
           </div>
           <div class="space-y-4">
             {faqs.map((faq) => (
               <details class="group bg-dark-800 border border-dark-700 rounded-lg p-6 animate-on-scroll">
-                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-base md:text-lg">
+                <summary class="flex cursor-pointer list-none items-center justify-between gap-4 font-bold text-base md:text-lg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">
                   {faq.question}
-                  <span class="text-primary transition-transform group-open:rotate-45">+</span>
+                  <span class="text-primary transition-transform group-open:rotate-45" aria-hidden="true">+</span>
                 </summary>
                 <p class="mt-4 text-gray-300">{faq.answer}</p>
               </details>
@@ -228,30 +221,53 @@ const familyMeta = {
       </div>
     </section>
 
-    <section id="demo" class="py-20 bg-dark-800 border-t border-dark-700">
+    <section id="contacto" class="py-20 bg-dark-800 border-t border-dark-700 scroll-mt-28">
       <div class="container mx-auto px-4">
-        <div class="max-w-4xl mx-auto text-center animate-on-scroll">
-          <h2 class="text-3xl md:text-5xl font-bold mb-6">{ctaTitle}</h2>
-          <p class="text-xl text-gray-300 mb-8">
-            {ctaText}
-          </p>
-          <div class="flex flex-col sm:flex-row gap-4 justify-center mb-8">
-            <a href={demoUrl} class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors">
-              Solicitar demo
-            </a>
-            <a href={whatsappUrl} class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors">
-              Hablar por WhatsApp
+        <div class="max-w-4xl mx-auto animate-on-scroll">
+          <div class="text-center mb-10">
+            <h2 class="text-3xl md:text-5xl font-bold mb-6">{ctaTitle}</h2>
+            <p class="text-xl text-gray-300 mb-8">{ctaText}</p>
+            <UseCaseCtas
+              demoHref={demoUrl}
+              whatsappHref={whatsappUrl}
+              vertical={slug}
+              placement="final"
+              align="center"
+              primaryLabel="Agendar demo"
+            />
+          </div>
+          <UseCaseLeadForm
+            vertical={slug}
+            rubroLabel={eyebrow}
+            whatsappMessage={whatsappMessage}
+            formProblems={formProblems}
+            demoHref={demoUrl}
+          />
+          <div class="mt-8 text-center">
+            <a href="/casos-de-uso" class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors">
+              Ver otros casos de uso
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5" aria-hidden="true">
+                <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
+              </svg>
             </a>
           </div>
-          <a href="/casos-de-uso" class="inline-flex items-center gap-2 text-primary hover:text-primary-light transition-colors">
-            Ver otros casos de uso
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
-              <path fill-rule="evenodd" d="M3 10a.75.75 0 01.75-.75h10.638L10.23 5.29a.75.75 0 111.04-1.08l5.5 5.25a.75.75 0 010 1.08l-5.5 5.25a.75.75 0 11-1.04-1.08l4.158-3.96H3.75A.75.75 0 013 10z" clip-rule="evenodd" />
-            </svg>
-          </a>
         </div>
       </div>
     </section>
   </main>
+
+  <div id="page-sticky-cta" class="fixed inset-x-4 bottom-4 z-[55] md:hidden">
+    <a
+      href="#contacto"
+      class="block rounded-xl bg-blue-primary px-4 py-4 text-center text-sm font-semibold text-white shadow-2xl transition-colors hover:bg-blue-primary/90"
+      data-track-cta="demo"
+      data-track-vertical={slug}
+      data-track-placement="sticky"
+    >
+      Quiero una demo
+    </a>
+  </div>
+
   <Footer />
+  <UseCaseTracking />
 </Layout>

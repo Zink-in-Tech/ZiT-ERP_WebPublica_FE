@@ -1,0 +1,25 @@
+---
+import type { UseCaseDemoMedia } from '../../data/useCases';
+
+interface Props {
+  media?: UseCaseDemoMedia;
+}
+
+const { media } = Astro.props;
+---
+
+{media && media.kind === 'placeholder' && (
+  <aside class="mt-8 rounded-2xl border border-dashed border-white/15 bg-dark-900/60 p-5" data-demo-slot="placeholder">
+    <p class="text-sm text-gray-400">
+      {media.label}
+      {media.href && (
+        <>
+          {' '}
+          <a href={media.href} class="text-primary hover:text-primary-light">
+            Ver documentación relacionada
+          </a>
+        </>
+      )}
+    </p>
+  </aside>
+)}

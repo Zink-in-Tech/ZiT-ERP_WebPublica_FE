@@ -1,0 +1,74 @@
+<script>
+  type CtaName = 'demo' | 'whatsapp' | 'contacto';
+
+  declare global {
+    interface Window {
+      dataLayer?: unknown[];
+      gtag?: (...args: unknown[]) => void;
+    }
+  }
+
+  const track = (eventName: string, params: Record<string, string>) => {
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', eventName, params);
+      return;
+    }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: eventName, ...params });
+  };
+
+  const trackCta = (cta: CtaName, vertical: string, placement: string) => {
+    const eventName =
+      cta === 'demo' ? 'cta_demo' : cta === 'whatsapp' ? 'cta_whatsapp' : 'cta_contacto';
+    track(eventName, {
+      vertical,
+      placement,
+      cta_type: cta,
+    });
+  };
+
+  document.addEventListener('click', (event) => {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const link = target.closest<HTMLAnchorElement>('[data-track-cta]');
+    if (!link) return;
+    const cta = link.dataset.trackCta as CtaName | undefined;
+    const vertical = link.dataset.trackVertical ?? 'unknown';
+    const placement = link.dataset.trackPlacement ?? 'unknown';
+    if (!cta) return;
+    trackCta(cta, vertical, placement);
+  });
+
+  const form = document.getElementById('use-case-lead-form') as HTMLFormElement | null;
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const rubro = String(data.get('rubro') ?? '').trim();
+      const sedes = String(data.get('sedes') ?? '').trim();
+      const sistema = String(data.get('sistema') ?? '').trim();
+      const problema = String(data.get('problema') ?? '').trim();
+      const vertical = form.dataset.trackVertical ?? 'unknown';
+      const intro = form.dataset.whatsappIntro ?? 'Hola, quiero ver el flujo de ZinkERP para mi negocio.';
+      const message = [
+        intro,
+        `Rubro: ${rubro}.`,
+        `Sedes: ${sedes}.`,
+        `Sistema actual: ${sistema}.`,
+        `Principal problema: ${problema}.`,
+      ].join(' ');
+
+      track('form_submit', {
+        vertical,
+        form_name: 'use_case_lead',
+        sedes,
+        sistema_actual: sistema,
+      });
+      trackCta('contacto', vertical, 'form');
+
+      const encoded = encodeURIComponent(message);
+      const base = form.dataset.whatsappBase ?? 'https://wa.me/?text=';
+      window.open(`${base}${encoded}`, '_blank', 'noopener,noreferrer');
+    });
+  }
+</script>

@@ -1,0 +1,109 @@
+---
+import { buildWhatsAppUrl } from '../../lib/whatsapp';
+
+interface Props {
+  vertical: string;
+  rubroLabel: string;
+  whatsappMessage: string;
+  formProblems: string[];
+  demoHref: string;
+}
+
+const { vertical, rubroLabel, whatsappMessage, formProblems, demoHref } = Astro.props;
+
+const sedesOptions = [
+  { value: '1', label: '1 sede' },
+  { value: '2-4', label: '2 a 4 sedes' },
+  { value: '5+', label: '5 o más sedes' },
+];
+
+const systemOptions = [
+  { value: 'Excel', label: 'Excel o planillas' },
+  { value: 'POS básico', label: 'POS básico' },
+  { value: 'Otro sistema', label: 'Otro sistema' },
+  { value: 'Varios desconectados', label: 'Varias herramientas desconectadas' },
+];
+---
+
+<form
+  id="use-case-lead-form"
+  class="grid gap-4 text-left"
+  data-track-vertical={vertical}
+  data-whatsapp-base={buildWhatsAppUrl('')}
+  data-whatsapp-intro={whatsappMessage}
+>
+  <div class="grid gap-4 sm:grid-cols-2">
+    <label class="block">
+      <span class="mb-2 block text-sm text-gray-300">Rubro</span>
+      <input
+        type="text"
+        name="rubro"
+        value={rubroLabel}
+        placeholder="Ej. ferretería, dietética, papelera"
+        required
+        autocomplete="organization-title"
+        class="w-full rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      />
+    </label>
+    <label class="block">
+      <span class="mb-2 block text-sm text-gray-300">Cantidad de sedes</span>
+      <select
+        name="sedes"
+        required
+        class="w-full rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      >
+        <option value="" disabled selected>Elegí una opción</option>
+        {sedesOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </label>
+    <label class="block">
+      <span class="mb-2 block text-sm text-gray-300">Sistema actual</span>
+      <select
+        name="sistema"
+        required
+        class="w-full rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      >
+        <option value="" disabled selected>Elegí una opción</option>
+        {systemOptions.map((option) => (
+          <option value={option.value}>{option.label}</option>
+        ))}
+      </select>
+    </label>
+    <label class="block">
+      <span class="mb-2 block text-sm text-gray-300">Principal problema</span>
+      <select
+        name="problema"
+        required
+        class="w-full rounded-lg border border-white/10 bg-dark-900 px-4 py-3 text-white outline-none focus-visible:border-primary"
+      >
+        <option value="" disabled selected>Elegí una opción</option>
+        {formProblems.map((problem) => (
+          <option value={problem}>{problem}</option>
+        ))}
+        <option value="Otro">Otro</option>
+      </select>
+    </label>
+  </div>
+  <div class="flex flex-col sm:flex-row gap-4 pt-2">
+    <button
+      type="submit"
+      class="inline-flex justify-center items-center px-8 py-4 bg-blue-primary hover:bg-blue-primary/90 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-primary"
+    >
+      Enviar por WhatsApp
+    </button>
+    <a
+      href={demoHref}
+      class="inline-flex justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors"
+      data-track-cta="demo"
+      data-track-vertical={vertical}
+      data-track-placement="form"
+    >
+      Agendar demo
+    </a>
+  </div>
+  <p class="text-sm text-gray-400">
+    El envío abre WhatsApp con tus datos. No inventamos un CRM intermedio en esta página.
+  </p>
+</form>
