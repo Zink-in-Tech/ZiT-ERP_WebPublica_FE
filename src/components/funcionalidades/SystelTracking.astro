@@ -68,40 +68,4 @@
     );
     scrollTargets.forEach((target) => observer.observe(target));
   }
-
-  const form = document.getElementById('systel-compat-form') as HTMLFormElement | null;
-  if (form) {
-    form.addEventListener('submit', (event) => {
-      event.preventDefault();
-      const data = new FormData(form);
-      const modelo = String(data.get('modelo') ?? '').trim() || 'No indicado';
-      const ticket = String(data.get('ticket') ?? '').trim();
-      const codigo = String(data.get('codigo') ?? '').trim() || 'No indicado';
-      const rubro = String(data.get('rubro') ?? '').trim();
-      const cajas = String(data.get('cajas') ?? '').trim();
-      const sucursales = String(data.get('sucursales') ?? '').trim();
-      const intro = form.dataset.whatsappIntro ?? 'Hola, tengo una balanza Systel con impresión de ticket y quiero consultar si puedo usarla con ZinkERP.';
-      const message = [
-        intro,
-        `Modelo: ${modelo}.`,
-        `Tipo de ticket: ${ticket}.`,
-        `Ejemplo de código: ${codigo}.`,
-        `Rubro: ${rubro}.`,
-        `Cajas: ${cajas}.`,
-        `Sucursales: ${sucursales}.`,
-      ].join(' ');
-
-      track('form_submit', {
-        vertical: 'balanza-systel',
-        form_name: 'systel_compatibilidad',
-        cajas,
-        sucursales,
-      });
-      trackCta('contacto', 'form');
-
-      const encoded = encodeURIComponent(message);
-      const base = form.dataset.whatsappBase ?? 'https://wa.me/?text=';
-      window.open(`${base}${encoded}`, '_blank', 'noopener,noreferrer');
-    });
-  }
 </script>

@@ -3,42 +3,28 @@ type CtaName = 'demo' | 'whatsapp' | 'contacto';
 
 interface Props {
   primaryHref: string;
-  secondaryHref: string;
-  whatsappHref?: string;
-  extraHref?: string;
+  secondaryHref?: string;
   placement: 'hero' | 'mid' | 'final' | 'sticky';
   primaryLabel?: string;
   secondaryLabel?: string;
-  whatsappLabel?: string;
-  extraLabel?: string;
   primaryTrack?: CtaName;
   secondaryTrack?: CtaName;
-  extraTrack?: CtaName | undefined;
-  extraDocs?: string;
+  primaryExternal?: boolean;
   secondaryExternal?: boolean;
-  extraExternal?: boolean;
   align?: 'start' | 'center';
-  showWhatsapp?: boolean;
 }
 
 const {
   primaryHref,
   secondaryHref,
-  whatsappHref,
-  extraHref,
   placement,
-  primaryLabel = 'Quiero aprovechar mi balanza',
-  secondaryLabel = 'Consultar compatibilidad',
-  whatsappLabel = 'WhatsApp',
-  extraLabel,
-  primaryTrack = 'demo',
-  secondaryTrack = 'contacto',
-  extraTrack,
-  extraDocs,
+  primaryLabel = 'Consultar por WhatsApp',
+  secondaryLabel = 'Solicitar una demo',
+  primaryTrack = 'whatsapp',
+  secondaryTrack = 'demo',
+  primaryExternal = false,
   secondaryExternal = false,
-  extraExternal = false,
   align = 'start',
-  showWhatsapp = false,
 } = Astro.props;
 ---
 
@@ -49,45 +35,22 @@ const {
     data-track-cta={primaryTrack}
     data-track-vertical="balanza-systel"
     data-track-placement={placement}
+    target={primaryExternal ? '_blank' : undefined}
+    rel={primaryExternal ? 'noopener noreferrer' : undefined}
   >
     {primaryLabel}
   </a>
-  <a
-    href={secondaryHref}
-    class="inline-flex min-h-12 justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-    data-track-cta={secondaryTrack}
-    data-track-vertical="balanza-systel"
-    data-track-placement={placement}
-    target={secondaryExternal ? '_blank' : undefined}
-    rel={secondaryExternal ? 'noopener noreferrer' : undefined}
-  >
-    {secondaryLabel}
-  </a>
-  {extraHref && extraLabel && (
+  {secondaryHref && (
     <a
-      href={extraHref}
+      href={secondaryHref}
       class="inline-flex min-h-12 justify-center items-center px-8 py-4 border border-gray-600 hover:border-gray-400 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-      data-track-cta={extraTrack}
+      data-track-cta={secondaryTrack}
       data-track-vertical="balanza-systel"
       data-track-placement={placement}
-      data-track-docs={extraDocs ?? extraLabel}
-      target={extraExternal ? '_blank' : undefined}
-      rel={extraExternal ? 'noopener noreferrer' : undefined}
+      target={secondaryExternal ? '_blank' : undefined}
+      rel={secondaryExternal ? 'noopener noreferrer' : undefined}
     >
-      {extraLabel}
-    </a>
-  )}
-  {showWhatsapp && whatsappHref && (
-    <a
-      href={whatsappHref}
-      target="_blank"
-      rel="noopener noreferrer"
-      class="inline-flex min-h-12 justify-center items-center px-8 py-4 border border-emerald-500/40 text-emerald-200 hover:border-emerald-400 rounded-lg text-lg font-medium transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-400"
-      data-track-cta="whatsapp"
-      data-track-vertical="balanza-systel"
-      data-track-placement={placement}
-    >
-      {whatsappLabel}
+      {secondaryLabel}
     </a>
   )}
 </div>

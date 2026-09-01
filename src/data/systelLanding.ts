@@ -15,15 +15,17 @@ export const SYSTEL_DOCS = {
 export const systelLanding = {
   slug: 'balanza-systel',
   path: '/funcionalidades/balanza-systel',
-  title: 'Balanza Systel con ticket y POS | ZinkERP',
+  title: 'Escaneá el ticket de la balanza y vendé | ZinkERP',
   metaDescription:
-    'Procesá en ZinkERP los códigos variables impresos por tu balanza Systel y agiliza la venta de productos por peso desde el POS.',
+    'Escaneá el ticket de tu balanza Systel en el POS de ZinkERP y vendé por peso sin cargar datos a mano.',
   eyebrow: 'Balanza Systel + POS',
-  heroTitle: 'Vendé por peso sin que el cajero vuelva a cargar el ticket',
+  heroTitle: 'Escaneá el ticket de la balanza y vendé',
   heroSubtitle:
-    'Tu Systel ya imprime el ticket. En ZinkERP se lee en caja: producto e importe listos, sin tipear de nuevo.',
+    'La Systel ya imprimió producto e importe. En caja se lee y se cobra, sin tipear de nuevo.',
   valueProposition:
-    'Para dietéticas, almacenes y comercios que ya pesan en Systel y quieren que esa pesada entre a la venta.',
+    'Para dietéticas, almacenes y comercios que ya pesan en Systel.',
+  disclaimer:
+    'Pensado para balanzas Systel que imprimen ticket. Si no estás seguro del modelo, escribinos y lo vemos juntos.',
   centralMessage: 'El ticket de la balanza, aprovechado en caja.',
   checklistTitle: 'Sacale más a la balanza que ya tenés',
   checklistLead:
