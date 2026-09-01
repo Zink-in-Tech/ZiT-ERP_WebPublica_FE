@@ -1,72 +1,18 @@
 ---
-import { systelHeroFlow } from '../../data/systelLanding';
-
-interface Props {
-  posImageSrc: string;
-}
-
-const { posImageSrc } = Astro.props;
 ---
 
-<div class="space-y-6">
-  <div class="border border-dark-700 rounded-2xl bg-dark-800 p-5 md:p-6">
-    <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-light mb-5">Del pesaje al ticket, del ticket al POS</p>
-    <ol class="grid grid-cols-2 lg:grid-cols-3 gap-3">
-      {systelHeroFlow.map((step, index) => (
-        <li class="relative rounded-xl border border-white/8 bg-dark-900/80 p-4">
-          <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-gray-500">Paso {index + 1}</p>
-          <p class="mt-2 font-semibold text-white leading-snug">{step.title}</p>
-        </li>
-      ))}
-    </ol>
-  </div>
-
+<div class="rounded-2xl border border-white/8 bg-dark-800 p-5 md:p-6">
+  <p class="text-xs font-semibold uppercase tracking-[0.18em] text-primary-light mb-5">Hoy vs con ZinkERP</p>
   <div class="grid gap-4 sm:grid-cols-2">
-    <figure class="rounded-2xl border border-white/8 bg-dark-800 p-5">
-      <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-light mb-4">Esquema del ticket</p>
-      <div class="rounded-xl bg-[#f4efe6] text-[#1b1a17] p-4 font-mono text-xs leading-relaxed shadow-inner">
-        <p class="text-[10px] uppercase tracking-[0.18em] text-[#6b6458] mb-3">Ticket Systel · ejemplo documentado</p>
-        <p class="font-sans text-sm font-semibold mb-1">Producto pesado</p>
-        <p class="font-sans text-[11px] text-[#5c564c] mb-4">La balanza calcula el importe e imprime el código</p>
-        <div class="rounded-lg border border-[#d8d0c2] bg-white px-3 py-3">
-          <p class="text-[10px] uppercase tracking-[0.14em] text-[#6b6458] mb-2">Código variable de 13 dígitos</p>
-          <p class="text-base tracking-[0.18em] font-semibold" aria-label="Ejemplo documentado 200687 004613 9">
-            <span class="text-[#0b4f8a]">200687</span><span class="text-[#8a4b00]">004613</span><span class="text-[#3d3d3d]">9</span>
-          </p>
-          <dl class="mt-3 grid grid-cols-3 gap-2 font-sans text-[10px] text-[#5c564c]">
-            <div>
-              <dt class="uppercase tracking-[0.12em]">PLU</dt>
-              <dd>6 dígitos</dd>
-            </div>
-            <div>
-              <dt class="uppercase tracking-[0.12em]">Importe</dt>
-              <dd>6 dígitos</dd>
-            </div>
-            <div>
-              <dt class="uppercase tracking-[0.12em]">Control</dt>
-              <dd>1 dígito</dd>
-            </div>
-          </dl>
-        </div>
-      </div>
-      <figcaption class="mt-3 text-xs text-gray-400">
-        Ejemplo de estructura publicado en la documentación. No es un ticket operativo ni un precio real.
-      </figcaption>
+    <figure class="rounded-xl border border-rose-400/20 bg-dark-900/80 p-5">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-rose-300 mb-3">Hoy</p>
+      <p class="font-semibold text-white mb-2">El ticket queda en la mano</p>
+      <p class="text-sm text-gray-400">El cajero mira la Systel y vuelve a cargar peso o importe en caja.</p>
     </figure>
-
-    <figure class="rounded-2xl border border-white/8 bg-dark-800 p-3">
-      <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-primary-light mb-3 px-2 pt-2">POS ZinkERP</p>
-      <img
-        src={posImageSrc}
-        alt="Pantalla real del POS de ZinkERP, donde el cajero lee o ingresa el código del ticket"
-        class="w-full rounded-xl border border-white/10 object-cover"
-        width="1792"
-        height="1024"
-        loading="eager"
-      />
-      <figcaption class="mt-3 px-2 text-xs text-gray-400">
-        Captura real del POS. El cajero lee el código del ticket en ESCANEAR O BUSCAR PRODUCTO.
-      </figcaption>
+    <figure class="rounded-xl border border-emerald-400/25 bg-dark-900/80 p-5">
+      <p class="text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-300 mb-3">Con ZinkERP</p>
+      <p class="font-semibold text-white mb-2">El ticket entra a la venta</p>
+      <p class="text-sm text-gray-400">Se lee en el POS. Aparecen producto e importe. El cajero cobra.</p>
     </figure>
   </div>
 </div>

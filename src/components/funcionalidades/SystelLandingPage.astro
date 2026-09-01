@@ -10,7 +10,6 @@ import {
   systelBenefits,
   systelAudiences,
   systelChecklist,
-  systelErrors,
   systelRelatedDocs,
   systelInternalLinks,
 } from '../../data/systelLanding';
@@ -33,12 +32,7 @@ const breadcrumbs = {
 };
 ---
 
-<Layout
-  title={systelLanding.title}
-  description={systelLanding.metaDescription}
-  image={systelLanding.ogImageSrc}
-  imageAlt={systelLanding.ogImageAlt}
->
+<Layout title={systelLanding.title} description={systelLanding.metaDescription}>
   <Header />
   <main class="pb-24 md:pb-0">
     <script type="application/ld+json" set:html={JSON.stringify(breadcrumbs)}></script>
@@ -70,7 +64,7 @@ const breadcrumbs = {
             </div>
           </div>
           <div class="animate-on-scroll" style="animation-delay: 0.2s;">
-            <SystelHeroVisual posImageSrc={systelLanding.ogImageSrc} />
+            <SystelHeroVisual />
           </div>
         </div>
       </div>
@@ -81,7 +75,7 @@ const breadcrumbs = {
         <div class="max-w-3xl mb-12 animate-on-scroll">
           <h2 id="systel-problema-title" class="text-3xl md:text-4xl font-bold mb-4">El problema que resuelve</h2>
           <p class="text-lg text-gray-300">
-            En dietéticas, almacenes y comercios de alimentos, parte de la mercadería se pesa en una Systel. El ticket tiene que entrar a caja sin reescribir peso ni importe.
+            En dietéticas, almacenes y comercios de alimentos, parte de la mercadería se pesa en una Systel. Hoy ese ticket se tira: el cajero lo vuelve a cargar a mano.
           </p>
         </div>
         <div class="grid gap-6 lg:grid-cols-2">
@@ -115,61 +109,28 @@ const breadcrumbs = {
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mb-12 animate-on-scroll">
           <h2 id="systel-flujo-title" class="text-3xl md:text-4xl font-bold mb-4">Cómo funciona</h2>
-          <p class="text-lg text-gray-300">
-            Primero se configura el producto y la lectura del código. Después, el cajero solo pesa, lee el ticket y cobra.
-          </p>
+          <p class="text-lg text-gray-300">Tres pasos. El resto es el turno en caja.</p>
         </div>
-        <ol class="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        <ol class="grid gap-6 md:grid-cols-3">
           {systelSteps.map((step, index) => (
-            <li class="bg-dark-800 border border-dark-700 rounded-2xl p-6 animate-on-scroll h-full flex flex-col">
-              <div class="flex items-center justify-between gap-3 mb-5">
-                <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold">
-                  {index + 1}
-                </span>
-                <span class="text-xs font-medium text-primary-light">{step.phase}</span>
-              </div>
+            <li class="bg-dark-800 border border-dark-700 rounded-2xl p-6 animate-on-scroll">
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold mb-5">
+                {index + 1}
+              </span>
               <h3 class="text-xl font-bold mb-3">{step.title}</h3>
-              <p class="text-gray-300 mb-6 grow">{step.text}</p>
-              <a
-                href={step.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                class="inline-flex items-center gap-2 text-sm font-medium text-primary hover:text-primary-light"
-                data-track-docs={step.linkLabel}
-              >
-                {step.linkLabel}
-                <span aria-hidden="true">↗</span>
-              </a>
+              <p class="text-gray-300">{step.text}</p>
             </li>
           ))}
         </ol>
       </div>
     </section>
 
-    <section class="py-20 bg-dark-800" aria-labelledby="systel-ejemplo-title">
-      <div class="container mx-auto px-4">
-        <article class="max-w-4xl mx-auto rounded-[28px] border border-white/8 bg-dark-900/80 p-6 md:p-10 animate-on-scroll">
-          <p class="text-xs font-semibold uppercase tracking-[0.16em] text-primary-light mb-4">Ejemplo concreto</p>
-          <h2 id="systel-ejemplo-title" class="text-3xl md:text-4xl font-bold mb-6">Una compra por peso, un ticket, una lectura</h2>
-          <p class="text-lg text-gray-300 leading-relaxed">
-            Una persona compra un producto vendido por peso. El operador lo pesa en una balanza Systel, que imprime un ticket con un código variable. En la caja, el cajero lee ese código en el POS de ZinkERP. El sistema interpreta la información configurada, muestra el artículo y permite continuar con el cobro y la facturación.
-          </p>
-          <ul class="mt-8 grid gap-3 sm:grid-cols-2">
-            <li class="rounded-xl border border-white/8 bg-dark-800 px-4 py-3 text-sm text-gray-200">La balanza imprime el ticket.</li>
-            <li class="rounded-xl border border-white/8 bg-dark-800 px-4 py-3 text-sm text-gray-200">El ticket contiene el código.</li>
-            <li class="rounded-xl border border-white/8 bg-dark-800 px-4 py-3 text-sm text-gray-200">ZinkERP interpreta el código desde el POS.</li>
-            <li class="rounded-xl border border-white/8 bg-dark-800 px-4 py-3 text-sm text-gray-200">El cajero no vuelve a cargar toda la información a mano.</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
     <section class="py-20" aria-labelledby="systel-beneficios-title">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mb-12 animate-on-scroll">
-          <h2 id="systel-beneficios-title" class="text-3xl md:text-4xl font-bold mb-4">Beneficios concretos</h2>
+          <h2 id="systel-beneficios-title" class="text-3xl md:text-4xl font-bold mb-4">Qué gana el local</h2>
           <p class="text-lg text-gray-300">
-            Beneficios operativos, sin porcentajes inventados. Cuando no hay métrica, hablamos de menos pasos y menos carga manual.
+            Sin porcentajes inventados. El beneficio es menos tipeo, menos error y una caja que no se traba en cada pesada.
           </p>
         </div>
         <ul class="grid gap-4 md:grid-cols-2">
@@ -185,9 +146,9 @@ const breadcrumbs = {
     <section class="py-16 bg-dark-800 border-y border-dark-700">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mx-auto text-center animate-on-scroll">
-          <h2 class="text-2xl md:text-3xl font-bold mb-4">¿Este circuito se parece al de tu local?</h2>
+          <h2 class="text-2xl md:text-3xl font-bold mb-4">¿En tu local se pesa y se vuelve a cargar en caja?</h2>
           <p class="text-lg text-gray-300 mb-8">
-            Mostranos cómo pesás hoy. Te ayudamos a validar el ticket, el código y la lectura en ZinkERP.
+            Si la Systel ya imprime ticket, podemos ver si ZinkERP te sirve para dejar de reescribirlo.
           </p>
           <SystelCtas
             primaryHref="#compatibilidad"
@@ -209,7 +170,7 @@ const breadcrumbs = {
         <div class="max-w-3xl mb-12 animate-on-scroll">
           <h2 id="systel-para-quien-title" class="text-3xl md:text-4xl font-bold mb-4">Para quién es</h2>
           <p class="text-lg text-gray-300">
-            Esta funcionalidad está pensada para comercios que trabajan con balanzas Systel con impresión de ticket y códigos variables.
+            Comercios que ya pesan en Systel con ticket y quieren que esa pesada sirva en caja.
           </p>
         </div>
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
@@ -223,22 +184,30 @@ const breadcrumbs = {
       </div>
     </section>
 
-    <section class="py-20 bg-dark-800" aria-labelledby="systel-checklist-title">
+    <section id="aprovechar" class="py-20 bg-dark-800 scroll-mt-28" aria-labelledby="systel-checklist-title">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mb-12 animate-on-scroll">
-          <h2 id="systel-checklist-title" class="text-3xl md:text-4xl font-bold mb-4">Qué necesitás para comenzar</h2>
+          <h2 id="systel-checklist-title" class="text-3xl md:text-4xl font-bold mb-4">{systelLanding.checklistTitle}</h2>
           <p class="text-lg text-gray-300">
-            Checklist de puesta en marcha documentado. Distinguí configuración (producto y código) de la operación diaria del cajero.
+            {systelLanding.checklistLead}
           </p>
         </div>
-        <ul class="max-w-3xl space-y-3">
-          {systelChecklist.map((item) => (
-            <li class="flex items-start gap-3 rounded-xl border border-white/8 bg-dark-900 px-4 py-4 animate-on-scroll">
-              <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-emerald-400/40 text-emerald-300" aria-hidden="true">✓</span>
-              <span class="text-gray-200">{item.label}</span>
-            </li>
+        <div class="grid gap-6 lg:grid-cols-2">
+          {systelChecklist.map((group) => (
+            <article class="rounded-2xl border border-white/8 bg-dark-900 p-6 animate-on-scroll h-full">
+              <h3 class="text-xl font-bold mb-2">{group.title}</h3>
+              <p class="text-sm text-gray-400 mb-6">{group.text}</p>
+              <ul class="space-y-3">
+                {group.items.map((item) => (
+                  <li class="flex items-start gap-3 rounded-xl border border-white/8 bg-dark-800 px-4 py-3">
+                    <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-emerald-400/40 text-emerald-300" aria-hidden="true">✓</span>
+                    <span class="text-gray-200">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
 
@@ -273,55 +242,13 @@ const breadcrumbs = {
       </div>
     </section>
 
-    <section class="py-20 bg-dark-800" aria-labelledby="systel-errores-title">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mb-10 animate-on-scroll">
-          <h2 id="systel-errores-title" class="text-3xl md:text-4xl font-bold mb-4">Errores frecuentes</h2>
-          <p class="text-lg text-gray-300">
-            Solo casos respaldados por la documentación de códigos variables, Systel, POS y productos.
-          </p>
-        </div>
-        <div class="overflow-x-auto rounded-2xl border border-dark-700">
-          <table class="min-w-full text-left text-sm">
-            <caption class="sr-only">Problemas frecuentes al leer tickets Systel en ZinkERP</caption>
-            <thead class="bg-dark-900 text-gray-300">
-              <tr>
-                <th scope="col" class="px-4 py-4 font-semibold">Problema</th>
-                <th scope="col" class="px-4 py-4 font-semibold">Qué revisar</th>
-                <th scope="col" class="px-4 py-4 font-semibold">Acción</th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-dark-700 bg-dark-800">
-              {systelErrors.map((error) => (
-                <tr>
-                  <th scope="row" class="px-4 py-4 align-top font-medium text-white">{error.problem}</th>
-                  <td class="px-4 py-4 align-top text-gray-300">{error.review}</td>
-                  <td class="px-4 py-4 align-top text-gray-300">
-                    {error.action}
-                    {' '}
-                    <a
-                      href={error.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex text-primary hover:text-primary-light"
-                      data-track-docs={error.problem}
-                    >
-                      Ver guía
-                    </a>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section class="py-20" aria-labelledby="systel-docs-title">
+    <section class="py-20 bg-dark-800" aria-labelledby="systel-docs-title">
       <div class="container mx-auto px-4">
         <div class="max-w-3xl mb-8 animate-on-scroll">
-          <h2 id="systel-docs-title" class="text-2xl md:text-3xl font-bold mb-3">Documentación relacionada</h2>
-          <p class="text-gray-300">Enlaces verificados en docs.zinkerp.com y páginas internas del producto.</p>
+          <h2 id="systel-docs-title" class="text-2xl md:text-3xl font-bold mb-3">Si querés el detalle técnico</h2>
+          <p class="text-gray-300">
+            La implementación y los problemas de lectura están en la documentación. No hace falta para decidir si te sirve.
+          </p>
         </div>
         <div class="flex flex-wrap gap-3 mb-8">
           {systelRelatedDocs.map((doc) => (
@@ -359,7 +286,7 @@ const breadcrumbs = {
         <div class="max-w-4xl mx-auto text-center animate-on-scroll">
           <h2 id="systel-cta-title" class="text-3xl md:text-5xl font-bold mb-6">¿Usás una balanza Systel con impresión de ticket?</h2>
           <p class="text-xl text-gray-300 mb-8">
-            Mostranos cómo es tu operación y te ayudamos a validar el flujo con ZinkERP.
+            Contanos cómo pesás hoy y vemos si el ticket de tu Systel entra a ZinkERP.
           </p>
           <SystelCtas
             primaryHref="#compatibilidad"
