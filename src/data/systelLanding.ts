@@ -66,15 +66,6 @@ export const systelSteps = [
   },
 ] as const;
 
-export const systelBenefits = [
-  'El cajero no vuelve a tipear peso ni importe.',
-  'La pesada entra a la venta sin reescribir el ticket.',
-  'Menos errores de carga en productos por kilo o a granel.',
-  'Caja más ágil cuando hay cola y mercadería pesada.',
-  'El cobro sigue en el mismo POS; la factura, si ya usás ARCA.',
-  'Venta, stock y caja quedan en un solo lugar.',
-] as const;
-
 export const systelAudiences = [
   { title: 'Dietéticas', text: 'Venta de mostrador con productos por kilo o a granel.' },
   { title: 'Almacenes', text: 'Mostrador mixto: góndola y mercadería pesada.' },

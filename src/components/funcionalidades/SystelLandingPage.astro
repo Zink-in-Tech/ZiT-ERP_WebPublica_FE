@@ -7,7 +7,6 @@ import {
   systelLanding,
   systelProblems,
   systelSteps,
-  systelBenefits,
   systelAudiences,
   systelChecklist,
   systelRelatedDocs,
@@ -79,8 +78,8 @@ const breadcrumbs = {
           </p>
         </div>
         <div class="grid gap-6 lg:grid-cols-2">
-          <article class="bg-dark-900 border border-white/5 rounded-2xl p-6 md:p-8 animate-on-scroll">
-            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-rose-300 mb-4">Antes</p>
+          <article class="bg-dark-900/70 border border-white/5 rounded-2xl p-6 md:p-8 animate-on-scroll transition-all duration-300 hover:-translate-y-1">
+            <p class="text-xs font-semibold uppercase tracking-[0.16em] text-rose-300/80 mb-4">Antes</p>
             <ul class="space-y-3">
               {systelProblems.before.map((item) => (
                 <li class="flex gap-3 text-gray-300">
@@ -90,7 +89,7 @@ const breadcrumbs = {
               ))}
             </ul>
           </article>
-          <article class="bg-dark-900 border border-white/5 rounded-2xl p-6 md:p-8 animate-on-scroll">
+          <article class="bg-dark-900 border border-emerald-400/25 rounded-2xl p-6 md:p-8 animate-on-scroll transition-all duration-300 hover:-translate-y-1 hover:border-emerald-400/40 hover:ring-1 hover:ring-emerald-400/20">
             <p class="text-xs font-semibold uppercase tracking-[0.16em] text-emerald-300 mb-4">Con ZinkERP</p>
             <ul class="space-y-3">
               {systelProblems.after.map((item) => (
@@ -113,8 +112,11 @@ const breadcrumbs = {
         </div>
         <ol class="grid gap-6 md:grid-cols-3">
           {systelSteps.map((step, index) => (
-            <li class="bg-dark-800 border border-dark-700 rounded-2xl p-6 animate-on-scroll">
-              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold mb-5">
+            <li
+              class="group bg-dark-800 border border-dark-700 rounded-2xl p-6 animate-on-scroll transition-all duration-300 hover:-translate-y-1 hover:border-primary/40 hover:ring-1 hover:ring-primary/20"
+              style={`animation-delay: ${index * 0.08}s`}
+            >
+              <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-primary/10 text-primary font-bold mb-5 transition-transform duration-300 group-hover:scale-110">
                 {index + 1}
               </span>
               <h3 class="text-xl font-bold mb-3">{step.title}</h3>
@@ -122,24 +124,6 @@ const breadcrumbs = {
             </li>
           ))}
         </ol>
-      </div>
-    </section>
-
-    <section class="py-20" aria-labelledby="systel-beneficios-title">
-      <div class="container mx-auto px-4">
-        <div class="max-w-3xl mb-12 animate-on-scroll">
-          <h2 id="systel-beneficios-title" class="text-3xl md:text-4xl font-bold mb-4">Qué gana el local</h2>
-          <p class="text-lg text-gray-300">
-            Sin porcentajes inventados. El beneficio es menos tipeo, menos error y una caja que no se traba en cada pesada.
-          </p>
-        </div>
-        <ul class="grid gap-4 md:grid-cols-2">
-          {systelBenefits.map((benefit) => (
-            <li class="bg-dark-800 border border-dark-700 rounded-2xl p-6 animate-on-scroll text-gray-200">
-              {benefit}
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
 
@@ -174,8 +158,11 @@ const breadcrumbs = {
           </p>
         </div>
         <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-          {systelAudiences.map((audience) => (
-            <article class="bg-dark-800 border border-dark-700 rounded-2xl p-6 animate-on-scroll">
+          {systelAudiences.map((audience, index) => (
+            <article
+              class="bg-dark-800 border border-dark-700 rounded-2xl p-6 animate-on-scroll transition-all duration-300 hover:-translate-y-1 hover:border-primary/35 hover:ring-1 hover:ring-primary/15"
+              style={`animation-delay: ${index * 0.05}s`}
+            >
               <h3 class="text-xl font-bold mb-2">{audience.title}</h3>
               <p class="text-gray-300">{audience.text}</p>
             </article>
@@ -192,21 +179,60 @@ const breadcrumbs = {
             {systelLanding.checklistLead}
           </p>
         </div>
-        <div class="grid gap-6 lg:grid-cols-2">
-          {systelChecklist.map((group) => (
-            <article class="rounded-2xl border border-white/8 bg-dark-900 p-6 animate-on-scroll h-full">
-              <h3 class="text-xl font-bold mb-2">{group.title}</h3>
-              <p class="text-sm text-gray-400 mb-6">{group.text}</p>
-              <ul class="space-y-3">
-                {group.items.map((item) => (
-                  <li class="flex items-start gap-3 rounded-xl border border-white/8 bg-dark-800 px-4 py-3">
-                    <span class="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md border border-emerald-400/40 text-emerald-300" aria-hidden="true">✓</span>
-                    <span class="text-gray-200">{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+        <div class="grid gap-6 lg:grid-cols-[minmax(0,0.88fr)_minmax(0,1.12fr)] lg:items-stretch">
+          {systelChecklist.map((group) => {
+            const isGain = group.group === 'gain';
+            return (
+              <article
+                class:list={[
+                  'rounded-2xl animate-on-scroll h-full transition-all duration-300',
+                  isGain
+                    ? 'border border-emerald-400/30 bg-dark-900 p-7 md:p-8 hover:-translate-y-1 hover:border-emerald-400/50 hover:ring-1 hover:ring-emerald-400/20'
+                    : 'border border-white/6 bg-dark-900/55 p-6 hover:border-white/12',
+                ]}
+              >
+                <p
+                  class:list={[
+                    'text-[11px] font-semibold uppercase tracking-[0.16em] mb-3',
+                    isGain ? 'text-emerald-300' : 'text-gray-500',
+                  ]}
+                >
+                  {isGain ? 'Con ZinkERP' : 'Hoy'}
+                </p>
+                <h3 class:list={['mb-2', isGain ? 'text-2xl md:text-3xl font-bold text-white' : 'text-lg font-semibold text-gray-300']}>
+                  {group.title}
+                </h3>
+                <p class:list={['mb-6', isGain ? 'text-base text-gray-300' : 'text-sm text-gray-500']}>
+                  {group.text}
+                </p>
+                <ul class="space-y-3">
+                  {group.items.map((item) => (
+                    <li
+                      class:list={[
+                        'flex items-start gap-3 rounded-xl px-4 py-3 transition-colors duration-200',
+                        isGain
+                          ? 'border border-emerald-400/20 bg-dark-800 hover:border-emerald-400/40'
+                          : 'border border-white/6 bg-dark-800/70 hover:border-white/12',
+                      ]}
+                    >
+                      <span
+                        class:list={[
+                          'mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-md text-sm',
+                          isGain
+                            ? 'border border-emerald-400/50 text-emerald-300'
+                            : 'border border-white/15 text-gray-500',
+                        ]}
+                        aria-hidden="true"
+                      >
+                        {isGain ? '✓' : '–'}
+                      </span>
+                      <span class:list={[isGain ? 'text-gray-100' : 'text-gray-400']}>{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -231,7 +257,7 @@ const breadcrumbs = {
               <li>No hay un modo peso × precio: se lee el importe embebido en el ticket.</li>
             </ul>
           </div>
-          <div class="rounded-[28px] border border-white/8 bg-dark-800 p-6 md:p-8 animate-on-scroll">
+          <div class="rounded-[28px] border border-white/8 bg-dark-800 p-6 md:p-8 animate-on-scroll transition-all duration-300 hover:border-primary/30 hover:ring-1 hover:ring-primary/15">
             <h3 class="text-2xl font-bold mb-3">Consultar compatibilidad con mi balanza</h3>
             <p class="text-gray-300 mb-6">
               Completá lo que sepas. Con el modelo, un ejemplo de código y el rubro alcanza para orientar la validación.
@@ -256,7 +282,7 @@ const breadcrumbs = {
               href={doc.href}
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex min-h-11 items-center rounded-full border border-white/10 px-4 py-2 text-sm text-gray-200 hover:border-primary/40 hover:text-white"
+              class="inline-flex min-h-11 items-center rounded-full border border-white/10 px-4 py-2 text-sm text-gray-200 transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:text-white"
               data-track-docs={doc.name}
             >
               {doc.name}
@@ -267,7 +293,7 @@ const breadcrumbs = {
           {systelInternalLinks.map((link) => (
             <a
               href={link.href}
-              class="inline-flex min-h-11 items-center rounded-full border border-primary/20 px-4 py-2 text-sm text-primary-light hover:border-primary/50"
+              class="inline-flex min-h-11 items-center rounded-full border border-primary/20 px-4 py-2 text-sm text-primary-light transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/50"
             >
               {link.name}
             </a>
