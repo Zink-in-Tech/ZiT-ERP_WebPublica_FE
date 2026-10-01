@@ -21,7 +21,7 @@ export const modules = [
       "Planificación de rutas",
       "Seguimiento de pedidos",
       "Gestión de transportistas",
-      "Reportes de entregas"
+      "Informes de entregas"
     ],
     color: "from-blue-500 to-cyan-600"
   },

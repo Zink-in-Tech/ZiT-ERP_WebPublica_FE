@@ -26,13 +26,13 @@ export type ProductVisual =
   | { kind: 'chips'; items: VisualListItem[] }
   | { kind: 'map'; items: VisualListItem[] }
   | { kind: 'kpis'; items: VisualListItem[] }
-  | { kind: 'comparison'; items: VisualListItem[] }
+  | { kind: 'comparison'; items: VisualListItem[]; note?: string }
   | { kind: 'pricing'; items: VisualListItem[] }
   | { kind: 'scope'; items: VisualListItem[] }
   | { kind: 'providerSheet'; items: VisualListItem[] }
   | { kind: 'emailFlow'; items: VisualListItem[] }
   | { kind: 'integrationSteps'; items: VisualListItem[] }
-  | { kind: 'reportSplit'; items: VisualListItem[] }
+  | { kind: 'reportSplit'; items: VisualListItem[]; note?: string }
   | { kind: 'permissionsBuilder'; items: VisualListItem[] }
   | { kind: 'syncNodes'; items: VisualListItem[] }
   | { kind: 'posConsole'; items: VisualListItem[] }
@@ -93,7 +93,7 @@ export const productPages: ProductPage[] = [
     heroTitle: 'Ventas ágiles, con stock y precios sincronizados en todas tus sucursales.',
     heroSubtitle:
       'Presupuesto, POS y factura electrónica en un mismo flujo. Con stock y precios sincronizados en todas tus sucursales.',
-    heroCtaLabel: 'Agenda una demo',
+    heroCtaLabel: 'Agendá una demo',
     heroCtaHref: '/agendar-demo',
     heroVisualLabel: 'Vista operativa',
     heroVisual: {
@@ -120,9 +120,9 @@ export const productPages: ProductPage[] = [
         },
       },
       {
-        title: 'ZinkPOS: cobrá al instante. Sin esperas, sin pantallas lentas.',
+        title: 'El POS de ZinkERP: cobrá al instante. Sin esperas, sin pantallas lentas.',
         description:
-          'Buscá productos al instante con un caché de 400 items. La experiencia es tipo local: no hay delays de red aunque tengas muchos productos cargados.',
+          'Buscá productos al instante con un caché de 400 ítems. Responde como un sistema local: no hay demoras de red aunque tengas muchos productos cargados.',
         links: [{ label: 'Ver Sucursales', href: '/producto/sucursales' }],
         reverse: true,
         visual: {
@@ -130,19 +130,19 @@ export const productPages: ProductPage[] = [
           items: [
             { title: 'Búsqueda veloz', subtitle: 'Encontrá productos por código, nombre o atajo' },
             { title: 'Atajos de teclado', subtitle: 'Agilizá la atención sin depender del mouse' },
-            { title: 'Caché inteligente', subtitle: 'Hasta 400 items listos para una experiencia instantánea' },
+            { title: 'Caché inteligente', subtitle: 'Hasta 400 ítems listos para una experiencia instantánea' },
           ],
         },
       },
       {
-        title: 'Consulta precios sin abrir una venta',
+        title: 'Consultá precios sin abrir una venta',
         description:
           'Ideal para showroom o salón: el equipo puede responder rápido sin ensuciar el flujo de caja.',
         visual: {
           kind: 'device',
           items: [
             { title: 'Tablet de consulta', subtitle: 'Precio, stock y variantes en una sola vista' },
-            { title: 'Listas por canal', subtitle: 'Mayoreo, retail o promo segun contexto' },
+            { title: 'Listas por canal', subtitle: 'Mayorista, minorista o promoción según el contexto' },
           ],
         },
       },
@@ -153,7 +153,7 @@ export const productPages: ProductPage[] = [
         visual: {
           kind: 'timeline',
           items: [
-            { title: 'Visita comercial', subtitle: 'El vendedor releva necesidad y arma la oportunidad' },
+            { title: 'Visita comercial', subtitle: 'El vendedor releva la necesidad y arma la oportunidad' },
             { title: 'Seguimiento', subtitle: 'Presupuesto, ajustes y upselling dentro del mismo circuito' },
             { title: 'Cierre', subtitle: 'El pedido o la venta quedan registrados en la operación central' },
           ],
@@ -171,85 +171,85 @@ export const productPages: ProductPage[] = [
         visual: {
           kind: 'image',
           src: '/images/ventas-sincronizacion-omnichannel.png',
-          alt: 'Ilustración del ERP sincronizando WooCommerce, Mercado Pago y la operación física en un mismo sistema',
+          alt: 'Ilustración de ZinkERP sincronizando WooCommerce, Mercado Pago y la operación física en un mismo sistema',
         },
       },
     ],
     finalBannerText: 'Ventas + POS + factura + ecommerce. Un solo sistema.',
-    finalBannerCtaLabel: 'Proba gratis',
+    finalBannerCtaLabel: 'Probá gratis',
     finalBannerCtaHref: '/registro',
     faqTitle: 'Preguntas frecuentes sobre Ventas y POS',
     faqs: [
       {
-        question: '¿ZinkPOS funciona sin conexión a internet?',
+        question: '¿El POS de ZinkERP funciona sin conexión a internet?',
         answer:
-          'ZinkPOS usa un caché de 400 productos para operar a velocidad local, pero necesita conexión para sincronizar ventas, stock y medios de pago. No está diseñado para operar sin internet de forma prolongada.',
+          'El POS usa un caché de 400 productos para operar a velocidad local, pero necesita conexión para sincronizar ventas, stock y medios de pago. No está diseñado para operar sin internet de forma prolongada.',
       },
       {
-        question: '¿Puedo usar ZinkPOS en una tablet?',
+        question: '¿Puedo usar el POS en una tablet?',
         answer:
-          'Sí. ZinkPOS está optimizado para pantallas táctiles y funciona en tablets Android y iPad desde el navegador. También se puede operar 100% con teclado en PC.',
+          'Sí. El POS de ZinkERP está optimizado para pantallas táctiles y funciona en tablets Android y iPad desde el navegador. También se puede operar 100% con teclado en PC.',
       },
       {
-        question: '¿Las ventas de ZinkPOS descuentan stock automáticamente?',
+        question: '¿Las ventas del POS descuentan stock automáticamente?',
         answer:
-          'Sí. Cada venta realizada en POS descuenta el stock de la sucursal donde se vendió al instante. Si tenés varias sucursales, cada una descuenta su propio stock.',
+          'Sí. Cada venta realizada en el POS descuenta el stock de la sucursal donde se vendió al instante. Si tenés varias sucursales, cada una descuenta su propio stock.',
       },
     ],
   },
   {
     slug: 'compras',
-    title: 'Compras | ZinkERP - Gestion de compras y proveedores multi-sucursal',
+    title: 'Compras | ZinkERP - Gestión de compras y proveedores multi-sucursal',
     metaDescription:
-      'Ordena tus compras con sugerencias automaticas, control de proveedores y sincronizacion con tu stock. Multi-sucursal. Proba ZinkERP.',
+      'Ordená tus compras con sugerencias automáticas, control de proveedores y sincronización con tu stock. Multi-sucursal. Probá ZinkERP.',
     eyebrow: 'Compras',
     theme: 'procurement',
     heroImageSrc: '/images/hero-compras.png?v=1',
     ogImageSrc: '/images/og-compras.svg?v=1',
-    heroTitle: 'Compra lo que necesitas, cuando lo necesitas. Centralizado o por sucursal. Vos decidis.',
+    heroTitle: 'Comprá lo que necesitás, cuando lo necesitás. Centralizado o por sucursal. Vos decidís.',
     heroSubtitle:
-      'Ordenes de compra con sugerencias automaticas, control de proveedores y sincronizacion con tu stock.',
-    heroCtaLabel: 'Agenda una demo',
+      'Órdenes de compra con sugerencias automáticas, control de proveedores y sincronización con tu stock.',
+    heroCtaLabel: 'Agendá una demo',
     heroCtaHref: '/agendar-demo',
     heroVisualLabel: 'Panel de compras',
     heroVisual: {
       kind: 'cards',
       items: [
-        { title: 'Pendiente', subtitle: '18 ordenes esperando aprobacion' },
+        { title: 'Pendiente', subtitle: '18 órdenes esperando aprobación' },
         { title: 'Aprobada', subtitle: '12 listas para recibir' },
         { title: 'Recibida', subtitle: '34 ingresos sincronizados con stock' },
       ],
     },
     sections: [
       {
-        title: 'Ordenes de compra que te avisan antes de que te falte',
+        title: 'Órdenes de compra que te avisan antes de que te falte',
         description:
-          'Las sugerencias parten del stock real, los minimos y la demanda para ayudarte a comprar con mas contexto.',
+          'Las sugerencias parten del stock real, los mínimos y la demanda para ayudarte a comprar con más contexto.',
         links: [{ label: 'Ver Inventario', href: '/producto/inventario' }],
         visual: {
           kind: 'image',
           src: '/images/compras-stock-critico-proveedor.png',
-          alt: 'Vista de productos con stock critico filtrados por proveedor para preparar reposicion',
+          alt: 'Vista de productos con stock crítico filtrados por proveedor para preparar la reposición',
           caption: 'Stock crítico por proveedor para anticipar reposición.',
         },
       },
       {
         title: 'Tus proveedores, siempre a mano. Datos fiscales, contacto y OC al instante.',
         description:
-          'Cada proveedor tiene su ficha con datos fiscales, contacto e historico de ordenes de compra. Emitis una OC y queda registrada contra ese proveedor. Todo ordenado, todo en un lugar.',
+          'Cada proveedor tiene su ficha con datos fiscales, contacto e histórico de órdenes de compra. Emitís una OC y queda registrada contra ese proveedor. Todo ordenado, todo en un lugar.',
         links: [{ label: 'Ver Inventario', href: '/producto/inventario' }],
         reverse: true,
         visual: {
           kind: 'image',
           src: '/images/compras-form.png',
-          alt: 'Formulario de orden de compra con proveedor, items, cantidades y total consolidado',
+          alt: 'Formulario de orden de compra con proveedor, ítems, cantidades y total consolidado',
           caption: 'La orden sale con proveedor, ítems, cantidades y total en un solo flujo.',
         },
       },
       {
-        title: 'Cada sucursal solicita, la central consolida y compra.',
+        title: 'Cada sucursal solicita, la casa central consolida y compra.',
         description:
-          'Las sucursales registran sus necesidades. La central ve todo consolidado, decide el proveedor y emite la orden de compra. Cada sucursal sabe que pidio y cuando llega.',
+          'Las sucursales registran sus necesidades. La casa central ve todo consolidado, decide el proveedor y emite la orden de compra. Cada sucursal sabe qué pidió y cuándo llega.',
         links: [
           { label: 'Ver Sucursales', href: '/producto/sucursales' },
           { label: 'Ver Inventario', href: '/producto/inventario' },
@@ -260,12 +260,12 @@ export const productPages: ProductPage[] = [
           images: [
             {
               src: '/images/compras-listado.png',
-              alt: 'Listado de ordenes de compra con proveedor, importe, fecha y estado',
-              caption: 'Central ve todo el historial de compras en una sola lista.',
+              alt: 'Listado de órdenes de compra con proveedor, importe, fecha y estado',
+              caption: 'La casa central ve todo el historial de compras en una sola lista.',
             },
             {
               src: '/images/compras-estados.png',
-              alt: 'Detalle de estados de ordenes de compra como confirmado, aprobado y borrador',
+              alt: 'Detalle de estados de órdenes de compra como confirmado, aprobado y borrador',
               caption: 'Estados claros para saber qué ya fue aprobado o confirmado.',
             },
           ],
@@ -274,41 +274,41 @@ export const productPages: ProductPage[] = [
       {
         title: 'La orden de compra viaja directo al proveedor.',
         description:
-          'Cuando generas la OC, podes enviarla automaticamente por email al proveedor. Con todos los datos: productos, cantidades y precios acordados.',
+          'Cuando generás la OC, podés enviarla automáticamente por email al proveedor. Con todos los datos: productos, cantidades y precios acordados.',
         visual: {
           kind: 'emailFlow',
           items: [
             { title: 'Email al proveedor', subtitle: 'La OC sale con el detalle completo' },
             { title: 'Productos y cantidades', subtitle: 'Todo lo solicitado viaja en un solo documento' },
-            { title: 'Precios acordados', subtitle: 'La orden queda registrada con su informacion comercial' },
+            { title: 'Precios acordados', subtitle: 'La orden queda registrada con su información comercial' },
           ],
         },
       },
     ],
-    finalBannerText: 'Del pedido al stock en un solo paso. Sin hojas de calculo, sin WhatsApp perdidos.',
-    finalBannerCtaLabel: 'Proba gratis',
+    finalBannerText: 'Del pedido al stock en un solo paso. Sin hojas de cálculo, sin WhatsApp perdidos.',
+    finalBannerCtaLabel: 'Probá gratis',
     finalBannerCtaHref: '/registro',
   },
   {
     slug: 'inventario',
     title: 'Inventario | ZinkERP - Stock multi-sucursal en tiempo real',
     metaDescription:
-      'Controla tu stock en todas tus sucursales al instante. Alertas, movimientos auditados y catalogo centralizado. Empeza hoy gratis.',
+      'Controlá tu stock en todas tus sucursales al instante. Alertas, movimientos auditados y catálogo centralizado. Empezá hoy gratis.',
     eyebrow: 'Inventario',
     theme: 'inventory',
     heroImageSrc: '/images/hero-inventario.png?v=2',
     ogImageSrc: '/images/og-inventario.svg?v=1',
-    heroTitle: 'Sabe exactamente que tienes y donde. En tiempo real, sin contar a mano.',
+    heroTitle: 'Sabé exactamente qué tenés y dónde. En tiempo real, sin contar a mano.',
     heroSubtitle:
-      'Stock multi-sucursal actualizado al instante. Alertas, movimientos auditados y catalogo centralizado.',
-    heroCtaLabel: 'Empeza hoy',
+      'Stock multi-sucursal actualizado al instante. Alertas, movimientos auditados y catálogo centralizado.',
+    heroCtaLabel: 'Empezá hoy',
     heroCtaHref: '/registro',
-    heroVisualLabel: 'Dashboard de stock',
+    heroVisualLabel: 'Stock por sucursal',
     heroVisual: {
       kind: 'kpis',
       items: [
         { title: 'Casa central', subtitle: '1.240 unidades activas' },
-        { title: 'Sucursal norte', subtitle: '17 alertas de reposicion' },
+        { title: 'Sucursal norte', subtitle: '17 alertas de reposición' },
         { title: 'Movimientos hoy', subtitle: '86 ingresos y egresos auditados' },
       ],
     },
@@ -325,42 +325,42 @@ export const productPages: ProductPage[] = [
           kind: 'timeline',
           items: [
             { title: '10:03 Venta mostrador', subtitle: 'Sucursal centro -2 unidades' },
-            { title: '10:18 Transferencia', subtitle: 'Central a Norte +12 unidades' },
-            { title: '10:31 Recepcion compra', subtitle: 'Ingreso validado por proveedor' },
+            { title: '10:18 Transferencia', subtitle: 'Casa central a Sucursal norte +12 unidades' },
+            { title: '10:31 Recepción de compra', subtitle: 'Ingreso validado por proveedor' },
           ],
         },
       },
       {
-        title: 'Cada movimiento, registrado. Sabes quien, cuando y por que.',
+        title: 'Cada movimiento, registrado. Sabés quién, cuándo y por qué.',
         description:
-          'La trazabilidad deja de depender de memoria o mensajes sueltos: cada ajuste tiene usuario, fecha y motivo.',
+          'La trazabilidad deja de depender de la memoria o de mensajes sueltos: cada ajuste tiene usuario, fecha y motivo.',
         reverse: true,
         visual: {
           kind: 'timeline',
           items: [
-            { title: 'Ajuste por rotura', subtitle: 'Ana Perez - deposito central - 2 unidades' },
-            { title: 'Conteo de control', subtitle: 'Juan Gomez - salon - regularizacion de 5 unidades' },
-            { title: 'Transferencia intersucursal', subtitle: 'Logistica - norte a sur - 8 unidades' },
+            { title: 'Ajuste por rotura', subtitle: 'Ana Pérez - depósito central - 2 unidades' },
+            { title: 'Conteo de control', subtitle: 'Juan Gómez - salón - regularización de 5 unidades' },
+            { title: 'Transferencia entre sucursales', subtitle: 'Logística - norte a sur - 8 unidades' },
           ],
         },
       },
       {
-        title: 'Un catalogo para todas tus sucursales, con precios distintos si hace falta',
+        title: 'Un catálogo para todas tus sucursales, con precios distintos si hace falta',
         description:
-          'Centralizas productos y controlas variaciones por sucursal, canal o politica comercial sin perder orden.',
+          'Centralizás productos y controlás variaciones por sucursal, canal o política comercial sin perder orden.',
         links: [{ label: 'Ver Control de Acceso', href: '/producto/control-de-acceso' }],
         visual: {
           kind: 'accordion',
           items: [
             { title: 'Precio casa central', subtitle: 'Lista general y promociones activas' },
             { title: 'Precio sucursal norte', subtitle: 'Ajuste local por contexto competitivo' },
-            { title: 'Precio ecommerce', subtitle: 'Politica diferenciada para tienda online' },
+            { title: 'Precio ecommerce', subtitle: 'Política diferenciada para la tienda online' },
           ],
         },
       },
     ],
     finalBannerText: 'Stock desordenado, negocio que pierde plata. Stock claro, negocio que crece.',
-    finalBannerCtaLabel: 'Proba gratis',
+    finalBannerCtaLabel: 'Probá gratis',
     finalBannerCtaHref: '/registro',
     faqTitle: 'Preguntas frecuentes sobre Inventario',
     faqs: [
@@ -377,31 +377,31 @@ export const productPages: ProductPage[] = [
       {
         question: '¿Hay alertas cuando un producto está por debajo del mínimo?',
         answer:
-          'Sí. El sistema marca los productos con stock crítico y podés verlos en el reporte correspondiente. También ayuda a decidir qué reponer en cada sucursal.',
+          'Sí. El sistema marca los productos con stock crítico y podés verlos en el informe correspondiente. También ayuda a decidir qué reponer en cada sucursal.',
       },
     ],
   },
   {
     slug: 'facturacion',
-    title: 'Facturacion Electronica | ZinkERP - Factura desde tu ERP, conectado con ARCA',
+    title: 'Facturación Electrónica | ZinkERP - Facturá desde tu ERP, conectado con ARCA',
     metaDescription:
-      'Facturacion electronica AFIP/ARCA integrada a tu operacion diaria. Facturas A, B, C, M, NC, ND. Para monotributo y RI. Sin salir del sistema.',
-    eyebrow: 'Facturacion AFIP/ARCA',
+      'Facturación electrónica AFIP/ARCA integrada a tu operación diaria. Facturas A, B, C y M, NC y ND. Para monotributo y RI. Sin salir del sistema.',
+    eyebrow: 'Facturación AFIP/ARCA',
     theme: 'fiscal',
     heroImageSrc: '/images/hero-facturacion.png?v=1',
     ogImageSrc: '/images/og-facturacion.svg?v=1',
     heroTitle: 'Facturá desde donde manejás tu negocio. Sin sistemas paralelos.',
     heroSubtitle:
-      'Factura electronica AFIP/ARCA integrada a tu operacion diaria. Para monotributo y responsable inscripto.',
+      'Factura electrónica AFIP/ARCA integrada a tu operación diaria. Para monotributo y responsable inscripto.',
     heroCtaLabel: 'Agendá una demo',
     heroCtaHref: '/agendar-demo',
-    heroVisualLabel: 'Generacion de comprobantes',
+    heroVisualLabel: 'Generación de comprobantes',
     heroVisual: {
       kind: 'invoiceMockup',
       items: [
         { title: 'Factura A, B, C y M', subtitle: 'Comprobantes integrados al flujo diario' },
-        { title: 'Notas de Credito y Debito', subtitle: 'Registradas sin salir del sistema' },
-        { title: 'Integracion con Facturante', subtitle: 'Configuracion guiada desde Preferencias' },
+        { title: 'Notas de Crédito y Débito', subtitle: 'Registradas sin salir del sistema' },
+        { title: 'Integración con Facturante', subtitle: 'Se activa desde Configuración → Preferencias' },
       ],
     },
     sections: [
@@ -416,20 +416,20 @@ export const productPages: ProductPage[] = [
             { title: 'Factura B' },
             { title: 'Factura C' },
             { title: 'Factura M' },
-            { title: 'Nota de Credito' },
-            { title: 'Nota de Debito' },
+            { title: 'Nota de Crédito' },
+            { title: 'Nota de Débito' },
           ],
         },
       },
       {
         title: 'Una integración que funciona. Sin configuraciones complejas.',
         description:
-          'Conectamos ZinkERP con Facturante para que factures sin salir del sistema. Configurás una vez en Preferencias → Integraciones, ingresás tus datos fiscales, y ARCA te habilita en hasta 24 horas.',
+          'Conectamos ZinkERP con Facturante para que factures sin salir del sistema. Configurás una vez en Configuración → Preferencias → Integraciones, ingresás tus datos fiscales y ARCA te habilita en hasta 24 horas.',
         reverse: true,
         visual: {
           kind: 'integrationSteps',
           items: [
-            { title: '1. Configurar integración', subtitle: 'Preferencias → Integraciones' },
+            { title: '1. Configurar integración', subtitle: 'Configuración → Preferencias → Integraciones' },
             { title: '2. Ingresar datos fiscales', subtitle: 'Monotributo o Responsable Inscripto' },
             { title: '3. ¡A facturar!', subtitle: 'ARCA habilita en hasta 24 horas' },
           ],
@@ -446,8 +446,8 @@ export const productPages: ProductPage[] = [
         visual: {
           kind: 'flow',
           items: [
-            { title: 'Venta en ZinkERP', subtitle: 'Operacion registrada dentro del sistema' },
-            { title: 'Comprobante ARCA', subtitle: 'Factura electronica integrada a la operacion' },
+            { title: 'Venta en ZinkERP', subtitle: 'Operación registrada dentro del sistema' },
+            { title: 'Comprobante ARCA', subtitle: 'Factura electrónica integrada a la operación' },
             { title: 'Cuenta corriente del cliente', subtitle: 'Todo queda vinculado a su movimiento' },
           ],
         },
@@ -466,10 +466,10 @@ export const productPages: ProductPage[] = [
       {
         question: '¿Tengo que hacer algún trámite en ARCA antes de facturar?',
         answer:
-          'Sí. Necesitás autorizar a la CUIT de ZinkInTech a emitir comprobantes en tu nombre. El trámite se hace desde la página de ARCA y la habilitación puede demorar hasta 24 horas. Nosotros te guiamos en el proceso.',
+          'Sí. Necesitás autorizar a la CUIT de Zink in Tech a emitir comprobantes en tu nombre. El trámite se hace desde la página de ARCA y la habilitación puede demorar hasta 24 horas. Nosotros te guiamos en el proceso.',
       },
       {
-        question: '¿Puedo facturar directamente desde una venta de POS?',
+        question: '¿Puedo facturar directamente desde una venta del POS?',
         answer:
           'Sí. Desde el sistema podés generar el comprobante vinculado a una venta existente. La factura queda asociada al cliente y a la operación.',
       },
@@ -477,9 +477,9 @@ export const productPages: ProductPage[] = [
   },
   {
     slug: 'finanzas',
-    title: 'Finanzas | ZinkERP - Caja, cuenta corriente y dashboard financiero multi-sucursal',
+    title: 'Finanzas | ZinkERP - Caja, cuenta corriente y control financiero multi-sucursal',
     metaDescription:
-      'Controla la caja de cada sucursal por separado y consolida al instante. Cuenta corriente, ingresos, egresos y vencimientos. Agenda una demo.',
+      'Controlá la caja de cada sucursal por separado y consolidá al instante. Cuenta corriente, ingresos, egresos y vencimientos. Agendá una demo.',
     eyebrow: 'Finanzas',
     theme: 'finance',
     heroImageSrc: '/images/hero-finanzas.png?v=2',
@@ -487,7 +487,7 @@ export const productPages: ProductPage[] = [
     heroTitle: 'Tus finanzas claras, con cada sucursal bajo control.',
     heroSubtitle:
       'Cuenta corriente, caja diaria, ingresos, egresos y vencimientos. Separá y consolidá cajas por sucursal al instante.',
-    heroCtaLabel: 'Agenda una demo',
+    heroCtaLabel: 'Agendá una demo',
     heroCtaHref: '/agendar-demo',
     heroVisualLabel: 'Panel financiero',
     heroVisual: {
@@ -500,9 +500,9 @@ export const productPages: ProductPage[] = [
     },
     sections: [
       {
-        title: 'Sabe quien te debe, cuanto y hace cuanto',
+        title: 'Sabé quién te debe, cuánto y hace cuánto',
         description:
-          'La cuenta corriente deja de ser una caja negra: ves saldo, antiguedad y ultimo movimiento de cada cliente.',
+          'La cuenta corriente deja de ser una caja negra: ves saldo, antigüedad y último movimiento de cada cliente.',
         links: [{ label: 'Ver Ventas y POS', href: '/producto/ventas-y-pos' }],
         visual: {
           kind: 'image',
@@ -540,10 +540,10 @@ export const productPages: ProductPage[] = [
         },
       },
       {
-        title: 'Cobras y pagas como quieras. Todo registrado.',
+        title: 'Cobrás y pagás como quieras. Todo registrado.',
         description:
           'Efectivo, transferencia, Mercado Pago, cheque o tarjeta: la forma cambia, la trazabilidad no.',
-        links: [{ label: 'Ver Facturacion', href: '/producto/facturacion' }],
+        links: [{ label: 'Ver Facturación', href: '/producto/facturacion' }],
         visual: {
           kind: 'imageGrid',
           layout: 'balanced',
@@ -567,16 +567,16 @@ export const productPages: ProductPage[] = [
         },
       },
     ],
-    finalBannerText: 'Numeros claros, decisiones seguras.',
-    finalBannerCtaLabel: 'Proba gratis',
+    finalBannerText: 'Números claros, decisiones seguras.',
+    finalBannerCtaLabel: 'Probá gratis',
     finalBannerCtaHref: '/registro',
   },
   {
     slug: 'reportes',
-    title: 'Reportes | ZinkERP - Los numeros de tu negocio, claros y a mano',
+    title: 'Informes | ZinkERP - Los números de tu negocio, claros y a mano',
     metaDescription:
-      'Ventas diarias, cobros pendientes, ganancia bruta, productos incumplidos. Reportes simples para dueños de pyme que toman decisiones.',
-    eyebrow: 'Reportes y Dashboard',
+      'Ventas diarias, cobros pendientes, ganancia bruta y productos faltantes. Informes simples para dueños de pymes que toman decisiones.',
+    eyebrow: 'Informes y Dashboard',
     theme: 'analytics',
     heroImageSrc: '/images/hero-reportes.png?v=2',
     ogImageSrc: '/images/og-reportes.svg?v=1',
@@ -585,7 +585,7 @@ export const productPages: ProductPage[] = [
       'Ventas diarias, cobros pendientes, ganancia bruta. Lo que necesitás saber para decidir.',
     heroCtaLabel: 'Agendá una demo',
     heroCtaHref: '/agendar-demo',
-    heroVisualLabel: 'Reportes existentes',
+    heroVisualLabel: 'Informes disponibles',
     heroVisual: {
       kind: 'reportBoard',
       items: [
@@ -599,18 +599,19 @@ export const productPages: ProductPage[] = [
       {
         title: 'Lo que importa: ventas, cobros y ganancia.',
         description:
-          'Sin graficos complicados ni dashboards que nadie entiende. Los numeros que necesitás para saber si el negocio va bien.',
+          'Sin gráficos complicados ni tableros que nadie entiende. Los números que necesitás para saber si el negocio va bien.',
         links: [
           { label: 'Ver Finanzas', href: '/producto/finanzas' },
           { label: 'Ver Sucursales', href: '/producto/sucursales' },
         ],
         visual: {
           kind: 'reportSplit',
+          note: 'Valores de ejemplo',
           items: [
-            { title: 'Ventas de hoy', subtitle: '$X', meta: 'Cantidad de ventas diaria' },
-            { title: 'Cobros pendientes', subtitle: '$X', meta: 'Pendiente de ingreso' },
-            { title: 'Ganancia bruta', subtitle: '$X', meta: 'Lectura del negocio' },
-            { title: 'Productos incumplidos', subtitle: 'X items', meta: 'Pedidos que no se vendieron' },
+            { title: 'Ventas de hoy', subtitle: '$ 1.284.500', meta: '47 ventas en el día' },
+            { title: 'Cobros pendientes', subtitle: '$ 3.920.000', meta: 'Pendiente de ingreso' },
+            { title: 'Ganancia bruta', subtitle: '$ 412.300', meta: 'Lectura del negocio' },
+            { title: 'Productos faltantes', subtitle: '12 ítems', meta: 'Pedidos que no se vendieron' },
           ],
         },
       },
@@ -622,10 +623,11 @@ export const productPages: ProductPage[] = [
         reverse: true,
         visual: {
           kind: 'comparison',
+          note: 'Valores de ejemplo',
           items: [
-            { title: '2026-06-02', subtitle: 'Cantidad de ventas: X', meta: 'Monto total: $X' },
-            { title: '2026-06-01', subtitle: 'Cantidad de ventas: X', meta: 'Monto total: $X' },
-            { title: 'Mes actual', subtitle: 'Acumulado diario visible', meta: 'Monto total: $X' },
+            { title: '2026-06-02', subtitle: 'Cantidad de ventas: 47', meta: 'Monto total: $ 1.284.500' },
+            { title: '2026-06-01', subtitle: 'Cantidad de ventas: 52', meta: 'Monto total: $ 1.402.800' },
+            { title: 'Mes actual', subtitle: 'Acumulado diario visible', meta: 'Monto total: $ 2.687.300' },
           ],
         },
       },
@@ -639,12 +641,12 @@ export const productPages: ProductPage[] = [
           images: [
             {
               src: '/images/reportes-flujo-cobros.png',
-              alt: 'Recorte del dashboard con el flujo de cobros pendientes y montos por vencer',
+              alt: 'Recorte del Dashboard con el flujo de cobros pendientes y montos por vencer',
               caption: 'Cobros pendientes visibles en un solo vistazo.',
             },
             {
               src: '/images/reportes-flujo-pagos.png',
-              alt: 'Recorte del dashboard con el flujo de pagos pendientes y montos por vencer',
+              alt: 'Recorte del Dashboard con el flujo de pagos pendientes y montos por vencer',
               caption: 'Pagos pendientes con su compromiso financiero.',
             },
           ],
@@ -652,24 +654,24 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Los números claros de tu negocio. Sin vueltas.',
-    finalBannerCtaLabel: 'Proba gratis',
+    finalBannerCtaLabel: 'Probá gratis',
     finalBannerCtaHref: '/registro',
   },
   {
     slug: 'sucursales',
-    title: 'Sucursales | ZinkERP - Controla 2 o 20 sucursales desde un solo lugar',
+    title: 'Sucursales | ZinkERP - Controlá 2 o 20 sucursales desde un solo lugar',
     metaDescription:
-      'Stock, precios, usuarios y reportes sincronizados al instante entre todas tus sucursales. Precio plano sin sorpresas. Agenda una demo.',
+      'Stock, precios, usuarios e informes sincronizados al instante entre todas tus sucursales. Cada sucursal adicional tiene 30% de descuento. Agendá una demo.',
     eyebrow: 'Sucursales',
     theme: 'network',
     heroImageSrc: '/images/hero-sucursales.svg?v=1',
     ogImageSrc: '/images/og-sucursales.svg?v=1',
-    heroTitle: 'Controla 2 sucursales o 20. Desde el celular. Sin drama.',
+    heroTitle: 'Controlá 2 sucursales o 20. Desde el celular. Sin drama.',
     heroSubtitle:
-      'Stock, precios, usuarios y reportes sincronizados al instante entre todas tus sucursales.',
-    heroCtaLabel: 'Agenda una demo',
+      'Stock, precios, usuarios e informes sincronizados al instante entre todas tus sucursales.',
+    heroCtaLabel: 'Agendá una demo',
     heroCtaHref: '/agendar-demo',
-    heroVisualLabel: 'Red multi-sucursal',
+    heroVisualLabel: 'Casa central y sucursales',
     heroVisual: {
       kind: 'syncNodes',
       items: [
@@ -682,35 +684,35 @@ export const productPages: ProductPage[] = [
       {
         title: 'Todo lo que pasa en tus sucursales, en una sola pantalla',
         description:
-          'Consolidar operacion, finanzas y stock te permite dirigir mas de una sucursal sin perder contexto.',
-        links: [{ label: 'Ver Reportes', href: '/producto/reportes' }],
+          'Consolidar operación, finanzas y stock te permite dirigir más de una sucursal sin perder contexto.',
+        links: [{ label: 'Ver Informes', href: '/producto/reportes' }],
         visual: {
           kind: 'syncNodes',
           items: [
-            { title: 'Ventas por sucursal', subtitle: 'Comparacion diaria y mensual' },
-            { title: 'Stock por nodo', subtitle: 'Disponibilidad actualizada al instante' },
+            { title: 'Ventas por sucursal', subtitle: 'Comparación diaria y mensual' },
+            { title: 'Stock por sucursal', subtitle: 'Disponibilidad actualizada al instante' },
             { title: 'Usuarios activos', subtitle: 'Actividad distribuida con control' },
           ],
         },
       },
       {
-        title: 'Sincronizacion en tiempo real. Sin esperar, sin archivos.',
+        title: 'Sincronización en tiempo real. Sin esperar, sin archivos.',
         description:
-          'No dependes de exportaciones ni consolidaciones manuales: los datos viajan con la operacion.',
+          'No dependés de exportaciones ni consolidaciones manuales: los datos viajan con la operación.',
         reverse: true,
         visual: {
           kind: 'flow',
           items: [
-            { title: 'Casa central', subtitle: 'Define reglas y ve toda la red' },
+            { title: 'Casa central', subtitle: 'Define reglas y ve todas las sucursales' },
             { title: 'Sucursal A', subtitle: 'Opera con datos consistentes' },
-            { title: 'Sucursal B', subtitle: 'Comparte stock, precios y usuarios segun permiso' },
+            { title: 'Sucursal B', subtitle: 'Comparte stock, precios y usuarios según permiso' },
           ],
         },
       },
       {
-        title: 'Sucursales que piden, central que aprueba. O central que asigna.',
+        title: 'Sucursales que piden, casa central que aprueba. O casa central que asigna.',
         description:
-          'Puedes coordinar abastecimiento y decisiones operativas con el modelo que mas convenga a tu negocio.',
+          'Podés coordinar abastecimiento y decisiones operativas con el modelo que más convenga a tu negocio.',
         links: [
           { label: 'Ver Compras', href: '/producto/compras' },
           { label: 'Ver Inventario', href: '/producto/inventario' },
@@ -718,50 +720,50 @@ export const productPages: ProductPage[] = [
         visual: {
           kind: 'flow',
           items: [
-            { title: 'Sucursal solicita', subtitle: 'Detecta necesidad desde stock real' },
-            { title: 'Central valida', subtitle: 'Aprueba, ajusta o reasigna mercaderia' },
-            { title: 'Ejecucion', subtitle: 'Compra, transferencia o reposicion' },
+            { title: 'Sucursal solicita', subtitle: 'Detecta la necesidad desde el stock real' },
+            { title: 'Casa central valida', subtitle: 'Aprueba, ajusta o reasigna mercadería' },
+            { title: 'Ejecución', subtitle: 'Compra, transferencia o reposición' },
           ],
         },
       },
       {
-        title: 'Stock intersucursal configurable',
+        title: 'Stock entre sucursales configurable',
         description:
-          'Define si cada equipo ve todo, solo una parte o nada del stock de otras sucursales.',
+          'Definí si cada equipo ve todo, solo una parte o nada del stock de otras sucursales.',
         links: [{ label: 'Ver Control de Acceso', href: '/producto/control-de-acceso' }],
         reverse: true,
         visual: {
           kind: 'comparison',
           items: [
-            { title: 'Visibilidad total', subtitle: 'Central y dueños ven toda la red' },
-            { title: 'Visibilidad parcial', subtitle: 'Encargados ven nodos asignados' },
+            { title: 'Visibilidad total', subtitle: 'Casa central y dueños ven todas las sucursales' },
+            { title: 'Visibilidad parcial', subtitle: 'Encargados ven las sucursales asignadas' },
             { title: 'Sin visibilidad', subtitle: 'Operadores trabajan solo su sucursal' },
           ],
         },
       },
       {
-        title: 'Precio plano, sin sorpresas. Sucursales extra al 50%.',
+        title: 'Precio claro: cada sucursal adicional, con 30% de descuento.',
         description:
-          'El crecimiento multi-sucursal tiene que ser previsible tambien desde el costo operativo.',
+          'La casa central paga el precio pleno de su plan y cada sucursal adicional tiene 30% de descuento sobre el plan que le corresponda. Es permanente y aplica a todos los planes.',
         visual: {
           kind: 'pricing',
           items: [
-            { title: 'Plan base', subtitle: 'Incluye operacion principal y puesta en marcha' },
-            { title: 'Sucursal extra', subtitle: '50% del valor de una sede principal' },
-            { title: 'Escalabilidad', subtitle: 'Mas nodos sin multiplicar complejidad' },
+            { title: 'Casa central', subtitle: 'Precio pleno de su plan' },
+            { title: 'Cada sucursal adicional', subtitle: '30% de descuento permanente sobre el plan que le corresponda' },
+            { title: 'Usuarios ilimitados', subtitle: 'Sin costo por usuario en ninguna sucursal' },
           ],
         },
       },
     ],
-    finalBannerText: 'Crece sin limites. Cada sucursal, conectada.',
-    finalBannerCtaLabel: 'Proba gratis',
+    finalBannerText: 'Crecé sin límites. Cada sucursal, conectada.',
+    finalBannerCtaLabel: 'Probá gratis',
     finalBannerCtaHref: '/registro',
     faqTitle: 'Preguntas frecuentes sobre Sucursales',
     faqs: [
       {
         question: '¿Cada sucursal paga un plan por separado?',
         answer:
-          'No. El plan es por organización. Las sucursales adicionales tienen un costo del 50% sobre el plan base. Todos los usuarios de todas las sucursales están incluidos sin costo extra.',
+          'Sí. La casa central paga el precio pleno de su plan y cada sucursal adicional se cobra aparte, con 30% de descuento permanente sobre el plan que le corresponda. Aplica a todos los planes. Los usuarios de todas las sucursales están incluidos sin costo extra.',
       },
       {
         question: '¿Puedo tener permisos distintos en cada sucursal?',
@@ -779,15 +781,15 @@ export const productPages: ProductPage[] = [
     slug: 'control-de-acceso',
     title: 'Control de Acceso | ZinkERP - Perfiles y permisos granulares para tu negocio',
     metaDescription:
-      'Define perfiles a medida con permisos precisos. Cada persona ve solo lo que necesita. Caja diaria por operador. Agenda una demo.',
+      'Definí perfiles a medida con permisos precisos. Cada persona ve solo lo que necesita. Caja diaria por operador. Agendá una demo.',
     eyebrow: 'Control de Acceso',
     theme: 'access',
     heroImageSrc: '/images/hero-control-de-acceso.png?v=1',
     ogImageSrc: '/images/og-control-de-acceso.svg?v=1',
-    heroTitle: 'Cada persona en tu negocio ve solo lo que necesita. Ni mas, ni menos.',
+    heroTitle: 'Cada persona en tu negocio ve solo lo que necesita. Ni más, ni menos.',
     heroSubtitle:
       'Perfiles a medida, permisos precisos y caja diaria por operador. Control sin volverte loco.',
-    heroCtaLabel: 'Agenda una demo',
+    heroCtaLabel: 'Agendá una demo',
     heroCtaHref: '/agendar-demo',
     heroVisualLabel: 'Perfiles y permisos',
     heroVisual: {
@@ -795,14 +797,14 @@ export const productPages: ProductPage[] = [
       items: [
         { title: 'Cajero', subtitle: 'Vende, cobra y rinde caja' },
         { title: 'Encargado', subtitle: 'Opera su sucursal y valida ajustes' },
-        { title: 'Dueno', subtitle: 'Ve toda la red y define reglas' },
+        { title: 'Dueño', subtitle: 'Ve todas las sucursales y define reglas' },
       ],
     },
     sections: [
       {
-        title: 'Crea los perfiles que tu negocio necesita. No los que el sistema te deja.',
+        title: 'Creá los perfiles que tu negocio necesita. No los que el sistema te deja.',
         description:
-          'Los perfiles se arman segun tu operacion real, no segun tres roles fijos que no reflejan como trabaja tu equipo.',
+          'Los perfiles se arman según tu operación real, no según tres perfiles fijos que no reflejan cómo trabaja tu equipo.',
         links: [{ label: 'Ver Sucursales', href: '/producto/sucursales' }],
         visual: {
           kind: 'imageGrid',
@@ -822,15 +824,15 @@ export const productPages: ProductPage[] = [
         },
       },
       {
-        title: 'Permisos precisos: puedes ver el precio de costo, pero no modificarlo.',
+        title: 'Permisos precisos: podés ver el precio de costo, pero no modificarlo.',
         description:
-          'La granularidad evita bloqueos innecesarios y tambien reduce errores o exposicion de informacion sensible.',
+          'La granularidad evita bloqueos innecesarios y también reduce errores o la exposición de información sensible.',
         links: [{ label: 'Ver Inventario', href: '/producto/inventario' }],
         reverse: true,
         visual: {
           kind: 'image',
           src: '/images/seguridad-permisos.png',
-          alt: 'Matriz de permisos granulares con acciones habilitadas y restringidas por modulo',
+          alt: 'Matriz de permisos granulares con acciones habilitadas y restringidas por módulo',
           caption: 'Permisos finos por acción, dato y módulo.',
         },
       },
@@ -849,9 +851,9 @@ export const productPages: ProductPage[] = [
         },
       },
       {
-        title: 'El encargado ve su sucursal. El dueno ve todo.',
+        title: 'El encargado ve su sucursal. El dueño ve todo.',
         description:
-          'Puedes modelar alcance por sucursal, rol y tipo de informacion para que cada persona trabaje con el contexto correcto.',
+          'Podés definir el alcance por sucursal, perfil y tipo de información para que cada persona trabaje con el contexto correcto.',
         links: [{ label: 'Ver Sucursales', href: '/producto/sucursales' }],
         reverse: true,
         visual: {
@@ -859,13 +861,13 @@ export const productPages: ProductPage[] = [
           items: [
             { title: 'Operador', subtitle: 'Solo su caja y su puesto' },
             { title: 'Encargado', subtitle: 'Solo su sucursal y su equipo' },
-            { title: 'Dueno', subtitle: 'Vista total de la operacion' },
+            { title: 'Dueño', subtitle: 'Vista total de la operación' },
           ],
         },
       },
     ],
     finalBannerText: 'Control total sin volverte loco. Cada quien, lo suyo.',
-    finalBannerCtaLabel: 'Proba gratis',
+    finalBannerCtaLabel: 'Probá gratis',
     finalBannerCtaHref: '/registro',
   },
 ];

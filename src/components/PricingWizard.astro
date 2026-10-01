@@ -1,6 +1,7 @@
 ---
 const WHATSAPP_CTA_NUMBER = '5491135598389';
 const buildWhatsAppUrl = (message: string) => `https://wa.me/${WHATSAPP_CTA_NUMBER}?text=${encodeURIComponent(message)}`;
+const demoUrl = '/agendar-demo';
 
 const questions = [
   {
@@ -17,9 +18,9 @@ const questions = [
     text: '¿Qué volumen mensual de ventas tiene hoy tu operación?',
     options: [
       { value: 'starter', label: 'Hasta USD 5.000/mes', icon: '🟢' },
-      { value: 'pro', label: 'Hasta USD 20.000/mes', icon: '🔵' },
-      { value: 'full', label: 'Hasta USD 40.000/mes', icon: '🟣' },
-      { value: 'enterprise', label: 'Por encima de ese rango', icon: '🟠' }
+      { value: 'pro', label: 'Más de USD 5.000 y hasta USD 15.000/mes', icon: '🔵' },
+      { value: 'full', label: 'Más de USD 15.000 y hasta USD 40.000/mes', icon: '🟣' },
+      { value: 'sales', label: 'Más de USD 40.000/mes', icon: '🟠' }
     ]
   },
   {
@@ -40,7 +41,7 @@ const questions = [
     <p class="text-gray-300">Respondé 3 preguntas simples y te lo mostramos.</p>
   </div>
 
-  <div id="wizard" class="max-w-2xl mx-auto" data-whatsapp-base={buildWhatsAppUrl('')}>
+  <div id="wizard" class="max-w-2xl mx-auto" data-whatsapp-base={buildWhatsAppUrl('')} data-demo-url={demoUrl}>
     <div id="questions" class="space-y-8">
       {questions.map((question, index) => (
         <div class="question-step hidden" data-step={index}>
@@ -64,8 +65,8 @@ const questions = [
 
     <div id="result" class="hidden">
       <div class="text-center mb-8">
-        <h3 class="text-2xl font-bold mb-4">Plan recomendado</h3>
-        <p class="text-gray-300">Basado en tus respuestas, este es el plan ideal para tu negocio:</p>
+        <h3 id="result-title" class="text-2xl font-bold mb-4">Plan recomendado</h3>
+        <p id="result-subtitle" class="text-gray-300">Basado en tus respuestas, este es el plan ideal para tu negocio:</p>
       </div>
 
       <div id="plan-card" class="bg-dark-600 rounded-xl p-6 border border-primary mb-8">
@@ -74,12 +75,13 @@ const questions = [
           <h4 id="plan-name" class="text-xl font-bold"></h4>
         </div>
         <p id="plan-description" class="text-gray-300 mb-6"></p>
-        <div class="flex flex-wrap items-end gap-2 mb-4">
+        <div id="plan-price-row" class="flex flex-wrap items-end gap-2 mb-4">
           <span class="text-3xl font-bold">USD <span id="plan-price"></span></span>
           <span class="text-gray-400">/mes</span>
           <span id="plan-promo" class="text-blue-primary text-sm font-medium"></span>
         </div>
-        <div class="flex gap-4">
+        <ul id="plan-notes" class="hidden space-y-2 mb-6 text-sm text-gray-300 list-disc pl-5"></ul>
+        <div class="flex flex-wrap gap-4">
           <a
             id="plan-cta"
             href="#"
@@ -88,6 +90,15 @@ const questions = [
             class="flex-1 text-center py-3 px-6 bg-blue-primary hover:bg-blue-primary/90 rounded-lg transition-colors"
           >
             Elegir este plan
+          </a>
+          <a
+            id="plan-sales"
+            href="#"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden flex-1 text-center py-3 px-6 border border-gray-600 hover:border-gray-400 rounded-lg transition-colors"
+          >
+            Hablar con ventas
           </a>
           <button
             id="restart-wizard"
@@ -114,14 +125,15 @@ const questions = [
 </div>
 
 <script>
-  type PlanKey = 'starter' | 'pro' | 'full' | 'enterprise';
+  type PlanKey = 'starter' | 'pro' | 'full';
+  type VolumeKey = PlanKey | 'sales';
 
   type Plan = {
     name: string;
     price: number;
     icon: string;
     description: string;
-    promo?: string;
+    promo: string;
     message: string;
   };
 
@@ -131,6 +143,9 @@ const questions = [
     const resultEl = document.getElementById('result');
     const restartButton = document.getElementById('restart-wizard');
     const planCta = document.getElementById('plan-cta') as HTMLAnchorElement | null;
+    const planSales = document.getElementById('plan-sales') as HTMLAnchorElement | null;
+    const planPriceRow = document.getElementById('plan-price-row');
+    const planNotes = document.getElementById('plan-notes');
 
     if (!wizard || !questionsEl || !resultEl || !restartButton) return;
 
@@ -143,36 +158,53 @@ const questions = [
         name: 'Emprendedor',
         price: 15,
         icon: '🟢',
-        description: 'Recomendado para operaciones chicas que quieren empezar con orden, usuarios ilimitados y toda la funcionalidad base incluida.',
-        promo: '50% OFF por 3 meses. Luego USD 29/mes',
-        message: 'Quiero comenzar hoy mismo con Plan Emprendedor'
+        description: 'Para operaciones de hasta USD 5.000/mes en ventas que quieren empezar con orden, usuarios ilimitados y toda la funcionalidad base incluida.',
+        promo: '50% OFF por 3 meses. Luego USD 29/mes. Solo en modalidad mensual.',
+        message: 'Quiero comenzar hoy mismo con Plan Emprendedor.'
       },
       pro: {
         name: 'Pyme',
         price: 70,
         icon: '🔵',
-        description: 'Ideal para una operación en crecimiento que ya necesita más volumen, más previsibilidad y más acompañamiento.',
-        message: 'Quiero comenzar hoy mismo con Plan Pyme'
+        description: 'Para operaciones de hasta USD 15.000/mes en ventas que ya necesitan más volumen, más previsibilidad y más acompañamiento.',
+        promo: 'En plan anual, 2 meses gratis.',
+        message: 'Quiero comenzar hoy mismo con Plan Pyme.'
       },
       full: {
         name: 'Escala',
         price: 99,
         icon: '🟣',
-        description: 'Pensado para operaciones más conectadas, con varias sedes o más exigencia de coordinación diaria.',
-        message: 'Quiero comenzar hoy mismo con Plan Escala'
-      },
-      enterprise: {
-        name: 'Enterprise',
-        price: 149,
-        icon: '🟠',
-        description: 'Para negocios que superan el rango estándar o necesitan un esquema comercial acorde a una complejidad mayor.',
-        message: 'Quiero comenzar hoy mismo con Plan Enterprise'
+        description: 'Para operaciones de hasta USD 40.000/mes en ventas, con más exigencia de coordinación diaria.',
+        promo: 'En plan anual, 2 meses gratis.',
+        message: 'Quiero comenzar hoy mismo con Plan Escala.'
       }
+    };
+
+    const locationMessages: Record<string, string> = {
+      small: ' Tengo entre 2 y 4 sucursales.',
+      large: ' Tengo 5 o más sucursales.'
     };
 
     const buildWhatsAppUrl = (text: string) => {
       const base = wizard.dataset.whatsappBase ?? 'https://wa.me/?text=';
       return `${base}${encodeURIComponent(text)}`;
+    };
+
+    const setText = (id: string, text: string) => {
+      const el = document.getElementById(id);
+      if (el) el.textContent = text;
+    };
+
+    const setNotes = (notes: string[]) => {
+      if (!planNotes) return;
+      planNotes.replaceChildren(
+        ...notes.map((note) => {
+          const item = document.createElement('li');
+          item.textContent = note;
+          return item;
+        })
+      );
+      planNotes.classList.toggle('hidden', notes.length === 0);
     };
 
     steps[0]?.classList.remove('hidden');
@@ -206,27 +238,67 @@ const questions = [
       });
     });
 
-    function showResult() {
-      let recommendedPlan: PlanKey;
+    function showSalesResult(locationMessage: string) {
+      setText('result-title', 'Hablemos de tu operación');
+      setText('result-subtitle', 'Tu volumen supera los planes estándar. Armamos una propuesta a medida:');
+      setText('plan-icon', '🟠');
+      setText('plan-name', 'Propuesta a medida');
+      setText(
+        'plan-description',
+        'Con más de USD 40.000/mes en ventas, conviene revisar tu operación con nuestro equipo comercial. Agendá una demo o hablá con ventas y te armamos una propuesta acorde a tu escala.'
+      );
+      planPriceRow?.classList.add('hidden');
+      setNotes([]);
 
-      if (answers[1] === 'enterprise' || answers[0] === 'large') {
-        recommendedPlan = 'enterprise';
-      } else if (answers[1] === 'full' || answers[2] === 'complex') {
-        recommendedPlan = 'full';
-      } else if (answers[1] === 'pro' || answers[0] === 'small' || answers[2] === 'medium') {
-        recommendedPlan = 'pro';
-      } else {
-        recommendedPlan = 'starter';
+      if (planCta) {
+        planCta.textContent = 'Agendar una demo';
+        planCta.href = wizard!.dataset.demoUrl ?? '/agendar-demo';
+      }
+      if (planSales) {
+        planSales.href = buildWhatsAppUrl(
+          `Hola, mi operación vende más de USD 40.000/mes y quiero hablar con ventas sobre ZinkERP.${locationMessage}`
+        );
+        planSales.classList.remove('hidden');
+      }
+    }
+
+    function showPlanResult(planKey: PlanKey, locationMessage: string) {
+      const plan = plans[planKey];
+      const notes: string[] = [];
+
+      if (answers[0] && answers[0] !== 'single') {
+        notes.push('La casa central paga el precio pleno de su plan y cada sucursal adicional tiene 30% de descuento sobre el plan que le corresponda.');
+      }
+      if (answers[2] === 'complex') {
+        notes.push('Por la complejidad de tu operación, te recomendamos agendar una demo para revisar el circuito antes de empezar.');
       }
 
-      const plan = plans[recommendedPlan];
+      setText('result-title', 'Plan recomendado');
+      setText('result-subtitle', 'Basado en tus respuestas, este es el plan ideal para tu negocio:');
+      setText('plan-icon', plan.icon);
+      setText('plan-name', plan.name);
+      setText('plan-description', plan.description);
+      setText('plan-price', String(plan.price));
+      setText('plan-promo', plan.promo);
+      planPriceRow?.classList.remove('hidden');
+      setNotes(notes);
 
-      document.getElementById('plan-icon')!.textContent = plan.icon;
-      document.getElementById('plan-name')!.textContent = plan.name;
-      document.getElementById('plan-description')!.textContent = plan.description;
-      document.getElementById('plan-price')!.textContent = String(plan.price);
-      document.getElementById('plan-promo')!.textContent = plan.promo || '';
-      if (planCta) planCta.href = buildWhatsAppUrl(plan.message);
+      if (planCta) {
+        planCta.textContent = 'Elegir este plan';
+        planCta.href = buildWhatsAppUrl(`${plan.message}${locationMessage}`);
+      }
+      planSales?.classList.add('hidden');
+    }
+
+    function showResult() {
+      const volume = (answers[1] ?? 'starter') as VolumeKey;
+      const locationMessage = locationMessages[answers[0] ?? ''] ?? '';
+
+      if (volume === 'sales') {
+        showSalesResult(locationMessage);
+      } else {
+        showPlanResult(volume, locationMessage);
+      }
 
       questionsEl!.classList.add('hidden');
       resultEl!.classList.remove('hidden');

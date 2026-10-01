@@ -226,6 +226,7 @@ const getScopeOffsetClass = (index: number, total: number) => {
         {item.meta && <p class="text-xs font-medium uppercase tracking-[0.16em] text-primary-light">{item.meta}</p>}
       </div>
     ))}
+    {visual.note && <p class="bg-dark-900/70 px-4 py-3 text-xs text-gray-500 border-t border-white/8">{visual.note}</p>}
   </div>
 )}
 
@@ -332,6 +333,7 @@ const getScopeOffsetClass = (index: number, total: number) => {
         ))}
       </div>
     </div>
+    {visual.note && <p class="text-xs text-gray-500 md:col-span-2">{visual.note}</p>}
   </div>
 )}
 

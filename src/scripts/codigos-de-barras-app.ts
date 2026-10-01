@@ -5,7 +5,7 @@ const STORAGE_KEY = 'codigos-barras-v1';
 const MAX_PDF = 50;
 const MAX_PREVIEW = 15;
 const DESC_MAX = 28;
-const MARCA_TEXTO = 'Creado con Zink ERP - zinkerp.com';
+const MARCA_TEXTO = 'Creado con ZinkERP - zinkerp.com';
 const SNACKBAR_DURATION_MS = 8000;
 
 const snackbarTimeouts: Record<string, ReturnType<typeof setTimeout>> = {};

@@ -8,7 +8,7 @@ const DATA_KEY = 'etiquetas-gondola-data-v1';
 const CONFIG_KEY = 'etiquetas-gondola-config-v1';
 const LOGO_KEY = 'etiquetas-gondola-logo-v1';
 const LEAD_KEY = 'etiquetas-gondola-lead-v1';
-const FIRMA_TEXTO = 'Generado con Zink ERP · zinkerp.com';
+const FIRMA_TEXTO = 'Generado con ZinkERP · zinkerp.com';
 const SNACKBAR_DURATION_MS = 8000;
 
 type LabelSpec = {

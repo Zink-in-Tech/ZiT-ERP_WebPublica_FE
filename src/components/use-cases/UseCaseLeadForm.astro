@@ -12,9 +12,9 @@ interface Props {
 const { vertical, rubroLabel, whatsappMessage, formProblems, demoHref } = Astro.props;
 
 const sedesOptions = [
-  { value: '1', label: '1 sede' },
-  { value: '2-4', label: '2 a 4 sedes' },
-  { value: '5+', label: '5 o más sedes' },
+  { value: '1', label: '1 sucursal' },
+  { value: '2-4', label: '2 a 4 sucursales' },
+  { value: '5+', label: '5 o más sucursales' },
 ];
 
 const systemOptions = [
@@ -46,7 +46,7 @@ const systemOptions = [
       />
     </label>
     <label class="block">
-      <span class="mb-2 block text-sm text-gray-300">Cantidad de sedes</span>
+      <span class="mb-2 block text-sm text-gray-300">Cantidad de sucursales</span>
       <select
         name="sedes"
         required
@@ -104,6 +104,6 @@ const systemOptions = [
     </a>
   </div>
   <p class="text-sm text-gray-400">
-    El envío abre WhatsApp con tus datos. No inventamos un CRM intermedio en esta página.
+    Al enviar, se abre WhatsApp con tus datos para que sigamos la conversación por ahí.
   </p>
 </form>

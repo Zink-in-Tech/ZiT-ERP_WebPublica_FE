@@ -105,7 +105,7 @@ export const systelRelatedDocs = [
   { name: 'Códigos variables', href: SYSTEL_DOCS.codigosVariables },
   { name: 'Balanzas Systel', href: SYSTEL_DOCS.balanzasSystel },
   { name: 'POS', href: SYSTEL_DOCS.pos },
-  { name: 'Preferencias', href: SYSTEL_DOCS.preferencias },
+  { name: 'Configuración → Preferencias', href: SYSTEL_DOCS.preferencias },
   { name: 'Facturación ARCA', href: SYSTEL_DOCS.arca },
   { name: 'Stock', href: SYSTEL_DOCS.inventario },
   { name: 'Caja', href: SYSTEL_DOCS.caja },

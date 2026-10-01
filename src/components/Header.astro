@@ -10,7 +10,7 @@ const productColumns = [
       {
         href: '/producto/ventas-y-pos',
         title: 'Ventas y POS',
-        description: 'Gestiona ventas, presupuestos y cobros en punto de venta',
+        description: 'Gestioná ventas, presupuestos y cobros en el POS',
         icon: 'ticket',
       },
       {
@@ -22,19 +22,19 @@ const productColumns = [
       {
         href: '/producto/compras',
         title: 'Compras',
-        description: 'Automatiza pedidos, aprobaciones y control de proveedores',
+        description: 'Automatizá pedidos, aprobaciones y control de proveedores',
         icon: 'cart',
       },
       {
         href: '/producto/inventario',
         title: 'Inventario',
-        description: 'Stock en tiempo real por sucursal con alertas de reposicion',
+        description: 'Stock en tiempo real por sucursal con alertas de reposición',
         icon: 'shelf',
       },
     ],
   },
   {
-    title: 'Vision Financiera',
+    title: 'Visión Financiera',
     items: [
       {
         href: '/producto/finanzas',
@@ -44,13 +44,13 @@ const productColumns = [
       },
       {
         href: '/producto/facturacion',
-        title: 'Facturacion AFIP/ARCA',
-        description: 'Factura electronica AFIP/ARCA integrada a tu operacion diaria',
+        title: 'Facturación AFIP/ARCA',
+        description: 'Factura electrónica AFIP/ARCA integrada a tu operación diaria',
         icon: 'document',
       },
       {
         href: '/producto/reportes',
-        title: 'Reportes y Dashboard',
+        title: 'Informes y Dashboard',
         description: 'Ventas diarias, cobros y ganancia bruta al instante',
         icon: 'chart',
       },
@@ -79,13 +79,13 @@ const productIntegrations = [
   {
     href: '/integraciones/arca',
     title: 'ARCA',
-    description: 'Facturacion nativa para el contexto argentino',
+    description: 'Facturación nativa para el contexto argentino',
     logoSrc: '/img/integrations/arca.svg',
   },
   {
     href: '/integraciones/mercadopago',
     title: 'Mercado Pago',
-    description: 'Cobros conectados a la operacion comercial',
+    description: 'Cobros conectados a la operación comercial',
     logoSrc: '/img/integrations/mercadopago.svg',
   },
   {
@@ -97,7 +97,7 @@ const productIntegrations = [
   {
     href: '/integraciones',
     title: 'Ver todas las integraciones',
-    description: 'Recorre ecommerce, pagos y facturacion conectados',
+    description: 'Recorré ecommerce, pagos y facturación conectados',
     icon: 'plus',
   },
 ];
@@ -106,12 +106,12 @@ const solutionLinks = [
   {
     href: '/casos-de-uso',
     title: 'Casos de uso',
-    description: 'Explora como se adapta ZinkERP a cada rubro.',
+    description: 'Explorá cómo se adapta ZinkERP a cada rubro.',
   },
   {
     href: '/clientes',
     title: 'Testimonios',
-    description: 'Lee casos de exito y experiencias de clientes.',
+    description: 'Leé casos de éxito y experiencias de clientes.',
   },
 ];
 
@@ -119,18 +119,18 @@ const resourceLinks = [
   {
     href: '/blog',
     title: 'Blog',
-    description: 'Ideas y contenido para ordenar tu operacion.',
+    description: 'Ideas y contenido para ordenar tu operación.',
   },
   {
     href: docsUrl,
-    title: 'Documentacion',
-    description: 'Base de conocimiento publica y sin friccion.',
+    title: 'Documentación',
+    description: 'Guías paso a paso para sacarle el máximo a ZinkERP.',
     external: true,
   },
   {
     href: '/recursos',
     title: 'Herramientas',
-    description: 'Recursos practicos para tu negocio.',
+    description: 'Recursos prácticos para tu negocio.',
   },
 ];
 
@@ -289,7 +289,7 @@ const mobileGroups = [
             id="mobile-menu-button"
             aria-expanded="false"
             aria-controls="mobile-drawer"
-            aria-label="Abrir menu"
+            aria-label="Abrir menú"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
               <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -302,7 +302,7 @@ const mobileGroups = [
           class="absolute left-0 right-0 top-full hidden pt-4"
           data-nav-panel="producto"
           role="region"
-          aria-label="Producto - Modulos del sistema"
+          aria-label="Producto - Módulos del sistema"
           aria-hidden="true"
         >
           <div class="rounded-[28px] border border-dark-700 bg-dark-900 shadow-2xl backdrop-blur-xl">
@@ -380,15 +380,15 @@ const mobileGroups = [
   >
     <div class="flex h-full flex-col">
       <div class="flex items-center justify-between border-b border-dark-700 px-4 py-5">
-        <span class="text-sm font-semibold uppercase tracking-[0.18em] text-gray-400">Menu</span>
-        <button type="button" id="mobile-menu-close" class="p-2 text-white" aria-label="Cerrar menu">
+        <span class="text-sm font-semibold uppercase tracking-[0.18em] text-gray-400">Menú</span>
+        <button type="button" id="mobile-menu-close" class="p-2 text-white" aria-label="Cerrar menú">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="h-6 w-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
 
-      <nav class="flex-1 overflow-y-auto px-4 py-4" aria-label="Menu mobile">
+      <nav class="flex-1 overflow-y-auto px-4 py-4" aria-label="Menú mobile">
         {mobileGroups.map((group) => (
           <div class="border-b border-dark-700" data-mobile-group={group.id}>
             <button

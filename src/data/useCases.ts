@@ -100,7 +100,7 @@ const sharedDifferentials: UseCaseDifferential[] = [
   },
   {
     title: 'Multi-sucursal con control local',
-    text: 'Cada sede opera su stock, su caja y sus ventas. La central ve la red sin pedir planillas por WhatsApp.',
+    text: 'Cada sucursal opera su stock, su caja y sus ventas. La casa central ve todas las sucursales sin pedir planillas por WhatsApp.',
   },
 ];
 
@@ -175,7 +175,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
       {
         title: 'Poca visibilidad entre sucursales',
-        text: 'Un local tiene stock y el otro no. Transferir o comprar se decide por WhatsApp, no por disponibilidad real.',
+        text: 'Una sucursal tiene stock y la otra no. Transferir o comprar se decide por WhatsApp, no por disponibilidad real.',
       },
     ],
     flowSteps: [
@@ -238,18 +238,13 @@ export const useCases: Record<string, UseCaseEntry> = {
     differentials: sharedDifferentials,
     experience: {
       kind: 'anonymized',
-      title: 'Caso de uso: ferretería con más de una sede',
+      title: 'Caso de uso: ferretería con más de una sucursal',
       problem:
         'El mostrador consultaba stock a ojo, los presupuestos se reescribían para vender y las cuentas de obra se seguían en planillas.',
       flow: 'Cotización → presupuesto → pedido → compra o venta → cuenta corriente.',
       result:
-        'La operación comercial, el stock y los saldos pasan a un mismo circuito. No publicamos métricas de este caso.',
+        'La operación comercial, el stock y los saldos pasan a un mismo circuito.',
       complexity: 'Comercio con catálogo amplio y venta a mostrador más cuenta corriente.',
-    },
-    demoMedia: {
-      kind: 'placeholder',
-      label: 'Acá va a vivir el video o la captura del flujo cotización → venta de ferretería.',
-      href: '/producto/ventas-y-pos',
     },
     integrations: [
       { name: 'ARCA', href: '/integraciones/arca' },
@@ -265,7 +260,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Puedo manejar varias sucursales?',
         answer:
-          'Sí. Cada sucursal opera su stock, su caja y sus ventas. Podés definir qué ve cada usuario y consolidar la red desde un solo lugar.',
+          'Sí. Cada sucursal opera su stock, su caja y sus ventas. Podés definir qué ve cada usuario y consolidar todas las sucursales desde un solo lugar.',
       },
       {
         question: '¿Puedo convertir un presupuesto en pedido y venta?',
@@ -295,7 +290,7 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     ctaTitle: 'Veamos el flujo de tu ferretería',
     ctaText:
-      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+      'Contanos cuántas sucursales tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
     whatsappMessage:
       'Hola, tengo una ferretería y quiero ver el flujo de ZinkERP: cotización, stock, compras y cuenta corriente.',
     formProblems: [
@@ -334,7 +329,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
       {
         title: 'Caja y sucursales desconectadas',
-        text: 'Cada local cierra como puede. Ver ventas, stock y caja de las tres sedes implica pedir capturas o esperar al final del día.',
+        text: 'Cada sucursal cierra como puede. Ver ventas, stock y caja de las tres sucursales implica pedir capturas o esperar al final del día.',
       },
       {
         title: 'Facturación aparte de la venta',
@@ -369,7 +364,7 @@ export const useCases: Record<string, UseCaseEntry> = {
         module: 'Stock',
         moduleHref: '/producto/inventario',
         result: 'Góndola y sistema vuelven a hablar el mismo idioma.',
-        impact: 'El stock de la sede se actualiza con cada ticket.',
+        impact: 'El stock de la sucursal se actualiza con cada ticket.',
       },
       {
         title: 'Caja',
@@ -396,13 +391,8 @@ export const useCases: Record<string, UseCaseEntry> = {
       problem: 'La operación de cada sucursal vivía en sistemas y controles separados.',
       flow: 'Venta de mostrador, stock y caja de 3 sucursales en un solo sistema.',
       result:
-        'Hoy controlan ventas, stock y caja en tiempo real, sin importar desde qué sede se mira.',
+        'Hoy controlan ventas, stock y caja en tiempo real, sin importar desde qué sucursal se mira.',
       complexity: '3 sucursales.',
-    },
-    demoMedia: {
-      kind: 'placeholder',
-      label: 'Acá va a vivir el video o la captura del flujo pesable → venta → caja de dietética.',
-      href: '/producto/ventas-y-pos',
     },
     integrations: [
       { name: 'ARCA', href: '/integraciones/arca' },
@@ -424,7 +414,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Puedo manejar varias sucursales?',
         answer:
-          'Sí. Cada sucursal descuenta su propio stock y rinde su caja. La central ve ventas, stock y caja de toda la red.',
+          'Sí. Cada sucursal descuenta su propio stock y rinde su caja. La casa central ve ventas, stock y caja de todas las sucursales.',
       },
       {
         question: '¿Puedo emitir facturas ARCA desde el mostrador?',
@@ -439,23 +429,23 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Puedo usar listas de precios distintas?',
         answer:
-          'Sí. Se definen listas por sucursal y por canal. Cada local opera con sus precios y vos ves todo consolidado.',
+          'Sí. Se definen listas por sucursal y por canal. Cada sucursal opera con sus precios y vos ves todo consolidado.',
       },
       {
         question: '¿Incluye vencimientos o lotes?',
         answer:
-          'Eso no lo damos por hecho en esta página. Si tu dietética depende de vencimientos, lo revisamos en la demo según tu flujo real.',
+          'Si tu dietética trabaja con vencimientos o lotes, lo revisamos juntos en la demo según tu flujo real.',
       },
     ],
     ctaTitle: 'Veamos el flujo de tu dietética',
     ctaText:
-      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+      'Contanos cuántas sucursales tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
     whatsappMessage:
       'Hola, tengo una dietética y quiero ver el flujo de ZinkERP: mostrador, productos pesables, stock y caja.',
     formProblems: [
       'Stock que no coincide con la góndola',
       'Productos pesables o códigos variables',
-      'Precios desordenados entre locales',
+      'Precios desordenados entre sucursales',
       'Caja y sucursales desconectadas',
       'Facturación aparte de la venta',
     ],
@@ -471,7 +461,7 @@ export const useCases: Record<string, UseCaseEntry> = {
     heroTitle: 'Limpieza con reposición a tiempo, precios al día y saldos de clientes controlados',
     heroText:
       'Para comercios de artículos de limpieza que reponen seguido, venden al público y a empresas, y necesitan ver stock, compras y cuenta corriente en el mismo sistema.',
-    audience: 'Mayoristas y minoristas de limpieza, en especial con 2 a 4 sedes o depósitos.',
+    audience: 'Mayoristas y minoristas de limpieza, en especial con 2 a 4 sucursales o depósitos.',
     result: 'Comprás con contexto, vendés sin adivinar stock y seguís la cuenta de cada cliente habitual.',
     problems: [
       {
@@ -519,7 +509,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
       {
         title: 'Recepción',
-        action: 'Se ingresa la mercadería y se actualiza el stock de la sede o depósito.',
+        action: 'Se ingresa la mercadería y se actualiza el stock de la sucursal o depósito.',
         module: 'Compras / Stock',
         moduleHref: '/producto/compras',
         result: 'Lo recibido está disponible para vender.',
@@ -557,15 +547,10 @@ export const useCases: Record<string, UseCaseEntry> = {
       business: 'Limpieza Blue Gualeguaychú · Química Tortuguitas y El Cruce',
       problem:
         'Stock, compras, proveedores y sucursales estaban repartidos. Crecer implicaba más pasos sueltos.',
-      flow: 'Stock, compras, caja y operación de varias sedes en un mismo sistema.',
+      flow: 'Stock, compras, caja y operación de varias sucursales en un mismo sistema.',
       result:
-        'Cada movimiento queda registrado. Las sucursales se controlan desde un solo lugar, con mejor base para sumar otra sede.',
+        'Cada movimiento queda registrado. Las sucursales se controlan desde un solo lugar, con mejor base para sumar otra sucursal.',
       complexity: 'Operación multi-sucursal con venta y reposición frecuente.',
-    },
-    demoMedia: {
-      kind: 'placeholder',
-      label: 'Acá va a vivir el video o la captura del flujo compra → recepción → venta de limpieza.',
-      href: '/producto/compras',
     },
     integrations: [
       { name: 'ARCA', href: '/integraciones/arca' },
@@ -587,12 +572,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Puedo controlar compras y recepción?',
         answer:
-          'Sí. Las sucursales pueden pedir, la central consolida y emite la orden de compra. Al recibir, el stock se actualiza.',
+          'Sí. Las sucursales pueden pedir, la casa central consolida y emite la orden de compra. Al recibir, el stock se actualiza.',
       },
       {
         question: '¿Puedo tener varias sucursales o depósitos?',
         answer:
-          'Sí. Cada nodo tiene su stock. Podés transferir entre sedes y decidir qué visibilidad tiene cada usuario.',
+          'Sí. Cada sucursal o depósito tiene su stock. Podés transferir entre ellos y decidir qué visibilidad tiene cada usuario.',
       },
       {
         question: '¿Puedo usar listas de precios diferentes?',
@@ -607,12 +592,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Incluye reglas especiales para productos químicos?',
         answer:
-          'No prometemos un módulo de peligrosos. Si ese control es central para tu negocio, lo validamos en la demo.',
+          'ZinkERP no incluye un módulo específico para productos peligrosos. Si ese control es clave para tu negocio, lo revisamos juntos en la demo.',
       },
     ],
     ctaTitle: 'Veamos el flujo de tu negocio de limpieza',
     ctaText:
-      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+      'Contanos cuántas sucursales tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
     whatsappMessage:
       'Hola, tengo un negocio de artículos de limpieza y quiero ver el flujo de ZinkERP: compras, stock, precios y cuenta corriente.',
     formProblems: [
@@ -634,7 +619,7 @@ export const useCases: Record<string, UseCaseEntry> = {
     heroTitle: 'Papelera con catálogo ordenado, precios claros y caja que cierra sin planilla',
     heroText:
       'Para papeleras y librerías con miles de SKUs, temporadas fuertes y un mostrador que no puede frenarse a buscar un precio en Excel.',
-    audience: 'Papeleras y librerías comerciales, de una sede o de 2 a 4 locales.',
+    audience: 'Papeleras y librerías comerciales, de una sucursal o de 2 a 4 sucursales.',
     result: 'El catálogo, la reposición, la venta y la caja quedan en el mismo circuito.',
     problems: [
       {
@@ -682,7 +667,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
       {
         title: 'Reposición',
-        action: 'Se recibe mercadería y se actualiza el stock del local.',
+        action: 'Se recibe mercadería y se actualiza el stock de la sucursal.',
         module: 'Stock',
         moduleHref: '/producto/inventario',
         result: 'Lo que llegó ya se puede vender y se ve en el sistema.',
@@ -724,11 +709,6 @@ export const useCases: Record<string, UseCaseEntry> = {
         'Las ventas y los pagos se registran en el momento. El mostrador es más ágil y la dueña ve la situación del local.',
       complexity: 'Papelería retail con catálogo amplio y venta presencial.',
     },
-    demoMedia: {
-      kind: 'placeholder',
-      label: 'Acá va a vivir el video o la captura del flujo catálogo → venta → caja de papelera.',
-      href: '/producto/ventas-y-pos',
-    },
     integrations: [
       { name: 'ARCA', href: '/integraciones/arca' },
       { name: 'Mercado Pago', href: '/integraciones/mercadopago' },
@@ -767,14 +747,14 @@ export const useCases: Record<string, UseCaseEntry> = {
           'Sí. No reemplaza tu planificación, pero catálogo, stock, compras y caja quedan ordenados para atravesar esos picos.',
       },
       {
-        question: '¿Puedo manejar más de un local?',
+        question: '¿Puedo manejar más de una sucursal?',
         answer:
-          'Sí. Cada local tiene su stock y su caja. La central ve la red sin pedir el cierre por WhatsApp.',
+          'Sí. Cada sucursal tiene su stock y su caja. La casa central ve todas las sucursales sin pedir el cierre por WhatsApp.',
       },
     ],
     ctaTitle: 'Veamos el flujo de tu papelera',
     ctaText:
-      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+      'Contanos cuántas sucursales tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
     whatsappMessage:
       'Hola, tengo una papelera y quiero ver el flujo de ZinkERP: catálogo, listas de precios, reposición y caja.',
     formProblems: [
@@ -844,7 +824,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
       {
         title: 'Reposición',
-        action: 'Se recibe la mercadería y se actualiza el stock del local.',
+        action: 'Se recibe la mercadería y se actualiza el stock de la sucursal.',
         module: 'Stock',
         moduleHref: '/producto/inventario',
         result: 'Lo que llegó ya está disponible para vender.',
@@ -882,13 +862,8 @@ export const useCases: Record<string, UseCaseEntry> = {
         'El catálogo chico-grande se sostenía en memoria, la reposición de fechas fuertes se decidía tarde y la caja se armaba aparte.',
       flow: 'Catálogo → precios → compra → reposición → venta → caja.',
       result:
-        'La operación diaria y la reposición quedan en un mismo circuito. No publicamos métricas de este caso.',
+        'La operación diaria y la reposición quedan en un mismo circuito.',
       complexity: 'Comercio con muchas variantes y picos estacionales.',
-    },
-    demoMedia: {
-      kind: 'placeholder',
-      label: 'Acá va a vivir el video o la captura del flujo catálogo → reposición → venta de insumos.',
-      href: '/producto/inventario',
     },
     integrations: [
       { name: 'ARCA', href: '/integraciones/arca' },
@@ -919,7 +894,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Puedo vender online y en el local?',
         answer:
-          'Si usás WooCommerce, la tienda se puede conectar con la operación. El alcance puntual se revisa en la demo.',
+          'Si usás WooCommerce, la tienda se puede conectar con la operación. En la demo vemos cómo se adapta a tu tienda.',
       },
       {
         question: '¿Puedo emitir facturas ARCA?',
@@ -929,12 +904,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Incluye recetas o producción?',
         answer:
-          'No lo prometemos como vertical de obrador. Si fabricás y vendés, validamos en demo qué parte del circuito aplica.',
+          'ZinkERP no está pensado como sistema de obrador. Si fabricás y vendés, en la demo vemos qué parte del circuito te sirve.',
       },
     ],
     ctaTitle: 'Veamos el flujo de tu negocio de insumos',
     ctaText:
-      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
+      'Contanos cuántas sucursales tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el flujo de ZinkERP para tu negocio.',
     whatsappMessage:
       'Hola, tengo un negocio de insumos de repostería y quiero ver el flujo de ZinkERP: catálogo, precios, reposición y caja.',
     formProblems: [
@@ -951,12 +926,12 @@ export const useCases: Record<string, UseCaseEntry> = {
     noindex: true,
     pageTitle: 'ERP para florerías | ZinkERP',
     pageDescription:
-      'Ordená ventas, stock y facturación de tu florería con ZinkERP. Revisamos el flujo real antes de prometer procesos específicos del rubro.',
+      'Ordená ventas, stock y facturación de tu florería con ZinkERP. Revisamos juntos tu flujo real para ver cómo encaja.',
     caseName: 'una florería',
     eyebrow: 'Florerías',
     heroTitle: 'Florería con pedidos, stock y facturación en un mismo circuito comercial',
     heroText:
-      'Para florerías que toman pedidos por mostrador, teléfono o canales online y necesitan ordenar la parte comercial sin asumir logística floral a medida.',
+      'Para florerías que toman pedidos por mostrador, teléfono o canales online y necesitan ordenar la parte comercial.',
     audience: 'Florerías que ya superaron el cuaderno y quieren validar si el circuito comercial encaja.',
     result: 'Ventas, disponibilidad y facturación dejan de vivir en chats y planillas distintas.',
     problems: [
@@ -1015,12 +990,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       title: 'Caso de uso: operación floral con varios canales',
       problem: 'Pedidos, disponibilidad y facturación se seguían en canales distintos.',
       flow: 'Pedido o venta → disponibilidad → facturación → caja.',
-      result: 'La parte comercial se ordena. El detalle de delivery o perecederos se valida en demo.',
-    },
-    demoMedia: {
-      kind: 'placeholder',
-      label: 'Acá se podrá sumar una captura del flujo comercial cuando exista material del rubro.',
-      href: '/producto/ventas-y-pos',
+      result: 'La parte comercial se ordena. El delivery y los perecederos los revisamos juntos en la demo.',
     },
     integrations: [
       { name: 'ARCA', href: '/integraciones/arca' },
@@ -1030,15 +1000,15 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Sirve para una florería?',
         answer:
-          'Puede servir cuando el problema es ordenar ventas, stock y facturación. El alcance puntual depende del flujo real.',
+          'Sí, cuando el problema es ordenar ventas, stock y facturación. En la demo vemos cómo se adapta a tu flujo.',
       },
       {
         question: '¿Incluye logística de delivery?',
-        answer: 'No lo prometemos de forma pública. Si el delivery es central, lo validamos en la demo.',
+        answer: 'ZinkERP no incluye un módulo de logística de delivery. Si el delivery es clave para tu negocio, lo revisamos juntos en la demo.',
       },
       {
         question: '¿Maneja reglas de perecederos?',
-        answer: 'No asumimos ese alcance. Lo que sí puede aportar es el circuito comercial y de stock general.',
+        answer: 'No incluye reglas específicas para perecederos. Sí te ordena el circuito comercial y el stock general.',
       },
       {
         question: '¿Puedo emitir facturas ARCA?',
@@ -1047,7 +1017,7 @@ export const useCases: Record<string, UseCaseEntry> = {
     ],
     ctaTitle: 'Revisemos el flujo real de tu florería',
     ctaText:
-      'Contanos cuántas sedes tenés y cómo tomás pedidos hoy. Te mostramos hasta dónde llega el circuito de ZinkERP.',
+      'Contanos cuántas sucursales tenés y cómo tomás pedidos hoy. Te mostramos hasta dónde llega el circuito de ZinkERP.',
     whatsappMessage: 'Hola, tengo una florería y quiero validar si el flujo comercial de ZinkERP encaja.',
     formProblems: [
       'Pedidos por varios canales',
@@ -1062,12 +1032,12 @@ export const useCases: Record<string, UseCaseEntry> = {
     noindex: true,
     pageTitle: 'ERP para zinguería y metalúrgica | ZinkERP',
     pageDescription:
-      'Ordená ventas, materiales, presupuestos y facturación en zinguería o metalúrgica. Validamos el alcance industrial en demo.',
+      'Ordená ventas, materiales, presupuestos y facturación en zinguería o metalúrgica. La parte industrial la revisamos juntos en la demo.',
     caseName: 'una zinguería o metalúrgica',
     eyebrow: 'Zinguería y metalúrgica',
     heroTitle: 'Zinguería o metalúrgica con presupuestos, materiales y facturación en un circuito comercial',
     heroText:
-      'Para talleres que venden materiales y trabajo, y necesitan ordenar la parte comercial sin asumir un sistema de planta.',
+      'Para talleres que venden materiales y trabajo, y necesitan ordenar la parte comercial y administrativa.',
     audience: 'Zinguerías y metalúrgicas que ya no entran en una planilla de presupuestos.',
     result: 'Presupuesto, pedido, materiales y factura dejan de estar repartidos.',
     problems: [
@@ -1133,12 +1103,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       title: 'Caso de uso: taller con presupuestos y materiales',
       problem: 'Presupuestos, compras de material y facturación vivían en circuitos distintos.',
       flow: 'Presupuesto → pedido → compra de materiales → venta / factura.',
-      result: 'La parte comercial y administrativa se ordena. La manufactura avanzada se valida aparte.',
-    },
-    demoMedia: {
-      kind: 'placeholder',
-      label: 'Acá se podrá sumar una captura del flujo presupuesto → pedido cuando exista material del rubro.',
-      href: '/producto/ventas-y-pos',
+      result: 'La parte comercial y administrativa se ordena. La manufactura avanzada la revisamos aparte.',
     },
     integrations: [
       { name: 'ARCA', href: '/integraciones/arca' },
@@ -1148,12 +1113,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       {
         question: '¿Reemplaza un sistema de producción?',
         answer:
-          'No. Ordena ventas, materiales, clientes y facturación. No afirmamos manufactura avanzada sin validación.',
+          'No. Ordena ventas, materiales, clientes y facturación, pero no incluye gestión de planta ni manufactura avanzada.',
       },
       {
         question: '¿Puedo convertir un presupuesto en pedido y venta?',
         answer:
-          'Sí. Ese circuito comercial está en el producto. El encaje con tu forma de trabajar se revisa en demo.',
+          'Sí. Ese circuito comercial está en el producto. En la demo vemos cómo se adapta a tu forma de trabajar.',
       },
       {
         question: '¿Puedo controlar cuenta corriente?',
@@ -1164,9 +1129,9 @@ export const useCases: Record<string, UseCaseEntry> = {
         answer: 'Sí. La factura se vincula a la operación comercial.',
       },
     ],
-    ctaTitle: 'Validemos el alcance de tu taller',
+    ctaTitle: 'Veamos cómo encaja en tu taller',
     ctaText:
-      'Contanos cuántas sedes tenés y cómo armás hoy presupuestos, materiales y facturas. Te mostramos el circuito comercial.',
+      'Contanos cuántas sucursales tenés y cómo armás hoy presupuestos, materiales y facturas. Te mostramos el circuito comercial.',
     whatsappMessage:
       'Hola, tengo una zinguería o metalúrgica y quiero validar el flujo comercial de ZinkERP.',
     formProblems: [
@@ -1182,7 +1147,7 @@ export const useCases: Record<string, UseCaseEntry> = {
     noindex: true,
     pageTitle: 'ERP para negocios vinculados a cultivos | ZinkERP',
     pageDescription:
-      'Ordená ventas, stock, compras y facturación en negocios vinculados a cultivos. Validamos procesos agronómicos en demo.',
+      'Ordená ventas, stock, compras y facturación en negocios vinculados a cultivos. Los procesos agronómicos los revisamos juntos en la demo.',
     caseName: 'un negocio vinculado a cultivos',
     eyebrow: 'Cultivos',
     heroTitle: 'Operación vinculada a cultivos con ventas, stock y compras en un circuito comercial',
@@ -1252,12 +1217,7 @@ export const useCases: Record<string, UseCaseEntry> = {
       title: 'Caso de uso: operación comercial vinculada a cultivos',
       problem: 'Ventas, stock y administración estaban repartidos.',
       flow: 'Venta → stock → compra → facturación.',
-      result: 'La parte comercial y administrativa se ordena. Lo agronómico se valida aparte.',
-    },
-    demoMedia: {
-      kind: 'placeholder',
-      label: 'Acá se podrá sumar una captura del circuito comercial cuando exista material del rubro.',
-      href: '/producto/inventario',
+      result: 'La parte comercial y administrativa se ordena. Lo agronómico lo revisamos aparte.',
     },
     integrations: [
       { name: 'ARCA', href: '/integraciones/arca' },
@@ -1279,12 +1239,12 @@ export const useCases: Record<string, UseCaseEntry> = {
       },
       {
         question: '¿Incluye gestión agronómica?',
-        answer: 'No lo afirmamos. Si tu operación depende de procesos técnicos del agro, lo revisamos en demo.',
+        answer: 'No. ZinkERP no incluye gestión agronómica. Si tu operación depende de procesos técnicos del agro, lo revisamos juntos en la demo.',
       },
     ],
-    ctaTitle: 'Validemos tu operación vinculada a cultivos',
+    ctaTitle: 'Veamos tu operación vinculada a cultivos',
     ctaText:
-      'Contanos cuántas sedes tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el circuito comercial.',
+      'Contanos cuántas sucursales tenés y cómo manejás hoy ventas, stock y compras. Te mostramos el circuito comercial.',
     whatsappMessage:
       'Hola, tengo una operación vinculada a cultivos y quiero validar el flujo comercial de ZinkERP.',
     formProblems: [
