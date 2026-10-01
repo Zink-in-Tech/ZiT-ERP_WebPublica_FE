@@ -1,5 +1,6 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import sharp from 'sharp';
 
 const rootDir = process.cwd();
 const publicDir = path.join(rootDir, 'public');
@@ -53,7 +54,7 @@ const pages = [
   },
   {
     slug: 'reportes',
-    eyebrow: 'Reportes y Dashboard',
+    eyebrow: 'Informes y Dashboard',
     title: 'Los números que importan. Claros y actualizados.',
     subtitle: 'Ventas, cobros y ganancia para decidir mejor.',
     accent: '#74d5ff',
@@ -145,7 +146,7 @@ const renderSucursalesPanel = (page) => `
     <circle cx="292" cy="144" r="8" fill="${page.accent}" />
     <circle cx="138" cy="290" r="8" fill="${page.accent}" />
     <circle cx="291" cy="280" r="8" fill="${page.accent}" />
-    <text x="76" y="59" class="panelLabel">RED OPERATIVA</text>
+    <text x="76" y="59" class="panelLabel">TODAS TUS SUCURSALES</text>
     <rect x="148" y="196" width="144" height="48" rx="16" fill="rgba(255,255,255,0.05)" />
     <text x="220" y="225" text-anchor="middle" class="panelCenter">Casa central</text>
     <text x="120" y="152" text-anchor="middle" class="panelNode">Sucursal Norte</text>
@@ -190,7 +191,7 @@ const buildSvg = async (page, logoDataUri) => {
     </clipPath>
     <style>
       .eyebrow { fill: ${page.accent}; font: 600 18px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.08em; text-transform: uppercase; }
-      .title { fill: white; font: 700 60px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: -0.04em; }
+      .title { fill: white; font: 700 60px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: -0.02em; }
       .subtitle { fill: rgba(229, 231, 235, 0.86); font: 400 28px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
       .brand { fill: white; font: 600 20px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.06em; text-transform: uppercase; }
       .panelLabel { fill: rgba(255,255,255,0.82); font: 600 14px ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 0.18em; text-transform: uppercase; }
@@ -234,8 +235,13 @@ const main = async () => {
 
   for (const page of pages) {
     const svg = await buildSvg(page, logoDataUri);
-    const outputPath = path.join(imagesDir, `og-${page.slug}.svg`);
-    await fs.writeFile(outputPath, svg, 'utf8');
+    const outputPath = path.join(imagesDir, `og-${page.slug}.jpg`);
+    // WhatsApp, LinkedIn, Facebook y X no muestran SVG en las vistas previas.
+    await sharp(Buffer.from(svg))
+      .resize(1200, 630)
+      .flatten({ background: '#0b1020' })
+      .jpeg({ quality: 86, mozjpeg: true })
+      .toFile(outputPath);
     console.log(`Generated ${path.relative(rootDir, outputPath)}`);
   }
 };

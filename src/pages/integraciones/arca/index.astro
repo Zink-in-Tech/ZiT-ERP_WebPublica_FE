@@ -4,44 +4,44 @@ import IntegrationDetailPage from '../../../components/IntegrationDetailPage.ast
 const summaryCards = [
   {
     title: 'Integración nativa',
-    text: 'La facturación electrónica con ARCA forma parte del flujo operativo de ZinkERP.',
+    text: 'ZinkERP se conecta directo con ARCA para emitir comprobantes electrónicos, sin proveedores externos.',
   },
   {
-    title: 'Datos fiscales',
-    text: 'La configuración requiere información fiscal y datos de la empresa para dejar el circuito listo.',
+    title: 'Sin vincular cuentas de terceros',
+    text: 'Cargás los datos fiscales de tu organización tal como figuran en ARCA. No hay que conectar otras cuentas.',
   },
   {
-    title: 'Contexto argentino',
-    text: 'Pensado para pymes que necesitan facturar dentro del ERP sin separar la operación comercial del frente fiscal.',
+    title: 'Habilitación',
+    text: 'Después del trámite, ARCA puede demorar hasta 24 horas en habilitar el punto de venta.',
   },
 ];
 
 const detailSections = [
   {
-    title: 'Facturación dentro del mismo circuito',
-    text: 'Ventas, comprobantes y operación diaria quedan conectados en la misma base para reducir pasos manuales y errores de contexto.',
+    title: '1. Trámite en ARCA',
+    text: 'Desde el portal de ARCA creás un punto de venta para facturación electrónica y delegás el servicio en Zink in Tech.',
     items: [
-      'Facturación electrónica integrada en el flujo diario.',
-      'Menos idas y vueltas entre sistemas separados.',
-      'Información comercial y fiscal más alineada.',
+      'Punto de venta exclusivo para ZinkERP.',
+      'Delegación del servicio a la CUIT de Zink in Tech.',
+      'Te guiamos si es tu primera vez con el trámite.',
     ],
   },
   {
-    title: 'Configuración fiscal guiada',
-    text: 'ZinkERP acompaña la carga de datos fiscales necesarios para activar la facturación y validar la configuración de la empresa.',
+    title: '2. Datos fiscales en ZinkERP',
+    text: 'En Configuración → Preferencias → Integraciones → ARCA cargás los datos fiscales de la organización.',
     items: [
-      'Carga de CUIT y datos fiscales del negocio.',
-      'Datos de la empresa cargados desde la sección Configuración.',
-      'Revisión guiada para reducir errores de alta.',
+      'Número de punto de venta habilitado en ARCA.',
+      'Domicilio fiscal e ingresos brutos.',
+      'Inicio de actividades.',
     ],
   },
   {
-    title: 'Preparado para crecer',
-    text: 'Cuando la operación suma sucursales, mostrador, ecommerce o más volumen, la facturación sigue conectada al resto del ERP.',
+    title: '3. Validación y primera factura',
+    text: 'Con el trámite y la carga hechos, nuestro equipo de soporte valida la delegación y habilita la emisión.',
     items: [
-      'Mejor continuidad entre ventas y administración.',
-      'Más orden para equipos con varias personas operando.',
-      'Base lista para acompañar una operación más compleja.',
+      'Avisás a soporte con tu CUIT y el punto de venta.',
+      'Validamos la delegación en ARCA.',
+      'Listo para emitir comprobantes desde ZinkERP.',
     ],
   },
 ];
@@ -49,40 +49,45 @@ const detailSections = [
 const faqs = [
   {
     question: '¿Qué necesito para configurarlo?',
-    answer: 'Se necesita información fiscal y datos de la empresa. El detalle puntual se revisa durante la puesta en marcha para evitar inconsistencias.',
+    answer: 'Un punto de venta habilitado en ARCA, la delegación del servicio a Zink in Tech y los datos fiscales de tu organización (domicilio fiscal, ingresos brutos e inicio de actividades) tal como figuran en ARCA.',
   },
   {
     question: '¿La integración con ARCA es nativa?',
-    answer: 'Sí. ZinkERP comunica la facturación con ARCA dentro de su propio flujo operativo para que la empresa no tenga que separar gestión y frente fiscal.',
+    answer: 'Sí. ZinkERP se conecta directo con ARCA, sin intermediarios ni cuentas de terceros.',
   },
   {
-    question: '¿Puede requerir validaciones externas?',
-    answer: 'Sí. Como en cualquier circuito fiscal, puede haber validaciones o datos que dependan del contexto tributario de la empresa.',
+    question: '¿Por qué puede demorar hasta 24 horas?',
+    answer: 'Después del trámite, ARCA puede tardar hasta 24 horas en habilitar el punto de venta. Es un plazo externo a ZinkERP: si necesitás facturar en una fecha puntual, conviene hacer el alta con margen.',
+  },
+  {
+    question: '¿Puedo usar un punto de venta que ya uso en otro sistema?',
+    answer: 'No conviene. Lo recomendable es un punto de venta exclusivo para ZinkERP, habilitado en ARCA para facturación electrónica.',
   },
   {
     question: '¿ZinkERP reemplaza la gestión fiscal de mi contador?',
     answer: 'No. ZinkERP ordena la facturación dentro de la operación, pero no reemplaza el criterio contable ni las obligaciones fiscales del negocio.',
-  },
-  {
-    question: '¿Sirve solo para una sucursal?',
-    answer: 'No. La ventaja aparece justamente cuando la empresa quiere mantener ventas, stock y facturación ordenados aunque crezca en personas, cajas o sucursales.',
   },
 ];
 ---
 
 <IntegrationDetailPage
   pageTitle="Integración ARCA | ZinkERP"
-  pageDescription="Facturación electrónica con ARCA integrada de forma nativa en ZinkERP para comercios y pymes argentinas."
+  pageDescription="Integración nativa de ZinkERP con ARCA: punto de venta, delegación y datos fiscales para emitir factura electrónica sin proveedores externos."
   eyebrow="Integración nativa para facturación"
   headline="ARCA nativa dentro de ZinkERP"
-  subheadline="Facturación electrónica conectada a tu operación diaria para vender, cobrar y ordenar la gestión desde un solo lugar."
+  subheadline="Conectá tu CUIT con ZinkERP en tres pasos: trámite en ARCA, carga de datos fiscales y validación de nuestro equipo."
   logoSrc="/img/integrations/arca.svg"
   logoAlt="Logo ARCA"
   logoTitle="ARCA + ZinkERP"
   statusLabel="Nativa"
   summaryCards={summaryCards}
   detailSections={detailSections}
+  relatedLink={{
+    text: '¿Qué comprobantes podés emitir, desde dónde y cómo le llegan al cliente?',
+    label: 'Ver Facturación en ZinkERP',
+    href: '/producto/facturacion',
+  }}
   faqs={faqs}
-  ctaTitle="Revisemos tu circuito de facturación"
-  ctaText="Coordinemos una demo para validar cómo queda la facturación con ARCA dentro de la operación real de tu empresa."
+  ctaTitle="Revisemos tu alta en ARCA"
+  ctaText="Coordinemos una demo y revisamos juntos los pasos para conectar tu CUIT con ZinkERP."
 />

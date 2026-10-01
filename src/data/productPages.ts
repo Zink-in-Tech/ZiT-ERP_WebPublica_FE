@@ -88,8 +88,8 @@ export const productPages: ProductPage[] = [
       'Gestioná presupuestos, POS y factura electrónica en un solo flujo. Stock y precios sincronizados en todas tus sucursales. Probá ZinkERP gratis.',
     eyebrow: 'Ventas y POS',
     theme: 'sales',
-    heroImageSrc: '/images/hero-ventas-y-pos.png?v=3',
-    ogImageSrc: '/images/og-ventas-y-pos.svg?v=1',
+    heroImageSrc: '/images/hero-ventas-y-pos.png?v=4',
+    ogImageSrc: '/images/og-ventas-y-pos.jpg?v=2',
     heroTitle: 'Ventas ágiles, con stock y precios sincronizados en todas tus sucursales.',
     heroSubtitle:
       'Presupuesto, POS y factura electrónica en un mismo flujo. Con stock y precios sincronizados en todas tus sucursales.',
@@ -205,7 +205,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Compras',
     theme: 'procurement',
     heroImageSrc: '/images/hero-compras.png?v=1',
-    ogImageSrc: '/images/og-compras.svg?v=1',
+    ogImageSrc: '/images/og-compras.jpg?v=2',
     heroTitle: 'Comprá lo que necesitás, cuando lo necesitás. Centralizado o por sucursal. Vos decidís.',
     heroSubtitle:
       'Órdenes de compra con sugerencias automáticas, control de proveedores y sincronización con tu stock.',
@@ -297,7 +297,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Inventario',
     theme: 'inventory',
     heroImageSrc: '/images/hero-inventario.png?v=2',
-    ogImageSrc: '/images/og-inventario.svg?v=1',
+    ogImageSrc: '/images/og-inventario.jpg?v=2',
     heroTitle: 'Sabé exactamente qué tenés y dónde. En tiempo real, sin contar a mano.',
     heroSubtitle:
       'Stock multi-sucursal actualizado al instante. Alertas, movimientos auditados y catálogo centralizado.',
@@ -388,8 +388,8 @@ export const productPages: ProductPage[] = [
       'Facturación electrónica AFIP/ARCA integrada a tu operación diaria. Facturas A, B, C y M, NC y ND. Para monotributo y RI. Sin salir del sistema.',
     eyebrow: 'Facturación AFIP/ARCA',
     theme: 'fiscal',
-    heroImageSrc: '/images/hero-facturacion.png?v=1',
-    ogImageSrc: '/images/og-facturacion.svg?v=1',
+    heroImageSrc: '/images/hero-facturacion.png?v=2',
+    ogImageSrc: '/images/og-facturacion.jpg?v=2',
     heroTitle: 'Facturá desde donde manejás tu negocio. Sin sistemas paralelos.',
     heroSubtitle:
       'Factura electrónica AFIP/ARCA integrada a tu operación diaria. Para monotributo y responsable inscripto.',
@@ -401,7 +401,7 @@ export const productPages: ProductPage[] = [
       items: [
         { title: 'Factura A, B, C y M', subtitle: 'Comprobantes integrados al flujo diario' },
         { title: 'Notas de Crédito y Débito', subtitle: 'Registradas sin salir del sistema' },
-        { title: 'Integración con Facturante', subtitle: 'Se activa desde Configuración → Preferencias' },
+        { title: 'Envío al cliente', subtitle: 'PDF por email o impresión en Ticket o A4' },
       ],
     },
     sections: [
@@ -422,16 +422,17 @@ export const productPages: ProductPage[] = [
         },
       },
       {
-        title: 'Una integración que funciona. Sin configuraciones complejas.',
+        title: 'Facturá desde Ventas o desde el POS, y enviáselo al cliente en el momento.',
         description:
-          'Conectamos ZinkERP con Facturante para que factures sin salir del sistema. Configurás una vez en Configuración → Preferencias → Integraciones, ingresás tus datos fiscales y ARCA te habilita en hasta 24 horas.',
+          'Generá el comprobante al confirmar una venta o al cobrar en el POS. Lo imprimís en formato Ticket o A4, o le enviás el PDF por email al cliente desde la misma venta. La facturación electrónica sale por nuestra integración nativa con ARCA.',
         reverse: true,
+        links: [{ label: 'Ver integración con ARCA', href: '/integraciones/arca' }],
         visual: {
           kind: 'integrationSteps',
           items: [
-            { title: '1. Configurar integración', subtitle: 'Configuración → Preferencias → Integraciones' },
-            { title: '2. Ingresar datos fiscales', subtitle: 'Monotributo o Responsable Inscripto' },
-            { title: '3. ¡A facturar!', subtitle: 'ARCA habilita en hasta 24 horas' },
+            { title: '1. Vendé', subtitle: 'Desde Ventas o desde el POS' },
+            { title: '2. Emití el comprobante', subtitle: 'Factura, Nota de Crédito o Nota de Débito' },
+            { title: '3. Envialo', subtitle: 'PDF por email o impresión en Ticket o A4' },
           ],
         },
       },
@@ -466,12 +467,17 @@ export const productPages: ProductPage[] = [
       {
         question: '¿Tengo que hacer algún trámite en ARCA antes de facturar?',
         answer:
-          'Sí. Necesitás autorizar a la CUIT de Zink in Tech a emitir comprobantes en tu nombre. El trámite se hace desde la página de ARCA y la habilitación puede demorar hasta 24 horas. Nosotros te guiamos en el proceso.',
+          'Sí, hay un trámite previo en ARCA. Te lo explicamos paso a paso en la página de la integración con ARCA y te acompañamos durante la puesta en marcha.',
       },
       {
         question: '¿Puedo facturar directamente desde una venta del POS?',
         answer:
           'Sí. Desde el sistema podés generar el comprobante vinculado a una venta existente. La factura queda asociada al cliente y a la operación.',
+      },
+      {
+        question: '¿Cómo le llega el comprobante al cliente?',
+        answer:
+          'Desde la venta le enviás el PDF por email, o lo imprimís en formato Ticket o A4 en el momento.',
       },
     ],
   },
@@ -483,7 +489,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Finanzas',
     theme: 'finance',
     heroImageSrc: '/images/hero-finanzas.png?v=2',
-    ogImageSrc: '/images/og-finanzas.svg?v=1',
+    ogImageSrc: '/images/og-finanzas.jpg?v=2',
     heroTitle: 'Tus finanzas claras, con cada sucursal bajo control.',
     heroSubtitle:
       'Cuenta corriente, caja diaria, ingresos, egresos y vencimientos. Separá y consolidá cajas por sucursal al instante.',
@@ -579,7 +585,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Informes y Dashboard',
     theme: 'analytics',
     heroImageSrc: '/images/hero-reportes.png?v=2',
-    ogImageSrc: '/images/og-reportes.svg?v=1',
+    ogImageSrc: '/images/og-reportes.jpg?v=2',
     heroTitle: 'Los números que importan de tu negocio. Claros, simples, actualizados.',
     heroSubtitle:
       'Ventas diarias, cobros pendientes, ganancia bruta. Lo que necesitás saber para decidir.',
@@ -664,8 +670,8 @@ export const productPages: ProductPage[] = [
       'Stock, precios, usuarios e informes sincronizados al instante entre todas tus sucursales. Cada sucursal adicional tiene 30% de descuento. Agendá una demo.',
     eyebrow: 'Sucursales',
     theme: 'network',
-    heroImageSrc: '/images/hero-sucursales.svg?v=1',
-    ogImageSrc: '/images/og-sucursales.svg?v=1',
+    heroImageSrc: '/images/hero-sucursales.svg?v=2',
+    ogImageSrc: '/images/og-sucursales.jpg?v=2',
     heroTitle: 'Controlá 2 sucursales o 20. Desde el celular. Sin drama.',
     heroSubtitle:
       'Stock, precios, usuarios e informes sincronizados al instante entre todas tus sucursales.',
@@ -785,7 +791,7 @@ export const productPages: ProductPage[] = [
     eyebrow: 'Control de Acceso',
     theme: 'access',
     heroImageSrc: '/images/hero-control-de-acceso.png?v=1',
-    ogImageSrc: '/images/og-control-de-acceso.svg?v=1',
+    ogImageSrc: '/images/og-control-de-acceso.jpg?v=2',
     heroTitle: 'Cada persona en tu negocio ve solo lo que necesita. Ni más, ni menos.',
     heroSubtitle:
       'Perfiles a medida, permisos precisos y caja diaria por operador. Control sin volverte loco.',

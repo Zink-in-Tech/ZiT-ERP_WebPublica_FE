@@ -88,13 +88,17 @@ const shareUrls = {
           </div>
 
           <div class="flex items-center gap-4 mb-6">
-            {post.categories?.map((cat) => (
+            {post.categories?.map((cat) => cat.slug ? (
               <a 
                 href={`/blog/categoria/${cat.slug}`}
                 class="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm hover:bg-primary/30 transition-colors"
               >
                 {cat.title}
               </a>
+            ) : (
+              <span class="px-3 py-1 rounded-full bg-primary/20 text-primary text-sm">
+                {cat.title}
+              </span>
             ))}
           </div>
 

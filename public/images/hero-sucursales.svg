@@ -53,28 +53,28 @@
   </g>
 
   <g>
-    <rect x="430" y="248" width="276" height="152" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
-    <circle cx="494" cy="312" r="22" fill="rgba(255,140,165,0.14)" />
-    <text x="534" y="303" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="600">Sucursal Norte</text>
-    <text x="534" y="346" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Ventas y usuarios propios</text>
+    <rect x="300" y="248" width="430" height="152" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
+    <circle cx="364" cy="312" r="22" fill="rgba(255,140,165,0.14)" />
+    <text x="404" y="303" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="600">Sucursal Norte</text>
+    <text x="404" y="346" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Ventas y usuarios propios</text>
   </g>
 
   <g>
-    <rect x="1116" y="244" width="258" height="140" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
+    <rect x="1116" y="244" width="440" height="140" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
     <circle cx="1178" cy="304" r="22" fill="rgba(255,140,165,0.14)" />
     <text x="1218" y="296" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="32" font-weight="600">Sucursal Sur</text>
     <text x="1218" y="338" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="22">Mismo sistema, contexto local</text>
   </g>
 
   <g>
-    <rect x="430" y="628" width="284" height="146" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
-    <circle cx="492" cy="688" r="22" fill="rgba(255,140,165,0.14)" />
-    <text x="532" y="680" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="600">Stock visible</text>
-    <text x="532" y="722" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Disponibilidad por nodo en tiempo real</text>
+    <rect x="300" y="628" width="590" height="146" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
+    <circle cx="362" cy="688" r="22" fill="rgba(255,140,165,0.14)" />
+    <text x="402" y="680" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="600">Stock visible</text>
+    <text x="402" y="722" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Disponibilidad por sucursal en tiempo real</text>
   </g>
 
   <g>
-    <rect x="1090" y="626" width="322" height="152" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
+    <rect x="1090" y="626" width="545" height="152" rx="30" fill="#10172A" stroke="rgba(255,255,255,0.1)" />
     <circle cx="1154" cy="688" r="22" fill="rgba(255,140,165,0.14)" />
     <text x="1194" y="680" fill="white" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="34" font-weight="600">Precios y reglas</text>
     <text x="1194" y="722" fill="rgba(229,231,235,0.78)" font-family="ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, sans-serif" font-size="24">Sincronización sin planillas ni esperas</text>

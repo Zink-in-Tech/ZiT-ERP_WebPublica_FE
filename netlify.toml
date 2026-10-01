@@ -12,6 +12,32 @@
   status = 301
   force = true
 
+# Facturante quedó deprecado: la facturación fiscal sale por ARCA nativo
+[[redirects]]
+  from = "/integraciones/facturante"
+  to = "/integraciones/arca/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/integraciones/facturante/*"
+  to = "/integraciones/arca/"
+  status = 301
+  force = true
+
+# Categorías del blog sin slug en Sanity
+[[redirects]]
+  from = "/blog/categoria/default"
+  to = "/blog/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/blog/categoria/null"
+  to = "/blog/"
+  status = 301
+  force = true
+
 # Bloquear archivos PHP maliciosos con 403 Forbidden
 [[redirects]]
   from = "/*.php"

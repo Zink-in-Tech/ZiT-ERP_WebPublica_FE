@@ -31,8 +31,8 @@ export async function getStaticPaths() {
     title
   }`)) as CategoryPath[] | null) || [];
 
-  return categories.map((category) => ({
-    params: { category: category.slug || 'default' },
+  return categories.filter((category) => category.slug).map((category) => ({
+    params: { category: category.slug },
     props: { categoryTitle: category.title },
   }));
 }

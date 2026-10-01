@@ -76,7 +76,7 @@ PAGES = [
         "focus_components": [
             "the comprobante type selector with visible options such as Factura A, B, C or M",
             "the main invoice form with customer data, line items and totals",
-            "the ARCA or Facturante connection status indicator if it exists in the screenshot",
+            "the ARCA connection status indicator if it exists in the screenshot",
         ],
         "extra_direction": "Give this image a slightly more compliance-oriented, official feel while keeping it premium and modern.",
     },
