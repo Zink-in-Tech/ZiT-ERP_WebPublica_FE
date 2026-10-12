@@ -2,12 +2,14 @@
 import { PortableText } from '@portabletext/react';
 import { portableTextComponents } from './PortableTextComponents';
 import { urlFor } from '../lib/sanity';
+import { withHeadingAnchors } from '../lib/blogAnchors';
 
 interface Props {
   content: any[];
 }
 
 const { content } = Astro.props;
+const contentWithAnchors = withHeadingAnchors(content ?? []);
 
 // Debug: Log the content to see what we're receiving
 console.log('PortableTextRenderer content:', JSON.stringify(content, null, 2));
@@ -131,9 +133,8 @@ function getImageUrl(imageAsset: any) {
       
       {/* Renderizar el resto del contenido con PortableText */}
       <PortableText 
-        value={content.filter(item => item._type !== 'youtube' && item._type !== 'image')} 
+        value={contentWithAnchors.filter(item => item._type !== 'youtube' && item._type !== 'image')}
         components={portableTextComponents} 
-        client:only="react" 
       />
     </div>
   ) : (
