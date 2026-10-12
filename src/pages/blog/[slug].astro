@@ -157,8 +157,8 @@ const markdownFilename = `${slug}.md`;
       <div class="container mx-auto px-4">
         <div class="flex gap-12 max-w-6xl mx-auto">
           {/* Main Content */}
-          <div class="w-full lg:w-2/3">
-            <PortableTextRenderer content={post.body} />
+          <div class="w-full min-w-0 lg:w-2/3">
+            <PortableTextRenderer content={post.body} pageUrl={canonicalUrl} />
           </div>
 
           {/* Sidebar */}

@@ -1,188 +1,245 @@
 import React from 'react';
-import type { PortableTextMarkComponentProps, PortableTextReactComponents } from '@portabletext/react';
+import type {
+  PortableTextBlock,
+  PortableTextComponentProps,
+  PortableTextMarkComponentProps,
+  PortableTextReactComponents,
+} from '@portabletext/react';
+import { toPlainText } from '@portabletext/toolkit';
+import { normalizeHref } from '../lib/blogMarkdown';
 import { urlFor } from '../lib/sanity';
 
-// Función para extraer el ID del video de YouTube
-const getYouTubeVideoId = (url: string) => {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[2].length === 11 ? match[2] : null;
-};
+type HeadingLevel = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6';
+type BlockProps = PortableTextComponentProps<PortableTextBlock & { anchorId?: string }>;
 
-// Componente para manejar embeds de YouTube
-const YouTubeComponent = ({ value }: { value: any }) => {
-  console.log('YouTubeComponent value:', value);
-  
-  if (!value || !value.url) {
-    console.log('YouTubeComponent: No value or URL provided');
-    return (
-      <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-        <p className="text-red-400">No se proporcionó URL de YouTube</p>
-      </div>
-    );
+interface SanityImageValue {
+  asset?: { _ref?: string; _id?: string; url?: string };
+  crop?: unknown;
+  alt?: string;
+  caption?: string;
+}
+
+interface YouTubeValue {
+  url?: string;
+  title?: string;
+}
+
+interface CodeValue {
+  code?: string;
+  language?: string;
+  filename?: string;
+}
+
+interface TableValue {
+  caption?: string;
+  hasHeader?: boolean;
+  rows?: Array<{ _key?: string; cells?: unknown[] } | null>;
+}
+
+const IMAGE_WIDTHS = [640, 960, 1440];
+
+export function getYouTubeVideoId(url?: string): string | null {
+  if (!url) return null;
+  try {
+    const parsed = new URL(url);
+    const host = parsed.hostname.toLowerCase().replace(/^(www|m)\./, '');
+    let id: string | null = null;
+    if (host === 'youtu.be') id = parsed.pathname.split('/')[1] ?? null;
+    else if (host === 'youtube.com' || host === 'youtube-nocookie.com') {
+      id = parsed.pathname === '/watch'
+        ? parsed.searchParams.get('v')
+        : parsed.pathname.match(/^\/(?:embed|shorts|live)\/([^/?#]+)/)?.[1] ?? null;
+    }
+    return id && /^[\w-]{11}$/.test(id) ? id : null;
+  } catch {
+    return null;
+  }
+}
+
+function imageDimensions(value: SanityImageValue): { width: number; height: number } | null {
+  if (value.crop) return null;
+  const match = value.asset?._ref?.match(/-(\d+)x(\d+)-[a-z0-9]+$/i);
+  return match ? { width: Number(match[1]), height: Number(match[2]) } : null;
+}
+
+const ImageBlock = ({ value }: { value: SanityImageValue }) => {
+  if (!value?.asset?._ref && !value?.asset?._id && !value?.asset?.url) return null;
+
+  let src: string;
+  let srcSet: string | undefined;
+  try {
+    if (value.asset?._ref || value.asset?._id) {
+      const image = urlFor(value).fit('max').auto('format');
+      src = image.width(1440).url();
+      srcSet = IMAGE_WIDTHS.map((width) => `${image.width(width).url()} ${width}w`).join(', ');
+    } else {
+      src = value.asset!.url!;
+    }
+  } catch {
+    return null;
   }
 
-  const videoId = getYouTubeVideoId(value.url);
-  console.log('YouTubeComponent videoId:', videoId);
-  
+  const dimensions = imageDimensions(value);
+  return (
+    <figure className="blog-content__figure">
+      <img
+        src={src}
+        srcSet={srcSet}
+        sizes={srcSet ? '(min-width: 1024px) 760px, 100vw' : undefined}
+        alt={value.alt?.trim() ?? ''}
+        width={dimensions?.width}
+        height={dimensions?.height}
+        loading="lazy"
+        decoding="async"
+      />
+      {value.caption?.trim() && <figcaption>{value.caption.trim()}</figcaption>}
+    </figure>
+  );
+};
+
+const YouTubeBlock = ({ value }: { value: YouTubeValue }) => {
+  const videoId = getYouTubeVideoId(value?.url);
+  const title = value?.title?.trim();
+
   if (!videoId) {
-    return (
-      <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-        <p className="text-red-400">URL de YouTube inválida: {value.url}</p>
-      </div>
-    );
+    const href = normalizeHref(value?.url);
+    return href ? (
+      <p>
+        <a href={href}>{title || 'Ver video en YouTube'}</a>
+      </p>
+    ) : null;
   }
 
   return (
-    <div className="my-8 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
-      <h3 className="text-blue-400 font-bold mb-2">🎥 Video de YouTube</h3>
-      <p className="text-blue-300 mb-4">Video ID: {videoId}</p>
-      <p className="text-blue-300 mb-4">URL: {value.url}</p>
-      <p className="text-blue-300 mb-4">Título: {value.title || 'Sin título'}</p>
-      
-      <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
+    <figure className="blog-content__video">
+      <div className="blog-content__video-frame">
         <iframe
-          src={`https://www.youtube.com/embed/${videoId}`}
-          title={value.title || 'Video de YouTube'}
-          className="absolute top-0 left-0 w-full h-full rounded-lg"
-          frameBorder="0"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+          title={title || 'Video de YouTube'}
+          loading="lazy"
+          allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
         />
       </div>
-      {value.title && (
-        <p className="text-center text-sm text-blue-400 mt-2 italic">
-          {value.title}
-        </p>
-      )}
-    </div>
+      {title && <figcaption>{title}</figcaption>}
+    </figure>
   );
 };
 
-// Componente para manejar imágenes en PortableText
-const ImageComponent = ({ value }: { value: any }) => {
-  console.log('ImageComponent value:', value);
-  
-  if (!value || (!value.asset?._ref && !value.asset?._id)) {
-    console.log('ImageComponent: No value or asset reference provided');
-    return (
-      <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-        <p className="text-red-400">No se proporcionó imagen válida</p>
-      </div>
-    );
-  }
+const CodeBlock = ({ value }: { value: CodeValue }) => {
+  const code = value?.code?.replace(/\n+$/, '') ?? '';
+  if (!code.trim()) return null;
+  const label = [value.filename, value.language].map((part) => part?.trim()).filter(Boolean).join(' · ');
 
-  try {
-    const imageUrl = urlFor(value).width(800).height(600).fit('max').auto('format').url();
-    console.log('ImageComponent imageUrl:', imageUrl);
-    
-    return (
-      <div className="my-8 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
-        <h3 className="text-green-400 font-bold mb-2">🖼️ Imagen</h3>
-        <p className="text-green-300 mb-4">Alt: {value.alt || 'Sin alt text'}</p>
-        <p className="text-green-300 mb-4">Caption: {value.caption || 'Sin caption'}</p>
-        <p className="text-green-300 mb-4">URL: {imageUrl}</p>
-        
-        <img
-          src={imageUrl}
-          alt={value.alt || ''}
-          className="w-full h-auto rounded-lg shadow-lg"
-          loading="lazy"
-        />
-        {value.caption && (
-          <p className="text-center text-sm text-green-400 mt-2 italic">
-            {value.caption}
-          </p>
-        )}
-      </div>
-    );
-  } catch (error) {
-    console.error('ImageComponent error:', error);
-    return (
-      <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-        <p className="text-red-400">Error al cargar la imagen</p>
-      </div>
-    );
-  }
-};
-
-// Componente para manejar bloques de código
-const CodeComponent = ({ value }: { value: any }) => {
   return (
-    <pre className="bg-dark-800 p-4 rounded-lg overflow-x-auto my-6">
-      <code className="text-sm text-gray-300">
-        {value.code}
-      </code>
-    </pre>
+    <figure className="blog-content__code">
+      {label && <figcaption>{label}</figcaption>}
+      <pre tabIndex={0} aria-label={label ? `Código: ${label}` : 'Bloque de código'}>
+        <code>{code}</code>
+      </pre>
+    </figure>
   );
 };
 
-// Componente para manejar citas
-const BlockquoteComponent = ({ children }: { children: React.ReactNode }) => {
+const TableBlock = ({ value }: { value: TableValue }) => {
+  const captionId = React.useId();
+  const rows = (Array.isArray(value?.rows) ? value.rows : [])
+    .map((row) => (Array.isArray(row?.cells) ? row.cells.map((cell) => (typeof cell === 'string' ? cell : '')) : []))
+    .filter((cells) => cells.some((cell) => cell.trim()));
+  if (!rows.length) return null;
+
+  const columns = Math.max(...rows.map((cells) => cells.length));
+  const pad = (cells: string[]) => [...cells, ...Array<string>(columns - cells.length).fill('')];
+  const hasHeader = value.hasHeader !== false && rows.length > 1;
+  const [header, ...body] = hasHeader ? rows : [null, ...rows];
+  const caption = value.caption?.trim();
+
   return (
-    <blockquote className="border-l-4 border-primary pl-6 my-6 italic text-gray-300">
+    <figure className="blog-content__table">
+      {caption && <figcaption id={captionId}>{caption}</figcaption>}
+      <div className="blog-content__table-scroll" role="region" aria-label={caption || 'Tabla'} tabIndex={0}>
+        <table aria-labelledby={caption ? captionId : undefined}>
+          {header && (
+            <thead>
+              <tr>
+                {pad(header).map((cell, index) => (
+                  <th key={index} scope="col">
+                    {cell}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+          )}
+          <tbody>
+            {body.map((cells, rowIndex) => (
+              <tr key={rowIndex}>
+                {pad(cells ?? []).map((cell, index) => (
+                  <td key={index}>{cell}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </figure>
+  );
+};
+
+const Heading = ({ level, value, children }: BlockProps & { level: HeadingLevel }) => {
+  const Tag = level;
+  return (
+    <Tag id={value.anchorId} className={`blog-content__heading blog-content__${level}`}>
       {children}
-    </blockquote>
+    </Tag>
   );
 };
 
-// Configuración de componentes para PortableText
-export const portableTextComponents = {
+const Paragraph = ({ value, children }: BlockProps) => (toPlainText(value).trim() ? <p>{children}</p> : null);
+
+const Link = ({ value, children }: PortableTextMarkComponentProps) => {
+  const href = normalizeHref((value as { href?: unknown } | undefined)?.href);
+  return href ? <a href={href}>{children}</a> : <>{children}</>;
+};
+
+const heading = (level: HeadingLevel) => (props: BlockProps) => <Heading level={level} {...props} />;
+
+export const portableTextComponents: Partial<PortableTextReactComponents> = {
   types: {
-    image: ImageComponent,
-    code: CodeComponent,
-    youtube: YouTubeComponent,
+    image: ImageBlock,
+    youtube: YouTubeBlock,
+    codeSnippet: CodeBlock,
+    code: CodeBlock,
+    contentTable: TableBlock,
+    table: TableBlock,
+    divider: () => <hr className="blog-content__divider" />,
   },
   block: {
-    blockquote: BlockquoteComponent,
-    h1: ({ children }: { children: React.ReactNode }) => (
-      <h1 className="text-4xl font-bold mt-8 mb-4 text-white">{children}</h1>
-    ),
-    h2: ({ children }: { children: React.ReactNode }) => (
-      <h2 className="text-3xl font-bold mt-8 mb-4 text-white">{children}</h2>
-    ),
-    h3: ({ children }: { children: React.ReactNode }) => (
-      <h3 className="text-2xl font-bold mt-6 mb-3 text-white">{children}</h3>
-    ),
-    h4: ({ children }: { children: React.ReactNode }) => (
-      <h4 className="text-xl font-bold mt-6 mb-3 text-white">{children}</h4>
-    ),
-    normal: ({ children }: { children: React.ReactNode }) => (
-      <p className="mb-4 leading-relaxed text-gray-300">{children}</p>
-    ),
+    normal: Paragraph,
+    h1: heading('h1'),
+    h2: heading('h2'),
+    h3: heading('h3'),
+    h4: heading('h4'),
+    h5: heading('h5'),
+    h6: heading('h6'),
+    blockquote: ({ children }) => <blockquote>{children}</blockquote>,
   },
   marks: {
-    link: ({ children, value }: PortableTextMarkComponentProps) => (
-      <a
-        href={(value as { href?: string } | undefined)?.href ?? '#'}
-        className="text-primary hover:text-primary-light transition-colors underline"
-        target={(value as { blank?: boolean } | undefined)?.blank ? '_blank' : undefined}
-        rel={(value as { blank?: boolean } | undefined)?.blank ? 'noopener noreferrer' : undefined}
-      >
-        {children}
-      </a>
-    ),
-    strong: ({ children }: { children: React.ReactNode }) => (
-      <strong className="font-bold text-white">{children}</strong>
-    ),
-    em: ({ children }: { children: React.ReactNode }) => (
-      <em className="italic">{children}</em>
-    ),
+    link: Link,
+    strong: ({ children }) => <strong>{children}</strong>,
+    em: ({ children }) => <em>{children}</em>,
+    code: ({ children }) => <code>{children}</code>,
+    underline: ({ children }) => <u>{children}</u>,
+    'strike-through': ({ children }) => <s>{children}</s>,
   },
   list: {
-    bullet: ({ children }: { children: React.ReactNode }) => (
-      <ul className="list-disc list-inside mb-4 space-y-2 text-gray-300">{children}</ul>
-    ),
-    number: ({ children }: { children: React.ReactNode }) => (
-      <ol className="list-decimal list-inside mb-4 space-y-2 text-gray-300">{children}</ol>
-    ),
+    bullet: ({ children }) => <ul>{children}</ul>,
+    number: ({ children }) => <ol>{children}</ol>,
   },
-  listItem: {
-    bullet: ({ children }: { children: React.ReactNode }) => (
-      <li className="text-gray-300">{children}</li>
-    ),
-    number: ({ children }: { children: React.ReactNode }) => (
-      <li className="text-gray-300">{children}</li>
-    ),
-  },
-} as Partial<PortableTextReactComponents>;
+  listItem: ({ children }) => <li>{children}</li>,
+  unknownType: () => null,
+  unknownMark: ({ children }) => <>{children}</>,
+  unknownBlockStyle: Paragraph,
+  unknownList: ({ children }) => <ul>{children}</ul>,
+  unknownListItem: ({ children }) => <li>{children}</li>,
+};

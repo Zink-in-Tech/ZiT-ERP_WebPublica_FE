@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import publishedArticle from './__fixtures__/como-controlar-stock-varias-sucursales.json';
+import { headingId } from './headingAnchors';
 import {
   AGENT_INSTRUCTIONS,
   buildArticleMarkdown,
-  headingId,
   normalizeHref,
   portableTextToMarkdown,
   type PortableTextImageNode,
@@ -319,6 +319,52 @@ describe('portableTextToMarkdown — imágenes', () => {
 
     expect(markdown).toBe('Texto visible');
     expect(markdown).not.toContain('base64');
+  });
+});
+
+describe('portableTextToMarkdown — tablas, código y separadores', () => {
+  it('convierte tablas en tablas GFM con encabezado, celdas escapadas y epígrafe', () => {
+    const markdown = portableTextToMarkdown([
+      {
+        _type: 'contentTable',
+        caption: 'Stock por sucursal',
+        hasHeader: true,
+        rows: [
+          { _key: 'r1', cells: ['Sucursal', 'Stock'] },
+          { _key: 'r2', cells: ['Centro | Norte', '229'] },
+          { _key: 'r3', cells: ['Pilar'] },
+        ],
+      },
+    ]);
+
+    expect(markdown).toBe(
+      '| Sucursal | Stock |\n| --- | --- |\n| Centro \\| Norte | 229 |\n| Pilar |  |\n\n*Stock por sucursal*',
+    );
+  });
+
+  it('agrega un encabezado vacío cuando la tabla no tiene fila de títulos', () => {
+    expect(portableTextToMarkdown([{ _type: 'contentTable', hasHeader: false, rows: [{ cells: ['a', 'b'] }] }])).toBe(
+      '|  |  |\n| --- | --- |\n| a | b |',
+    );
+  });
+
+  it('convierte bloques de código, separadores y marcas inline', () => {
+    const markdown = portableTextToMarkdown([
+      { _type: 'codeSnippet', language: 'sql', code: 'SELECT * FROM stock;\n' },
+      { _type: 'divider' },
+      block([
+        { text: 'stock_total', marks: ['code'] },
+        ' ',
+        { text: 'subrayado', marks: ['underline'] },
+        ' ',
+        { text: 'viejo', marks: ['strike-through'] },
+      ]),
+      block(['Nota final'], { style: 'h6' }),
+    ]);
+
+    expect(markdown).toBe(
+      ['```sql\nSELECT * FROM stock;\n```', '---', '`stock_total` subrayado ~~viejo~~', '###### <a id="nota-final"></a>Nota final'].join('\n\n'),
+    );
   });
 });
 

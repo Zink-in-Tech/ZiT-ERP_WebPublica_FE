@@ -3,8 +3,8 @@ import {
   isPortableTextToolkitSpan,
   isPortableTextToolkitTextNode,
   spanToPlainText,
-  toPlainText,
 } from '@portabletext/toolkit';
+import { assignHeadingIds, resolveHeadingFragment } from './headingAnchors';
 
 export const AGENT_INSTRUCTIONS = `## Instrucciones para el agente
 
@@ -56,20 +56,6 @@ type RenderContext = PortableTextToMarkdownOptions & { headingIds: ReadonlySet<s
 
 const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'tel:']);
 const HTTPS_ONLY_HOST = /(^|\.)zinkerp\.com$/i;
-
-/**
- * Stable ASCII heading id (`Registrá cada movimiento` → `registra-cada-movimiento`).
- * Auto-generated slugs differ between renderers (GitHub and VS Code keep accents,
- * Python-Markdown/MkDocs strips them), so headings carry this id explicitly.
- */
-export function headingId(text: string): string {
-  return text
-    .normalize('NFD')
-    .replace(/\p{M}/gu, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '');
-}
 
 function isBlock(node: PortableTextNode): node is PortableTextBlockNode {
   return node._type === 'block';
@@ -146,8 +132,8 @@ export function normalizeHref(rawHref: unknown, options: PortableTextToMarkdownO
 
 function resolveAnchor(href: string, context: RenderContext): string {
   if (!href.startsWith('#')) return href;
-  const id = headingId(href.slice(1));
-  return context.headingIds.has(id) ? `#${id}` : href;
+  const id = resolveHeadingFragment(href.slice(1), context.headingIds);
+  return id ? `#${id}` : href;
 }
 
 function wrapDelimited(content: string, delimiter: string): string {
@@ -233,20 +219,25 @@ function renderYouTube(node: PortableTextNode): string | null {
   return `[Video de YouTube${title}](${formatDestination((node.url as string).trim())})`;
 }
 
-function assignHeadingIds(nodes: PortableTextNode[]): Map<PortableTextNode, string> {
-  const ids = new Map<PortableTextNode, string>();
-  const used = new Set<string>();
-  for (const node of nodes) {
-    if (!isBlock(node) || node.listItem || !/^h[1-6]$/.test(node.style ?? '')) continue;
-    const text = toPlainText(node as Parameters<typeof toPlainText>[0]).trim();
-    if (!text) continue;
-    const base = headingId(text) || 'seccion';
-    let id = base;
-    for (let suffix = 2; used.has(id); suffix += 1) id = `${base}-${suffix}`;
-    used.add(id);
-    ids.set(node, id);
-  }
-  return ids;
+function escapeTableCell(value: unknown): string {
+  const text = typeof value === 'string' ? value.replace(/\s+/g, ' ').trim() : '';
+  return escapeText(text).replace(/\|/g, '\\|');
+}
+
+function renderTable(node: PortableTextNode): string | null {
+  const rows = (Array.isArray(node.rows) ? node.rows : [])
+    .map((row) => (Array.isArray((row as { cells?: unknown })?.cells) ? ((row as { cells: unknown[] }).cells).map(escapeTableCell) : []))
+    .filter((cells) => cells.some(Boolean));
+  if (!rows.length) return null;
+
+  const columns = Math.max(...rows.map((cells) => cells.length));
+  const pad = (cells: string[]) => [...cells, ...Array(columns - cells.length).fill('')];
+  const line = (cells: string[]) => `| ${pad(cells).join(' | ')} |`;
+  const header = node.hasHeader === false ? Array(columns).fill('') : rows.shift()!;
+  const table = [line(header), `| ${Array(columns).fill('---').join(' | ')} |`, ...rows.map(line)].join('\n');
+
+  const caption = typeof node.caption === 'string' ? node.caption.replace(/\s+/g, ' ').trim() : '';
+  return caption ? `${table}\n\n${wrapDelimited(escapeText(caption), '*')}` : table;
 }
 
 export function portableTextToMarkdown(blocks: unknown[] | null | undefined, options: PortableTextToMarkdownOptions = {}): string {
@@ -294,8 +285,10 @@ export function portableTextToMarkdown(blocks: unknown[] | null | undefined, opt
 
     let rendered: string | null = null;
     if (node._type === 'image') rendered = renderImage(node as PortableTextImageNode, options);
-    else if (node._type === 'code') rendered = renderCode(node);
+    else if (node._type === 'codeSnippet' || node._type === 'code') rendered = renderCode(node);
     else if (node._type === 'youtube') rendered = renderYouTube(node);
+    else if (node._type === 'contentTable' || node._type === 'table') rendered = renderTable(node);
+    else if (node._type === 'divider') rendered = '---';
     if (!rendered) continue;
 
     listStack = [];

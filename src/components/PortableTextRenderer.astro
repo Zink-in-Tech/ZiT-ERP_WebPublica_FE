@@ -1,142 +1,22 @@
 ---
 import { PortableText } from '@portabletext/react';
 import { portableTextComponents } from './PortableTextComponents';
-import { urlFor } from '../lib/sanity';
+import { withHeadingAnchors } from '../lib/headingAnchors';
 
 interface Props {
   content: any[];
+  /** Article URL, so absolute links to its own sections become in-page anchors. */
+  pageUrl?: string;
 }
 
-const { content } = Astro.props;
-
-// Debug: Log the content to see what we're receiving
-console.log('PortableTextRenderer content:', JSON.stringify(content, null, 2));
-console.log('PortableTextRenderer content length:', content?.length);
-console.log('PortableTextRenderer content types:', content?.map(item => item._type));
-
-// Check for YouTube and image content specifically
-const youtubeItems = content?.filter(item => item._type === 'youtube') || [];
-const imageItems = content?.filter(item => item._type === 'image') || [];
-console.log('YouTube items found:', youtubeItems.length);
-console.log('Image items found:', imageItems.length);
-
-// Función para extraer el ID del video de YouTube
-function getYouTubeVideoId(url: string) {
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-  const match = url.match(regExp);
-  return match && match[2].length === 11 ? match[2] : null;
-}
-
-// Función para generar URL de imagen
-function getImageUrl(imageAsset: any) {
-  if (!imageAsset) return null;
-  
-  try {
-    // Si ya tenemos la URL completa, la usamos
-    if (imageAsset.url) return imageAsset.url;
-    
-    // Si tenemos _id, construimos la URL
-    if (imageAsset._id) {
-      return `https://cdn.sanity.io/images/rw0dsjio/production/${imageAsset._id.replace('image-', '').replace('-jpg', '.jpg').replace('-png', '.png').replace('-webp', '.webp')}`;
-    }
-    
-    // Si tenemos _ref, construimos la URL desde la referencia
-    if (imageAsset._ref) {
-      // Extraer el ID de la referencia: "image-cbdf9513b76cc2231185f0eee174e598cf89309d-768x1024-jpg"
-      const refParts = imageAsset._ref.split('-');
-      if (refParts.length >= 3) {
-        const imageId = refParts[1]; // cbdf9513b76cc2231185f0eee174e598cf89309d
-        const dimensions = refParts[2]; // 768x1024
-        const format = refParts[3]; // jpg
-        
-        return `https://cdn.sanity.io/images/rw0dsjio/production/${imageId}-${dimensions}.${format}`;
-      }
-    }
-    
-    return null;
-  } catch (error) {
-    console.error('Error generating image URL:', error);
-    return null;
-  }
-}
+const { content, pageUrl } = Astro.props;
+const blocks = withHeadingAnchors(Array.isArray(content) ? content : [], { pageUrl });
 ---
 
-<div class="prose prose-invert prose-lg max-w-none">
-  {content && content.length > 0 ? (
-    <div>
-      {content.map((item, index) => {
-                 // Renderizar YouTube
-         if (item._type === 'youtube') {
-           const videoId = getYouTubeVideoId(item.url);
-           if (videoId) {
-             return (
-               <div class="my-8 p-4 bg-blue-900/20 border border-blue-500/30 rounded-lg">
-                 <div class="relative w-full" style="padding-bottom: 56.25%;">
-                   <iframe
-                     src={`https://www.youtube.com/embed/${videoId}`}
-                     title={item.title || 'Video de YouTube'}
-                     class="absolute top-0 left-0 w-full h-full rounded-lg"
-                     frameborder="0"
-                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                     allowfullscreen
-                   ></iframe>
-                 </div>
-                 {item.title && (
-                   <p class="text-center text-sm text-blue-400 mt-2 italic">
-                     {item.title}
-                   </p>
-                 )}
-               </div>
-             );
-           } else {
-             return (
-               <div class="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-                 <p class="text-red-400">URL de YouTube inválida</p>
-               </div>
-             );
-           }
-         }
-        
-                 // Renderizar imagen
-         if (item._type === 'image') {
-           const imageUrl = getImageUrl(item.asset);
-           if (imageUrl) {
-             return (
-               <div class="my-8 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
-                 <img
-                   src={imageUrl}
-                   alt={item.alt || ''}
-                   class="w-full h-auto rounded-lg shadow-lg"
-                   loading="lazy"
-                 />
-                 {item.caption && (
-                   <p class="text-center text-sm text-green-400 mt-2 italic">
-                     {item.caption}
-                   </p>
-                 )}
-               </div>
-             );
-           } else {
-             return (
-               <div class="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
-                 <p class="text-red-400">No se pudo cargar la imagen</p>
-               </div>
-             );
-           }
-         }
-        
-        // Para otros tipos de contenido, usar PortableText como fallback
-        return null;
-      })}
-      
-      {/* Renderizar el resto del contenido con PortableText */}
-      <PortableText 
-        value={content.filter(item => item._type !== 'youtube' && item._type !== 'image')} 
-        components={portableTextComponents} 
-        client:only="react" 
-      />
-    </div>
-  ) : (
-    <p class="text-gray-400 italic">No hay contenido disponible.</p>
-  )}
-</div>
+{blocks.length > 0 ? (
+  <div class="blog-content">
+    <PortableText value={blocks} components={portableTextComponents} onMissingComponent={false} />
+  </div>
+) : (
+  <p class="blog-content__empty">No hay contenido disponible.</p>
+)}
