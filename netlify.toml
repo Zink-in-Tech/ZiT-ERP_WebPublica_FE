@@ -119,6 +119,12 @@
     # Prevenir indexación de bots maliciosos
     X-Robots-Tag = "index, follow"
 
+# Artículos del blog en Markdown para asistentes de IA (UTF-8 explícito por las tildes)
+[[headers]]
+  for = "/blog/*.md"
+  [headers.values]
+    Content-Type = "text/markdown; charset=utf-8"
+
 # Headers específicos para la página de error 403
 [[headers]]
   for = "/403.html"
