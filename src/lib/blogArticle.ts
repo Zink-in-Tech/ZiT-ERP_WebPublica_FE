@@ -8,7 +8,9 @@ const PUBLISHED_POST_QUERY = `*[_type=="post" && slug.current == $slug && !(_id 
   title,
   description,
   publishedAt,
+  _updatedAt,
   "mainImageUrl": mainImage.asset->url,
+  "mainImage": mainImage{asset, crop, hotspot},
   "author": author->{
     name,
     "imageUrl": image.asset->url,

@@ -23,5 +23,7 @@ export interface Author {
   export interface PostDetail extends PostSummary {
     body: any[];
     description?: string | null;
+    _updatedAt?: string;
+    mainImage?: { asset?: { _ref?: string }; crop?: unknown; hotspot?: unknown } | null;
   }
   

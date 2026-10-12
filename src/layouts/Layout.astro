@@ -8,6 +8,10 @@ interface Props {
   image?: string;
   imageAlt?: string;
   noindex?: boolean;
+  type?: 'website' | 'article';
+  article?: { publishedTime?: string; modifiedTime?: string; section?: string; tags?: string[] };
+  /** Preload the social image; only useful when the page also displays it. */
+  preloadImage?: boolean;
 }
 
 const { 
@@ -15,12 +19,15 @@ const {
   description = "ZinkERP: El ERP operativo que piensa como vos. Simple, rápido y hecho para crecer. Ideal para negocios con una o múltiples sucursales.",
   image = "https://zinkerp.com/img/og-hero-zinkerp.png",
   imageAlt = "ZinkERP: Controlá tu negocio. Desde una sucursal o veinte.",
-  noindex = false
+  noindex = false,
+  type = "website",
+  article,
+  preloadImage = true,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const resolvedImage = image.startsWith('http') ? image : new URL(image, Astro.site).toString();
-const imageType = /\.jpe?g(\?|$)/i.test(resolvedImage) ? 'image/jpeg' : 'image/png';
+const imageType = /\.jpe?g(\?|$)|[?&]fm=jpe?g(&|$)/i.test(resolvedImage) ? 'image/jpeg' : 'image/png';
 ---
 
 <!doctype html>
@@ -50,13 +57,19 @@ const imageType = /\.jpe?g(\?|$)/i.test(resolvedImage) ? 'image/jpeg' : 'image/p
       openGraph={{
         basic: {
           title,
-          type: "website",
+          type,
           image: resolvedImage,
           url: canonicalURL,
         },
         image: {
           alt: imageAlt,
         },
+        optional: {
+          description,
+          siteName: "ZinkERP",
+          locale: "es_AR",
+        },
+        ...(article && { article }),
       }}
       twitter={{
         creator: "@zinkerp",
@@ -75,9 +88,7 @@ const imageType = /\.jpe?g(\?|$)/i.test(resolvedImage) ? 'image/jpeg' : 'image/p
           { name: "twitter:image:alt", content: imageAlt },
           { name: "theme-color", content: "#7500B9" },
         ],
-        link: [
-          { rel: "preload", as: "image", href: resolvedImage },
-        ],
+        link: preloadImage ? [{ rel: "preload", as: "image", href: resolvedImage }] : [],
       }}
     />
     
