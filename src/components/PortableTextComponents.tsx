@@ -1,5 +1,10 @@
 import React from 'react';
-import type { PortableTextMarkComponentProps, PortableTextReactComponents } from '@portabletext/react';
+import type {
+  PortableTextBlock,
+  PortableTextComponentProps,
+  PortableTextMarkComponentProps,
+  PortableTextReactComponents,
+} from '@portabletext/react';
 import { urlFor } from '../lib/sanity';
 
 // Función para extraer el ID del video de YouTube
@@ -12,7 +17,7 @@ const getYouTubeVideoId = (url: string) => {
 // Componente para manejar embeds de YouTube
 const YouTubeComponent = ({ value }: { value: any }) => {
   console.log('YouTubeComponent value:', value);
-  
+
   if (!value || !value.url) {
     console.log('YouTubeComponent: No value or URL provided');
     return (
@@ -24,7 +29,7 @@ const YouTubeComponent = ({ value }: { value: any }) => {
 
   const videoId = getYouTubeVideoId(value.url);
   console.log('YouTubeComponent videoId:', videoId);
-  
+
   if (!videoId) {
     return (
       <div className="my-8 p-4 bg-red-900/20 border border-red-500/30 rounded-lg">
@@ -39,7 +44,7 @@ const YouTubeComponent = ({ value }: { value: any }) => {
       <p className="text-blue-300 mb-4">Video ID: {videoId}</p>
       <p className="text-blue-300 mb-4">URL: {value.url}</p>
       <p className="text-blue-300 mb-4">Título: {value.title || 'Sin título'}</p>
-      
+
       <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
         <iframe
           src={`https://www.youtube.com/embed/${videoId}`}
@@ -62,7 +67,7 @@ const YouTubeComponent = ({ value }: { value: any }) => {
 // Componente para manejar imágenes en PortableText
 const ImageComponent = ({ value }: { value: any }) => {
   console.log('ImageComponent value:', value);
-  
+
   if (!value || (!value.asset?._ref && !value.asset?._id)) {
     console.log('ImageComponent: No value or asset reference provided');
     return (
@@ -75,14 +80,14 @@ const ImageComponent = ({ value }: { value: any }) => {
   try {
     const imageUrl = urlFor(value).width(800).height(600).fit('max').auto('format').url();
     console.log('ImageComponent imageUrl:', imageUrl);
-    
+
     return (
       <div className="my-8 p-4 bg-green-900/20 border border-green-500/30 rounded-lg">
         <h3 className="text-green-400 font-bold mb-2">🖼️ Imagen</h3>
         <p className="text-green-300 mb-4">Alt: {value.alt || 'Sin alt text'}</p>
         <p className="text-green-300 mb-4">Caption: {value.caption || 'Sin caption'}</p>
         <p className="text-green-300 mb-4">URL: {imageUrl}</p>
-        
+
         <img
           src={imageUrl}
           alt={value.alt || ''}
@@ -135,17 +140,37 @@ export const portableTextComponents = {
   },
   block: {
     blockquote: BlockquoteComponent,
-    h1: ({ children }: { children: React.ReactNode }) => (
-      <h1 className="text-4xl font-bold mt-8 mb-4 text-white">{children}</h1>
+    h1: ({ children, value }: PortableTextComponentProps<PortableTextBlock>) => (
+      <h1
+        id={(value as typeof value & { anchorId?: string }).anchorId}
+        className="text-4xl font-bold mt-8 mb-4 text-white scroll-mt-28"
+      >
+        {children}
+      </h1>
     ),
-    h2: ({ children }: { children: React.ReactNode }) => (
-      <h2 className="text-3xl font-bold mt-8 mb-4 text-white">{children}</h2>
+    h2: ({ children, value }: PortableTextComponentProps<PortableTextBlock>) => (
+      <h2
+        id={(value as typeof value & { anchorId?: string }).anchorId}
+        className="text-3xl font-bold mt-8 mb-4 text-white scroll-mt-28"
+      >
+        {children}
+      </h2>
     ),
-    h3: ({ children }: { children: React.ReactNode }) => (
-      <h3 className="text-2xl font-bold mt-6 mb-3 text-white">{children}</h3>
+    h3: ({ children, value }: PortableTextComponentProps<PortableTextBlock>) => (
+      <h3
+        id={(value as typeof value & { anchorId?: string }).anchorId}
+        className="text-2xl font-bold mt-6 mb-3 text-white scroll-mt-28"
+      >
+        {children}
+      </h3>
     ),
-    h4: ({ children }: { children: React.ReactNode }) => (
-      <h4 className="text-xl font-bold mt-6 mb-3 text-white">{children}</h4>
+    h4: ({ children, value }: PortableTextComponentProps<PortableTextBlock>) => (
+      <h4
+        id={(value as typeof value & { anchorId?: string }).anchorId}
+        className="text-xl font-bold mt-6 mb-3 text-white scroll-mt-28"
+      >
+        {children}
+      </h4>
     ),
     normal: ({ children }: { children: React.ReactNode }) => (
       <p className="mb-4 leading-relaxed text-gray-300">{children}</p>
