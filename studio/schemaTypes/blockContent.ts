@@ -1,4 +1,4 @@
-import {defineType, defineArrayMember} from 'sanity'
+import {defineType, defineArrayMember, defineField} from 'sanity'
 
 /**
  * This is the schema definition for the rich text fields used for
@@ -28,9 +28,14 @@ export default defineType({
         {title: 'H2', value: 'h2'},
         {title: 'H3', value: 'h3'},
         {title: 'H4', value: 'h4'},
+        {title: 'H5', value: 'h5'},
+        {title: 'H6', value: 'h6'},
         {title: 'Quote', value: 'blockquote'},
       ],
-      lists: [{title: 'Bullet', value: 'bullet'}],
+      lists: [
+        {title: 'Bullet', value: 'bullet'},
+        {title: 'Numbered', value: 'number'},
+      ],
       // Marks let you mark up inline text in the block editor.
       marks: {
         // Decorators usually describe a single property – e.g. a typographic
@@ -38,6 +43,9 @@ export default defineType({
         decorators: [
           {title: 'Strong', value: 'strong'},
           {title: 'Emphasis', value: 'em'},
+          {title: 'Inline code', value: 'code'},
+          {title: 'Underline', value: 'underline'},
+          {title: 'Strikethrough', value: 'strike-through'},
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
@@ -50,6 +58,7 @@ export default defineType({
                 title: 'URL',
                 name: 'href',
                 type: 'url',
+                validation: (rule) => rule.uri({allowRelative: true}),
               },
             ],
           },
@@ -80,6 +89,103 @@ export default defineType({
     defineArrayMember({
       type: 'youtube',
       title: 'YouTube Video',
+    }),
+    defineArrayMember({
+      type: 'object',
+      name: 'codeSnippet',
+      title: 'Code snippet',
+      fields: [
+        defineField({
+          name: 'code',
+          title: 'Code',
+          type: 'text',
+          rows: 8,
+          validation: (Rule) => Rule.required(),
+        }),
+        defineField({
+          name: 'language',
+          title: 'Language label',
+          type: 'string',
+        }),
+      ],
+      preview: {
+        select: {code: 'code', language: 'language'},
+        prepare({code, language}) {
+          return {
+            title: language ? `Code: ${language}` : 'Code snippet',
+            subtitle: typeof code === 'string' ? code.slice(0, 80) : '',
+          }
+        },
+      },
+    }),
+    defineArrayMember({
+      type: 'object',
+      name: 'divider',
+      title: 'Section divider',
+      fields: [
+        defineField({
+          name: 'internalMarker',
+          title: 'Internal divider marker',
+          type: 'boolean',
+          initialValue: true,
+          hidden: true,
+          readOnly: true,
+        }),
+      ],
+      preview: {prepare: () => ({title: 'Section divider'})},
+    }),
+    defineArrayMember({
+      type: 'object',
+      name: 'contentTable',
+      title: 'Table',
+      fields: [
+        defineField({name: 'caption', title: 'Caption', type: 'string'}),
+        defineField({
+          name: 'hasHeader',
+          title: 'First row is a header',
+          type: 'boolean',
+          initialValue: true,
+        }),
+        defineField({
+          name: 'rows',
+          title: 'Rows',
+          type: 'array',
+          of: [
+            defineArrayMember({
+              type: 'object',
+              name: 'tableRow',
+              title: 'Row',
+              fields: [
+                defineField({
+                  name: 'cells',
+                  title: 'Cells',
+                  type: 'array',
+                  of: [defineArrayMember({type: 'string'})],
+                  validation: (Rule) => Rule.required().min(1),
+                }),
+              ],
+              preview: {
+                select: {cells: 'cells'},
+                prepare({cells}) {
+                  return {
+                    title: Array.isArray(cells) ? cells.filter(Boolean).join(' · ') : 'Table row',
+                  }
+                },
+              },
+            }),
+          ],
+          validation: (Rule) => Rule.required().min(1),
+        }),
+      ],
+      preview: {
+        select: {caption: 'caption', rows: 'rows'},
+        prepare({caption, rows}) {
+          return {
+            title: caption || 'Table',
+            subtitle: `${Array.isArray(rows) ? rows.length : 0} rows`,
+          }
+        },
+      },
     }),
   ],
 })
