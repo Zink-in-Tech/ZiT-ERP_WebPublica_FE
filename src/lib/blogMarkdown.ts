@@ -3,6 +3,7 @@ import {
   isPortableTextToolkitSpan,
   isPortableTextToolkitTextNode,
   spanToPlainText,
+  toPlainText,
 } from '@portabletext/toolkit';
 
 export const AGENT_INSTRUCTIONS = `## Instrucciones para el agente
@@ -51,7 +52,24 @@ export interface ArticleMarkdownInput {
 
 type Segment = { kind: 'block' | 'list' | 'quote'; text: string };
 
+type RenderContext = PortableTextToMarkdownOptions & { headingIds: ReadonlySet<string> };
+
 const SAFE_PROTOCOLS = new Set(['http:', 'https:', 'mailto:', 'tel:']);
+const HTTPS_ONLY_HOST = /(^|\.)zinkerp\.com$/i;
+
+/**
+ * Stable ASCII heading id (`Registrá cada movimiento` → `registra-cada-movimiento`).
+ * Auto-generated slugs differ between renderers (GitHub and VS Code keep accents,
+ * Python-Markdown/MkDocs strips them), so headings carry this id explicitly.
+ */
+export function headingId(text: string): string {
+  return text
+    .normalize('NFD')
+    .replace(/\p{M}/gu, '')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+}
 
 function isBlock(node: PortableTextNode): node is PortableTextBlockNode {
   return node._type === 'block';
@@ -119,8 +137,17 @@ export function normalizeHref(rawHref: unknown, options: PortableTextToMarkdownO
     }
   }
 
+  if (url.protocol === 'http:' && HTTPS_ONLY_HOST.test(url.hostname)) {
+    return hasScheme ? href.replace(/^http:/i, 'https:') : url.href.replace(/^http:/, 'https:');
+  }
   if (hasScheme || href.startsWith('//')) return href;
   return options.baseUrl ? url.href : href;
+}
+
+function resolveAnchor(href: string, context: RenderContext): string {
+  if (!href.startsWith('#')) return href;
+  const id = headingId(href.slice(1));
+  return context.headingIds.has(id) ? `#${id}` : href;
 }
 
 function wrapDelimited(content: string, delimiter: string): string {
@@ -138,7 +165,7 @@ function wrapCode(text: string): string {
   return `${fence}${padding}${text}${padding}${fence}`;
 }
 
-function renderInline(nodes: unknown[], options: PortableTextToMarkdownOptions): string {
+function renderInline(nodes: unknown[], context: RenderContext): string {
   return nodes
     .map((node) => {
       const typed = node as PortableTextNode;
@@ -147,7 +174,7 @@ function renderInline(nodes: unknown[], options: PortableTextToMarkdownOptions):
 
       if (typed.markType === 'code') return wrapCode(spanToPlainText(typed));
 
-      const inner = renderInline(typed.children, options);
+      const inner = renderInline(typed.children, context);
       switch (typed.markType) {
         case 'strong':
           return wrapDelimited(inner, '**');
@@ -156,9 +183,9 @@ function renderInline(nodes: unknown[], options: PortableTextToMarkdownOptions):
         case 'strike-through':
           return wrapDelimited(inner, '~~');
         case 'link': {
-          const href = normalizeHref((typed.markDef as { href?: unknown } | undefined)?.href, options);
+          const href = normalizeHref((typed.markDef as { href?: unknown } | undefined)?.href, context);
           if (!href || !inner.trim()) return inner;
-          return `[${inner}](${formatDestination(href)})`;
+          return `[${inner}](${formatDestination(resolveAnchor(href, context))})`;
         }
         default:
           return inner;
@@ -167,9 +194,9 @@ function renderInline(nodes: unknown[], options: PortableTextToMarkdownOptions):
     .join('');
 }
 
-function renderBlockLines(block: PortableTextBlockNode, options: PortableTextToMarkdownOptions): string[] {
+function renderBlockLines(block: PortableTextBlockNode, context: RenderContext): string[] {
   const tree = buildMarksTree(block as Parameters<typeof buildMarksTree>[0]);
-  return renderInline(tree, options)
+  return renderInline(tree, context)
     .split('\n')
     .map((line) => line.trim())
     .filter(Boolean);
@@ -206,16 +233,32 @@ function renderYouTube(node: PortableTextNode): string | null {
   return `[Video de YouTube${title}](${formatDestination((node.url as string).trim())})`;
 }
 
+function assignHeadingIds(nodes: PortableTextNode[]): Map<PortableTextNode, string> {
+  const ids = new Map<PortableTextNode, string>();
+  const used = new Set<string>();
+  for (const node of nodes) {
+    if (!isBlock(node) || node.listItem || !/^h[1-6]$/.test(node.style ?? '')) continue;
+    const text = toPlainText(node as Parameters<typeof toPlainText>[0]).trim();
+    if (!text) continue;
+    const base = headingId(text) || 'seccion';
+    let id = base;
+    for (let suffix = 2; used.has(id); suffix += 1) id = `${base}-${suffix}`;
+    used.add(id);
+    ids.set(node, id);
+  }
+  return ids;
+}
+
 export function portableTextToMarkdown(blocks: unknown[] | null | undefined, options: PortableTextToMarkdownOptions = {}): string {
+  const nodes = (blocks ?? []).filter((raw): raw is PortableTextNode => Boolean(raw) && typeof raw === 'object');
+  const headingIds = assignHeadingIds(nodes);
+  const context: RenderContext = { ...options, headingIds: new Set(headingIds.values()) };
   const segments: Segment[] = [];
   let listStack: Array<{ type: string; counter: number; width: number }> = [];
 
-  for (const raw of blocks ?? []) {
-    if (!raw || typeof raw !== 'object') continue;
-    const node = raw as PortableTextNode;
-
+  for (const node of nodes) {
     if (isBlock(node)) {
-      const lines = renderBlockLines(node, options);
+      const lines = renderBlockLines(node, context);
       if (!lines.length) continue;
 
       if (node.listItem) {
@@ -237,7 +280,9 @@ export function portableTextToMarkdown(blocks: unknown[] | null | undefined, opt
       const style = node.style ?? 'normal';
       const heading = style.match(/^h([1-6])$/);
       if (heading) {
-        segments.push({ kind: 'block', text: `${'#'.repeat(Number(heading[1]))} ${lines.join(' ')}` });
+        const id = headingIds.get(node);
+        const anchor = id ? `<a id="${id}"></a>` : '';
+        segments.push({ kind: 'block', text: `${'#'.repeat(Number(heading[1]))} ${anchor}${lines.join(' ')}` });
       } else if (style === 'blockquote') {
         const body = escapeLineStart(joinWithHardBreaks(lines));
         segments.push({ kind: 'quote', text: body.split('\n').map((line) => `> ${line}`).join('\n') });

@@ -1,0 +1,821 @@
+{
+  "author": {
+    "name": "Fernando Demaio"
+  },
+  "body": [
+    {
+      "_key": "sd0",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd1",
+          "_type": "span",
+          "marks": [],
+          "text": "Controlar varias sucursales desde planillas separadas suele producir una certeza falsa: cada archivo parece ordenado, pero nadie ve la existencia completa. Si buscás cómo controlar el stock de varias sucursales, necesitás distinguir qué hay en cada local y qué movimiento explica cada cambio. "
+        },
+        {
+          "_key": "f59c24ec29d3",
+          "_type": "span",
+          "marks": [
+            "df2685a15376"
+          ],
+          "text": "Química Tortuguitas"
+        },
+        {
+          "_key": "bf64f062af39",
+          "_type": "span",
+          "marks": [],
+          "text": " y sus sucursales pasaron de tener la información dispersa en varios lugares a centralizar y controlar su operación con zinkERP."
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "df2685a15376",
+          "_type": "link",
+          "href": "https://quimicatortuguitas.com.ar/"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "sd2",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd3",
+          "_type": "span",
+          "marks": [],
+          "text": "Ese caso muestra que el primer avance no consiste en contar más seguido, sino en reunir la operación sin perder el detalle de cada punto de venta. A partir de esa base, podés registrar ventas y recepciones donde ocurren, formalizar transferencias y detectar diferencias con conteos acotados. También vas a encontrar una forma práctica de asignar responsabilidades y elegir indicadores que lleven a decisiones concretas. El recorrido empieza por la estructura del stock y termina con un circuito acotado para ponerla en marcha."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd4",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd6",
+          "_type": "span",
+          "marks": [
+            "c5821f26f5c4"
+          ],
+          "text": "Definí una única fuente de stock por sucursal"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "c5821f26f5c4",
+          "_type": "link",
+          "href": "#definí-una-única-fuente-de-stock-por-sucursal"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "sd7",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd9",
+          "_type": "span",
+          "marks": [
+            "sd8"
+          ],
+          "text": "Registrá cada movimiento donde ocurre"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "sd8",
+          "_type": "link",
+          "href": "#registr%C3%A1-cada-movimiento-donde-ocurre"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "sd10",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd12",
+          "_type": "span",
+          "marks": [
+            "sd11"
+          ],
+          "text": "Ordená las transferencias entre locales"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "sd11",
+          "_type": "link",
+          "href": "#orden%C3%A1-las-transferencias-entre-locales"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "sd13",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd15",
+          "_type": "span",
+          "marks": [
+            "sd14"
+          ],
+          "text": "Repartí permisos y responsabilidades"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "sd14",
+          "_type": "link",
+          "href": "#repart%C3%AD-permisos-y-responsabilidades"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "sd16",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd18",
+          "_type": "span",
+          "marks": [
+            "sd17"
+          ],
+          "text": "Controlá desvíos con inventarios cíclicos"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "sd17",
+          "_type": "link",
+          "href": "#control%C3%A1-desv%C3%ADos-con-inventarios-c%C3%ADclicos"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "sd19",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd21",
+          "_type": "span",
+          "marks": [
+            "sd20"
+          ],
+          "text": "Leé indicadores que permitan decidir"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "sd20",
+          "_type": "link",
+          "href": "#le%C3%A9-indicadores-que-permitan-decidir"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "sd22",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd24",
+          "_type": "span",
+          "marks": [
+            "sd23"
+          ],
+          "text": "Empezá por el circuito que más diferencias genera"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "sd23",
+          "_type": "link",
+          "href": "#empez%C3%A1-por-el-circuito-que-m%C3%A1s-diferencias-genera"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "sd25",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd26",
+          "_type": "span",
+          "marks": [],
+          "text": "Definí una única fuente de stock por sucursal"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "f2c5962d6f8c",
+      "_type": "image",
+      "alt": "Consulta de inventario de zinkERP con las existencias de un producto discriminadas por organización o sucursal.",
+      "asset": {
+        "_ref": "image-2e45171ad174ebd689277284d0e49cd4674060cd-2070x760-png",
+        "_type": "reference"
+      },
+      "caption": "La consulta de inventario muestra el stock registrado para un producto en distintas organizaciones o sucursales."
+    },
+    {
+      "_key": "sd27",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd28",
+          "_type": "span",
+          "marks": [],
+          "text": "El control empieza cuando cada local comparte un sistema central, pero conserva su existencia identificada por depósito o sucursal. Centralizar no significa sumar todas las unidades en una cifra: significa consultar el mismo dato y poder abrirlo por ubicación y producto."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd29",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd30",
+          "_type": "span",
+          "marks": [],
+          "text": "Química Tortuguitas y sus sucursales pasaron de tener la información dispersa en varios lugares a centralizar y controlar su operación con zinkERP. La experiencia sirve como criterio de diseño: si un encargado necesita llamar a otro local o revisar un archivo adicional para confirmar una existencia, todavía quedan fuentes paralelas."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd31",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd32",
+          "_type": "span",
+          "marks": [],
+          "text": "Conviene definir una estructura mínima antes de cargar productos:"
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd33",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd34",
+          "_type": "span",
+          "marks": [],
+          "text": "una ficha única por artículo, con el mismo código en todos los locales;"
+        }
+      ],
+      "level": 1,
+      "listItem": "number",
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd35",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd36",
+          "_type": "span",
+          "marks": [],
+          "text": "una ubicación identificable para cada sucursal o depósito;"
+        }
+      ],
+      "level": 1,
+      "listItem": "number",
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd37",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd38",
+          "_type": "span",
+          "marks": [],
+          "text": "una unidad de medida común, especialmente cuando se compra por bulto y se vende por unidad."
+        }
+      ],
+      "level": 1,
+      "listItem": "number",
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd39",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd40",
+          "_type": "span",
+          "marks": [],
+          "text": "zinkERP tiene una consulta de stock/inventario que muestra el total y su composición por sucursal. Así podés revisar la existencia de cada ubicación antes de decidir una venta, una compra o una reposición."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd41",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd42",
+          "_type": "span",
+          "marks": [],
+          "text": "Registrá cada movimiento donde ocurre"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "sd43",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd44",
+          "_type": "span",
+          "marks": [],
+          "text": "Cada venta, compra, devolución, ajuste y transferencia debe afectar el stock en el momento y lugar donde sucede. El dato pierde valor cuando una persona anota el movimiento para cargarlo varias horas después, porque durante ese intervalo el resto del negocio decide sobre una existencia vieja."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd45",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd46",
+          "_type": "span",
+          "marks": [],
+          "text": "Papelera Pilar Manualidades pasó de llevar registros manuales y perder tiempo a registrar automáticamente las ventas y los pagos con zinkERP. El aprendizaje aplicable al stock es directo: integrar la venta con el movimiento evita una segunda carga y deja una causa asociada a la baja de unidades."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd47",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd48",
+          "_type": "span",
+          "marks": [],
+          "text": "Una rutina consistente contempla tanto las entradas habituales como las excepciones. La recepción de una compra suma en el local que recibe; una devolución de cliente vuelve a disponible solo si el producto puede venderse; una rotura sale mediante un ajuste con motivo, y una cancelación revierte el movimiento original."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd49",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd50",
+          "_type": "span",
+          "marks": [],
+          "text": "El objetivo operativo es que cada cambio responda cuatro preguntas: qué producto cambió, cuánto, dónde y por qué. Si además queda identificado el usuario, la reconstrucción de una diferencia toma minutos de revisión en lugar de depender de la memoria del equipo."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd51",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd52",
+          "_type": "span",
+          "marks": [],
+          "text": "Ordená las transferencias entre locales"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "sd53",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd54",
+          "_type": "span",
+          "marks": [],
+          "text": "Un circuito operativo confiable registra por separado lo que entrega el local de origen y lo que recibe el destino. Esta es una recomendación de control para evitar que una diferencia física quede escondida entre dos operaciones."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd55",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd56",
+          "_type": "span",
+          "marks": [],
+          "text": "Podés organizar el circuito en tres momentos: preparación en el origen, traslado físico y recepción contada en el destino. zinkERP no maneja estados separados de stock disponible, reservado y en tránsito, por lo que no conviene presentar esa secuencia como una automatización del producto."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd57",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd58",
+          "_type": "span",
+          "marks": [],
+          "text": "Como tip operativo, usá un comprobante o referencia compartida que identifique quién despachó, quién recibió y qué diferencia apareció. Otra alternativa para evaluar según la configuración del negocio es representar la salida como una venta de la central y el ingreso como una compra de la sucursal; antes de adoptarla, conviene validar con soporte sus efectos comerciales y administrativos."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd59",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd60",
+          "_type": "span",
+          "marks": [],
+          "text": "La centralización que adoptó Química Tortuguitas y sus sucursales aporta una referencia concreta para ordenar el control entre locales. El caso respalda el valor de reunir la información, pero no implica que zinkERP automatice un flujo de transferencias con estados propios."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd61",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd62",
+          "_type": "span",
+          "marks": [],
+          "text": "Repartí permisos y responsabilidades"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "sd63",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd64",
+          "_type": "span",
+          "marks": [],
+          "text": "zinkERP contempla permisos para las operaciones de inventario y para modificar la validación de stock. Como criterio organizativo, conviene además definir quién vende, quién ajusta y quién verifica la recepción de mercadería en cada sucursal."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd65",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd66",
+          "_type": "span",
+          "marks": [],
+          "text": "Una separación sencilla puede asignar al vendedor los movimientos generados por ventas y devoluciones autorizadas. El encargado del local puede quedar a cargo de los ajustes permitidos, mientras que otra persona cuenta físicamente los ingresos. Esta distribución es un tip operativo; los permisos concretos deben configurarse según las opciones disponibles en el perfil de zinkERP."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd67",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd68",
+          "_type": "span",
+          "marks": [],
+          "text": "La responsabilidad mejora cuando el procedimiento está disponible en el momento de la tarea. La evidencia aceptada del equipo lo expresa así:"
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd69",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd70",
+          "_type": "span",
+          "marks": [],
+          "text": "Notamos que la calidad, acceso y distribución de la documentación del sistema a ayudado a los usuarios a mejorar la calidad de operación"
+        }
+      ],
+      "markDefs": [],
+      "style": "blockquote"
+    },
+    {
+      "_key": "sd71",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd72",
+          "_type": "span",
+          "marks": [],
+          "text": "Portal "
+        },
+        {
+          "_key": "sd74",
+          "_type": "span",
+          "marks": [
+            "sd73"
+          ],
+          "text": "docs.zinkerp.com"
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "sd73",
+          "_type": "link",
+          "href": "http://docs.zinkerp.com"
+        }
+      ],
+      "style": "blockquote"
+    },
+    {
+      "_key": "sd75",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd76",
+          "_type": "span",
+          "marks": [],
+          "text": "Ese aprendizaje sugiere acompañar cada permiso con una instrucción breve: qué puede hacer el rol, qué comprobante necesita y qué situación debe escalar. Un proceso documentado reduce interpretaciones distintas entre sucursales y facilita incorporar a una persona nueva."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd77",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd78",
+          "_type": "span",
+          "marks": [],
+          "text": "Controlá desvíos con inventarios cíclicos"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "sd79",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd80",
+          "_type": "span",
+          "marks": [],
+          "text": "Los conteos breves y frecuentes detectan diferencias antes de que se conviertan en faltantes difíciles de reconstruir. Un inventario general puede seguir siendo necesario, pero no debería ser el primer momento del año en que el stock del sistema se compara con el físico."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd81",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd82",
+          "_type": "span",
+          "marks": [],
+          "text": "Podés dividir el catálogo según rotación y riesgo. Los productos con más movimientos, mayor valor o más antecedentes de diferencias se cuentan con mayor frecuencia; los estables se revisan en ciclos más largos. Cada conteo tiene una lista, una persona responsable y un cierre que registra la diferencia con su motivo."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd83",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd84",
+          "_type": "span",
+          "marks": [],
+          "text": "El historial de movimientos ayuda a investigar antes de ajustar. Una venta pendiente, una recepción incompleta, una devolución mal clasificada o un traslado sin conciliar requieren correcciones distintas. Ajustar el número sin resolver la causa deja el sistema prolijo por un día y repite el problema después."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd85",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd86",
+          "_type": "span",
+          "marks": [],
+          "text": "La automatización que reemplazó los registros manuales en Papelera Pilar Manualidades muestra por qué el conteo funciona mejor sobre movimientos ya integrados. Cuando ventas y pagos se registran automáticamente con zinkERP, el equipo puede concentrarse en las excepciones físicas en lugar de reconstruir operaciones rutinarias."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd87",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd88",
+          "_type": "span",
+          "marks": [],
+          "text": "Leé indicadores que permitan decidir"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "sd89",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd90",
+          "_type": "span",
+          "marks": [],
+          "text": "Comparar existencias y diferencias por sucursal convierte el stock registrado en decisiones de reposición. Como práctica de gestión, también conviene calcular rotación y quiebres, aunque esos indicadores no deben presentarse todavía como tableros disponibles en zinkERP."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd91",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd92",
+          "_type": "span",
+          "marks": [],
+          "text": "Para empezar, usá la consulta de stock/inventario de zinkERP para observar el total y su composición por sucursal. Fuera del sistema, si todavía no existe un informe específico, podés complementar el análisis con rotación por período, faltantes recurrentes y diferencias detectadas en los conteos."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd93",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd94",
+          "_type": "span",
+          "marks": [],
+          "text": "Cada indicador necesita una acción asociada. Un faltante puede disparar una compra o un traslado, mientras que una diferencia repetida obliga a revisar el procedimiento o los permisos. Estos son criterios operativos y no una promesa sobre indicadores incluidos en el producto."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd95",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd96",
+          "_type": "span",
+          "marks": [],
+          "text": "El caso de Química Tortuguitas aporta el contraste operativo: la información dispersa impedía una lectura común, mientras que la centralización permitió controlar la operación de sus sucursales. El indicador resulta confiable cuando todas las sedes alimentan la misma fuente con movimientos trazables."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd97",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd98",
+          "_type": "span",
+          "marks": [],
+          "text": "Empezá por el circuito que más diferencias genera"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "sd99",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd100",
+          "_type": "span",
+          "marks": [],
+          "text": "La implementación más segura comienza con un circuito crítico, responsables definidos y una rutina documentada antes de sumar complejidad. Elegí una sucursal y un grupo acotado de productos que concentren ventas, traslados o diferencias; ahí vas a descubrir rápido qué dato falta y qué paso necesita una regla más clara."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd101",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd102",
+          "_type": "span",
+          "marks": [],
+          "text": "Primero unificá códigos y ubicaciones. Luego registrá ventas, compras y ajustes por sus circuitos correspondientes, documentá los traslados entre locales y cerrá el ciclo con un conteo. La documentación accesible —una práctica que zinkERP relaciona con una mejor calidad de operación— sostiene el método cuando participan varios turnos y locales."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd103",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd104",
+          "_type": "span",
+          "marks": [],
+          "text": "Durante la puesta en marcha, revisá cada día las excepciones en vez de mirar solamente el total. Cuando el circuito elegido mantenga trazabilidad desde el origen hasta el conteo, repetí el esquema en la siguiente sucursal."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "sd105",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "sd106",
+          "_type": "span",
+          "marks": [],
+          "text": "El próximo paso es identificar hoy mismo el movimiento que más diferencias produce y asignarle un responsable de origen y otro de cierre. Si querés centralizar ventas, stock y sucursales con este criterio, pedí una demostración de zinkERP y llevá un caso real de tu operación para evaluarlo sobre el sistema."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    }
+  ],
+  "categories": [
+    {
+      "title": "Logística Eficiente"
+    }
+  ],
+  "mainImageUrl": "https://cdn.sanity.io/images/rw0dsjio/production/0b698cb8049b11ff5129e3117ba5210e356c800d-1672x941.png",
+  "publishedAt": "2026-09-21T12:00:00.000Z",
+  "title": "Cómo controlar el stock de varias sucursales"
+}

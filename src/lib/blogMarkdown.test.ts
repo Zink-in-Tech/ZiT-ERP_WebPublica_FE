@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
+import publishedArticle from './__fixtures__/como-controlar-stock-varias-sucursales.json';
 import {
   AGENT_INSTRUCTIONS,
   buildArticleMarkdown,
+  headingId,
   normalizeHref,
   portableTextToMarkdown,
   type PortableTextImageNode,
@@ -46,7 +48,7 @@ const options = {
 };
 
 describe('portableTextToMarkdown — títulos', () => {
-  it('convierte h1 a h4 en encabezados ATX y conserva el formato inline', () => {
+  it('convierte h1 a h4 en encabezados ATX con id explícito y conserva el formato inline', () => {
     const markdown = portableTextToMarkdown([
       block(['Título principal'], { style: 'h1' }),
       block(['Definí una única fuente de stock'], { style: 'h2' }),
@@ -55,7 +57,27 @@ describe('portableTextToMarkdown — títulos', () => {
     ]);
 
     expect(markdown).toBe(
-      ['# Título principal', '## Definí una única fuente de stock', '### **La Trampa del Cumplimiento**', '#### Detalle'].join('\n\n'),
+      [
+        '# <a id="titulo-principal"></a>Título principal',
+        '## <a id="defini-una-unica-fuente-de-stock"></a>Definí una única fuente de stock',
+        '### <a id="la-trampa-del-cumplimiento"></a>**La Trampa del Cumplimiento**',
+        '#### <a id="detalle"></a>Detalle',
+      ].join('\n\n'),
+    );
+  });
+
+  it('genera ids ASCII estables: sin tildes, ñ ni emojis, y desambigua repetidos', () => {
+    expect(headingId('Controlá desvíos con inventarios cíclicos')).toBe('controla-desvios-con-inventarios-ciclicos');
+    expect(headingId('🚀 Año de crecimiento: ¿qué cambió?')).toBe('ano-de-crecimiento-que-cambio');
+
+    const markdown = portableTextToMarkdown([
+      block(['Resumen'], { style: 'h2' }),
+      block(['Resumen'], { style: 'h2' }),
+      block(['🚀'], { style: 'h3' }),
+    ]);
+
+    expect(markdown).toBe(
+      ['## <a id="resumen"></a>Resumen', '## <a id="resumen-2"></a>Resumen', '### <a id="seccion"></a>🚀'].join('\n\n'),
     );
   });
 
@@ -79,7 +101,7 @@ describe('portableTextToMarkdown — títulos', () => {
       linkBlock('Portal docs.zinkerp.com', 'http://docs.zinkerp.com', { style: 'blockquote' }),
     ]);
 
-    expect(markdown).toBe('> La documentación ayudó a los equipos.\n>\n> [Portal docs.zinkerp.com](http://docs.zinkerp.com)');
+    expect(markdown).toBe('> La documentación ayudó a los equipos.\n>\n> [Portal docs.zinkerp.com](https://docs.zinkerp.com)');
   });
 });
 
@@ -138,14 +160,29 @@ describe('portableTextToMarkdown — enlaces', () => {
         block(['Seguinos en ', { text: 'YouTube', marks: ['yt'] }, ' para más tips.'], {
           markDefs: [{ _type: 'link', _key: 'yt', href: 'https://www.youtube.com/@zinkintech' }],
         }),
-        linkBlock('Portal de documentación', 'http://docs.zinkerp.com'),
+        linkBlock('Química Tortuguitas', 'https://quimicatortuguitas.com.ar/'),
+        linkBlock('Sitio heredado', 'http://example.com/ruta?x=1'),
       ],
       options,
     );
 
     expect(markdown).toBe(
-      'Seguinos en [YouTube](https://www.youtube.com/@zinkintech) para más tips.\n\n[Portal de documentación](http://docs.zinkerp.com)',
+      [
+        'Seguinos en [YouTube](https://www.youtube.com/@zinkintech) para más tips.',
+        '[Química Tortuguitas](https://quimicatortuguitas.com.ar/)',
+        '[Sitio heredado](http://example.com/ruta?x=1)',
+      ].join('\n\n'),
     );
+  });
+
+  it('normaliza a HTTPS los enlaces a zinkerp.com y sus subdominios', () => {
+    const markdown = portableTextToMarkdown(
+      [linkBlock('Portal docs.zinkerp.com', 'http://docs.zinkerp.com'), linkBlock('Precios', 'http://zinkerp.com/precios#planes')],
+      options,
+    );
+
+    expect(markdown).toBe('[Portal docs.zinkerp.com](https://docs.zinkerp.com)\n\n[Precios](https://zinkerp.com/precios#planes)');
+    expect(normalizeHref('http://notzinkerp.com', options)).toBe('http://notzinkerp.com');
   });
 
   it('convierte rutas relativas del sitio en URLs absolutas', () => {
@@ -178,19 +215,52 @@ describe('portableTextToMarkdown — enlaces', () => {
 });
 
 describe('portableTextToMarkdown — anclas internas', () => {
-  it('conserva anclas escritas con caracteres acentuados', () => {
+  const sections = [
+    block(['Definí una única fuente de stock por sucursal'], { style: 'h2' }),
+    block(['Registrá cada movimiento donde ocurre'], { style: 'h2' }),
+  ];
+
+  it('apunta las anclas acentuadas al id ASCII real del encabezado', () => {
     const markdown = portableTextToMarkdown(
-      [linkBlock('Definí una única fuente de stock por sucursal', '#definí-una-única-fuente-de-stock-por-sucursal', { listItem: 'bullet' })],
+      [
+        linkBlock('Definí una única fuente de stock por sucursal', '#definí-una-única-fuente-de-stock-por-sucursal', { listItem: 'bullet' }),
+        ...sections,
+      ],
       options,
     );
 
-    expect(markdown).toBe('- [Definí una única fuente de stock por sucursal](#definí-una-única-fuente-de-stock-por-sucursal)');
+    expect(markdown).toBe(
+      [
+        '- [Definí una única fuente de stock por sucursal](#defini-una-unica-fuente-de-stock-por-sucursal)',
+        '## <a id="defini-una-unica-fuente-de-stock-por-sucursal"></a>Definí una única fuente de stock por sucursal',
+        '## <a id="registra-cada-movimiento-donde-ocurre"></a>Registrá cada movimiento donde ocurre',
+      ].join('\n\n'),
+    );
   });
 
-  it('decodifica anclas con percent-encoding para que coincidan con el slug del título', () => {
-    const markdown = portableTextToMarkdown([linkBlock('Registrá cada movimiento', '#registr%C3%A1-cada-movimiento-donde-ocurre')], options);
+  it('resuelve anclas con percent-encoding al mismo id del encabezado', () => {
+    const markdown = portableTextToMarkdown(
+      [linkBlock('Registrá cada movimiento', '#registr%C3%A1-cada-movimiento-donde-ocurre'), ...sections],
+      options,
+    );
 
-    expect(markdown).toBe('[Registrá cada movimiento](#registrá-cada-movimiento-donde-ocurre)');
+    expect(markdown.split('\n\n')[0]).toBe('[Registrá cada movimiento](#registra-cada-movimiento-donde-ocurre)');
+  });
+
+  it('resuelve enlaces a la misma página con hash y deja intactas las anclas sin encabezado', () => {
+    const markdown = portableTextToMarkdown(
+      [
+        linkBlock('Transferencias', 'https://zinkerp.com/blog/como-controlar-stock-varias-sucursales/#registr%C3%A1-cada-movimiento-donde-ocurre'),
+        linkBlock('Comentarios', '#comentarios'),
+        ...sections,
+      ],
+      options,
+    );
+
+    expect(markdown.split('\n\n').slice(0, 2)).toEqual([
+      '[Transferencias](#registra-cada-movimiento-donde-ocurre)',
+      '[Comentarios](#comentarios)',
+    ]);
   });
 
   it('convierte enlaces absolutos a la misma página en anclas del documento', () => {
@@ -220,7 +290,7 @@ describe('portableTextToMarkdown — imágenes', () => {
 
     expect(markdown).toBe(
       [
-        '## Definí una única fuente de stock por sucursal',
+        '## <a id="defini-una-unica-fuente-de-stock-por-sucursal"></a>Definí una única fuente de stock por sucursal',
         '![Consulta de inventario de zinkERP con las existencias por sucursal.](https://cdn.sanity.io/images/proj/production/2e45171ad174ebd689277284d0e49cd4674060cd-2070x760.png)',
         '*La consulta de inventario muestra el stock por sucursal.*',
         'El control empieza con un sistema central.',
@@ -314,5 +384,54 @@ describe('buildArticleMarkdown', () => {
     const markdown = buildArticleMarkdown(article, options);
 
     expect(markdown).not.toMatch(/_key|_ref|_type|internal-key-123|image-2e45171a/);
+  });
+});
+
+describe('artículo publicado: como-controlar-stock-varias-sucursales', () => {
+  const canonicalUrl = 'https://zinkerp.com/blog/como-controlar-stock-varias-sucursales/';
+  const markdown = buildArticleMarkdown({ ...publishedArticle, canonicalUrl }, { baseUrl: 'https://zinkerp.com', resolveImageUrl });
+
+  it('cada enlace del índice apunta a un id ASCII que existe exactamente una vez', () => {
+    const targets = [...markdown.matchAll(/\]\(#([^)]+)\)/g)].map((match) => match[1]);
+    const ids = [...markdown.matchAll(/<a id="([^"]+)"><\/a>/g)].map((match) => match[1]);
+
+    expect(targets).toEqual([
+      'defini-una-unica-fuente-de-stock-por-sucursal',
+      'registra-cada-movimiento-donde-ocurre',
+      'ordena-las-transferencias-entre-locales',
+      'reparti-permisos-y-responsabilidades',
+      'controla-desvios-con-inventarios-ciclicos',
+      'lee-indicadores-que-permitan-decidir',
+      'empeza-por-el-circuito-que-mas-diferencias-genera',
+    ]);
+    for (const target of targets) {
+      expect(ids.filter((id) => id === target)).toHaveLength(1);
+    }
+    expect(ids.every((id) => /^[a-z0-9-]+$/.test(id))).toBe(true);
+  });
+
+  it('conserva enlaces externos y normaliza la documentación a HTTPS', () => {
+    expect(markdown).toContain('[Química Tortuguitas](https://quimicatortuguitas.com.ar/)');
+    expect(markdown).toContain('> Portal [docs.zinkerp.com](https://docs.zinkerp.com)');
+    expect(markdown).not.toContain('http://docs.zinkerp.com');
+  });
+
+  it('incluye las imágenes con URL pública, texto alternativo y epígrafe', () => {
+    expect(markdown).toContain(`![Cómo controlar el stock de varias sucursales](${publishedArticle.mainImageUrl})`);
+    expect(markdown).toContain(
+      '![Consulta de inventario de zinkERP con las existencias de un producto discriminadas por organización o sucursal.](https://cdn.sanity.io/images/proj/production/2e45171ad174ebd689277284d0e49cd4674060cd-2070x760.png)\n\n*La consulta de inventario muestra el stock registrado para un producto en distintas organizaciones o sucursales.*',
+    );
+  });
+
+  it('mantiene intacto el texto del artículo y cierra con la guía para el agente', () => {
+    const readable = markdown.replace(/<a id="[^"]+"><\/a>/g, '').replace(/\[([^\]]*)\]\([^)]*\)/g, '$1').replace(/\\(.)/g, '$1');
+    const paragraphs = publishedArticle.body
+      .filter((node) => node._type === 'block')
+      .map((node) => (node.children ?? []).map((child) => child.text ?? '').join('').trim())
+      .filter(Boolean);
+
+    for (const text of paragraphs) expect(readable).toContain(text);
+    expect(markdown.endsWith(`\n\n---\n\n${AGENT_INSTRUCTIONS}\n`)).toBe(true);
+    expect(markdown.split(AGENT_INSTRUCTIONS)).toHaveLength(2);
   });
 });
