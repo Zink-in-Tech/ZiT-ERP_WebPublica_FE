@@ -22,5 +22,6 @@ export interface Author {
   
   export interface PostDetail extends PostSummary {
     body: any[];
+    description?: string | null;
   }
   
