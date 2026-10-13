@@ -61,12 +61,12 @@ const initialSupportMoment = supportMoments[0];
         <h3 class="text-2xl font-bold mb-5">{featureMoment.title}</h3>
         <div class="rounded-[1.2rem] overflow-hidden bg-dark-900 ring-1 ring-inset ring-white/8">
           <video
+            id="product-showcase-feature-video"
             class="w-full aspect-[16/10] object-cover"
-            autoplay
             muted
             loop
             playsinline
-            preload="metadata"
+            preload="none"
             poster={featureMoment.poster}
           >
             <source src={featureMoment.src} type="video/mp4" />
@@ -114,7 +114,7 @@ const initialSupportMoment = supportMoments[0];
             muted
             loop
             playsinline
-            preload="metadata"
+            preload="none"
             poster={initialSupportMoment.poster}
             aria-label={`${initialSupportMoment.title}. Reproducir vista previa al pasar el cursor.`}
           >
@@ -127,6 +127,15 @@ const initialSupportMoment = supportMoments[0];
 </section>
 
 <script>
+  // Sin autoplay: el video se descarga y reproduce recién cerca de la pantalla, para no competir con el primer pintado.
+  const featureVideo = document.getElementById('product-showcase-feature-video') as HTMLVideoElement | null;
+  if (featureVideo) {
+    new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) void featureVideo.play().catch(() => {});
+      else featureVideo.pause();
+    }, { rootMargin: '200px 0px' }).observe(featureVideo);
+  }
+
   const supportCard = document.getElementById('product-showcase-support-video')?.closest('article');
   const supportVideo = document.getElementById('product-showcase-support-video') as HTMLVideoElement | null;
   const supportSource = document.getElementById('product-showcase-support-source') as HTMLSourceElement | null;
