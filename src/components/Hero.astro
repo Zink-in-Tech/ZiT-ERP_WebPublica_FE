@@ -1,4 +1,6 @@
 ---
+import { Picture } from 'astro:assets';
+import heroImage from '../assets/hero-img.png';
 ---
 
 <section class="relative min-h-screen pt-24 pb-20 flex items-center overflow-hidden">
@@ -67,10 +69,15 @@
         <div class="group relative">
           <div class="pointer-events-none absolute inset-10 rounded-[2.25rem] bg-primary/10 blur-3xl opacity-0 transition-opacity duration-500 group-hover:opacity-100"></div>
           <div class="relative overflow-hidden rounded-[2rem] bg-transparent shadow-[0_24px_70px_rgba(2,6,23,0.34)] transition-all duration-500 group-hover:-translate-y-2 group-hover:scale-[1.012]">
-            <img 
-              src="/img/hero-img.png" 
-              alt="Dashboard de ZinkERP" 
-              class="rounded-[2rem] w-full transition-transform duration-500"
+            <Picture
+              src={heroImage}
+              formats={['avif', 'webp']}
+              widths={[360, 480, 720, 960, 1180]}
+              sizes="(min-width: 1536px) 712px, (min-width: 768px) 46vw, calc(100vw - 2rem)"
+              alt="Dashboard de ZinkERP"
+              loading="eager"
+              fetchpriority="high"
+              class="rounded-[2rem] w-full h-auto transition-transform duration-500"
             />
           </div>
         </div>

@@ -99,7 +99,6 @@ const structuredData = [
     section: categoryTitles[0],
     tags: categoryTitles,
   }}
-  preloadImage={false}
 >
   <Header />
   {structuredData.map((data) => <script type="application/ld+json" set:html={serializeJsonLd(data)} />)}
@@ -386,6 +385,8 @@ const structuredData = [
             frameborder="0" 
             scrolling="no" 
             style="margin: 0; border-radius: 0px !important; background-color: transparent; width: 100%;"
+            title="Formulario de suscripción al newsletter"
+            loading="lazy"
           ></iframe>
         </div>
       </div>

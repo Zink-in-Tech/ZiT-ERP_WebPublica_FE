@@ -1,4 +1,8 @@
 ---
+import '@fontsource/roboto/400.css';
+import '@fontsource/roboto/500.css';
+import '@fontsource/roboto/700.css';
+import roboto400Latin from '@fontsource/roboto/files/roboto-latin-400-normal.woff2?url';
 import '../styles/global.css';
 import { SEO } from 'astro-seo';
 
@@ -10,7 +14,7 @@ interface Props {
   noindex?: boolean;
   type?: 'website' | 'article';
   article?: { publishedTime?: string; modifiedTime?: string; section?: string; tags?: string[] };
-  /** Preload the social image; only useful when the page also displays it. */
+  /** Preload the social image; only for pages that also display it above the fold. */
   preloadImage?: boolean;
 }
 
@@ -22,7 +26,7 @@ const {
   noindex = false,
   type = "website",
   article,
-  preloadImage = true,
+  preloadImage = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -92,10 +96,7 @@ const imageType = /\.jpe?g(\?|$)|[?&]fm=jpe?g(&|$)/i.test(resolvedImage) ? 'imag
       }}
     />
     
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="preload" href={roboto400Latin} as="font" type="font/woff2" crossorigin>
   </head>
   <body class="overflow-x-clip bg-dark-900 text-white font-sans leading-relaxed">
     <slot />
@@ -120,7 +121,9 @@ const imageType = /\.jpe?g(\?|$)|[?&]fm=jpe?g(&|$)/i.test(resolvedImage) ? 'imag
           rootMargin: '50px'
         });
         
+        // Lo que ya está en pantalla al cargar no se oculta: esconderlo y volver a mostrarlo retrasa el LCP.
         document.querySelectorAll('.animate-on-scroll').forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) return;
           observer.observe(el);
           el.classList.add('opacity-0');
         });
