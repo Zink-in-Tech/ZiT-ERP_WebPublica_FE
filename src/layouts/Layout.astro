@@ -3,6 +3,7 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import roboto400Latin from '@fontsource/roboto/files/roboto-latin-400-normal.woff2?url';
+import roboto700Latin from '@fontsource/roboto/files/roboto-latin-700-normal.woff2?url';
 import '../styles/global.css';
 import { SEO } from 'astro-seo';
 
@@ -97,6 +98,7 @@ const imageType = /\.jpe?g(\?|$)|[?&]fm=jpe?g(&|$)/i.test(resolvedImage) ? 'imag
     />
     
     <link rel="preload" href={roboto400Latin} as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href={roboto700Latin} as="font" type="font/woff2" crossorigin>
   </head>
   <body class="overflow-x-clip bg-dark-900 text-white font-sans leading-relaxed">
     <slot />
@@ -122,8 +124,10 @@ const imageType = /\.jpe?g(\?|$)|[?&]fm=jpe?g(&|$)/i.test(resolvedImage) ? 'imag
         });
         
         // Lo que ya está en pantalla al cargar no se oculta: esconderlo y volver a mostrarlo retrasa el LCP.
-        document.querySelectorAll('.animate-on-scroll').forEach(el => {
-          if (el.getBoundingClientRect().top < window.innerHeight) return;
+        // Primero se leen todas las posiciones y después se escribe: intercalarlas fuerza un reflow por elemento.
+        const belowFold = [...document.querySelectorAll('.animate-on-scroll')]
+          .filter(el => el.getBoundingClientRect().top >= window.innerHeight);
+        belowFold.forEach(el => {
           observer.observe(el);
           el.classList.add('opacity-0');
         });

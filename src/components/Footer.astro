@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import logo from '../assets/zinkerp-logo.png';
 import { modules } from '../data/modules';
 
 const docsUrl = "https://docs.zinkerp.com/";
@@ -42,7 +44,7 @@ const keyLinks = [
       {/* Key Links - 30% */}
       <div class="lg:w-[30%]">
         <a href="/" class="flex items-center gap-2 mb-6">
-          <img src="/zinkerp-logo.png" alt="ZinkERP Logo" class="h-12 w-auto" />
+          <Image src={logo} alt="ZinkERP Logo" height={48} densities={[1, 2]} class="h-12 w-auto" />
         </a>
         <p class="text-gray-400 mb-8 text-lg">Sistema integral para la gestión empresarial multi-sucursal.</p>
         

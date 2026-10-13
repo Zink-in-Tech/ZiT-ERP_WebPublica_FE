@@ -1,11 +1,20 @@
 ---
+import { getImage } from 'astro:assets';
+import posNuevo from '../assets/product-captures/pos-nuevo.jpg';
+import actualizacionMasiva from '../assets/product-captures/actualizacion-masiva-productos.jpg';
+import informesCentro from '../assets/product-captures/informes-centro.jpg';
+import dashboard from '../assets/product-captures/dashboard.jpg';
+
+// El atributo poster acepta una sola URL: un WebP de 800px alcanza para la tarjeta (~660px de ancho).
+const poster = async (image: ImageMetadata) => (await getImage({ src: image, width: 800, format: 'webp' })).src;
+
 const productMoments = [
   {
     title: 'Venta en mostrador',
     description: 'Cobrá en segundos: productos, total y medios de pago sin vueltas.',
     eyebrow: 'Venta rápida',
     kind: 'video',
-    poster: '/img/product-captures/pos-nuevo.png',
+    poster: await poster(posNuevo),
     src: '/img/product-motion/venta-pos.mp4',
     span: 'feature',
   },
@@ -14,7 +23,7 @@ const productMoments = [
     description: 'Contá, controlá y actualizá el stock en el momento, sin planillas aparte.',
     eyebrow: 'Inventario',
     kind: 'video',
-    poster: '/img/product-captures/actualizacion-masiva-productos.png',
+    poster: await poster(actualizacionMasiva),
     src: '/img/product-motion/toma-inventario.mp4',
     span: 'support',
   },
@@ -23,7 +32,7 @@ const productMoments = [
     description: 'Presupuestos, clientes y cierre de venta fuera del mostrador, en un solo flujo.',
     eyebrow: 'Gestión comercial',
     kind: 'video',
-    poster: '/img/product-captures/informes-centro.png',
+    poster: await poster(informesCentro),
     src: '/img/product-motion/venta-comercial.mp4',
     span: 'support',
   },
@@ -32,7 +41,7 @@ const productMoments = [
     description: 'Ventas, vencimientos y el pulso del día en una sola pantalla.',
     eyebrow: 'Visión general',
     kind: 'video',
-    poster: '/img/product-captures/dashboard.png',
+    poster: await poster(dashboard),
     src: '/img/product-motion/dashboard-base.mp4',
     span: 'support',
   },
