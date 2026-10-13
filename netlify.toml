@@ -103,11 +103,9 @@
   to = "/403.html"
   status = 403
 
-# Redirección normal para el resto (DEBE IR AL FINAL)
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Sin redirección comodín a la home: las rutas inexistentes caen en 404.html con estado 404.
+# Responder la home con 200 genera "soft 404" en Google y hace que llms.txt o ai-catalog.json
+# parezcan existir con HTML adentro.
 
 [[headers]]
   for = "/*"
@@ -124,6 +122,11 @@
   for = "/blog/*.md"
   [headers.values]
     Content-Type = "text/markdown; charset=utf-8"
+
+[[headers]]
+  for = "/llms.txt"
+  [headers.values]
+    Content-Type = "text/plain; charset=utf-8"
 
 # Headers específicos para la página de error 403
 [[headers]]
