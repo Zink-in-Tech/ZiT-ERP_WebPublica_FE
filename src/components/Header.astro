@@ -1,7 +1,4 @@
 ---
-import { Image } from 'astro:assets';
-import logo from '../assets/zinkerp-logo.png';
-
 const demoUrl = '/agendar-demo';
 const docsUrl = 'https://docs.zinkerp.com/';
 const erpUrl = 'https://ziterp.zinkintech.com';
@@ -167,8 +164,27 @@ const mobileGroups = [
   <div class="border-b border-white/5 bg-dark-900/90 backdrop-blur-md" id="header-shell">
     <div class="container mx-auto px-4">
       <div class="relative flex h-20 items-center justify-between gap-6">
-        <a href="/" class="shrink-0">
-          <Image src={logo} alt="ZinkERP Logo" height={32} densities={[1, 2]} loading="eager" class="h-8 w-auto" />
+        <a href="/" class="shrink-0" aria-label="ZinkERP">
+          {/* Lockup dark: h-9 ≈ 136px de ancho (tight). Debajo de ~100px → solo símbolo. */}
+          <img
+            src="/brand/zinkerp-horizontal_dark_tight.svg"
+            alt="ZinkERP"
+            width="136"
+            height="36"
+            class="hidden h-9 w-auto sm:block"
+            loading="eager"
+            decoding="async"
+          />
+          <img
+            src="/brand/zinkerp-symbol.svg"
+            alt=""
+            width="24"
+            height="32"
+            class="h-8 w-auto sm:hidden"
+            loading="eager"
+            decoding="async"
+            aria-hidden="true"
+          />
         </a>
 
         <nav class="hidden lg:flex items-center gap-8" aria-label="Principal">

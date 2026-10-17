@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --primary: #AC69FF;
-  --primary-light: #BF8AFF;
-  --primary-dark: #9940FF;
-  --blue-primary: #007EFF;
-  --blue-secondary: #008ED3;
+  --primary: #723f97;
+  --primary-light: #a49fce;
+  --primary-dark: #8262a9;
+  --blue-primary: #10b0e6;
+  --blue-secondary: #8fcdf0;
   --dark: #25282B;
   --surface-shadow-sm: 0 12px 32px rgba(2, 6, 23, 0.18);
   --surface-shadow-md: 0 18px 40px rgba(2, 6, 23, 0.24);

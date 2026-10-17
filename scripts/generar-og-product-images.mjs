@@ -115,8 +115,9 @@ const wrapText = (text, maxChars) => {
 const toDataUri = async (relativePath) => {
   const filePath = path.join(publicDir, relativePath);
   const buffer = await fs.readFile(filePath);
-  const ext = path.extname(filePath).slice(1);
-  const mimeType = ext === 'png' ? 'image/png' : 'image/jpeg';
+  const ext = path.extname(filePath).slice(1).toLowerCase();
+  const mimeType =
+    ext === 'png' ? 'image/png' : ext === 'svg' ? 'image/svg+xml' : 'image/jpeg';
   return `data:${mimeType};base64,${buffer.toString('base64')}`;
 };
 
@@ -211,8 +212,7 @@ const buildSvg = async (page, logoDataUri) => {
     <rect x="56" y="56" width="1088" height="518" rx="42" fill="rgba(255,255,255,0.01)" stroke="rgba(255,255,255,0.06)" />
   </g>
 
-  <image href="${logoDataUri}" x="78" y="82" width="132" height="58" preserveAspectRatio="xMidYMid contain" />
-  <text x="228" y="118" class="brand">ZinkERP</text>
+  <image href="${logoDataUri}" x="78" y="82" width="220" height="58" preserveAspectRatio="xMidYMid meet" />
 
   <rect x="78" y="166" width="${Math.max(180, page.eyebrow.length * 10.8)}" height="46" rx="23" fill="rgba(255,255,255,0.04)" stroke="rgba(255,255,255,0.1)" />
   <text x="101" y="195" class="eyebrow">${escapeXml(page.eyebrow)}</text>
@@ -229,7 +229,7 @@ const buildSvg = async (page, logoDataUri) => {
 };
 
 const main = async () => {
-  const logoDataUri = await toDataUri('zinkerp-logo.png');
+  const logoDataUri = await toDataUri('brand/zinkerp-horizontal_dark_tight.svg');
 
   await fs.mkdir(imagesDir, { recursive: true });
 
