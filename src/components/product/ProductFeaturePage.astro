@@ -174,6 +174,8 @@ const breadcrumbs = {
             <div class="mt-8 flex flex-col gap-4 sm:flex-row">
               <a
                 href={page.heroCtaHref}
+                target={page.heroCtaHref.startsWith('https://') ? '_blank' : undefined}
+                rel={page.heroCtaHref.startsWith('https://') ? 'noopener noreferrer' : undefined}
                 class="inline-flex justify-center rounded-xl bg-blue-primary px-8 py-4 text-base font-medium text-white transition-colors hover:bg-blue-primary/90"
               >
                 {page.heroCtaLabel}
@@ -268,6 +270,8 @@ const breadcrumbs = {
           <h2 class="mx-auto max-w-3xl text-2xl font-bold leading-tight sm:text-3xl md:text-4xl">{page.finalBannerText}</h2>
           <a
             href={page.finalBannerCtaHref}
+            target={page.finalBannerCtaHref.startsWith('https://') ? '_blank' : undefined}
+            rel={page.finalBannerCtaHref.startsWith('https://') ? 'noopener noreferrer' : undefined}
             class="mt-8 inline-flex justify-center rounded-xl bg-blue-primary px-8 py-4 text-base font-medium text-white transition-colors hover:bg-blue-primary/90"
           >
             {page.finalBannerCtaLabel}
@@ -335,6 +339,8 @@ const breadcrumbs = {
   <div id="page-sticky-cta" class="fixed inset-x-4 bottom-4 z-[55] md:hidden">
     <a
       href={page.heroCtaHref}
+      target={page.heroCtaHref.startsWith('https://') ? '_blank' : undefined}
+      rel={page.heroCtaHref.startsWith('https://') ? 'noopener noreferrer' : undefined}
       class="block rounded-xl bg-blue-primary px-4 py-4 text-center text-sm font-semibold text-white shadow-2xl transition-colors hover:bg-blue-primary/90"
     >
       {page.heroCtaLabel}

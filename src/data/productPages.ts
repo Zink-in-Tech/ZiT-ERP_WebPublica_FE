@@ -1,3 +1,7 @@
+import { buildWhatsAppUrl } from '../lib/whatsapp';
+
+const PROBA_ZINKERP_WHATSAPP = buildWhatsAppUrl('Hola, quiero probar ZinkERP');
+
 export type LinkItem = {
   label: string;
   href: string;
@@ -85,7 +89,7 @@ export const productPages: ProductPage[] = [
     slug: 'ventas-y-pos',
     title: 'Ventas y POS | ZinkERP - Vendé más y más rápido en todas tus sucursales',
     metaDescription:
-      'Gestioná presupuestos, POS y factura electrónica en un solo flujo. Stock y precios sincronizados en todas tus sucursales. Probá ZinkERP gratis.',
+      'Gestioná presupuestos, POS y factura electrónica en un solo flujo. Stock y precios sincronizados en todas tus sucursales. Probá ZinkERP.',
     eyebrow: 'Ventas y POS',
     theme: 'sales',
     heroImageSrc: '/images/hero-ventas-y-pos.png?v=4',
@@ -176,8 +180,8 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Ventas + POS + factura + ecommerce. Un solo sistema.',
-    finalBannerCtaLabel: 'Probá gratis',
-    finalBannerCtaHref: '/registro',
+    finalBannerCtaLabel: 'Probá ZinkERP',
+    finalBannerCtaHref: PROBA_ZINKERP_WHATSAPP,
     faqTitle: 'Preguntas frecuentes sobre Ventas y POS',
     faqs: [
       {
@@ -286,14 +290,14 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Del pedido al stock en un solo paso. Sin hojas de cálculo, sin WhatsApp perdidos.',
-    finalBannerCtaLabel: 'Probá gratis',
-    finalBannerCtaHref: '/registro',
+    finalBannerCtaLabel: 'Probá ZinkERP',
+    finalBannerCtaHref: PROBA_ZINKERP_WHATSAPP,
   },
   {
     slug: 'inventario',
     title: 'Inventario | ZinkERP - Stock multi-sucursal en tiempo real',
     metaDescription:
-      'Controlá tu stock en todas tus sucursales al instante. Alertas, movimientos auditados y catálogo centralizado. Empezá hoy gratis.',
+      'Controlá tu stock en todas tus sucursales al instante. Alertas, movimientos auditados y catálogo centralizado. Empezá hoy.',
     eyebrow: 'Inventario',
     theme: 'inventory',
     heroImageSrc: '/images/hero-inventario.png?v=2',
@@ -301,8 +305,8 @@ export const productPages: ProductPage[] = [
     heroTitle: 'Sabé exactamente qué tenés y dónde. En tiempo real, sin contar a mano.',
     heroSubtitle:
       'Stock multi-sucursal actualizado al instante. Alertas, movimientos auditados y catálogo centralizado.',
-    heroCtaLabel: 'Empezá hoy',
-    heroCtaHref: '/registro',
+    heroCtaLabel: 'Probá ZinkERP',
+    heroCtaHref: PROBA_ZINKERP_WHATSAPP,
     heroVisualLabel: 'Stock por sucursal',
     heroVisual: {
       kind: 'kpis',
@@ -360,8 +364,8 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Stock desordenado, negocio que pierde plata. Stock claro, negocio que crece.',
-    finalBannerCtaLabel: 'Probá gratis',
-    finalBannerCtaHref: '/registro',
+    finalBannerCtaLabel: 'Probá ZinkERP',
+    finalBannerCtaHref: PROBA_ZINKERP_WHATSAPP,
     faqTitle: 'Preguntas frecuentes sobre Inventario',
     faqs: [
       {
@@ -455,8 +459,8 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Facturá sin salir de tu operación diaria. Simple, rápido, integrado.',
-    finalBannerCtaLabel: 'Probá gratis',
-    finalBannerCtaHref: '/registro',
+    finalBannerCtaLabel: 'Probá ZinkERP',
+    finalBannerCtaHref: PROBA_ZINKERP_WHATSAPP,
     faqTitle: 'Preguntas frecuentes sobre Facturación',
     faqs: [
       {
@@ -574,8 +578,8 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Números claros, decisiones seguras.',
-    finalBannerCtaLabel: 'Probá gratis',
-    finalBannerCtaHref: '/registro',
+    finalBannerCtaLabel: 'Probá ZinkERP',
+    finalBannerCtaHref: PROBA_ZINKERP_WHATSAPP,
   },
   {
     slug: 'reportes',
@@ -660,8 +664,8 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Los números claros de tu negocio. Sin vueltas.',
-    finalBannerCtaLabel: 'Probá gratis',
-    finalBannerCtaHref: '/registro',
+    finalBannerCtaLabel: 'Probá ZinkERP',
+    finalBannerCtaHref: PROBA_ZINKERP_WHATSAPP,
   },
   {
     slug: 'sucursales',
@@ -762,8 +766,8 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Crecé sin límites. Cada sucursal, conectada.',
-    finalBannerCtaLabel: 'Probá gratis',
-    finalBannerCtaHref: '/registro',
+    finalBannerCtaLabel: 'Probá ZinkERP',
+    finalBannerCtaHref: PROBA_ZINKERP_WHATSAPP,
     faqTitle: 'Preguntas frecuentes sobre Sucursales',
     faqs: [
       {
@@ -873,8 +877,8 @@ export const productPages: ProductPage[] = [
       },
     ],
     finalBannerText: 'Control total sin volverte loco. Cada quien, lo suyo.',
-    finalBannerCtaLabel: 'Probá gratis',
-    finalBannerCtaHref: '/registro',
+    finalBannerCtaLabel: 'Probá ZinkERP',
+    finalBannerCtaHref: PROBA_ZINKERP_WHATSAPP,
   },
 ];
 

@@ -78,6 +78,7 @@ const plans = [
     tone: 'enterprise',
     price: {
       monthly: 149,
+      yearly: 1490,
     },
     context: 'Para operaciones de mayor escala o complejidad especial.',
     salesLimit: 'Por encima de USD 40.000/mes o con complejidad especial',
@@ -150,13 +151,13 @@ const comparisons = [
               Mensual
             </button>
             <button type="button" class="price-mode-toggle rounded-full px-4 py-2 sm:px-5 text-sm font-medium bg-white text-dark-900 shadow-sm" data-mode="yearly" aria-pressed="true">
-              Anual <span class="block text-xs text-green-600 font-semibold sm:inline sm:text-sm">({yearlyDiscountLabel} en Pyme y Escala)</span>
+              Anual <span class="block text-xs text-green-600 font-semibold sm:inline sm:text-sm">({yearlyDiscountLabel} en Pyme, Escala y Enterprise)</span>
             </button>
           </div>
         </div>
 
         <p class="max-w-4xl mx-auto text-center text-gray-400 mb-6 animate-on-scroll">
-          Todos incluyen funcionalidad base, usuarios ilimitados y Soporte 24x7. En plan anual, Pyme y Escala tienen {yearlyDiscountLabel.toLowerCase()}. Cada sucursal adicional tiene 30% de descuento sobre el plan que le corresponda.
+          Todos incluyen funcionalidad base, usuarios ilimitados y Soporte por WhatsApp y email. En plan anual, Pyme, Escala y Enterprise tienen {yearlyDiscountLabel.toLowerCase()}. Cada sucursal adicional tiene 30% de descuento sobre el plan que le corresponda.
         </p>
 
         <div class="pricing-grid grid md:grid-cols-2 xl:grid-cols-4 gap-6 max-w-7xl mx-auto">
@@ -236,7 +237,7 @@ const comparisons = [
                             <span class="text-4xl font-bold">USD {plan.price.monthly}</span>
                             <span class="text-gray-400">/mes</span>
                           </div>
-                          <p class="text-gray-400 text-sm mt-2">Los 2 meses gratis del plan anual aplican solo a Pyme y Escala.</p>
+                          <p class="text-gray-400 text-sm mt-2">Los 2 meses gratis del plan anual aplican solo a Pyme, Escala y Enterprise.</p>
                         </div>
                       )}
                       {plan.price.yearly && (
